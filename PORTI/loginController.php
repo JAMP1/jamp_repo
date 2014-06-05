@@ -32,9 +32,9 @@
 
 		    case 'logout':
 					session_start();
-					$tmp=$_SESSION['URI'];
+					//$tmp=$_SESSION['URI'];
 					$_SESSION = array();
 					session_destroy();
-					header( "Location: $tmp" );
+					header( "Location: /JAMP/cookbooks.php" );
 		}
 		?>
