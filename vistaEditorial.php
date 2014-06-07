@@ -31,12 +31,12 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
     <li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
-    <li class="activa"><a href ="#">Administrar Editorial </a></li>
-    <li><a href ="/JAMP/PORTI/entidadController.php?action=altaEditorial">Alta Editorial </a></li>
+    <li class="active"><a href ="#">Administrar Editorial </a></li>
+    <li><a href ="/JAMP/PORTI/entidadController.php?action=altaEditorial">Alta Editoriales </a></li>
     <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosEditorial">Editoriales Borradas </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <li><a href="/PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+    <li><a href="../PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
   </ul>
 </div>
 </nav>

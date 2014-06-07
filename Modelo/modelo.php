@@ -271,3 +271,42 @@ function agregarBorradaAutores($id_us) {
   	}
   	return $res;
   }
+
+  function validarAltaEtiqueta($nom){
+  	$link = conectarBaseDatos();
+  	if($link != "error"){
+  		$query = $link->prepare("SELECT `nombre` FROM etiqueta WHERE `nombre`=:nom");
+  		$res = $query->execute(array('nom' => $nom));
+  		$res=$query->fetchAll();
+  		$link=cerrarConexion();
+  	}else{
+  		$res = "error";
+  	}
+  	return $res;
+  }
+
+  function validarAltaEditorial($nom){
+  	$link = conectarBaseDatos();
+  	if($link != "error"){
+  		$query = $link->prepare("SELECT `nombre` FROM editorial WHERE `nombre`=:nom");
+  		$res = $query->execute(array('nom' => $nom));
+  		$res=$query->fetchAll();
+  		$link=cerrarConexion();
+  	}else{
+  		$res = "error";
+  	}
+  	return $res;
+  }
+
+  function validarAltaAutor($nom){
+  	$link = conectarBaseDatos();
+  	if($link != "error"){
+  		$query = $link->prepare("SELECT `nombre` FROM autor WHERE `nombre`=:nom");
+  		$res = $query->execute(array('nom' => $nom));
+  		$res=$query->fetchAll();
+  		$link=cerrarConexion();
+  	}else{
+  		$res = "error";
+  	}
+  	return $res;
+  }

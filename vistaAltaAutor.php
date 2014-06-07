@@ -6,6 +6,10 @@
 <title>Administracion de Autores</title>
 <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
 <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="/JAMP/JS/validar.js"></script>
+
+
 <script type="text/javascript" src="../JAMP/LIBS/bootstrap/js/bootstrap.js"></script>
 <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap-theme.css">
@@ -29,22 +33,23 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-        <li><a href="/JAMP/cookbooks.php">Inicio</a></li>
-        <li><a href="../vistaAutores.php">Administrar Autores</a></li>
+        <li><a href="../ADMIN/cookBooksAdmin.php">Inicio</a></li>
+        <li><a href="/JAMP/PORTI/entidadController.php?action=cargarAutor">Administrar Autores</a></li>
         <li class="active"><a href="#">Alta Autor</a></li>
+        <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosAutores">Autores Borrados </a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"></i></span>Cerrar sesion</a></li>
+     <li><a href="../PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
 <div class="row">
 <div class="col-md-12">
-<form method="POST" action="entidadController.php?action=confirmarAltaAutor">
+<form onSubmit="return validar()" method="POST" action="entidadController.php?action=confirmarAltaAutor">
 <table class="table table">
 <tr>
 <td>
-<input type="text" placeholder="Ingrese nombre autor" name="nom_autor">
+<input id="nombre" type="text" placeholder="Ingrese nombre autor" name="nom_autor">
 </td>
 <td>
 <button class="btn btn-info" type="submit">Enviar</button>
@@ -52,6 +57,13 @@
 </tr>
 </table>
 </form>
+<div>
+<?php
+  if(isset($existe)){
+    echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
+  }
+?>
+</div>
 </div>
 </div>
 </body>

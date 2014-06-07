@@ -3,6 +3,9 @@
 <head>
 <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
 
+<script type="text/javascript" src="/JAMP/JS/validar.js"></script>
+
+
 <title>Administracion de Etiquetas</title>
 <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
 <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
@@ -29,30 +32,40 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-        <li><a href="/JAMP/cookbooks.php">Inicio</a></li>
-        <li><a href="../vistaEtiquetas.php">Administrar Etiquetas</a></li>
+        <li><a href="../ADMIN/cookBooksAdmin.php">Inicio</a></li>
+        <li><a href="../PORTI/entidadController.php?action=cargarEtiqueta">Administrar Etiquetas</a></li>
         <li class="active"><a href="#">Alta Etiqueta</a></li>
+        <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosEtiqueta">Etiquetas Borradas </a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"></i></span>Cerrar sesion</a></li>
+      <li><a href="../PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+      
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
 <div class="row">
 <div class="col-md-12">
-<form method="POST" action="entidadController.php?action=confirmarAltaEtiqueta">
-<table class="table table">
-<tr>
-<td>
-<input type="text" placeholder="Ingrese nombre etiqueta" name="nom_etiqueta">
-</td>
-<td>
-<button class="btn btn-info" type="submit">Enviar</button>
-</td>
-</tr>
-</table>
+<form method="POST" onSubmit = "return validar()" action="entidadController.php?action=confirmarAltaEtiqueta">
+  <table class="table table">
+    <tr>
+    <td>
+      <input id="nombre" type="text" placeholder="Ingrese nombre etiqueta" name="nom_etiqueta">
+    </td>
+    <td>
+      <button class="btn btn-info" type="submit">Enviar</button>
+    </td>
+    </tr>
+  </table>
 </form>
+<div>
+<?php
+  if(isset($existe)){
+    echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
+  }
+?>
 </div>
 </div>
+</div>
+
 </body>
 </html>

@@ -31,7 +31,7 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
 	<li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
-    <li class="activa"><a href ="#">Administrar Etiquetas </a></li>
+    <li class="active"><a href ="#">Administrar Etiquetas </a></li>
     <li><a href ="/JAMP/PORTI/entidadController.php?action=altaEtiqueta">Alta Etiqueta </a></li>
     <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosEtiqueta">Etiquetas Borradas </a></li>
   </ul>

@@ -32,11 +32,11 @@
   <ul class="nav navbar-nav">
     <li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
     <li class="activa"><a href ="#">Administrar Autores </a></li>
-    <li><a href ="/JAMP/PORTI/entidadController.php?action=altaAutor">Alta Autores </a></li>
-    <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosAutores">Autores Borradas </a></li>
+    <li><a href ="/JAMP/PORTI/entidadController.php?action=altaAutor">Alta Autor </a></li>
+    <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosAutores">Autores Borrados </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <li><a href="/PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+    <li><a href="../PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
   </ul>
 </div>
 </nav>

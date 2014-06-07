@@ -47,7 +47,7 @@ switch ($nombre) {
     case 'modificarEtiqueta':
     	$per=$_SESSION['permiso'];
     	$n=$_GET['nombre'];
-    	echo $n;
+    	//echo $n;
     	if($per==1){
     	$id=$_POST['id_etiqueta'];
         require_once("../vistaModificarEtiqueta.php");}
@@ -75,20 +75,25 @@ switch ($nombre) {
     case 'confirmarAltaEtiqueta':
     	$per=$_SESSION['permiso'];
     	if($per==1){
-        $nom=$_POST["nom_etiqueta"];
-        $intento=insertarEtiqueta($nom);
-        if ($intento){
-            $etiquetas=obtenerEtiquetas();
-            if ( $etiquetas!="error"){
-            $arrayNa = array();
-            $i=0;
-            foreach ($etiquetas as $key ) {
-            $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                'id_us' => $key['id_etiqueta'] );
-            $i++;
-            
-            }
+            $nom=$_POST["nom_etiqueta"];
+            $arreglo= validarAltaEtiqueta($nom);     
+            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+                $existe = 'existe';
+                require_once("../vistaAltaEtiqueta.php");
+            }else{
+            $intento=insertarEtiqueta($nom);
+            if ($intento){
+               $etiquetas=obtenerEtiquetas();
+               if ( $etiquetas!="error"){
+               $arrayNa = array();
+               $i=0;
+               foreach ($etiquetas as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                    'id_us' => $key['id_etiqueta'] );
+                    $i++;
+                }
             require_once("../vistaEtiquetas.php");
+        }
         }
         }
     }
@@ -117,8 +122,7 @@ switch ($nombre) {
         }
         break;
     case 'cargarEtiqueta':
-    	
-    	$per=$_SESSION['permiso'];
+    	$per=$_SESSION['permiso']; 
     	if($per==1){
     		$etiquetas=obtenerEtiquetas();
     		if ( $etiquetas!="error"){
@@ -132,7 +136,7 @@ switch ($nombre) {
     		}
     		require_once("../vistaEtiquetas.php");
     	}else{
-    		require_once './cookbooks.php';
+    		require_once "../cookbooks.php";
     	}
 	break;
 
@@ -180,7 +184,7 @@ switch ($nombre) {
     case 'modificarEditorial':
         $per=$_SESSION['permiso'];
         $n=$_GET['nombre'];
-        echo $n;
+        //echo $n;
         if($per==1){
         $id=$_POST['id_editorial'];
         require_once("../vistaModificarEditorial.php");}
@@ -208,21 +212,26 @@ switch ($nombre) {
     case 'confirmarAltaEditorial':
         $per=$_SESSION['permiso'];
         if($per==1){
-        $nom=$_POST["nom_editorial"];
-        $intento=insertarEditorial($nom);
-        if ($intento){
-            $editoriales=obtenerEditoriales();
-            if ( $editoriales!="error"){
-            $arrayNa = array();
-            $i=0;
-            foreach ($editoriales as $key ) {
-            $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                'id_us' => $key['id_editorial'] );
-            $i++;
-            
+            $nom=$_POST["nom_editorial"];
+            $arreglo= validarAltaEditorial($nom);
+            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+               $existe = 'existe';
+                require_once("../vistaAltaEditorial.php");
+            }else{
+               $intento=insertarEditorial($nom);
+                if ($intento){
+                   $editoriales=obtenerEditoriales();
+                   if ( $editoriales!="error"){
+                        $arrayNa = array();
+                        $i=0;
+                   foreach ($editoriales as $key ) {
+                        $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                             'id_us' => $key['id_editorial'] );
+                        $i++;           
+                    }
+                    require_once("../vistaEditorial.php");
+                }
             }
-            require_once("../vistaEditorial.php");
-        }
         }
     }
         break;
@@ -312,7 +321,7 @@ switch ($nombre) {
     case 'modificarAutor':
         $per=$_SESSION['permiso'];
         $n=$_GET['nombre'];
-        echo $n;
+        //echo $n;
         if($per==1){
         $id=$_POST['id_autor'];
         require_once("../vistaModificarAutor.php");}
@@ -341,6 +350,11 @@ switch ($nombre) {
         $per=$_SESSION['permiso'];
         if($per==1){
         $nom=$_POST["nom_autor"];
+        $arreglo= validarAltaAutor($nom);
+        if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+            $existe = 'existe';
+            require_once("../vistaAltaAutor.php");
+        }else{
         $intento=insertarAutor($nom);
         if ($intento){
             $autores=obtenerAutores();
@@ -355,6 +369,7 @@ switch ($nombre) {
             }
             require_once("../vistaAutores.php");
         }
+    }
         }
     }
         break;

@@ -16,7 +16,7 @@
 </head>
 <body>
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
+        <!--<div class="container">-->
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -25,7 +25,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-
+            <label class="navbar-brand">CookBooks</label> 
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -34,15 +34,18 @@
             <li><a class="active" href="../PORTI/entidadController.php?action=cargarEtiqueta"> Administración Etiqueta </a></li>
             <li><a class="active" href="../PORTI/entidadController.php?action=cargarAutor"> Administración Autor</a></li>
             <li><a class="active" href="../PORTI/entidadController.php?action=cargarEditorial"> Administración Editorial</a></li>
-            <li><a class="active" href="../PORTI/entidadController.php?action=cargarIdioma"> Administración Idioma </a></li>
+          </ul>
+            <!--<li><a class="active" href="../PORTI/entidadController.php?action=cargarIdioma"> Administración Idioma </a></li>
             <li><a class="active" href="../PORTI/entidadController.php?action=cargarLibro"> Administración Libro</a></li>
             <li><a class="active" href="../PORTI/entidadController.php?action=cargarUsuario"> Usuario </a></li>
-            <li><a class="active" href="../PORTI/entidadController.php?action=cargarVenta"> Ventas </a></li>
+            <li><a class="active" href="../PORTI/entidadController.php?action=cargarVenta"> Ventas </a></li>-->
+            <ul class="nav navbar-nav navbar-right">
             <li><a href="../PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+            </ul>
           </div><!-- /.navbar-collapse -->
         </div>
       </nav>
 <div>
-</div>
+<!--</div>-->
 </body>
 </html>

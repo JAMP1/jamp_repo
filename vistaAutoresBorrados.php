@@ -30,8 +30,8 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
-    <li><a href ="/JAMP/cookbooks.php">Inicio </a></li>
-    <li class="activa"><a href ="#">Administrar Autores</a></li>
+    <li><a href ="../ADMIN/cookBooksAdmin.php">Inicio </a></li>
+    <li class="activa"><a href ="/JAMP/PORTI/entidadController.php?action=cargarAutor">Administrar Autores</a></li>
     <li><a href ="/JAMP/PORTI/entidadController.php?action=altaAutor">Alta Autor </a></li>
     <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosAutor">Autores Borrados </a></li>
   </ul>

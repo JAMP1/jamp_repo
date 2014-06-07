@@ -4,14 +4,14 @@
 
 <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
 
-<link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
-<script src="../libs/jquery.js" type="text/javascript"></script>
-<script src="../libs/codigologin.js" type="text/javascript"></script>
-<script type="text/javascript" src="LIBS/validar.js"></script>
-<script type="text/javascript" src="LIBS/bootstrap/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="LIBS/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="LIBS/bootstrap/css/bootstrap-theme.css">
-<link rel="stylesheet" type="text/css" href="LIBS/bootstrap/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="home.css"/>
+<script src="./LIBS/jquery.js" type="text/javascript"></script>
+<script src="./LIBS/codigologin.js" type="text/javascript"></script>
+<script type="text/javascript" src="./LIBS/validar.js"></script>
+<script type="text/javascript" src="./LIBS/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./LIBS/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="./LIBS/bootstrap/css/bootstrap-theme.css">
+<link rel="stylesheet" type="text/css" href="./LIBS/bootstrap/font-awesome/css/font-awesome.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bienvenidos</title>
 
@@ -20,7 +20,7 @@
 <body>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
+     <!-- <div class="container">-->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -28,17 +28,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">COOKBOOKS</a>
+          <label class="navbar-brand">CookBooks</label> 
         </div>
         <div class="navbar-collapse collapse" id="menu">
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
             <li class="active"><a href="index.php"> Inicio </a></li>
-            <li><a class="active" href="#"> Quienes Somos</a></li>
+            <!--<li><a class="active" href="#"> Quienes Somos</a></li>
             <li><a class="active" href="#"> Contacto</a></li>
-            <li><a class="active" href="#"> Libros</a></li>
-            <ul class="nav navbar-nav navbar-right">
+            <li><a class="active" href="#"> Libros</a></li>-->
+            <ul class="nav navbar-nav navbar-right"></ul>
           </div>
           <div>
           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/loginController.php?action=login">
@@ -92,7 +92,7 @@
       <footer>
         <p>&copy; Company 2014</p>
       </footer>
-    </div> <!-- /container -->
+   <!-- </div>  /container -->
 
 
     <!-- Bootstrap core JavaScript
