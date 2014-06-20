@@ -310,3 +310,102 @@ function agregarBorradaAutores($id_us) {
   	}
   	return $res;
   }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $editorial, $etiqueta, $autor) {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+		 $query = $link->prepare("INSERT INTO `libro`(`id_editorial`, `id_etiqueta`, `stock`, `precio`, `isbn`, `cantPag`, `nombre`)
+		 						 VALUES (:Edi, :Eti, :Stock, :Precio, :Isbn, :CantHojas, :Nombre )");
+		 $res = $query->execute(array('Nombre' => $nom , 'Edi' => $editorial , 'Eti'=> $etiqueta , 'Stock'=> $cantLibros ,
+		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas )) ;
+	$link=cerrarConexion();
+	}else {
+		$res= "error";
+		
+	}
+	return $res;
+
+  }
+
+function validarAltaLibro($nom, $isbn){  //FALTA TERMINAR LA VALIDACION PARA EL ISBN
+  	$link = conectarBaseDatos();
+  	if($link != "error"){
+  		$query = $link->prepare("SELECT `nombre` FROM autor WHERE `nombre`=:nom");
+  		$res = $query->execute(array('nom' => $nom));
+  		$res=$query->fetchAll();
+  		$link=cerrarConexion();
+  	}else{
+  		$res = "error";
+  	}
+  	return $res;
+  }
+
+  function obtenerLibrosBorrados(){
+  	$link = conectarBaseDatos();
+  	if ($link != "error"){
+  		$query = $link->prepare("SELECT `nombre`,`id_libro` FROM libro WHERE `baja`=1");
+  		$query->execute();
+  		$res=$query->fetchAll();
+  		$link=cerrarConexion();
+  	
+  	}else {
+  		$res= "error";
+  	}
+  	return $res;
+  }
+   function obtenerLibro(){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT `nombre`,`id_nombre` FROM libro WHERE `baja`=0");
+	 	$query->execute();
+	 	$res=$query->fetchAll();
+	 	$link=cerrarConexion();
+	 	 
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+}
+function agregarBorradaLibro($id_us) {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+		 $query = $link->prepare("UPDATE `libro`SET `baja`= 0 WHERE `id_libro`= :Id_us");
+		 $res = $query->execute(array('Id_us' => $id_us));
+		 $link=cerrarConexion();
+	}else {
+		$res= "error";
+		
+	}
+	return $res;
+
+ }
+function eliminarLibro($id_us) {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+		 $query = $link->prepare("UPDATE `libro`SET `baja`= 1 WHERE `id_libro`= :Id_us");
+		 $res = $query->execute(array('Id_us' => $id_us));
+		 $link=cerrarConexion();
+	}else {
+		$res= "error";
+		
+	}
+	return $res;
+
+ }
+  function modificarLibro($usu,$id_us){
+ 	$link = conectarBaseDatos();
+	if ($link != "error"){
+		 $query = $link->prepare("UPDATE `libro` SET `nombre`= :Usur WHERE `id_nombre`= :Id_us");
+		 $res = $query->execute(array('Id_us' => $id_us,
+		 								'Usur' => $usu));
+		 $link=cerrarConexion();
+	}else {
+		$res= "error";
+		
+	}
+	return $res;
+}

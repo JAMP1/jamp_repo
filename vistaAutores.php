@@ -32,11 +32,11 @@
   <ul class="nav navbar-nav">
     <li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
     <li class="activa"><a href ="#">Administrar Autores </a></li>
-    <li><a href ="/JAMP/PORTI/entidadController.php?action=altaAutor">Alta Autor </a></li>
-    <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosAutores">Autores Borrados </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaAutor&clase=entidad">Alta Autor </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosAutores&clase=entidad">Autores Borrados </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <li><a href="../PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+    <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
   </ul>
 </div>
 </nav>
@@ -54,13 +54,13 @@
          foreach ($arrayNa as $key){
           echo  "<td class='separados'><p>".$key['nombre']."</p></td>
             <td class='separados'>
-            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/entidadController.php?action=bajaAutor'>
+            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaAutor&clase=entidad'>
             <input name='id_autor' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Eliminar'/>
             </form>
             </td>
             <td class='separados'>
-            <form method='POST' action='/JAMP/PORTI/entidadController.php?action=modificarAutor&nombre=".$key['nombre']."'>
+            <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=modificarAutor&clase=entidad&nombre=".$key['nombre']."'>
             <input name='id_autor' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Modificar'/>
             </form>

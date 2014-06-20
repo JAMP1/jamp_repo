@@ -3,7 +3,7 @@ require_once("../Modelo/modelo.php");
 $nombre=$_GET["action"];
 session_start();
 class entidad{
-    function altaEtiqueta(){
+    function altaEtiqueta (){
         require_once("../vistaAltaEtiqueta.php");
     }
     function agregarBorradaEtiqueta (){
@@ -388,14 +388,14 @@ class entidad{
             $i++;
             }
             require_once("../vistaAutores.php");
-        }
+            }
             
             
         }   
         }
     }
+
     function cargarAutor () {
-        
         $per=$_SESSION['permiso'];
         if($per==1){
             $autores=obtenerAutores();
@@ -411,6 +411,150 @@ class entidad{
             require_once("../vistaAutores.php");
         }else{
             require_once './cookbooks.php';
+        }
+    }
+function altaLibro (){
+        require_once("../vistaAltaLibro.php");
+    }
+    function agregarBorradaLibro (){
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $id=$_POST['id_libro'];
+            $borrar=agregarBorradaLibro($id);
+            $libros=obtenerLibros();
+            if ( $libros!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($libros as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                            'id_us' => $key['libros'] );
+                    $i++;
+                }
+            }
+        
+            require_once("../vistaLibros.php");
+        }
+    }
+    function bajaLibro(){
+        $per=$_SESSION['permiso'];
+        if($per==1){
+        $id=$_POST['id_libro'];
+        $borrar=eliminarLibro($id);
+        $libros=obtenerLibros();
+        if ( $libros!="error"){
+            $arrayNa = array();
+            $i=0;
+            foreach ($libros as $key ) {
+                $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                        'id_us' => $key['id_libro'] );
+                $i++;
+            }
+        }
+        
+        require_once("../vistaLibros.php");
+        }
+    }
+    function modificarLibro () {
+        $per=$_SESSION['permiso'];
+        $n=$_GET['nombre'];
+        //echo $n;
+        if($per==1){
+        $id=$_POST['id_libro'];
+        require_once("../vistaModificarLibro.php");}
+   }
+    function borradosLibro () {
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $libros=obtenerLibrosBorradas();
+
+                if ( $libros!="error"){
+                    $arrayNa = array();
+                    $i=0;
+                    foreach ($libros as $key ) {
+                        $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                                'id_us' => $key['id_libro'] );
+                        $i++;
+            
+                    }
+                }
+            require_once("../vistaLibrosBorradas.php");
+        }else{
+            //ir al login
+        }
+    }
+    function confirmarAltaLibro() {
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $nom=$_POST["nom_libro"];
+            $isbn=$_POST["isbn_libro"];
+            $cantHojas=$_POST["cantHojas_libro"];
+            $cantLibros=$_POST["cant_libro"];
+            $precio=$_POST["precio_libro"];
+            $editorial=$_POST["editorial_libro"];
+            $etiqueta=$_POST["etiqueta_libro"];
+            $autor=$_POST["autor_libro"];
+
+            $arreglo= validarAltaLibro($nom, $isbn);  //NO ESTA TERMINADA ESTA FUNCION   
+            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+                $existe = 'existe';
+                require_once("../vistaAltaLibro.php");
+            }else{
+            $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $editorial, $etiqueta, $autor);
+            if ($intento){
+               $libros=obtenerLibros();
+               if ( $libros!="error"){
+               $arrayNa = array();
+               $i=0;
+               foreach ($libros as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                    'id_us' => $key['id_libro'] );
+                    $i++;
+                }
+            require_once("../vistaLibros.php");
+        }
+        }
+        }
+    }
+    }
+    function confirmarModificacionLibro (){
+        $per=$_SESSION['permiso'];
+        if($per==1){
+        $nom=$_POST['nom_libro'];
+        $id=$_POST['id_libro'];
+        $intento=modificarLibro($nom,$id);
+        if ($intento){
+            $libros=obtenerLibros();
+            if ( $libros!="error"){
+            $arrayNa = array();
+            $i=0;
+            foreach ($libr as $key ) {
+            $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                'id_us' => $key['id_libro'] );
+            $i++;
+            }
+            require_once("../vistaLibros.php");
+        }
+            
+            
+        }   
+        }
+    }
+    function cargarLibro () {
+        $per=$_SESSION['permiso']; 
+        if($per==1){
+            $libros=obtenerLibros();
+            if ( $libros!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($libros as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                            'id_us' => $key['id_libro'] );
+                    $i++;
+                }
+            }
+            require_once("../vistaLibros.php");
+        }else{
+            require_once "../cookbooks.php";
         }
     }
 }

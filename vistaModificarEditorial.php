@@ -33,20 +33,20 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
               <li><a href="../ADMIN/cookBooksAdmin.php">Inicio</a></li>
-              <li><a href="/JAMP/PORTI/entidadController.php?action=cargarEditorial">Administrar Editoriales</a></li>
-              <li><a href ="/JAMP/PORTI/entidadController.php?action=altaEditorial">Alta Editorial </a></li>
+              <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarEditorial&clase=entidad">Administrar Editoriales</a></li>
+              <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaEditorial&clase=entidad">Alta Editorial </a></li>
               <li class="active"><a href="#">Modificar Editoriales</a></li>
-              <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosEditorial">Editoriales Borradas </a></li>
+              <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosEditorial&clase=entidad">Editoriales Borradas </a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-    <li><a href="../PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+    <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
   </ul>
         </div><!-- /.navbar-collapse -->
         </div>
       </nav><br><br><br>
       <div class="row">
        <div class="col-md-12">
-      <form class="formulario" method="POST" action="entidadController.php?action=confirmarModificacionEditorial" onSubmit="return validar()">
+      <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionEditorial&clase=entidad" onSubmit="return validar()">
       <table class="table table-bordered" border="">
           <tr>
           <td><p>Nombre</p>
@@ -58,8 +58,15 @@
       <?php echo "<input name='id_editorial' type='hidden' value='".$id."'/>"?>
       <input type="submit" class="btn btn-info" value="Modificar"/>
       </form>
-      <a href="entidadController.php?action=cargarEditorial">Volver</a>
+      <a href="llamadaController.php?action=cargarEditorial&clase=entidad">Volver</a>
       </div>
+      <div>
+<?php
+  if(isset($existe)){
+    echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
+  }
+?>
+</div>
       <!--</div>-->
   <!-- </div>-->
   </body>

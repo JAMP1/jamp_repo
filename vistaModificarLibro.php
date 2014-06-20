@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -34,9 +33,9 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
               <li><a href="../ADMIN/cookBooksAdmin.php">Inicio</a></li>
-              <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarEtiqueta&clase=entidad">Administrar Etiquetas</a></li>
-              <li class="active"><a href="">Modificar Etiqueta</a></li>
-              <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosEtiqueta&clase=entidad">Etiquetas Borradas </a></li>
+              <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarLibro&clase=entidad">Administrar Libros</a></li>
+              <li class="active"><a href="">Modificar Libro</a></li>
+              <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosLibro&clase=entidad">Libros Borradas </a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -46,19 +45,19 @@
       </nav><br><br><br>
       <div class="row">
        <div class="col-md-12">
-      <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionEtiqueta&clase=entidad" onSubmit="return validar()">
+      <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionLibro&clase=entidad" onSubmit="return validar()">
       <table class="table table-bordered" border="">
           <tr>
           <td><p>Nombre</p>
           </td>
           </tr>
-        <td><input id="nombre" name="nom_etiqueta" type="text" placeholder="<?php echo $n;?>" required="required"/></td>
+        <td><input id="nombre" name="nom_Libro" type="text" placeholder="<?php echo $n;?>" required="required"/></td>
         </tr>
       </table>
-      <?php echo "<input name='id_etiqueta' type='hidden' value='".$id."'/>"?>
+      <?php echo "<input name='id_Libro' type='hidden' value='".$id."'/>"?>
       <input type="submit" class="btn btn-info" value="Modificar"/>
       </form>
-      <a href="llamadaController.php?action=cargarEtiqueta&clase=entidad">Volver</a>
+      <a href="llamadaController.php?action=cargarLibro&clase=entidad">Volver</a>
       </div>
       <div>
 <?php

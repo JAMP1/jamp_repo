@@ -41,7 +41,7 @@
             <ul class="nav navbar-nav navbar-right"></ul>
           </div>
           <div>
-          <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/loginController.php?action=login">
+        <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
             <div class="form-group">
               <input type="text" id="username" placeholder="Usuario" class="form-control" placeholder="Usuario" name="username" value="" required="required" />
             </div>

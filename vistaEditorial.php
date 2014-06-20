@@ -32,11 +32,11 @@
   <ul class="nav navbar-nav">
     <li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
     <li class="active"><a href ="#">Administrar Editorial </a></li>
-    <li><a href ="/JAMP/PORTI/entidadController.php?action=altaEditorial">Alta Editoriales </a></li>
-    <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosEditorial">Editoriales Borradas </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaEditorial&clase=entidad">Alta Editoriales </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosEditorial&clase=entidad">Editoriales Borradas </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <li><a href="../PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+    <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
   </ul>
 </div>
 </nav>
@@ -54,13 +54,13 @@
          foreach ($arrayNa as $key){
           echo  "<td class='separados'><p>".$key['nombre']."</p></td>
             <td class='separados'>
-            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/entidadController.php?action=bajaEditorial'>
+            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaEditorial&clase=entidad'>
             <input name='id_editorial' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Eliminar'/>
             </form>
             </td>
             <td class='separados'>
-            <form method='POST' action='/JAMP/PORTI/entidadController.php?action=modificarEditorial&nombre=".$key['nombre']."'>
+            <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=modificarEditorial&clase=entidad&nombre=".$key['nombre']."'>
             <input name='id_editorial' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Modificar'/>
             </form>

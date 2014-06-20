@@ -31,12 +31,12 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
     <li><a href ="../ADMIN/cookBooksAdmin.php">Inicio </a></li>
-    <li class="activa"><a href ="/JAMP/PORTI/entidadController.php?action=cargarEditorial">Administrar Editorial </a></li>
-    <li><a href ="/JAMP/PORTI/entidadController.php?action=altaEditorial">Alta Editorial </a></li>
+    <li class="activa"><a href ="/JAMP/PORTI/llamadaController.php?action=cargarEditorial&clase=entidad">Administrar Editorial </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaEditorial&clase=entidad">Alta Editorial </a></li>
     <li class="active"><a href ="#">Editoriales Borradas </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <li><a href="/PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+    <li><a href="/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
   </ul>
 </div>
 </nav>
@@ -53,7 +53,7 @@
          foreach ($arrayNa as $key){
           echo  "<td class='separados'><p>".$key['nombre']."</p></td>
             <td class='separados'>
-            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/entidadController.php?action=agregarBorradaEditorial'>
+            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaEditorial&clase=entidad'>
             <input name='id_editorial' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Agregar'/>
             </form>

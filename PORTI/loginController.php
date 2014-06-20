@@ -1,21 +1,25 @@
 <?php
 	require_once("../Modelo/modelo.php");
 	$accion=$_GET["action"];
-	class login {
+	class loginClase {
 		function login () {
+
 			require_once("../Modelo/modelo.php");
 			$nombre=$_POST["username"];
 			$pass=$_POST["password"];
 			$prueba=logearse($nombre,$pass);
 			if ($prueba!="error"){
 				if (isset($prueba['nombreUsuario'])){
-					session_start();
+					//session_start();
 					$_SESSION['usuario']=$prueba['nombreUsuario'];
 						
 
 					if($prueba['id_permiso'] == 1) {// permiso=1 es Admin, distinto de 1 usuario
 						$_SESSION['permiso']=1;
-						require_once("../ADMIN/cookBooksAdmin.php");}
+
+						require_once("../ADMIN/cookBooksAdmin.php");
+					}
+													
 					else{
 						$_SESSION['permiso']=2;
 						echo "todo bien :)";}

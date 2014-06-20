@@ -33,20 +33,20 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
               <li><a href="/JAMP/ADMIN/cookBooksAdmin.php">Inicio</a></li>
-              <li><a href="/JAMP/PORTI/entidadController.php?action=cargarAutor">Administrar Autores</a></li>
-              <li><a href="entidadController.php?action=altaAutor">Alta Autor</a></li>
+              <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarAutor&clase=entidad">Administrar Autores</a></li>
+              <li><a href="llamadaController.php?action=altaAutor&clase=entidad">Alta Autor</a></li>
               <li class="active"><a href="">Modificar Autores</a></li>
-              <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosAutores">Autores Borrados </a></li>
+              <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosAutores&clase=entidad">Autores Borrados </a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-    <li><a href="../PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+    <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
   </ul>
         </div><!-- /.navbar-collapse -->
         </div>
       </nav><br><br><br>
       <div class="row">
        <div class="col-md-12">
-      <form class="formulario" method="POST" action="entidadController.php?action=confirmarModificacionAutor" onSubmit="return validar()">
+      <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionAutor&clase=entidad" onSubmit="return validar()">
       <table class="table table-bordered" border="">
           <tr>
           <td><p>Nombre</p>
@@ -58,8 +58,15 @@
       <?php echo "<input name='id_autor' type='hidden' value='".$id."'/>"?>
       <input type="submit" class="btn btn-info" value="Modificar" />
       </form>
-      <a href="entidadController.php?action=cargarAutor">Volver</a>
+      <a href="llamadaController.php?action=cargarAutor&clase=entidad">Volver</a>
       </div>
+      <div>
+<?php
+  if(isset($existe)){
+    echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
+  }
+?>
+</div>
      <!-- </div>-->
    <!-- </div>-->
   </body>

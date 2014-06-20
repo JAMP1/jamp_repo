@@ -34,19 +34,19 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
         <li><a href="../ADMIN/cookBooksAdmin.php">Inicio</a></li>
-        <li><a href="/JAMP/PORTI/entidadController.php?action=cargarEditorial">Administrar Editoriales</a></li>
+        <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarEditorial&clase=entidad">Administrar Editoriales</a></li>
         <li class="active"><a href="#">Alta Editoriales</a></li>
-        <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosEditorial">Editoriales Borradas </a></li>
+        <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosEditorial&clase=entidad">Editoriales Borradas </a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="../PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+      <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
       
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
 <div class="row">
 <div class="col-md-12">
-<form method="POST" onSubmit="return validar()" action="entidadController.php?action=confirmarAltaEditorial">
+<form method="POST" onSubmit="return validar()" action="llamadaController.php?action=confirmarAltaEditorial&clase=entidad">
 <table class="table table">
 <tr>
 <td>

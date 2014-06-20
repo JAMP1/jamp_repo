@@ -1,10 +1,9 @@
-
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
 
-<title>Administracion de Etiquetas</title>
+<title>Administracion de Libros</title>
 <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
 <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
 <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.js"></script>
@@ -32,9 +31,9 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
     <li><a href ="../ADMIN/cookBooksAdmin.php">Inicio </a></li>
-    <li><a href ="../PORTI/llamadaController.php?action=cargarEtiqueta&clase=entidad">Administrar Etiquetas </a></li>
-    <li><a href ="../PORTI/llamadaController.php?action=altaEtiqueta&clase=entidad">Alta Etiqueta </a></li>
-    <li class="active"><a href ="#">Etiquetas Borradas </a></li>
+    <li><a href ="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad">Administrar Libros </a></li>
+    <li><a href ="../PORTI/llamadaController.php?action=altaLibro&clase=entidad">Alta Libro </a></li>
+    <li class="active"><a href ="#">Libros Borradas </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li><a href="/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -46,7 +45,7 @@
         <table class="table table-centered">
         <tr>
         <td class="separados"><p>Nombre</p></td>
-        <td class="separados"><p>Agregar Etiqueta</p></td>
+        <td class="separados"><p>Agregar Libro</p></td>
         </tr>
         <tr>
         <?php
@@ -54,8 +53,8 @@
          foreach ($arrayNa as $key){
           echo  "<td class='separados'><p>".$key['nombre']."</p></td>
             <td class='separados'>
-            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaEtiqueta&clase=entidad'>
-            <input name='id_etiqueta' type='hidden' value='".$key['id_us']."'/>
+            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaLibro&clase=entidad'>
+            <input name='id_Libro' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Agregar'/>
             </form>
             </tr>";

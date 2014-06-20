@@ -31,12 +31,12 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
     <li><a href ="../ADMIN/cookBooksAdmin.php">Inicio </a></li>
-    <li class="activa"><a href ="/JAMP/PORTI/entidadController.php?action=cargarAutor">Administrar Autores</a></li>
-    <li><a href ="/JAMP/PORTI/entidadController.php?action=altaAutor">Alta Autor </a></li>
-    <li><a href ="/JAMP/PORTI/entidadController.php?action=borradosAutor">Autores Borrados </a></li>
+    <li class="activa"><a href ="/JAMP/PORTI/llamadaController.php?action=cargarAutor&clase=entidad">Administrar Autores</a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaAutor&clase=entidad">Alta Autor </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosAutor&clase=entidad">Autores Borrados </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <li><a href="/PORTI/loginController.php?action=logout"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+    <li><a href="/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
   </ul>
 </div>
 </nav>
@@ -53,7 +53,7 @@
          foreach ($arrayNa as $key){
           echo  "<td class='separados'><p>".$key['nombre']."</p></td>
             <td class='separados'>
-            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/entidadController.php?action=agregarBorradaAutor'>
+            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaAutor&clase=entidad'>
             <input name='id_autor' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Agregar'/>
             </form>
