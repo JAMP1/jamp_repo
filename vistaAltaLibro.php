@@ -50,13 +50,43 @@
     <tr>
     <td>
       <input id="nombre" type="text" placeholder="Ingrese nombre Libro" name="nom_libro">
+      </td>
+    </tr>
+    <tr>
+    <td>
       <input id="nombre" type="text" placeholder="Ingrese ISBN" name="isbn_libro">
+      </td>
+    </tr>
+    <tr>
+    <td>
       <input id="nombre" type="text" placeholder="Ingrese cantidad de hojas" name="cantHojas_libro"> 
+      </td>
+    </tr>
+    <tr>
+    <td>
       <input id="nombre" type="text" placeholder="Ingrese cantidad de libros" name="cant_libro">
+      </td>
+    </tr>
+    <tr>
+    <td>
       <input id="nombre" type="text" placeholder="Ingrese precio" name="precio_libro">
+      </td>
+    </tr>
+    <tr>
+    <td>
       <input id="nombre" type="text" placeholder="Ingrese editorial" name="editorial_libro"> 
+      </td>
+    </tr>
+    <tr>
+    <td>
       <input id="nombre" type="text" placeholder="Ingrese etiqueta" name="etiqueta_libro">
+      </td>
+    </tr>
+    <tr>
+    <td>
       <input id="nombre" type="text" placeholder="Ingrese autor" name="autor_libro">
+      </td>
+    </tr>
 
     </td>
     <td>

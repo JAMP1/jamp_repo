@@ -11,6 +11,7 @@ $claseLogin = new loginClase();
 $accion=$_GET["action"];
 $claseDest=$_GET["clase"];
 $clase = new $claseDest();
+
 $clase-> $accion();
 
 
