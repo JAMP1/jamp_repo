@@ -49,42 +49,69 @@
   <table class="table table">
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Ingrese nombre Libro" name="nom_libro">
+      <input id="nombre" type="text" placeholder="Nombre Libro" name="nom_libro">
       </td>
     </tr>
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Ingrese ISBN" name="isbn_libro">
+      <input id="isbn" type="text" placeholder="ISBN" name="isbn_libro">
       </td>
     </tr>
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Ingrese cantidad de hojas" name="cantHojas_libro"> 
+      <input id="nombre" type="text" placeholder="Cantidad de hojas" name="cantHojas_libro"> 
       </td>
     </tr>
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Ingrese cantidad de libros" name="cant_libro">
+      <input id="nombre" type="text" placeholder="Cantidad de libros" name="cant_libro">
       </td>
     </tr>
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Ingrese precio" name="precio_libro">
+      <input id="nombre" type="text" placeholder="Precio" name="precio_libro">
       </td>
     </tr>
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Ingrese editorial" name="editorial_libro"> 
+      <!--<input id="nombre" type="text" placeholder="Editorial" name="editorial_libro"> -->
+      <select name="id_editorial_libro" id="filtroEditorial" >
+                  <option value="">Editorial</option>  
+                  <?php
+                    $arrayNa = obtenerEditoriales();                  
+                    foreach ($arrayNa as $key){
+                      echo "<option value=".$key['id_editorial'].">".$key['nombre']."</option>";                      
+                    }
+                  ?>
+        </select>
       </td>
     </tr>
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Ingrese etiqueta" name="etiqueta_libro">
+      <!--<input id="nombre" type="text" placeholder="Ingrese etiqueta" name="etiqueta_libro">-->
+      <select name="id_etiqueta_libro" id="filtroEtiqueta" >
+                  <option value="">Etiqueta</option>  
+                  <?php
+                    $arrayNa = obtenerEtiquetas();                  
+                    foreach ($arrayNa as $key){
+                      echo "<option value=".$key['id_etiqueta'].">".$key['nombre']."</option>";                      
+                    }
+                  ?>
+        </select>
       </td>
     </tr>
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Ingrese autor" name="autor_libro">
+      <!--<input id="nombre" type="text" placeholder="Autor" name="autor_libro">-->
+      <select name="id_autor_libro" id="filtroAutor" >
+                  <option value="">Autor</option>  
+                  <?php
+                    $arrayNa = obtenerAutores();                  
+                    foreach ($arrayNa as $key){
+                      echo "<option value=".$key['id_autor'].">".$key['nombre']."</option>";                      
+                    }
+                  ?>
+        </select>
       </td>
     </tr>
 
@@ -95,6 +122,18 @@
     </td>
     </tr>
   </table>
+<!--<label for="filtroEtiqueta">Etiqueta: </label><br>
+                <select name="filtroEtiqueta" id="filtroEtiqueta">
+                  <option value="">--Ninguno--</option>  
+                  <?php
+                    $arrayNa = obtenerEtiquetas();                  
+                   // foreach ($arrayNa as $key){
+                     // echo "<option value='separados'>".$key['nombre']."</option>";                      
+                    //}
+                  ?>
+                </select>  
+-->
+
 </form>
 <div>
 <?php
@@ -103,21 +142,6 @@
   }
 
 ?>
-          <p>
-                <label for="filtroEtiqueta">Etiqueta: </label><br>
-                <select name="filtroEtqueta" id="filtroEtiqueta">
-                  <option value="">--Ninguno--</option>  
-                  <?php
-                     foreach ($arrayNa as $key){
-                      echo  "<td class='separados'><p>".$key['nombre']."</p></td>";
-                     
-                    }
-
-                  ?>
-
-                </select>           
-          </p>
-
 
 </div>
 </div>

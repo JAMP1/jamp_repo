@@ -301,19 +301,89 @@ function validarAltaAutor($nom){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $editorial, $etiqueta, $autor) {
+function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor) {
+	// FALTA	insertar la FECHA
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 		$query = $link->prepare("INSERT INTO `libro`(`id_editorial`, `id_etiqueta`, `stock`, `precio`, `isbn`, `cantPag`, `nombre`)
 		 						 VALUES (:Edi, :Eti, :Stock, :Precio, :Isbn, :CantHojas, :Nombre )");
-		$res = $query->execute(array('Nombre' => $nom , 'Edi' => $editorial , 'Eti'=> $etiqueta , 'Stock'=> $cantLibros ,
-		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas )) ;
+		$res = $query->execute(array('Nombre' => $nom , 'Edi' => $id_editorial , 'Eti'=> $id_etiqueta , 'Stock'=> $cantLibros ,
+		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas ));
+		//El proximo SELECT es para recuperar el id del libro para el alta en la tabla 'libroautor'
+		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
+		$res2 = $query ->execute(array('Nombre' => $nom));
+		$res2 = $query ->fetchAll();
 		$link=cerrarConexion();
+		altaLibroAutor($res2,$id_autor);
 	}else {
 		$res= "error";
 	}
 	return $res;
 }
+
+function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor){
+ 	$link = conectarBaseDatos();
+	if ($link != "error"){
+		$query = $link->prepare("UPDATE `libro` SET `nombre`= :Nom , `isbn`=:Isbn, `cantPag`=:CantHojas, `stock`=:CantLibros, 
+			`precio` = :Precio, `id_editorial`= :IdEditorial, `id_etiqueta`=:IdEtiqueta
+								WHERE `id_libro`= :IdLibro");
+		$res = $query->execute(array('IdLibro' => $id_libro, 'Nom'=> $nom, 'Isbn'=>$isbn, 'CantHojas'=>$cantHojas, 
+			'CantLibros'=>$cantLibros, 'Precio'=>$precio, 'IdEditorial'=>$id_editorial, 'IdEtiqueta'=>$id_etiqueta,));
+		//El proximo SELECT es para recuperar el id del libro para la modificacion en la tabla 'libroautor'
+		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
+		$res2 = $query ->execute(array('Nombre' => $nom));
+		$res2 = $query ->fetchAll();
+		$link=cerrarConexion();
+		modificarLibroAutor($res2, $id_autor);
+	}else {
+		$res= "error";
+	}
+	return $res;
+}
+
+function altaLibroAutor($res2, $id_autor){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+		$query = $link -> prepare("INSERT INTO `libroautor`(`id_autor`, `id_libro`)
+									VALUES (:IdAutor, :IdLibro)");
+		$res3 = $query -> execute(array('IdAutor' => $id_autor , 'IdLibro' => $res2[0]['id_libro'] ));
+		$link=cerrarConexion();
+	}
+}
+function modificarLibroAutor($res2, $id_autor){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+		$query = $link -> prepare("UPDATE `libroautor` SET `id_autor`=:IdAutor, `id_libro`=:IdLibro
+								WHERE `id_libro`=:IdLibro ");
+		$res3 = $query -> execute(array('IdAutor' => $id_autor , 'IdLibro' => $res2[0]['id_libro'] ));
+		$link=cerrarConexion();
+	}
+}
+/*function recuperarIdEtiqueta($nom){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link-> prepare("SELECT `id_etiqueta` FROM etiqueta WHERE `nombre` = :nom");
+		$res= $query-> execute(array('nom' => $nom));
+		$res= $query-> fetchAll();
+		$link= cerrarConexion();
+	}else{
+		$res = "error";
+	}
+	return $res;
+}
+
+function recuperarIdEditorial($nom){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link-> prepare("SELECT `id_editorial` FROM editorial WHERE `nombre` = :nom");
+		$res= $query-> execute(array('nom' => $nom));
+		$res= $query-> fetchAll();
+		$link= cerrarConexion();
+	}else{
+		$res = "error";
+	}
+	return $res;
+}*/
 
 function validarAltaLibro($nom, $isbn){ 
 	//Realiza una consulta por nombre y otra por isbn pero recuperando los nombres, devuelve un array con ambos mergeados.
@@ -335,7 +405,7 @@ function validarAltaLibro($nom, $isbn){
 function obtenerLibrosBorrados(){
   	$link = conectarBaseDatos();
   	if ($link != "error"){
-  		$query = $link->prepare("SELECT `nombre`,`id_libro` FROM libro WHERE `baja`=1");
+  		$query = $link->prepare("SELECT `nombre`,`isbn`,`cantPag`, `stock`,`precio`,`id_libro` FROM libro WHERE `baja`=1");
   		$query->execute();
   		$res=$query->fetchAll();
   		$link=cerrarConexion();  	
@@ -382,15 +452,3 @@ function eliminarLibro($id) {
 	return $res;
 }
 
-function modificarLibro($usu,$id_us){
- 	$link = conectarBaseDatos();
-	if ($link != "error"){
-		$query = $link->prepare("UPDATE `libro` SET `nombre`= :Usur WHERE `id_libro`= :Id_us");
-		$res = $query->execute(array('Id_us' => $id_us,
-		 								'Usur' => $usu));
-		$link=cerrarConexion();
-	}else {
-		$res= "error";
-	}
-	return $res;
-}

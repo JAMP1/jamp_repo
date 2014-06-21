@@ -45,6 +45,10 @@
         <table class="table table-centered">
         <tr>
         <td class="separados"><p>Nombre</p></td>
+        <td class="separados"><p>ISBN</p></td>
+        <td class="separados"><p>Cantidad pag</p></td>
+        <td class="separados"><p>Stock</p></td>
+        <td class="separados"><p>Precio</p></td>
         <td class="separados"><p>Agregar Libro</p></td>
         </tr>
         <tr>
@@ -52,9 +56,13 @@
 
          foreach ($arrayNa as $key){
           echo  "<td class='separados'><p>".$key['nombre']."</p></td>
-            <td class='separados'>
+           <td class='separados'><p>".$key["isbn"]."</p></td>
+                <td class='separados'><p>".$key["cantPag"]."</p></td>
+                <td class='separados'><p>".$key["stock"]."</p></td>
+                <td class='separados'><p>".$key["precio"]."</p></td>
+                <td>
             <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaLibro&clase=entidad'>
-            <input name='id_Libro' type='hidden' value='".$key['id_us']."'/>
+            <input name='id_libro' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Agregar'/>
             </form>
             </tr>";

@@ -102,20 +102,26 @@ class entidad{
         if($per==1){
             $nom=$_POST['nom_etiqueta'];
             $id=$_POST['id_etiqueta'];
-            $intento=modificarEtiqueta($nom,$id);
-            if ($intento){
-                $etiquetas=obtenerEtiquetas();
-                if ( $etiquetas!="error"){
-                    $arrayNa = array();
-                    $i=0;
-                    foreach ($etiquetas as $key ) {
-                        $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                            'id_us' => $key['id_etiqueta'] );
-                        $i++;
-                    }
-                    require_once("../vistaEtiquetas.php");
-                }    
-            }   
+            $arreglo= validarAltaEtiqueta($nom);
+            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+                $existe = 'existe';
+                require_once("../vistaAltaEtiqueta.php");
+            }else{
+                $intento=modificarEtiqueta($nom,$id);
+                if ($intento){
+                    $etiquetas=obtenerEtiquetas();
+                    if ( $etiquetas!="error"){
+                        $arrayNa = array();
+                        $i=0;
+                        foreach ($etiquetas as $key ) {
+                            $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                                'id_us' => $key['id_etiqueta'] );
+                            $i++;
+                        }
+                        require_once("../vistaEtiquetas.php");
+                    }    
+                }   
+            }    
         }
     }
     function cargarEtiqueta () {
@@ -234,19 +240,25 @@ class entidad{
         if($per==1){
             $nom=$_POST['nom_editorial'];
             $id=$_POST['id_editorial'];
-            $intento=modificarEditorial($nom,$id);
-            if ($intento){
-                $editoriales=obtenerEditoriales();
-                if ( $editoriales!="error"){
-                    $arrayNa = array();
-                    $i=0;
-                    foreach ($editoriales as $key ) {
-                        $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                            'id_us' => $key['id_editorial'] );
-                        $i++;
-                    }
-                    require_once("../vistaEditorial.php");
-                }           
+            $arreglo= validarAltaEditorial($nom);
+            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+                $existe = 'existe';
+                require_once("../vistaAltaEditorial.php");
+            }else{
+                $intento=modificarEditorial($nom,$id);
+                if ($intento){
+                    $editoriales=obtenerEditoriales();
+                    if ( $editoriales!="error"){
+                        $arrayNa = array();
+                        $i=0;
+                        foreach ($editoriales as $key ) {
+                            $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                                'id_us' => $key['id_editorial'] );
+                            $i++;
+                        }
+                        require_once("../vistaEditorial.php");
+                    }           
+                }
             }   
         }
     }
@@ -366,20 +378,26 @@ class entidad{
         if($per==1){
             $nom=$_POST['nom_autor'];
             $id=$_POST['id_autor'];
-            $intento=modificarAutor($nom,$id);
-            if ($intento){
-                $autores=obtenerAutores();
-                if ( $autores!="error"){
-                    $arrayNa = array();
-                    $i=0;
-                    foreach ($autores as $key ) {
-                        $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                            'id_us' => $key['id_autor'] );
-                        $i++;
-                    }
-                    require_once("../vistaAutores.php");
-                }            
-            }   
+            $arreglo= validarAltaAutor($nom);
+            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+                $existe = 'existe';
+                require_once("../vistaAltaAutor.php");
+            }else{
+                $intento=modificarAutor($nom,$id);
+                if ($intento){
+                    $autores=obtenerAutores();
+                    if ( $autores!="error"){
+                        $arrayNa = array();
+                        $i=0;
+                        foreach ($autores as $key ) {
+                            $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                                'id_us' => $key['id_autor'] );
+                            $i++;
+                        }
+                        require_once("../vistaAutores.php");
+                    }            
+                }
+            }       
         }
     }
 
@@ -414,8 +432,8 @@ class entidad{
                 $arrayNa = array();
                 $i=0;
                 foreach ($libros as $key ) {
-                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                            'id_us' => $key['libros'] );
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
+                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_us' => $key['id_libro'] );
                     $i++;
                 }
             }
@@ -432,8 +450,8 @@ class entidad{
                 $arrayNa = array();
                 $i=0;
                 foreach ($libros as $key ) {
-                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                            'id_us' => $key['id_libro'] );
+                    $arrayNa[$i]=array('nombre' => $key['nombre'], 'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
+                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_us' => $key['id_libro'] );
                     $i++;
                 }
             }
@@ -457,8 +475,8 @@ class entidad{
                 $arrayNa = array();
                 $i=0;
                 foreach ($libros as $key ) {
-                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                                     'id_us' => $key['id_libro'] );
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
+                                'stock' =>$key['stock'],'precio'=>$key['precio'],'id_us' => $key['id_libro'] );
                     $i++;
                 }
             }
@@ -475,24 +493,23 @@ class entidad{
             $cantHojas=$_POST["cantHojas_libro"];
             $cantLibros=$_POST["cant_libro"];
             $precio=$_POST["precio_libro"];
-            $editorial=$_POST["editorial_libro"];
-            $etiqueta=$_POST["etiqueta_libro"];
-            $autor=$_POST["autor_libro"];
-
+            $id_editorial=$_POST["id_editorial_libro"];
+            $id_etiqueta=$_POST["id_etiqueta_libro"];
+            $id_autor=$_POST["id_autor_libro"];
             $arreglo= validarAltaLibro($nom, $isbn);   
             if((!empty($arreglo))){
                 $existe = 'existe';
                 require_once("../vistaAltaLibro.php");
             }else{
-                $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $editorial, $etiqueta, $autor);
+                $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor);
                 if ($intento){
                     $libros=obtenerLibros();
                     if ( $libros!="error"){
                        $arrayNa = array();
                        $i=0;
                        foreach ($libros as $key ) {
-                            $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                            'id_us' => $key['id_libro'] );
+                            $arrayNa[$i]=array('nombre' => $key['nombre'],'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
+                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_us' => $key['id_libro'] );
                             $i++;
                         }
                     require_once("../vistaLibros.php");
@@ -504,22 +521,29 @@ class entidad{
     function confirmarModificacionLibro (){
         $per=$_SESSION['permiso'];
         if($per==1){
-            $nom=$_POST['nom_libro'];
-            $id=$_POST['id_libro'];
+            $nom=$_POST["nom_libro"];
+            $isbn=$_POST["isbn_libro"];
+            $cantHojas=$_POST["cantHojas_libro"];
+            $cantLibros=$_POST["cant_libro"];
+            $precio=$_POST["precio_libro"];
+            $id_editorial=$_POST["id_editorial_libro"];
+            $id_etiqueta=$_POST["id_etiqueta_libro"];
+            $id_autor=$_POST["id_autor_libro"];
+            $id_libro=$_POST["id_libro"];
             $arreglo = validarAltaLibro($nom, $isbn);
             if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
                 $existe = 'existe';
                 require_once("../vistaModificarLibro.php");
             }else{
-                $intento=modificarLibro($nom,$id);
+                $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor);
                 if ($intento){
                     $libros=obtenerLibros();
                     if ( $libros!="error"){
                         $arrayNa = array();
                         $i=0;
                         foreach ($libros as $key ) {
-                            $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                                'id_us' => $key['id_libro'] );
+                            $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
+                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_us' => $key['id_libro'] );
                             $i++;
                         }
                     require_once("../vistaLibros.php");

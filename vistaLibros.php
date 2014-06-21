@@ -54,21 +54,24 @@
         </tr>
         <tr>
         <?php
+        //var_dump($arrayNa);
          foreach ($arrayNa as $key){
-          echo  "<td class='separados'><p>".$key['nombre']."</p></td>
-                <td class='separados'><p>".$key['isbn']."</p></td>
-                <td class='separados'><p>".$key['cantPag']."</p></td>
-                <td class='separados'><p>".$key['stock']."</p></td>
-                <td class='separados'><p>".$key['precio']."</p></td>
+          echo  "<td class='separados'><p>".$key["nombre"]."</p></td>
+                <td class='separados'><p>".$key["isbn"]."</p></td>
+                <td class='separados'><p>".$key["cantPag"]."</p></td>
+                <td class='separados'><p>".$key["stock"]."</p></td>
+                <td class='separados'><p>".$key["precio"]."</p></td>
             <td>
+
+
             <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaLibro&clase=entidad'>
-            <input name='id_Libro' type='hidden' value='".$key['id_us']."'/>
+            <input name='id_libro' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Eliminar'/>
             </form>
             </td>
             <td class='separados'>
             <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=modificarLibro&clase=entidad&nombre=".$key['nombre']."'>
-            <input name='id_Libro' type='hidden' value='".$key['id_us']."'/>
+            <input name='id_libro' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Modificar'/>
             </form>
             </td>
