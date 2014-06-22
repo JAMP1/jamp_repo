@@ -33,7 +33,7 @@
 	<li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
     <li class="active"><a href ="#">Administrar Libros </a></li>
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaLibro&clase=entidad">Alta Libro </a></li>
-    <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosLibro&clase=entidad">Libros Borradas </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosLibro&clase=entidad">Libros Borrados </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li><a href="/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -65,13 +65,13 @@
 
 
             <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaLibro&clase=entidad'>
-            <input name='id_libro' type='hidden' value='".$key['id_us']."'/>
+            <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
             <input type='submit' class='btn btn-info' value='Eliminar'/>
             </form>
             </td>
             <td class='separados'>
             <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=modificarLibro&clase=entidad&nombre=".$key['nombre']."'>
-            <input name='id_libro' type='hidden' value='".$key['id_us']."'/>
+            <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
             <input type='submit' class='btn btn-info' value='Modificar'/>
             </form>
             </td>

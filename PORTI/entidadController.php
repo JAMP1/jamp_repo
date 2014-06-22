@@ -433,7 +433,7 @@ class entidad{
                 $i=0;
                 foreach ($libros as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_us' => $key['id_libro'] );
+                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
                     $i++;
                 }
             }
@@ -451,7 +451,7 @@ class entidad{
                 $i=0;
                 foreach ($libros as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'], 'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_us' => $key['id_libro'] );
+                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
                     $i++;
                 }
             }
@@ -476,7 +476,7 @@ class entidad{
                 $i=0;
                 foreach ($libros as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                'stock' =>$key['stock'],'precio'=>$key['precio'],'id_us' => $key['id_libro'] );
+                                'stock' =>$key['stock'],'precio'=>$key['precio'],'id_libro' => $key['id_libro'] );
                     $i++;
                 }
             }
@@ -509,7 +509,7 @@ class entidad{
                        $i=0;
                        foreach ($libros as $key ) {
                             $arrayNa[$i]=array('nombre' => $key['nombre'],'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_us' => $key['id_libro'] );
+                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
                             $i++;
                         }
                     require_once("../vistaLibros.php");
@@ -531,9 +531,11 @@ class entidad{
             $id_autor=$_POST["id_autor_libro"];
             $id_libro=$_POST["id_libro"];
             $arreglo = validarAltaLibro($nom, $isbn);
-            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+            if((!empty($arreglo))){
+                if ($arreglo[0]['nombre'] == $nom){
                 $existe = 'existe';
                 require_once("../vistaModificarLibro.php");
+               }
             }else{
                 $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor);
                 if ($intento){
@@ -543,7 +545,7 @@ class entidad{
                         $i=0;
                         foreach ($libros as $key ) {
                             $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_us' => $key['id_libro'] );
+                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
                             $i++;
                         }
                     require_once("../vistaLibros.php");
@@ -561,7 +563,7 @@ class entidad{
                 $i=0;
                 foreach ($libros as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
-                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_us' => $key['id_libro'] );
+                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
                     $i++;
                 }
             }

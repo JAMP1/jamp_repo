@@ -330,6 +330,7 @@ function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio
 		$res = $query->execute(array('IdLibro' => $id_libro, 'Nom'=> $nom, 'Isbn'=>$isbn, 'CantHojas'=>$cantHojas, 
 			'CantLibros'=>$cantLibros, 'Precio'=>$precio, 'IdEditorial'=>$id_editorial, 'IdEtiqueta'=>$id_etiqueta,));
 		//El proximo SELECT es para recuperar el id del libro para la modificacion en la tabla 'libroautor'
+		//$res = $query -> fetchAll();
 		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
 		$res2 = $query ->execute(array('Nombre' => $nom));
 		$res2 = $query ->fetchAll();
@@ -355,6 +356,7 @@ function modificarLibroAutor($res2, $id_autor){
 	if ($link != "error"){
 		$query = $link -> prepare("UPDATE `libroautor` SET `id_autor`=:IdAutor, `id_libro`=:IdLibro
 								WHERE `id_libro`=:IdLibro ");
+		//var_dump($res2);
 		$res3 = $query -> execute(array('IdAutor' => $id_autor , 'IdLibro' => $res2[0]['id_libro'] ));
 		$link=cerrarConexion();
 	}

@@ -62,7 +62,7 @@
                 <td class='separados'><p>".$key["precio"]."</p></td>
                 <td>
             <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaLibro&clase=entidad'>
-            <input name='id_libro' type='hidden' value='".$key['id_us']."'/>
+            <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
             <input type='submit' class='btn btn-info' value='Agregar'/>
             </form>
             </tr>";

@@ -35,7 +35,7 @@
         <li><a href="../ADMIN/cookBooksAdmin.php">Inicio</a></li>
         <li><a href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad">Administrar Libros</a></li>
         <li class="active"><a href="#">Alta Libro</a></li>
-        <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosLibro&clase=entidad">Libros Borradas </a></li>
+        <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosLibro&clase=entidad">Libros Borrados </a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -122,23 +122,12 @@
     </td>
     </tr>
   </table>
-<!--<label for="filtroEtiqueta">Etiqueta: </label><br>
-                <select name="filtroEtiqueta" id="filtroEtiqueta">
-                  <option value="">--Ninguno--</option>  
-                  <?php
-                    $arrayNa = obtenerEtiquetas();                  
-                   // foreach ($arrayNa as $key){
-                     // echo "<option value='separados'>".$key['nombre']."</option>";                      
-                    //}
-                  ?>
-                </select>  
--->
 
 </form>
 <div>
 <?php
   if(isset($existe)){
-    echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
+    echo "<h4>Ya existe el nombre ingresado, busque en la lista o en los borrados</h4>";
   }
 
 ?>
