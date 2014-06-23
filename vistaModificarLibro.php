@@ -29,13 +29,13 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li><a href="../ADMIN/cookBooksAdmin.php">Inicio</a></li>
+            <li><a href="/JAMP/ADMIN/cookBooksAdmin.php">Inicio</a></li>
             <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarLibro&clase=entidad">Administrar Libros</a></li>
             <li class="active"><a href="">Modificar Libro</a></li>
             <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosLibro&clase=entidad">Libros Borrados </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+          <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
       </div>
@@ -132,13 +132,6 @@
           </form>
           <a href="llamadaController.php?action=cargarLibro&clase=entidad">Volver</a>
         </div>
-    <!--<div>
-      <?php
-        //if(isset($existe)){
-          //echo "<h3>Ya existe el nombre ingresado, busque en la lista o en los borrados</h3>";
-        //}
-      ?>
-    </div>-->
       </div>
   </body>
 </html>

@@ -569,6 +569,17 @@ class entidad{
             }
             require_once("../vistaLibros.php");
         }else{
+            $libros=obtenerLibros();
+            var_dump("ENTRE AL CARGAR LIBRO");
+            if ( $libros!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($libros as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
+                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
+                    $i++;
+                }
+            } //TENGO QUE VER CÓMO HACER PARA LISTAR LOS LIBROS EN EL INICIO
             require_once "../cookbooks.php";
         }
     }

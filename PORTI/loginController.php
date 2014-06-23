@@ -13,9 +13,9 @@
 					//session_start();
 					$_SESSION['usuario']=$prueba['nombreUsuario'];
 						
-
 					if($prueba['id_permiso'] == 1) {// permiso=1 es Admin, distinto de 1 usuario
-						$_SESSION['permiso']=1;
+						$_SESSION['permiso']=1;	//DEBERIA PENSAR EN ALGO PARECIDO PARA CARGAR LA PAGINA PRINCIPAL A LA HORA DE MOSTRAR LOS LIBROS,
+						//O BIEN PONERLOS EN UN APARTADO COMUN A ADMIN Y A USUARIO Y A PUBLICO, MOSTRANDOLOS COMO EN EL cookbooks.php
 
 						require_once("../ADMIN/cookBooksAdmin.php");
 					}
@@ -38,6 +38,8 @@
 				$_SESSION = array();
 				session_destroy();
 				header( "Location: /JAMP/cookbooks.php" );
+				//require_once("JAMP/cookbooks.php");
+				//DEBERIA HACE VAR_DUMP DE ALGO PARA SABER SI LLEGA POR EL LOGOUT A ESTA FUNCION
 		}
 	}
 ?>

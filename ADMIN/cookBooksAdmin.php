@@ -27,12 +27,12 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href="../PORTI/llamadaController.php?action=volverInicio&clase=admin"> Inicio </a></li>
-            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEtiqueta&clase=entidad"> Administración Etiqueta </a></li>
-            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarAutor&clase=entidad"> Administración Autor</a></li>
-            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEditorial&clase=entidad"> Administración Editorial</a></li>
-             <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad"> Administración Libro</a></li>
-          </ul>
+              <li class="active"><a href="../PORTI/llamadaController.php?action=volverInicio&clase=admin"> Inicio </a></li>
+              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEtiqueta&clase=entidad"> Administración Etiqueta </a></li>
+              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarAutor&clase=entidad"> Administración Autor</a></li>
+              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEditorial&clase=entidad"> Administración Editorial</a></li>
+              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad"> Administración Libro</a></li>
+            </ul>
 
 
             <!--<li><a class="active" href="../PORTI/llamadaController.php?action=cargarIdioma"> Administración Idioma </a></li>
@@ -40,7 +40,7 @@
             <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario"> Usuario </a></li>
             <li><a class="active" href="../PORTI/llamadaController.php?action=cargarVenta"> Ventas </a></li>-->
             <ul class="nav navbar-nav navbar-right">
-            <li><a href="../PORTI/loginController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+            <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div>

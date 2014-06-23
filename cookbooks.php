@@ -13,6 +13,12 @@
 <link rel="stylesheet" type="text/css" href="./LIBS/bootstrap/css/bootstrap-theme.css">
 <link rel="stylesheet" type="text/css" href="./LIBS/bootstrap/font-awesome/css/font-awesome.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link rel="" type="" href="/JAMP/PORTI/llamadaController.php?action=cargarLibros&clase=entidad">
+<link rel="" type="" href="/JAMP/PORTI/entidadController.php">
+
+
 <title>Bienvenidos</title>
 
 </head>
@@ -67,7 +73,7 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
+        <!--<div class="col-md-4">
           <h2>Libro1</h2>
           <p><img class="img-book" src="IMG/libro1.jpg" alt="cocina1"></p>
           <br>
@@ -84,9 +90,76 @@
           <p><img class="img-book" src="IMG/libro3.jpg" alt="cocina3"></p>
           <br>
           <p><a class="btn btn-default" href="#" role="button">Ver detalles &raquo;</a></p>
-        </div>
-      </div>
+        </div>-->
+        <div>
+          <td><?php cargarLosPutosLibros()  ?></td>
+          <?php
+            function cargarLosPutosLibros(){
 
+              $link = conectarBaseDeDatos();
+              if ($link != "error"){
+                $query = $link->prepare("SELECT `nombre`,`isbn`,`cantPag`, `stock`,`precio`,`id_libro` FROM libro WHERE `baja`=0");
+                $query->execute();
+                $res=$query->fetchAll();
+                
+              }
+              if ( $res!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($res as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
+                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
+                    $i++;
+                }
+              }
+              $fecha=getdate();
+              foreach ($arrayNa as $key){
+                
+                echo  " <div class='col-md-4'>
+                        <h2>".$key['nombre']."</h2>
+                        <p><img class='img-book' src='IMG/libro3.jpg' alt='cocina3'></p>
+                        <br>
+                        <h4>".$fecha["month"]."".$fecha["weekday"]."".$fecha["year"]."</h4>
+                        <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
+                      </div>";
+              } 
+            }          
+          function conectarBaseDeDatos(){
+            $db_host="127.0.0.1";
+                $db_user="root";
+                $db_pass="";
+                $db_base="ingenieria2";
+
+              try{
+
+                $cn = new PDO("mysql:dbname=$db_base;host=$db_host","$db_user","$db_pass");
+                $cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                //$cn->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+                return($cn);
+                
+              }catch(PDOException $e){
+                return "error" ;
+
+              }
+          }
+
+        //var_dump($arrayNa);
+        //  require_once("./Modelo/modelo.php");
+         // require_once("/JAMP/PORTI/llamadaController.php?action=cargarLibro&clase=entidad");
+         // cargarLibro();
+            //$arrayNa = obtenerLibros();
+            /*foreach ($arrayNa as $key){
+              echo  " <div class='col-md-4'>
+                        <h2>".$key['nombre']."</h2>
+                        <p><img class='img-book' src='IMG/libro3.jpg' alt='cocina3'></p>
+                        <br>
+                        <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
+                      </div>";}
+                     // <td class='separados'><p>".$key["precio"]."</p></td>";}*/
+          ?>
+
+        </div>
+    </div>    
       <hr>
 
       <footer>
