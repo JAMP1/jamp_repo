@@ -454,3 +454,65 @@ function eliminarLibro($id) {
 	return $res;
 }
 
+function recuperarCliente($nombreUsuario){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT `nombreusuario`, `id_usuario` FROM usuario WHERE `nombreusuario`=:Nom");
+	 	$query->execute(array('Nom' => $nombreUsuario));
+	 	$res=$query->fetchAll();
+	 	$link=cerrarConexion();
+	}else {
+		$res= "error";
+	}
+	return $res;
+}
+
+function altaCliente ($nombreUsuario, $nom, $apellido, $telefono, $email, $dni, $contrasena ){
+	$link= conectarBaseDatos();
+	if ($link != "error"){
+		$query = $link -> prepare("INSERT INTO `usuario`(`id_permiso`,`nombreUsuario`, `nombre` , `apellido` , `telefono` , `email` , `dni` , `contrasena`)
+									VALUES (:IdPermiso, :NombreUsuario, :Nombre, :Apellido, :Telefono, :Email, :Dni, :Contrasena)");
+		$res = $query -> execute(array('IdPermiso'=> 2, 'NombreUsuario' => $nombreUsuario , 'Nombre' => $nom , 'Apellido' => $apellido , 
+										'Telefono' => $telefono , 'Email' => $email , 'Dni' => $dni , 'Contrasena' => $contrasena ));
+		$link=cerrarConexion();
+		return $res;
+	}		
+}
+
+function altaCarrito($idUsuario){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare("INSERT INTO `carrito`(`id_usuario`)
+									VALUES (:IdUsuario)");
+		$res = $query -> execute(array('IdUsuario' => $idUsuario ));
+		$link = cerrarConexion();
+	}
+}
+
+function recuperarLibroCarrito($idUsuario){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT `l.nombre`, `a.nombre`, `a.apellido`, `e.nombre`, `l.precio`, 
+ 									FROM `carrito` as c 
+									 INNER JOIN `carrito_libro` as cl ON `c.id_carrito`=`cl.id_carrito` 
+									 INNER JOIN `libro` as l ON `l.id_libro`=`cl.id_libro` 
+									 INNER JOIN `libroautor` as la ON `la.id_libro`=`l.id_libro` 
+									 INNER JOIN `autor` as a ON `a.id_autor`=`la.id_autor` 
+									 INNER JOIN `editorial`as e ON `e.id_editorial`=`l.id_editorial` 
+									 WHERE `c.id_usuario`= :idUsuario");
+		$res = $query -> execute(array('IdUsuario' => $idUsuario ));
+		$res = $query -> fetchAll();
+		$link = cerrarConexion();
+		return $res;
+	}
+}
+
+ 
+ //SELECT `l.nombre`, `a.nombre`, `a.apellido`, `e.nombre`, `l.precio`, 
+ //FROM `carrito` as c 
+ //INNER JOIN `carrito_libro` as cl ON c.id_carrito=cl.id_carrito 
+ //INNER JOIN `libro` as l ON l.id_libro=cl.id_libro 
+ //INNER JOIN `libroautor` as la ON la.id_libro=l.id_libro 
+ //INNER JOIN `autor` as a ON a.id_autor=la.id_autor 
+ //INNER JOIN `editorial`as e ON e.id_editorial=l.id_editorial 
+ //WHERE `c.id_usuario`= :idUsuario

@@ -18,16 +18,19 @@
 						//O BIEN PONERLOS EN UN APARTADO COMUN A ADMIN Y A USUARIO Y A PUBLICO, MOSTRANDOLOS COMO EN EL cookbooks.php
 
 						require_once("../ADMIN/cookBooksAdmin.php");
-					}
-													
+					}													
 					else{
-						$_SESSION['permiso']=2;
-						echo "todo bien :)";}
+						if ($prueba['id_permiso'] == 2) {
+							$_SESSION['permiso']=2;
+							//header("Location: /JAMP/cookbooksUsuario.php");
+							require_once "./cookbooksUsuario.php";
+							//echo "todo bien :)";
+						}						
 					}
+				}
 				else
 					echo "no existe un usuario asi en la bd";
-
-				}
+			}
 			else 
 	 			echo "no anda la conexion a la base de datos";
 		}

@@ -36,25 +36,32 @@
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href="index.php"> Inicio </a></li>
+            <li class="active"><a href="#"> Inicio </a></li>
             <!--<li><a class="active" href="#"> Quienes Somos</a></li>
             <li><a class="active" href="#"> Contacto</a></li>
             <li><a class="active" href="#"> Libros</a></li>-->
-            <ul class="nav navbar-nav navbar-right"></ul>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <button type="submit" id="_submit" class="btn btn-success" name="_submit" >MI CARRITO</button>
+            </ul>
           </div>
+
           <div>
         <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
-            <div class="form-group">
+            <!--<div class="form-group">
               <input type="text" id="username" placeholder="Usuario" class="form-control" placeholder="Usuario" name="username" value="" required="required" />
-            </div>
+            </div>-->
             <div class="form-group">
-              <input type="password" placeholder="Contraseña" class="form-control" id="password" name="password" required="required" />
-            </div>
-            <button type="submit" id="_submit" class="btn btn-success" name="_submit" >Entrar</button>
+              <ul class="nav navbar-nav navbar-right">
+            <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+           </ul>
+           </div>
+
           </form>
            
-          <a href="/JAMP/PORTI/llamadaController.php?action=registrarme&clase=entidad"><span class="label label-info">Crear Cuenta </span></a>
+          <a href="/JAMP/PORTI/llamadaController.php?action=registrarme&clase=entidad"><span class="label label-info">Mi perfil </span></a>
         </div>
+        
         </div><!--/.navbar-collapse -->
       </div>
     </div>

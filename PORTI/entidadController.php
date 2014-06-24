@@ -570,7 +570,6 @@ class entidad{
             require_once("../vistaLibros.php");
         }else{
             $libros=obtenerLibros();
-            var_dump("ENTRE AL CARGAR LIBRO");
             if ( $libros!="error"){
                 $arrayNa = array();
                 $i=0;
@@ -583,7 +582,41 @@ class entidad{
             require_once "../cookbooks.php";
         }
     }
+
+    function cargarCarrito(){
+        $idUsuario = $_POST['id_usuario'];
+
+    }
+
+    function registrarme () {
+        require_once "../vistaRegistrar.php";
+    }
+    function registrarCliente () {
+        $nombreUsuario= $_POST['nombreusuario'];
+        $cliente= recuperarCliente($nombreUsuario);
+        if ($cliente!="error"){
+           $nombre= $_POST['nombre'];
+           $apellido= $_POST['apellido'];
+           $dni= $_POST['dni'];
+           $contrasena= $_POST['contrasena'];
+           $telefono= $_POST['telefono'];
+           $email= $_POST['email'];       
+           $intento= altaCliente($nombreUsuario, $nombre, $apellido, $dni,  $email, $telefono,$contrasena);
+           if ($intento){
+                $res = recuperarCliente($nombreUsuario);
+
+                altaCarrito($res[0]['id_usuario']);
+                
+                require_once("../cookbooks.php");
+                //header("Location: ../cookbooks.php");
+                var_dump($res);
+            //else
+                //mensaje de error y que vuelva a vistaRegistrar.php
+            }
+        }
+    }
 }
+
 
 
  /* switch ($nombre) {
