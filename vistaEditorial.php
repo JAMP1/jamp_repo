@@ -69,6 +69,11 @@
         }
         ?>
 </table>
+<?php 
+  if(isset($sePudoModificar)){
+            echo "<div class='alert alert-success'>Operacion exitosa!!</div>";
+          }  
+?>
 </div>
 </div>
 </body>

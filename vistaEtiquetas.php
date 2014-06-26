@@ -51,24 +51,31 @@
         <tr>
         <?php
 
-         foreach ($arrayNa as $key){
-          echo  "<td class='separados'><p>".$key['nombre']."</p></td>
-            <td class='separados'>
-            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaEtiqueta&clase=entidad'>
-            <input name='id_etiqueta' type='hidden' value='".$key['id_us']."'/>
-            <input type='submit' class='btn btn-info' value='Eliminar'/>
-            </form>
-            </td>
-            <td class='separados'>
-            <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=modificarEtiqueta&clase=entidad&nombre=".$key['nombre']."'>
-            <input name='id_etiqueta' type='hidden' value='".$key['id_us']."'/>
-            <input type='submit' class='btn btn-info' value='Modificar'/>
-            </form>
-            </td>
-            </tr>";
-        }
+          foreach ($arrayNa as $key){
+            echo  "<td class='separados'><p>".$key['nombre']."</p></td>
+              <td class='separados'>
+              <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaEtiqueta&clase=entidad'>
+              <input name='id_etiqueta' type='hidden' value='".$key['id_us']."'/>
+              <input type='submit' class='btn btn-info' value='Eliminar'/>
+              </form>
+              </td>
+              <td class='separados'>
+              <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=modificarEtiqueta&clase=entidad&nombre=".$key['nombre']."'>
+              <input name='id_etiqueta' type='hidden' value='".$key['id_us']."'/>
+              <input type='submit' class='btn btn-info' value='Modificar'/>
+              </form>
+              </td>
+              </tr>";
+          }
+
+          
         ?>
 </table>
+<?php 
+  if(isset($sePudoModificar)){
+            echo "<div class='alert alert-success'>Operacion exitosa!!</div>";
+          }  
+?>
 </div>
 </div>
 </body>

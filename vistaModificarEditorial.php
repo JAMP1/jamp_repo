@@ -63,7 +63,8 @@
       <div>
 <?php
   if(isset($existe)){
-    echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
+    echo "<div class='alert alert-danger'>Error! Ya existe la editorial ingresada, busque en la lista o en los borrados</div>";
+   // echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
   }
 ?>
 </div>

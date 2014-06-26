@@ -124,7 +124,8 @@
                 //echo "<input name='id_libro' type='hidden' value='".$id."'/>";
               //}else{
                 if(isset($existe)){
-                  echo "<h4>Ya existe el nombre ingresado, busque en la lista o en los borrados</h4>";
+                  echo "<div class='alert alert-danger'>Error! Ya existe el libro ingresado, busque en la lista o en los borrados</div>";
+                  //echo "<h4>Ya existe el nombre ingresado, busque en la lista o en los borrados</h4>";
                 }
               //}
             ?>
