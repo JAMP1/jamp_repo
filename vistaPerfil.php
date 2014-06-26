@@ -70,95 +70,57 @@
            </div>
 
           </form>
-           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfil&clase=entidad">
-            <input type="hidden" name="id_usuario" value=<?php echo $idUsuario?>>
-            <button type="submit">Mi perfil </button>
-          </form>
+
+           
         </div>
-        s
+        
         </div><!--/.navbar-collapse -->
       </div>
     </div>
+  <body>
+    <?php
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Bienvenidos!</h1>
-        <p>Esto es un texto de prueba para ver como se ve nuestra página!</p>
-      </div>
-    </div>
+      echo
+      "<table class='table table-centered'>
+        <tr>
+        <td>Nombre</td>
+        <td>Apellido</td>
+        <td>Email</td>
+        <td>Telefono</td>
+        <td>Numero de documento</td>
+        <td>Nombre de Usuario</td>
+        <td>password</td>
+        </tr>
+        <tr>
+         <form action='/JAMP/PORTI/llamadaController.php?action=modificarCliente&clase=entidad' method='post'>
+        <td>
+        <input type='text' name='nombre' value= '".$cliente['nombre']."'>
+        </td>
+        <td>
+        <input type='text' name= 'apellido' value='".$cliente['apellido']."'>
+        </td>
+        <td>
+        <input type='email' name= 'email' value='".$cliente['email']."'>
+        </td>
+        <td>
+        <input type='text' name='telefono' value='".$cliente['telefono']."'>
+        </td>
+        <td>
+        <input type='text' name='dni' value='".$cliente['dni']."'>
+        </td>
+        <td>
+        <input type='text' name= 'nombreUsuario'value= '".$cliente['nombreUsuario']."'>
+        </td>
+        <td>
+        <input type='password' name= 'contrasena' value= '".$cliente['contrasena']."' >
+        </td>
+        </tr>
+        </table>
+        <input type='hidden' name= 'idUsuario' value='".$usuario."'> 
+        <button class='btn btn-info' type='submit'>Modificar</button>
+        </form>";
 
-    
+      ?>
 
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div>
-          <td><?php cargarLosPutosLibros()  ?></td>
-          <?php
-            function cargarLosPutosLibros(){
+    </body>
 
-              $link = conectarBaseDeDatos();
-              if ($link != "error"){
-                $query = $link->prepare("SELECT `nombre`,`isbn`,`cantPag`, `stock`,`precio`,`id_libro` FROM libro WHERE `baja`=0");
-                $query->execute();
-                $res=$query->fetchAll();
-                
-              }
-              if ( $res!="error"){
-                $arrayNa = array();
-                $i=0;
-                foreach ($res as $key ) {
-                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
-                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
-                    $i++;
-                }
-              }
-              $fecha=getdate();
-              foreach ($arrayNa as $key){
-                
-                echo  " <div class='col-md-4'>
-                        <h2>".$key['nombre']."</h2>
-                        <p><img class='img-book' src='/JAMP/IMG/libro3.jpg' alt='cocina3'></p>
-                        <br>
-                        <h4>".$fecha["month"]."".$fecha["weekday"]."".$fecha["year"]."</h4>
-                        <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
-                      </div>";
-              } 
-            }          
-          function conectarBaseDeDatos(){
-            $db_host="127.0.0.1";
-                $db_user="root";
-                $db_pass="";
-                $db_base="ingenieria2";
-
-              try{
-
-                $cn = new PDO("mysql:dbname=$db_base;host=$db_host","$db_user","$db_pass");
-                $cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                //$cn->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-                return($cn);
-                
-              }catch(PDOException $e){
-                return "error" ;
-
-              }
-          }
-
-          ?>
-
-        </div>
-    </div>    
-      <hr>
-
-      <footer>
-        <p>&copy; Company 2014</p>
-      </footer>
-   <!-- </div>  /container -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>-->
-  </body>
-</html>

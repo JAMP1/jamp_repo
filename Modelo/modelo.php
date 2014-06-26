@@ -492,27 +492,87 @@ function altaCarrito($idUsuario){
 function recuperarLibroCarrito($idUsuario){
 	$link = conectarBaseDatos();
 	if($link != "error"){
-		$query = $link -> prepare(" SELECT `l.nombre`, `a.nombre`, `a.apellido`, `e.nombre`, `l.precio`, 
- 									FROM `carrito` as c 
-									 INNER JOIN `carrito_libro` as cl ON `c.id_carrito`=`cl.id_carrito` 
-									 INNER JOIN `libro` as l ON `l.id_libro`=`cl.id_libro` 
-									 INNER JOIN `libroautor` as la ON `la.id_libro`=`l.id_libro` 
-									 INNER JOIN `autor` as a ON `a.id_autor`=`la.id_autor` 
-									 INNER JOIN `editorial`as e ON `e.id_editorial`=`l.id_editorial` 
-									 WHERE `c.id_usuario`= :idUsuario");
+		$query = $link -> prepare(" SELECT *
+ 									FROM `carrito`  
+ 									INNER JOIN `usuario` ON usuario.id_usuario=carrito.id_usuario
+									INNER JOIN `carrito_libro` ON carrito.id_carrito=carrito_libro.id_carrito 
+									INNER JOIN `libro` ON libro.id_libro=carrito_libro.id_libro
+									INNER JOIN `libroautor`  ON libroautor.id_libro=libro.id_libro 
+									INNER JOIN `autor`  ON autor.id_autor=libroautor.id_autor
+									INNER JOIN `editorial`  ON editorial.id_editorial=libro.id_editorial 
+									WHERE carrito.id_usuario= :IdUsuario");
 		$res = $query -> execute(array('IdUsuario' => $idUsuario ));
 		$res = $query -> fetchAll();
+		$query = $link -> prepare("SELECT * FROM `carrito` WHERE `id_usuario`= :IdUsuario");
+		$res2= $query -> execute(array('IdUsuario' => $idUsuario));
+		$res2 = $query-> fetchAll();
 		$link = cerrarConexion();
 		return $res;
 	}
 }
 
+function obtenerDatosCliente ($IdUsuario) {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+		$query = $link -> prepare ("SELECT *
+									FROM `usuario` 
+									WHERE id_usuario=:IdUsuario");
+		$res = $query -> execute(array('IdUsuario'=> $IdUsuario));
+		$res = $query -> fetch();
+		$link = cerrarConexion();
+		return $res;
+	}
+}
+
+function modificarDatosCliente ($nombre, $apellido,  $email, $telefono, $dni,$nombreUsuario, $contrasena, $idUsuario){
+		$link = conectarBaseDatos();
+	if ($link != "error"){
+		
+		 	$query = $link->prepare("UPDATE `usuario` SET `nombre`=:Nombre , `apellido`=:Apellido, `email`=:Email, `telefono`=:Telefono, 
+											`dni`=:Dni, `nombreUsuario`=:NombreUsuario, `contrasena`=:Contrasena WHERE id_usuario=:idUsuario");
+	 	$res=$query->execute(array('Nombre' => $nombre,
+	 							'Apellido' => $apellido,
+	 							'Email' => $email,
+	 							 'Telefono'=> $telefono,
+	 							 'Dni'=> $dni,
+	 							 'NombreUsuario'=> $nombreUsuario,
+	 							 'Contrasena'=> $contrasena,
+	 							 'idUsuario'=> $idUsuario));
+
+	 }else {
+	 	$res= "error";
+	 }
+	 return $res;
+
+}
+
+function obtenerUsuarios() {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT `nombre`,`apellido`,`email`, `telefono`,`dni`,`nombreUsuario`, `contrasena` FROM usuario WHERE `baja`=0");
+	 	$query->execute();
+	 	$res=$query->fetchAll();
+	 	$link=cerrarConexion();
+	}else {
+		$res= "error";
+	}
+	return $res;
+}
+
+
+
  
- //SELECT `l.nombre`, `a.nombre`, `a.apellido`, `e.nombre`, `l.precio`, 
- //FROM `carrito` as c 
- //INNER JOIN `carrito_libro` as cl ON c.id_carrito=cl.id_carrito 
- //INNER JOIN `libro` as l ON l.id_libro=cl.id_libro 
- //INNER JOIN `libroautor` as la ON la.id_libro=l.id_libro 
- //INNER JOIN `autor` as a ON a.id_autor=la.id_autor 
- //INNER JOIN `editorial`as e ON e.id_editorial=l.id_editorial 
- //WHERE `c.id_usuario`= :idUsuario
+ /*SELECT `l.nombre`, `a.nombre`, `a.apellido`, `e.nombre`, `l.precio`, 
+ 									FROM carrito as c 
+									 INNER JOIN carrito_libro as cl ON `c.id_carrito`=`cl.id_carrito` 
+									 INNER JOIN libro as l ON `l.id_libro`=`cl.id_libro` 
+									 INNER JOIN libroautor as la ON `la.id_libro`=`l.id_libro` 
+									 INNER JOIN autor as a ON `a.id_autor`=`la.id_autor` 
+									 INNER JOIN editorial as e ON `e.id_editorial`=`l.id_editorial` 
+									 WHERE `c.id_usuario`= :IdUsuario
+
+									  INNER JOIN libro ON id_libro=id_libro 
+									 INNER JOIN libroautor  ON id_libro=id_libro 
+									 INNER JOIN autor  ON id_autor=id_autor 
+									 INNER JOIN editorial  ON id_editorial=id_editorial 
+*/

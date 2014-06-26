@@ -584,7 +584,21 @@ class entidad{
     }
 
     function cargarCarrito(){
-        $idUsuario = $_POST['id_usuario'];
+        $idUsuario = $_POST['idUsuario'];
+       // var_dump($idUsuario);
+        $libros=recuperarLibroCarrito($idUsuario);
+        //print_r($libros);
+        //var_dump($libros);
+            if ( $libros!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($libros as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
+                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
+                    $i++;
+                }
+            } //TENGO QUE VER CÓMO HACER PARA LISTAR LOS LIBROS EN EL INICIO
+            require_once "../vistaCarritoLibro.php";
 
     }
 
@@ -615,6 +629,48 @@ class entidad{
             }
         }
     }
+
+    function mostrarPerfil () {
+        $usuario=$_POST ['id_usuario'];
+        $cliente=obtenerDatosCliente($usuario);
+        require_once ("../vistaPerfil.php");
+    }
+
+    function modificarCliente () {
+        $nombre=$_POST ['nombre'];
+        $apellido=$_POST ['apellido'];
+        $email=$_POST ['email'];
+        $telefono=$_POST ['telefono'];
+        $dni=$_POST ['dni'];
+        $nombreUsuario=$_POST ['nombreUsuario'];
+        $contrasena=$_POST ['contrasena'];
+        $usuario=$_POST ['idUsuario'];
+        $cliente=modificarDatosCliente($nombre,$apellido, $email,   $telefono, $dni, $nombreUsuario, $contrasena, $usuario);
+        $cliente=obtenerDatosCliente($usuario);
+        require_once ("../vistaPerfil.php"); 
+
+    }
+    function cargarUsuario () {
+        $per=$_SESSION['permiso']; 
+        if($per==1){
+            $usuarios=obtenerUsuarios();
+            if ( $usuarios!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($usuarios as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,'telefono' => $key['telefono'] , 'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
+                            'id_usuario' => $key['id_usuario'] );
+                    $i++;
+                }
+            }
+            require_once("../vistaUsuarios.php");
+        }else{
+            require_once "../cookbooks.php";
+        }
+    }
+
+
+
 }
 
 
