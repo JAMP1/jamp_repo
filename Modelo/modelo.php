@@ -301,14 +301,14 @@ function validarAltaAutor($nom){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor) {
+function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $imagen) {
 	// FALTA	insertar la FECHA
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-		$query = $link->prepare("INSERT INTO `libro`(`id_editorial`, `id_etiqueta`, `stock`, `precio`, `isbn`, `cantPag`, `nombre`)
-		 						 VALUES (:Edi, :Eti, :Stock, :Precio, :Isbn, :CantHojas, :Nombre )");
+		$query = $link->prepare("INSERT INTO `libro`(`id_editorial`, `id_etiqueta`, `stock`, `precio`, `isbn`, `cantPag`, `nombre`, `imagen`)
+		 						 VALUES (:Edi, :Eti, :Stock, :Precio, :Isbn, :CantHojas, :Nombre , :Imagen)");
 		$res = $query->execute(array('Nombre' => $nom , 'Edi' => $id_editorial , 'Eti'=> $id_etiqueta , 'Stock'=> $cantLibros ,
-		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas ));
+		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas, 'Imagen'=>$imagen ));
 		//El proximo SELECT es para recuperar el id del libro para el alta en la tabla 'libroautor'
 		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
 		$res2 = $query ->execute(array('Nombre' => $nom));
@@ -549,7 +549,8 @@ function modificarDatosCliente ($nombre, $apellido,  $email, $telefono, $dni,$no
 function obtenerUsuarios() {
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-	 	$query = $link->prepare("SELECT `nombre`,`apellido`,`email`, `telefono`,`dni`,`nombreUsuario`, `contrasena` FROM usuario WHERE `baja`=0");
+	 	$query = $link->prepare("SELECT `id_usuario`, `nombre`,`apellido`,`email`, `telefono`,`dni`,`nombreUsuario`, `contrasena` 
+	 							FROM usuario WHERE `baja`=0");
 	 	$query->execute();
 	 	$res=$query->fetchAll();
 	 	$link=cerrarConexion();
@@ -557,6 +558,32 @@ function obtenerUsuarios() {
 		$res= "error";
 	}
 	return $res;
+}
+function validarAltaUsuario($nom){ 
+	//Realiza una consulta por nombre y otra por isbn pero recuperando los nombres, devuelve un array con ambos mergeados.
+  	$link = conectarBaseDatos();
+  	if($link != "error"){
+  		$query = $link->prepare("SELECT `nombreUsuario` FROM usuario WHERE `nombreUsuario`=:nom");
+  		$res = $query->execute(array('nom' => $nom));
+  		$res=$query->fetchAll();
+  		$link=cerrarConexion();
+  	}else{
+  		$res = "error";
+  	}
+  	return $res;
+}
+
+function eliminarUsuario($idUsuario){
+	$link = conectarBaseDatos();
+	if( $link != "error"){
+		$query= $link ->prepare("UPDATE `usuario` SET `baja`= 1 WHERE id_usuario = :IdUsuario");
+		$query -> execute(array('IdUsuario' => $idUsuario));
+		$query= $link ->prepare("UPDATE `carrito` SET `baja`= 1 WHERE id_usuario = :IdUsuario");
+		$query -> execute(array('IdUsuario' => $idUsuario));
+		$link = cerrarConexion();
+	}else{
+		return "error";
+	}
 }
 
 

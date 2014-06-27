@@ -506,12 +506,18 @@ class entidad{
             $id_editorial=$_POST["id_editorial_libro"];
             $id_etiqueta=$_POST["id_etiqueta_libro"];
             $id_autor=$_POST["id_autor_libro"];
+            //$imagen= $_POST["imagen"];
+            //print_r($_FILES);
+            //echo $imagen;
+            $imagen= $_FILES["image"];
+            echo $imagen;
+            var_dump($imagen);
             $arreglo= validarAltaLibro($nom, $isbn);   
             if((!empty($arreglo))){
                 $existe = 'existe';
                 require_once("../vistaAltaLibro.php");
             }else{
-                $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor);
+                $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $imagen);
                 if ($intento){
                     $libros=obtenerLibros();
                     if ( $libros!="error"){
@@ -621,23 +627,31 @@ class entidad{
         $nombreUsuario= $_POST['nombreusuario'];
         $cliente= recuperarCliente($nombreUsuario);
         if ($cliente!="error"){
-           $nombre= $_POST['nombre'];
-           $apellido= $_POST['apellido'];
-           $dni= $_POST['dni'];
-           $contrasena= $_POST['contrasena'];
-           $telefono= $_POST['telefono'];
-           $email= $_POST['email'];       
-           $intento= altaCliente($nombreUsuario, $nombre, $apellido, $dni,  $email, $telefono,$contrasena);
-           if ($intento){
-                $res = recuperarCliente($nombreUsuario);
-
-                altaCarrito($res[0]['id_usuario']);
-                
-                require_once("../cookbooks.php");
-                //header("Location: ../cookbooks.php");
-                var_dump($res);
-            //else
-                //mensaje de error y que vuelva a vistaRegistrar.php
+            $arreglo= validarAltaUsuario($nombreUsuario);
+            if((!empty($arreglo))){
+                if ($arreglo[0]['nombreUsuario'] == $nombreUsuario){
+                $existe = 'existe';
+                require_once("../vistaRegistrar.php");
+               }
+            }else{
+                $nombre= $_POST['nombre'];
+                $apellido= $_POST['apellido'];
+                $dni= $_POST['dni'];
+                $contrasena= $_POST['contrasena'];
+                $telefono= $_POST['telefono'];
+                $email= $_POST['email'];       
+                $intento= altaCliente($nombreUsuario, $nombre, $apellido, $dni,  $email, $telefono,$contrasena);
+                if ($intento){
+                    $res = recuperarCliente($nombreUsuario);
+                    altaCarrito($res[0]['id_usuario']);
+                    $sePudoAlta = true;
+                    require_once("../vistaRegistrar.php");
+                    //require_once("../cookbooks.php");
+                    //header("Location: ../cookbooks.php");
+                    //var_dump($res);
+                //else
+                    //mensaje de error y que vuelva a vistaRegistrar.php
+                }
             }
         }
     }
@@ -670,7 +684,8 @@ class entidad{
                 $arrayNa = array();
                 $i=0;
                 foreach ($usuarios as $key ) {
-                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,'telefono' => $key['telefono'] , 'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
+                        'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
                             'id_usuario' => $key['id_usuario'] );
                     $i++;
                 }
@@ -678,6 +693,25 @@ class entidad{
             require_once("../vistaUsuarios.php");
         }else{
             require_once "../cookbooks.php";
+        }
+    }
+    function bajaUsuario(){
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $id=$_POST['id_usuario'];
+            $res = eliminarUsuario($id);
+            $usuarios=obtenerUsuarios();
+            if($usuarios!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($usuarios as $key){
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
+                        'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
+                            'id_usuario' => $key['id_usuario'] );
+                    $i++;
+                }
+            }
+            require_once("../vistaUsuarios.php");
         }
     }
 

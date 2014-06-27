@@ -45,38 +45,61 @@
 </nav>
 <div class="row">
 <div class="col-md-12">
-<form method="POST" onSubmit = "return validar()" action="llamadaController.php?action=confirmarAltaLibro&clase=entidad">
+<form method="POST"  onSubmit = "return validar()" action="llamadaController.php?action=confirmarAltaLibro&clase=entidad">
+  <div class="panel panel-info">
   <table class="table table">
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Nombre Libro" name="nom_libro">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon">Nombre Libro</span>
+        <input type="text" class="form-control" name="nom_libro">
+      </div>
+     <!-- <input id="nombre" type="text" placeholder="Nombre Libro" name="nom_libro">-->
       </td>
     </tr>
     <tr>
     <td>
-      <input id="isbn" type="text" placeholder="ISBN" name="isbn_libro">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon">ISBN</span>
+        <input type="text" class="form-control"  name="isbn_libro">
+      </div>
+      <!--<input id="isbn" type="text" placeholder="ISBN" name="isbn_libro">-->
       </td>
     </tr>
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Cantidad de hojas" name="cantHojas_libro"> 
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon">Total de paginas</span>
+        <input type="text" class="form-control"  name="cantHojas_libro">
+      </div>
+    <!--  <input id="nombre" type="text" placeholder="Cantidad de hojas" name="cantHojas_libro"> -->
       </td>
     </tr>
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Cantidad de libros" name="cant_libro">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon">Stock</span>
+        <input type="text" class="form-control"  name="cant_libro">
+      </div>
+      <!--<input id="nombre" type="text" placeholder="Cantidad de libros" name="cant_libro">-->
       </td>
     </tr>
     <tr>
     <td>
-      <input id="nombre" type="text" placeholder="Precio" name="precio_libro">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon">Precio</span>
+        <input type="text" class="form-control"  name="precio_libro">
+      </div>
+    <!--  <input id="nombre" type="text" placeholder="Precio" name="precio_libro">-->
       </td>
     </tr>
     <tr>
     <td>
       <!--<input id="nombre" type="text" placeholder="Editorial" name="editorial_libro"> -->
-      <select name="id_editorial_libro" id="filtroEditorial" >
-                  <option value="">Editorial</option>  
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon">Editorial</span>
+        <select class="form-control" name="id_editorial_libro" id="filtroEditorial" >
+                  <option name="id_editorial_libro" value=""></option>  
                   <?php
                     $arrayNa = obtenerEditoriales();                  
                     foreach ($arrayNa as $key){
@@ -84,46 +107,84 @@
                     }
                   ?>
         </select>
+        <td>
+          <a href="../PORTI/llamadaController.php?action=altaEditorial&clase=entidad">Cargar editorial</a>
+        </td>
+       
+      </div>
+     <!--<select name="id_editorial_libro" id="filtroEditorial" >
+                  <option value="">Editorial</option>  
+                  <?php
+                    //$arrayNa = obtenerEditoriales();                  
+                  //  foreach ($arrayNa as $key){
+                //      echo "<option value=".$key['id_editorial'].">".$key['nombre']."</option>";                      
+              //      }
+                  ?>
+        </select>-->
       </td>
     </tr>
     <tr>
     <td>
       <!--<input id="nombre" type="text" placeholder="Ingrese etiqueta" name="etiqueta_libro">-->
-      <select name="id_etiqueta_libro" id="filtroEtiqueta" >
-                  <option value="">Etiqueta</option>  
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon">Etiqueta</span>
+          <select class="form-control" name="id_etiqueta_libro" id="filtroEtiqueta" >
+                  <option value=""></option>  
                   <?php
                     $arrayNa = obtenerEtiquetas();                  
                     foreach ($arrayNa as $key){
                       echo "<option value=".$key['id_etiqueta'].">".$key['nombre']."</option>";                      
                     }
                   ?>
-        </select>
+          </select>
+          <td>
+            <a href="../PORTI/llamadaController.php?action=altaEtiqueta&clase=entidad">Cargar etiqueta</a>
+            
+          </td>
+       
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <!--<input id="nombre" type="text" placeholder="Autor" name="autor_libro">-->
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon">Autor</span>
+            <select class="form-control" name="id_autor_libro" id="filtroAutor" >
+                    <option value=""></option>  
+                    <?php
+                      $arrayNa = obtenerAutores();                  
+                      foreach ($arrayNa as $key){
+                        echo "<option value=".$key['id_autor'].">".$key['nombre']."</option>";                      
+                      }
+                    ?>
+          </select>
+          <td>
+            <a href="../PORTI/llamadaController.php?action=altaAutor&clase=entidad">Cargar autor</a>
+            
+          </td>
+        </div>
       </td>
     </tr>
     <tr>
     <td>
-      <!--<input id="nombre" type="text" placeholder="Autor" name="autor_libro">-->
-      <select name="id_autor_libro" id="filtroAutor" >
-                  <option value="">Autor</option>  
-                  <?php
-                    $arrayNa = obtenerAutores();                  
-                    foreach ($arrayNa as $key){
-                      echo "<option value=".$key['id_autor'].">".$key['nombre']."</option>";                      
-                    }
-                  ?>
-        </select>
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon">Portada</span>
+        <input type="file" class="form-control" name="imagen">
+
+      </div>
+         <td>
+        <button class="btn btn-info" type="submit">Enviar</button>
       </td>
+     <!-- <input id="campofotografia" name="imagen" type="file">    -->
+    </td>
     </tr>
-
-    </td>
-    <td>
-      <button class="btn btn-info" type="submit">Enviar</button>
-
-    </td>
     </tr>
   </table>
-
+</div>
 </form>
+
+<br>
 <div>
 <?php
   if(isset($existe)){

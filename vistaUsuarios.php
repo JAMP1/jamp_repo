@@ -45,40 +45,46 @@
         <table class="table table-centered">
         <tr>
         <td class="separados"><p>Nombre</p></td>
-        <td class="separados"><p>ISBN</p></td>
-        <td class="separados"><p>Cantidad pag</p></td>
-        <td class="separados"><p>Stock</p></td>
-        <td class="separados"><p>Precio</p></td>
+        <td class="separados"><p>Apellido</p></td>
+        <td class="separados"><p>Email</p></td>
+        <td class="separados"><p>Telefono</p></td>
+        <td class="separados"><p>Numero de documento</p></td>
+        <td class="separados"><p>Nombre de Usuario</p></td>
+        <td class="separados"><p>Modificar Usuario</p></td>        
         <td class="separados"><p>Eliminar Usuario</p></td>
-        <td class="separados"><p>Modificar Usuario</p></td>
         </tr>
         <tr>
-        <?php
-        //var_dump($arrayNa);
-         foreach ($arrayNa as $key){
-          echo  "<td class='separados'><p>".$key["nombre"]."</p></td>
-                <td class='separados'><p>".$key["isbn"]."</p></td>
-                <td class='separados'><p>".$key["cantPag"]."</p></td>
-                <td class='separados'><p>".$key["stock"]."</p></td>
-                <td class='separados'><p>".$key["precio"]."</p></td>
-            <td>
-
-
-            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaUsuario&clase=entidad'>
-            <input name='id_Usuario' type='hidden' value='".$key['id_Usuario']."'/>
-            <input type='submit' class='btn btn-info' value='Eliminar'/>
-            </form>
-            </td>
-            <td class='separados'>
-            <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=modificarUsuario&clase=entidad&nombre=".$key['nombre']."'>
-            <input name='id_Usuario' type='hidden' value='".$key['id_Usuario']."'/>
-            <input type='submit' class='btn btn-info' value='Modificar'/>
-            </form>
-            </td>
-            </tr>";
-        }
-        ?>
-</table>
+          
+            <tr>
+              
+                <?php
+                //var_dump($arrayNa);
+                  foreach ($arrayNa as $key){
+                    echo
+                    " <tr>
+                      <td class='separados'><p>".$key["nombre"]."</p></td>
+                      <td class='separados'><p>".$key["apellido"]."</p></td> 
+                      <td class='separados'><p>".$key["email"]."</p></td>
+                      <td class='separados'><p>".$key["telefono"]."</p></td>
+                      <td class='separados'><p>".$key["dni"]."</p></td>
+                      <td class='separados'><p>".$key["nombreUsuario"]."</p></td>
+                      <td>
+                      <form action='/JAMP/PORTI/llamadaController.php?action=modificarCliente&clase=entidad' method='post'>
+                      <input type='hidden' name= 'idUsuario' value='".$key['id_usuario']."'> 
+                      <button class='btn btn-info' type='submit'>Modificar</button>
+                      </form>
+                      </td>
+                      <td>
+                      <form action='/JAMP/PORTI/llamadaController.php?action=bajaUsuario&clase=entidad' method='post'>
+                      <input type='hidden' name= 'id_usuario' value='".$key['id_usuario']."'> 
+                      <button class='btn btn-info' type='submit'>Eliminar</button>
+                      </form>
+                      </td>
+                      </tr>";
+                  }
+                ?>
+              </form>
+          
 </div>
 </div>
 </body>
