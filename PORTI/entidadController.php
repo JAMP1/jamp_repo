@@ -21,8 +21,7 @@ class entidad{
                             'id_us' => $key['id_etiqueta'] );
                     $i++;
                 }
-            }
-        
+            }        
             require_once("../vistaEtiquetas.php");
         }
     }
@@ -471,9 +470,9 @@ class entidad{
     function modificarLibro () {
         $per=$_SESSION['permiso'];
         $n=$_GET['nombre'];
-        //echo $n;
         if($per==1){
             $id=$_POST['id_libro'];
+            $libro=recuperarLibro($id);
             require_once("../vistaModificarLibro.php");
         }
     }
@@ -506,12 +505,13 @@ class entidad{
             $id_editorial=$_POST["id_editorial_libro"];
             $id_etiqueta=$_POST["id_etiqueta_libro"];
             $id_autor=$_POST["id_autor_libro"];
+            $imagen=true;
             //$imagen= $_POST["imagen"];
             //print_r($_FILES);
             //echo $imagen;
-            $imagen= $_FILES["image"];
-            echo $imagen;
-            var_dump($imagen);
+            //$imagen= $_FILES["image"];
+            //echo $imagen;
+            //var_dump($imagen);
             $arreglo= validarAltaLibro($nom, $isbn);   
             if((!empty($arreglo))){
                 $existe = 'existe';
@@ -549,27 +549,27 @@ class entidad{
             $id_libro=$_POST["id_libro"];
             $arreglo = validarAltaLibro($nom, $isbn);
             if((!empty($arreglo))){
-                if ($arreglo[0]['nombre'] == $nom){
-                $existe = 'existe';
-                require_once("../vistaModificarLibro.php");
-               }
-            }else{
-                $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor);
-                if ($intento){
-                    $libros=obtenerLibros();
-                    if ( $libros!="error"){
-                        $sePudoModificar = true;
-                        $arrayNa = array();
-                        $i=0;
-                        foreach ($libros as $key ) {
-                            $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
-                            $i++;
+                if ($arreglo[0]['id_libro'] != $id_libro){
+                    $existe = 'existe';
+                    require_once("../vistaModificarLibro.php");
+                }else{
+                   $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor);
+                    if ($intento){
+                        $libros=obtenerLibros();
+                        if ( $libros!="error"){
+                            $sePudoModificar = true;
+                            $arrayNa = array();
+                            $i=0;
+                            foreach ($libros as $key ) {
+                                $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
+                                    'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
+                                $i++;
+                            }
+                        require_once("../vistaLibros.php");
                         }
-                    require_once("../vistaLibros.php");
-                    }
-                }  
-            } 
+                    }  
+                }
+            }
         }
     }
     function cargarLibro () {
@@ -605,16 +605,17 @@ class entidad{
         $idUsuario = $_POST['idUsuario'];
        // var_dump($idUsuario);
         $libros=recuperarLibroCarrito($idUsuario);
+
         //print_r($libros);
-        //var_dump($libros);
             if ( $libros!="error"){
                 $arrayNa = array();
                 $i=0;
                 foreach ($libros as $key ) {
-                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
+                    $arrayNa[$i]=array('nombre' => $key[29] , 'isbn' => $key['isbn'], 
                         'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
                     $i++;
                 }
+                //var_dump($arrayNa);
             } //TENGO QUE VER CÓMO HACER PARA LISTAR LOS LIBROS EN EL INICIO
             require_once "../vistaCarritoLibro.php";
 
@@ -640,7 +641,46 @@ class entidad{
                 $contrasena= $_POST['contrasena'];
                 $telefono= $_POST['telefono'];
                 $email= $_POST['email'];       
-                $intento= altaCliente($nombreUsuario, $nombre, $apellido, $dni,  $email, $telefono,$contrasena);
+                $permiso = 2;
+                $intento= altaCliente($nombreUsuario, $nombre, $apellido, $dni,  $email, $telefono,$contrasena, $permiso);
+                if ($intento){
+                    $res = recuperarCliente($nombreUsuario);
+                    altaCarrito($res[0]['id_usuario']);
+                    $sePudoAlta = true;
+                    require_once("../vistaRegistrar.php");
+                    //require_once("../cookbooks.php");
+                    //header("Location: ../cookbooks.php");
+                    //var_dump($res);
+                //else
+                    //mensaje de error y que vuelva a vistaRegistrar.php
+                }
+            }
+        }
+    }
+
+    function registroAdmin(){
+        require_once("../vistaRegistroAdmin.php");
+    }
+
+    function registrarAdministrador () {
+        $nombreUsuario= $_POST['nombreusuario'];
+        $cliente= recuperarCliente($nombreUsuario);
+        if ($cliente!="error"){
+            $arreglo= validarAltaUsuario($nombreUsuario);
+            if((!empty($arreglo))){
+                if ($arreglo[0]['nombreUsuario'] == $nombreUsuario){
+                $existe = 'existe';
+                require_once("../vistaRegistrar.php");
+               }
+            }else{
+                $nombre= $_POST['nombre'];
+                $apellido= $_POST['apellido'];
+                $dni= $_POST['dni'];
+                $contrasena= $_POST['contrasena'];
+                $telefono= $_POST['telefono'];
+                $email= $_POST['email'];       
+                $permiso=1;
+                $intento= altaCliente($nombreUsuario, $nombre, $apellido, $dni,  $email, $telefono,$contrasena, $permiso);
                 if ($intento){
                     $res = recuperarCliente($nombreUsuario);
                     altaCarrito($res[0]['id_usuario']);
@@ -674,8 +714,8 @@ class entidad{
         $cliente=modificarDatosCliente($nombre,$apellido, $email,   $telefono, $dni, $nombreUsuario, $contrasena, $usuario);
         $cliente=obtenerDatosCliente($usuario);
         require_once ("../vistaPerfil.php"); 
-
     }
+
     function cargarUsuario () {
         $per=$_SESSION['permiso']; 
         if($per==1){

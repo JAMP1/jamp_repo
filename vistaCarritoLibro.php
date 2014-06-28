@@ -30,7 +30,9 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
-	<li><a href ="/JAMP/cookbooksUsuario.php">Inicio </a></li>
+    <?php
+	    echo "<li><a href ='/JAMP/cookbooksUsuario.php?id_usuario=".$idUsuario."'>Inicio </a></li>";
+    ?>
     <li class="active"><a href ="#">MI CARRITO </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
@@ -47,34 +49,35 @@
         <td class="separados"><p>Cantidad pag</p></td>
         <td class="separados"><p>Stock</p></td>
         <td class="separados"><p>Precio</p></td>
+        <td class="separados"><p>Cantidad</p></td>
         <td class="separados"><p>Eliminar Libro</p></td>
-        <td class="separados"><p>Modificar Libro</p></td>
         </tr>
         <tr>
         <?php
         //var_dump($arrayNa);
-         foreach ($arrayNa as $key){
-          echo  "<td class='separados'><p>".$key["nombre"]."</p></td>
-                <td class='separados'><p>".$key["isbn"]."</p></td>
-                <td class='separados'><p>".$key["cantPag"]."</p></td>
-                <td class='separados'><p>".$key["stock"]."</p></td>
-                <td class='separados'><p>".$key["precio"]."</p></td>
-            <td>
+          foreach ($arrayNa as $key){
+            echo  " <td class='separados'><p>".$key["nombre"]."</p></td>
+                    <td class='separados'><p>".$key["isbn"]."</p></td>
+                    <td class='separados'><p>".$key["cantPag"]."</p></td>
+                    <td class='separados'><p>".$key["stock"]."</p></td>
+                    <td class='separados'><p>".$key["precio"]."</p></td>                    
+                    <td class='separados'><p><input type='number' min='1' value='1'></p>
+                    </td>
+                    <td>
 
-
-            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaLibro&clase=entidad'>
-            <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
-            <input type='submit' class='btn btn-info' value='Eliminar'/>
-            </form>
-            </td>
-            <td class='separados'>
-            <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=modificarLibro&clase=entidad&nombre=".$key['nombre']."'>
-            <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
-            <input type='submit' class='btn btn-info' value='Modificar'/>
-            </form>
-            </td>
-            </tr>";
-        }
+                    <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaLibro&clase=entidad'>
+                    <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
+                    <input type='submit' class='btn btn-info' value='Eliminar'/>
+                    </form>
+                    </td>
+                    </tr>";
+          }
+          echo "<td class='separados'>
+                <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=comprarLibro&clase=entidad'>
+                <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
+                <input type='submit' class='btn btn-info' value='Comprar'/>
+                </form>
+                </td>";
         ?>
 </table>
 </div>

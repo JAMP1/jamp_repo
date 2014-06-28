@@ -60,6 +60,17 @@
     </div>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div>
+      <?php
+        if(isset($_GET['noUsuario'])){
+          $noUsuario=$_GET['noUsuario'];
+          if($noUsuario==1){
+            echo "<div class='alert alert-danger'>Error! Usuario o Constrasena incorrecto!</div>";
+          }
+        }
+      ?>
+
+    </div>
     <div class="jumbotron">
       <div class="container">
         <h1>Bienvenidos!</h1>
@@ -67,12 +78,15 @@
       </div>
     </div>
 
+
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
         <div>
           <td><?php cargarLosPutosLibros()  ?></td>
           <?php
+      
+          
             function cargarLosPutosLibros(){
 
               $link = conectarBaseDeDatos();

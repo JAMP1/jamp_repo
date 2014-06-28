@@ -44,7 +44,7 @@
             <ul class="nav navbar-nav navbar-right">
           <?php 
             //echo $_COOKIE["IdCookie"];
-            $idUsuario = $_GET['id_usuario'];
+            $idUsuario = $_POST['id_usuario'];
             //<a><span class='label label-info'>MI CARRITO</span></a>
 //<a href='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'><span class='label label-info'>MI CARRITO </span></a>
             echo "<form method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>

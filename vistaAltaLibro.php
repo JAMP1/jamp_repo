@@ -45,14 +45,14 @@
 </nav>
 <div class="row">
 <div class="col-md-12">
-<form method="POST"  onSubmit = "return validar()" action="llamadaController.php?action=confirmarAltaLibro&clase=entidad">
+<form method="POST"  onSubmit = "return validaLibro()" action="llamadaController.php?action=confirmarAltaLibro&clase=entidad">
   <div class="panel panel-info">
   <table class="table table">
     <tr>
     <td>
       <div class="input-group input-group-lg">
         <span class="input-group-addon">Nombre Libro</span>
-        <input type="text" class="form-control" name="nom_libro">
+        <input type="text" class="form-control" name="nom_libro" id="nom_libro" required="required">
       </div>
      <!-- <input id="nombre" type="text" placeholder="Nombre Libro" name="nom_libro">-->
       </td>
@@ -61,7 +61,7 @@
     <td>
       <div class="input-group input-group-lg">
         <span class="input-group-addon">ISBN</span>
-        <input type="text" class="form-control"  name="isbn_libro">
+        <input type="text" class="form-control"  name="isbn_libro" id="isbn_libro" required="required">
       </div>
       <!--<input id="isbn" type="text" placeholder="ISBN" name="isbn_libro">-->
       </td>
@@ -70,7 +70,7 @@
     <td>
       <div class="input-group input-group-lg">
         <span class="input-group-addon">Total de paginas</span>
-        <input type="text" class="form-control"  name="cantHojas_libro">
+        <input type="text" class="form-control"  name="cantHojas_libro" id="cantHojas_libro" required="required">
       </div>
     <!--  <input id="nombre" type="text" placeholder="Cantidad de hojas" name="cantHojas_libro"> -->
       </td>
@@ -79,7 +79,7 @@
     <td>
       <div class="input-group input-group-lg">
         <span class="input-group-addon">Stock</span>
-        <input type="text" class="form-control"  name="cant_libro">
+        <input type="text" class="form-control"  name="cant_libro" id="cant_libro" required="required">
       </div>
       <!--<input id="nombre" type="text" placeholder="Cantidad de libros" name="cant_libro">-->
       </td>
@@ -88,7 +88,7 @@
     <td>
       <div class="input-group input-group-lg">
         <span class="input-group-addon">Precio</span>
-        <input type="text" class="form-control"  name="precio_libro">
+        <input type="text" class="form-control"  name="precio_libro" id="precio_libro" required="required">
       </div>
     <!--  <input id="nombre" type="text" placeholder="Precio" name="precio_libro">-->
       </td>
@@ -98,8 +98,8 @@
       <!--<input id="nombre" type="text" placeholder="Editorial" name="editorial_libro"> -->
       <div class="input-group input-group-lg">
         <span class="input-group-addon">Editorial</span>
-        <select class="form-control" name="id_editorial_libro" id="filtroEditorial" >
-                  <option name="id_editorial_libro" value=""></option>  
+        <select class="form-control" name="id_editorial_libro" id="filtroEditorial" required="required" >
+                  <option name="id_editorial_libro" value="" ></option>  
                   <?php
                     $arrayNa = obtenerEditoriales();                  
                     foreach ($arrayNa as $key){
@@ -112,15 +112,6 @@
         </td>
        
       </div>
-     <!--<select name="id_editorial_libro" id="filtroEditorial" >
-                  <option value="">Editorial</option>  
-                  <?php
-                    //$arrayNa = obtenerEditoriales();                  
-                  //  foreach ($arrayNa as $key){
-                //      echo "<option value=".$key['id_editorial'].">".$key['nombre']."</option>";                      
-              //      }
-                  ?>
-        </select>-->
       </td>
     </tr>
     <tr>
@@ -128,7 +119,7 @@
       <!--<input id="nombre" type="text" placeholder="Ingrese etiqueta" name="etiqueta_libro">-->
       <div class="input-group input-group-lg">
         <span class="input-group-addon">Etiqueta</span>
-          <select class="form-control" name="id_etiqueta_libro" id="filtroEtiqueta" >
+          <select class="form-control" name="id_etiqueta_libro" id="filtroEtiqueta" required="required" >
                   <option value=""></option>  
                   <?php
                     $arrayNa = obtenerEtiquetas();                  
@@ -150,7 +141,7 @@
         <!--<input id="nombre" type="text" placeholder="Autor" name="autor_libro">-->
         <div class="input-group input-group-lg">
           <span class="input-group-addon">Autor</span>
-            <select class="form-control" name="id_autor_libro" id="filtroAutor" >
+            <select class="form-control" name="id_autor_libro" id="filtroAutor" required="required" >
                     <option value=""></option>  
                     <?php
                       $arrayNa = obtenerAutores();                  

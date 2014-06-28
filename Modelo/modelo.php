@@ -305,10 +305,11 @@ function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editor
 	// FALTA	insertar la FECHA
 	$link = conectarBaseDatos();
 	if ($link != "error"){
+		$imagen = 1;
 		$query = $link->prepare("INSERT INTO `libro`(`id_editorial`, `id_etiqueta`, `stock`, `precio`, `isbn`, `cantPag`, `nombre`, `imagen`)
-		 						 VALUES (:Edi, :Eti, :Stock, :Precio, :Isbn, :CantHojas, :Nombre , :Imagen)");
+		 						 VALUES (:Edi, :Eti, :Stock, :Precio, :Isbn, :CantHojas, :Nombre, :Imagen)");
 		$res = $query->execute(array('Nombre' => $nom , 'Edi' => $id_editorial , 'Eti'=> $id_etiqueta , 'Stock'=> $cantLibros ,
-		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas, 'Imagen'=>$imagen ));
+		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas, 'Imagen'=>$imagen));
 		//El proximo SELECT es para recuperar el id del libro para el alta en la tabla 'libroautor'
 		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
 		$res2 = $query ->execute(array('Nombre' => $nom));
@@ -361,47 +362,19 @@ function modificarLibroAutor($res2, $id_autor){
 		$link=cerrarConexion();
 	}
 }
-/*function recuperarIdEtiqueta($nom){
-	$link = conectarBaseDatos();
-	if($link != "error"){
-		$query = $link-> prepare("SELECT `id_etiqueta` FROM etiqueta WHERE `nombre` = :nom");
-		$res= $query-> execute(array('nom' => $nom));
-		$res= $query-> fetchAll();
-		$link= cerrarConexion();
-	}else{
-		$res = "error";
-	}
-	return $res;
-}
-
-function recuperarIdEditorial($nom){
-	$link = conectarBaseDatos();
-	if($link != "error"){
-		$query = $link-> prepare("SELECT `id_editorial` FROM editorial WHERE `nombre` = :nom");
-		$res= $query-> execute(array('nom' => $nom));
-		$res= $query-> fetchAll();
-		$link= cerrarConexion();
-	}else{
-		$res = "error";
-	}
-	return $res;
-}*/
 
 function validarAltaLibro($nom, $isbn){ 
 	//Realiza una consulta por nombre y otra por isbn pero recuperando los nombres, devuelve un array con ambos mergeados.
   	$link = conectarBaseDatos();
   	if($link != "error"){
-  		$query = $link->prepare("SELECT `nombre` FROM libro WHERE `nombre`=:nom");
-  		$res = $query->execute(array('nom' => $nom));
+  		$query = $link->prepare("SELECT `nombre` `id_libro` FROM libro WHERE `nombre`=:nom OR `isbn` =:isbn ");
+  		$res = $query->execute(array('nom' => $nom, 'isbn'=> $isbn));
   		$res=$query->fetchAll();
-  		$query = $link->prepare("SELECT `isbn` FROM libro WHERE `isbn` =:isbn ");
-  		$res2 = $query -> execute(array('isbn' => $isbn ));
-  		$res2 = $query->fetchAll();
   		$link=cerrarConexion();
   	}else{
   		$res = "error";
   	}
-  	return array_merge($res, $res2);
+  	return $res;
 }
 
 function obtenerLibrosBorrados(){
@@ -467,12 +440,25 @@ function recuperarCliente($nombreUsuario){
 	return $res;
 }
 
-function altaCliente ($nombreUsuario, $nom, $apellido, $telefono, $email, $dni, $contrasena ){
+function recuperarLibro($idLibro){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT * FROM libro WHERE `id_libro`=:IdLibro");
+	 	$query->execute(array('IdLibro' => $idLibro));
+	 	$res=$query->fetchAll();
+	 	$link=cerrarConexion();
+	}else {
+		$res= "error";
+	}
+	return $res;
+}
+
+function altaCliente ($nombreUsuario, $nom, $apellido, $telefono, $email, $dni, $contrasena, $permiso ){
 	$link= conectarBaseDatos();
 	if ($link != "error"){
 		$query = $link -> prepare("INSERT INTO `usuario`(`id_permiso`,`nombreUsuario`, `nombre` , `apellido` , `telefono` , `email` , `dni` , `contrasena`)
 									VALUES (:IdPermiso, :NombreUsuario, :Nombre, :Apellido, :Telefono, :Email, :Dni, :Contrasena)");
-		$res = $query -> execute(array('IdPermiso'=> 2, 'NombreUsuario' => $nombreUsuario , 'Nombre' => $nom , 'Apellido' => $apellido , 
+		$res = $query -> execute(array('IdPermiso'=> $permiso, 'NombreUsuario' => $nombreUsuario , 'Nombre' => $nom , 'Apellido' => $apellido , 
 										'Telefono' => $telefono , 'Email' => $email , 'Dni' => $dni , 'Contrasena' => $contrasena ));
 		$link=cerrarConexion();
 		return $res;

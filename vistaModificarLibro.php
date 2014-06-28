@@ -41,8 +41,166 @@
       </div>
     </nav><br>
       <div class="row">
+        <?php
+          if(isset($existe)){
+                  echo "<div class='alert alert-danger'>Error! Ya existe el libro ingresado, busque en la lista o en los borrados</div>";
+                }
+        ?>
         <div class="col-md-12">
-          <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionLibro&clase=entidad" onSubmit="return validar()">
+          <form method="POST"  onSubmit = "return validaLibro()" action="llamadaController.php?action=confirmarModificacionLibro&clase=entidad">
+            <div class="panel panel-info">
+            <table class="table table">
+              <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Nombre Libro</span>
+                  <?php
+                    echo "
+                    <input type='text' class='form-control' value='".$libro[0]['nombre']."' 
+                    name='nom_libro' id='nom_libro' required='required'>";
+                  ?>
+                </div>
+               <!-- <input id="nombre" type="text" placeholder="Nombre Libro" name="nom_libro">-->
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-addon">ISBN</span>
+                    <?php
+                    echo "
+                      <input type='text' class='form-control'  value='".$libro[0]['isbn']."'
+                      name='isbn_libro' id='isbn_libro' required='required'>";
+                    ?>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Total de paginas</span>
+                  <?php
+                  echo" 
+                  <input type='text' class='form-control'  value='".$libro[0]['cantPag']."'
+                  name='cantHojas_libro' id='cantHojas_libro' required='required'>";
+                  ?>
+                </div>
+                </td>
+              </tr>
+              <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Stock</span>
+                  <?php
+                  echo "
+                  <input type='text' class='form-control'  value='".$libro[0]['stock']."'
+                  name='cant_libro' id='cant_libro' required='required'>";
+                  ?>
+                </div>
+                <!--<input id="nombre" type="text" placeholder="Cantidad de libros" name="cant_libro">-->
+                </td>
+              </tr>
+              <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Precio</span>
+                  <?php
+                  echo "
+                  <input type='text' class='form-control'  value='".$libro[0]['precio']."'
+                  name='precio_libro' id='precio_libro' required='required'>";
+                  ?>
+                </div>
+              <!--  <input id="nombre" type="text" placeholder="Precio" name="precio_libro">-->
+                </td>
+              </tr>
+              <tr>
+              <td>
+                <!--<input id="nombre" type="text" placeholder="Editorial" name="editorial_libro"> -->
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Editorial</span>
+                  <select class="form-control" name="id_editorial_libro" id="filtroEditorial" required="required" >
+                            <option name="id_editorial_libro" value="" ></option>  
+                            <?php
+                              $arrayNa = obtenerEditoriales();                  
+                              foreach ($arrayNa as $key){
+                                echo "<option value=".$key['id_editorial'].">".$key['nombre']."</option>";                      
+                              }
+                            ?>
+                  </select>
+                  <td>
+                    <a href="../PORTI/llamadaController.php?action=altaEditorial&clase=entidad">Cargar editorial</a>
+                  </td>
+                 
+                </div>
+                </td>
+              </tr>
+              <tr>
+              <td>
+                <!--<input id="nombre" type="text" placeholder="Ingrese etiqueta" name="etiqueta_libro">-->
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Etiqueta</span>
+                    <select class="form-control" name="id_etiqueta_libro" id="filtroEtiqueta" required="required" >
+                            <option value=""></option>  
+                            <?php
+                              $arrayNa = obtenerEtiquetas();                  
+                              foreach ($arrayNa as $key){
+                                echo "<option value=".$key['id_etiqueta'].">".$key['nombre']."</option>";                      
+                              }
+                            ?>
+                    </select>
+                    <td>
+                      <a href="../PORTI/llamadaController.php?action=altaEtiqueta&clase=entidad">Cargar etiqueta</a>
+                      
+                    </td>
+                 
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <!--<input id="nombre" type="text" placeholder="Autor" name="autor_libro">-->
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-addon">Autor</span>
+                      <select class="form-control" name="id_autor_libro" id="filtroAutor" required="required" >
+                              <option value=""></option>  
+                              <?php
+                                $arrayNa = obtenerAutores();                  
+                                foreach ($arrayNa as $key){
+                                  echo "<option value=".$key['id_autor'].">".$key['nombre']."</option>";                      
+                                }
+                              ?>
+                    </select>
+                    <td>
+                      <a href="../PORTI/llamadaController.php?action=altaAutor&clase=entidad">Cargar autor</a>                      
+                    </td>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-addon">Portada</span>
+                      <input type="file" class="form-control" name="imagen">
+                  </div>
+                <td>
+                  <button class="btn btn-info" type="submit">Modificar</button>
+                </td>
+              </td>
+              </tr>
+              <tr>
+                <td>
+                  <?php
+                    if(isset($id)){
+                      echo "<input name='id_libro' type='hidden' value='".$id."'/>";
+                    }
+                  ?>
+                </td>
+              </tr>
+              </tr>
+            </table>
+          </div>
+        </form>
+        <!--  <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionLibro&clase=entidad" onSubmit="return validar()">
             <table class="table table">
               <tr>
                 <td>
@@ -74,10 +232,10 @@
                   <select name="id_editorial_libro" id="filtroEditorial" >
                     <option value="">Editorial</option>  
                       <?php
-                        $arrayNa = obtenerEditoriales();                  
-                        foreach ($arrayNa as $key){
-                          echo "<option value=".$key['id_editorial'].">".$key['nombre']."</option>";                      
-                        }
+                    //    $arrayNa = obtenerEditoriales();                  
+                      //  foreach ($arrayNa as $key){
+                    //      echo "<option value=".$key['id_editorial'].">".$key['nombre']."</option>";                      
+                      //  }
                       ?>
                   </select>
                 </td>
@@ -87,10 +245,10 @@
                   <select name="id_etiqueta_libro" id="filtroEtiqueta" >
                       <option value="">Etiqueta</option>  
                       <?php
-                        $arrayNa = obtenerEtiquetas();                  
-                        foreach ($arrayNa as $key){
-                          echo "<option value=".$key['id_etiqueta'].">".$key['nombre']."</option>";                      
-                        }
+               //         $arrayNa = obtenerEtiquetas();                  
+                 //       foreach ($arrayNa as $key){
+                   //       echo "<option value=".$key['id_etiqueta'].">".$key['nombre']."</option>";                      
+                     //   }
                       ?>
                   </select>
                 </td>
@@ -100,10 +258,10 @@
                   <select name="id_autor_libro" id="filtroAutor" >
                       <option value="">Autor</option>  
                       <?php
-                        $arrayNa = obtenerAutores();                  
-                        foreach ($arrayNa as $key){
-                          echo "<option value=".$key['id_autor'].">".$key['nombre']."</option>";                      
-                        }
+      //                  $arrayNa = obtenerAutores();                  
+        //                foreach ($arrayNa as $key){
+          //                echo "<option value=".$key['id_autor'].">".$key['nombre']."</option>";                      
+            //            }
                       ?>
                   </select>
                 </td>
@@ -111,26 +269,26 @@
               <tr>
                 <td>
                   <?php
-                    if(isset($id)){
-                      echo "<input name='id_libro' type='hidden' value='".$id."'/>";
-                    }
+    //                if(isset($id)){
+      //                echo "<input name='id_libro' type='hidden' value='".$id."'/>";
+        //            }
                   ?>
                 </td>
               </tr>
             </table>
-        <!-- falta poner los demás inputs para toooodos los campos que tiene el libro -->
+        
             <?php
               //if(isset($id)){
                 //echo "<input name='id_libro' type='hidden' value='".$id."'/>";
               //}else{
-                if(isset($existe)){
-                  echo "<div class='alert alert-danger'>Error! Ya existe el libro ingresado, busque en la lista o en los borrados</div>";
+        //        if(isset($existe)){
+          //        echo "<div class='alert alert-danger'>Error! Ya existe el libro ingresado, busque en la lista o en los borrados</div>";
                   //echo "<h4>Ya existe el nombre ingresado, busque en la lista o en los borrados</h4>";
-                }
+            //    }
               //}
             ?>
             <input type="submit" class="btn btn-info" value="Modificar"/>
-          </form>
+          </form>-->
           <a href="llamadaController.php?action=cargarLibro&clase=entidad">Volver</a>
         </div>
       </div>

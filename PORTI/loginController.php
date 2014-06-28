@@ -14,9 +14,6 @@
 					$_SESSION['usuario']=$prueba['nombreUsuario'];
 					$idUsuario = $prueba['id_usuario'];
 					setcookie("IdCookie", $idUsuario);
-
-					
-
 					if($prueba['id_permiso'] == 1) {// permiso=1 es Admin, distinto de 1 usuario
 						$_SESSION['permiso']=1;	
 						require_once("../ADMIN/cookBooksAdmin.php");
@@ -30,8 +27,12 @@
 						}						
 					}
 				}
-				else
-					echo "no existe un usuario asi en la bd";
+				else{
+					$noUsuario=true;
+					//require_once("../cookbooks.php");
+					header("Location: /JAMP/cookbooks.php?noUsuario=".$noUsuario."");
+			//		echo "no existe un usuario asi en la bd";
+				}
 			}
 			else 
 	 			echo "no anda la conexion a la base de datos";

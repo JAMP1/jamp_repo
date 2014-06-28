@@ -32,7 +32,8 @@
   <ul class="nav navbar-nav">
 	<li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
     <li class="active"><a href ="#">Administrar Usuarios </a></li>
-    <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaUsuario&clase=entidad">Alta Usuario </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=registrarme&clase=entidad">Alta Usuario </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=registroAdmin&clase=entidad">Alta Administrador </a></li>
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosUsuario&clase=entidad">Usuarios Borrados </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
@@ -49,8 +50,7 @@
         <td class="separados"><p>Email</p></td>
         <td class="separados"><p>Telefono</p></td>
         <td class="separados"><p>Numero de documento</p></td>
-        <td class="separados"><p>Nombre de Usuario</p></td>
-        <td class="separados"><p>Modificar Usuario</p></td>        
+        <td class="separados"><p>Nombre de Usuario</p></td>       
         <td class="separados"><p>Eliminar Usuario</p></td>
         </tr>
         <tr>
@@ -68,12 +68,7 @@
                       <td class='separados'><p>".$key["telefono"]."</p></td>
                       <td class='separados'><p>".$key["dni"]."</p></td>
                       <td class='separados'><p>".$key["nombreUsuario"]."</p></td>
-                      <td>
-                      <form action='/JAMP/PORTI/llamadaController.php?action=modificarCliente&clase=entidad' method='post'>
-                      <input type='hidden' name= 'idUsuario' value='".$key['id_usuario']."'> 
-                      <button class='btn btn-info' type='submit'>Modificar</button>
-                      </form>
-                      </td>
+                      
                       <td>
                       <form action='/JAMP/PORTI/llamadaController.php?action=bajaUsuario&clase=entidad' method='post'>
                       <input type='hidden' name= 'id_usuario' value='".$key['id_usuario']."'> 
