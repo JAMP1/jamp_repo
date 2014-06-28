@@ -45,24 +45,18 @@
           <?php 
             //echo $_COOKIE["IdCookie"];
             $idUsuario = $_GET['id_usuario'];
-            //<a><span class='label label-info'>MI CARRITO</span></a>
-//<a href='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'><span class='label label-info'>MI CARRITO </span></a>
             echo "<form method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
                   <input name='idUsuario' type='hidden' value='".$idUsuario."'/>
                   
                   <input type='submit' class='btn btn-info' value='MI CARRITO'/>";
             
           ?>
-          <!--    <a href="/JAMP/PORTI/llamadaController.php?action=registrarme&clase=entidad"><span class="label label-info">MI CARRITO </span></a>
-              -->
             </ul>
           </div>
 
           <div>
         <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
-            <!--<div class="form-group">
-              <input type="text" id="username" placeholder="Usuario" class="form-control" placeholder="Usuario" name="username" value="" required="required" />
-            </div>-->
+
             <div class="form-group">
               <ul class="nav navbar-nav navbar-right">
             <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -70,8 +64,10 @@
            </div>
 
           </form>
-           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfil&clase=entidad">
-            <input type="hidden" name="id_usuario" value=<?php echo $idUsuario?>>
+           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfil&clase=entidad&id_usuario"=<?php echo $idUsuario?>>
+            <?php
+            echo "<input type='hidden' name='id_usuario' value=".$idUsuario."'>";
+            ?>
             <button type="submit">Mi perfil </button>
           </form>
         </div>
@@ -82,6 +78,11 @@
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
+      <?php
+        if(isset($sePudoModificarUsuario)){
+              echo "<div class='alert alert-success'>Se ha logrado modificar su informacion exitosamente!</div>";
+        }
+      ?>
       <div class="container">
         <h1>Bienvenidos!</h1>
         <p>Esto es un texto de prueba para ver como se ve nuestra página!</p>
@@ -96,6 +97,7 @@
         <div>
           <td><?php cargarLosPutosLibros()  ?></td>
           <?php
+
             function cargarLosPutosLibros(){
 
               $link = conectarBaseDeDatos();

@@ -30,10 +30,11 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
-	<li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
-    <li class="active"><a href ="#">Administrar Usuarios </a></li>
-    <li><a href ="/JAMP/PORTI/llamadaController.php?action=registroAdmin&clase=entidad">Alta Usuario </a></li>
-    <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosUsuario&clase=entidad">Usuarios Borrados </a></li>
+  <li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
+    <li><a href ="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad">Administrar Usuarios </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=registrarme&clase=entidad">Alta Usuario </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=registroAdmin&clase=entidad">Alta Administrador </a></li>
+    <li class= "active"><a href ="#">Usuarios Borrados </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -69,9 +70,9 @@
                       <td class='separados'><p>".$key["nombreUsuario"]."</p></td>
                       
                       <td>
-                      <form action='/JAMP/PORTI/llamadaController.php?action=bajaUsuario&clase=entidad' method='post'>
+                      <form action='/JAMP/PORTI/llamadaController.php?action=agregarBorradoUsuario&clase=entidad' method='post'>
                       <input type='hidden' name= 'id_usuario' value='".$key['id_usuario']."'> 
-                      <button class='btn btn-info' type='submit'>Eliminar</button>
+                      <button class='btn btn-info' type='submit'>Agregar</button>
                       </form>
                       </td>
                       </tr>";

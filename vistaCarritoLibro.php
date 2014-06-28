@@ -74,7 +74,7 @@
           }
           echo "<td class='separados'>
                 <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=comprarLibro&clase=entidad'>
-                <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
+                <input name='id_libro' type='hidden' value=' '/>
                 <input type='submit' class='btn btn-info' value='Comprar'/>
                 </form>
                 </td>";

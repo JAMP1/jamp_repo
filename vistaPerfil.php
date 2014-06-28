@@ -42,6 +42,7 @@
             <li><a class="active" href="#"> Libros</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
+
           <?php 
             //echo $_COOKIE["IdCookie"];
             $idUsuario = $_POST['id_usuario'];
@@ -49,7 +50,6 @@
 //<a href='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'><span class='label label-info'>MI CARRITO </span></a>
             echo "<form method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
                   <input name='idUsuario' type='hidden' value='".$idUsuario."'/>
-                  
                   <input type='submit' class='btn btn-info' value='MI CARRITO'/>";
             
           ?>
@@ -77,50 +77,79 @@
         </div><!--/.navbar-collapse -->
       </div>
     </div>
-  <body>
-    <?php
-
-      echo
-      "<table class='table table-centered'>
-        <tr>
-        <td>Nombre</td>
-        <td>Apellido</td>
-        <td>Email</td>
-        <td>Telefono</td>
-        <td>Numero de documento</td>
-        <td>Nombre de Usuario</td>
-        <td>password</td>
-        </tr>
-        <tr>
-         <form action='/JAMP/PORTI/llamadaController.php?action=modificarCliente&clase=entidad' method='post'>
-        <td>
-        <input type='text' name='nombre' value= '".$cliente['nombre']."'>
-        </td>
-        <td>
-        <input type='text' name= 'apellido' value='".$cliente['apellido']."'>
-        </td>
-        <td>
-        <input type='email' name= 'email' value='".$cliente['email']."'>
-        </td>
-        <td>
-        <input type='text' name='telefono' value='".$cliente['telefono']."'>
-        </td>
-        <td>
-        <input type='text' name='dni' value='".$cliente['dni']."'>
-        </td>
-        <td>
-        <input type='text' name= 'nombreUsuario'value= '".$cliente['nombreUsuario']."'>
-        </td>
-        <td>
-        <input type='password' name= 'contrasena' value= '".$cliente['contrasena']."' >
-        </td>
-        </tr>
-        </table>
-        <input type='hidden' name= 'idUsuario' value='".$usuario."'> 
-        <button class='btn btn-info' type='submit'>Modificar</button>
-        </form>";
-
-      ?>
-
+  <body>    
+      <?php
+      echo"
+          <form onSubmit='return validaUsuario()' action='/JAMP/PORTI/llamadaController.php?action=modificarCliente&clase=entidad' method='post'>
+                <div class='panel panel-info'>
+                <table class='table table'>
+                  <tr>
+                  <td>
+                    <div class='input-group input-group-lg'>
+                      <span class='input-group-addon'>Nombre</span>
+                      <input type='text' class='form-control' name='nombre' id='nombre' required='required' value= '".$cliente['nombre']."'>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td>
+                    <div class='input-group input-group-lg'>
+                      <span class='input-group-addon'>Apellido</span>
+                      <input type='text' class='form-control'  name='apellido' id='apellido' required='required' value='".$cliente['apellido']."'>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td>
+                    <div class='input-group input-group-lg'>
+                      <span class='input-group-addon'>Email</span>
+                      <input type='email' class='form-control'  name='email' required='required' value='".$cliente['email']."'>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td>
+                    <div class='input-group input-group-lg'>
+                      <span class='input-group-addon'>Telefono</span>
+                      <input type='text' class='form-control'  name='telefono' id='telefono' required='required' value='".$cliente['telefono']."'>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td>
+                    <div class='input-group input-group-lg'>
+                      <span class='input-group-addon'>DNI</span>
+                      <input type='text' class='form-control'  name='dni' id='dni' required='required' value='".$cliente['dni']."'>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td>
+                    <div class='input-group input-group-lg'>
+                      <span class='input-group-addon'>Usuario</span>
+                      <input type='text' class='form-control'  name='nombreUsuario' id='nombreUsuario' required='required' value= '".$cliente['nombreUsuario']."'> 
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td>
+                    <div class='input-group input-group-lg'>
+                      <span class='input-group-addon'>Contrasena</span>
+                      <input type='password' class='form-control'  name='contrasena' required='required' value= '".$cliente['contrasena']."'>        
+                      </div>
+                    </td>
+                  </tr>    
+                  <tr>
+                    <td>
+                      <input type='hidden' name= 'id_usuario' value='".$idUsuario."'> 
+                      <button class='btn btn-info' type='submit'>Modificar</button>
+                    </td>
+                  </td>
+                  </tr>
+                  </tr>
+                </table>
+              </div>
+          </form>";
+        ?>
     </body>
 

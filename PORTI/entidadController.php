@@ -553,7 +553,7 @@ class entidad{
                     $existe = 'existe';
                     require_once("../vistaModificarLibro.php");
                 }else{
-                   $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor);
+                    $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor);
                     if ($intento){
                         $libros=obtenerLibros();
                         if ( $libros!="error"){
@@ -605,7 +605,7 @@ class entidad{
         $idUsuario = $_POST['idUsuario'];
        // var_dump($idUsuario);
         $libros=recuperarLibroCarrito($idUsuario);
-
+        if (count($libros)> 0){
         //print_r($libros);
             if ( $libros!="error"){
                 $arrayNa = array();
@@ -617,8 +617,11 @@ class entidad{
                 }
                 //var_dump($arrayNa);
             } //TENGO QUE VER CÓMO HACER PARA LISTAR LOS LIBROS EN EL INICIO
+        }
+    else {
+        $arrayNa=array();
+    }
             require_once "../vistaCarritoLibro.php";
-
     }
 
     function registrarme () {
@@ -679,7 +682,7 @@ class entidad{
                 $contrasena= $_POST['contrasena'];
                 $telefono= $_POST['telefono'];
                 $email= $_POST['email'];       
-                $permiso=1;
+                $permiso= $_POST['id_permiso'];
                 $intento= altaCliente($nombreUsuario, $nombre, $apellido, $dni,  $email, $telefono,$contrasena, $permiso);
                 if ($intento){
                     $res = recuperarCliente($nombreUsuario);
@@ -697,8 +700,10 @@ class entidad{
     }
 
     function mostrarPerfil () {
-        $usuario=$_POST ['id_usuario'];
-        $cliente=obtenerDatosCliente($usuario);
+        $id_usuario=$_POST ['id_usuario'];
+        $cliente=obtenerDatosCliente($id_usuario);
+        var_dump($cliente);
+        var_dump($id_usuario);
         require_once ("../vistaPerfil.php");
     }
 
@@ -710,10 +715,11 @@ class entidad{
         $dni=$_POST ['dni'];
         $nombreUsuario=$_POST ['nombreUsuario'];
         $contrasena=$_POST ['contrasena'];
-        $usuario=$_POST ['idUsuario'];
-        $cliente=modificarDatosCliente($nombre,$apellido, $email,   $telefono, $dni, $nombreUsuario, $contrasena, $usuario);
-        $cliente=obtenerDatosCliente($usuario);
-        require_once ("../vistaPerfil.php"); 
+        $idUsuario=$_POST ['id_usuario'];
+        $cliente=modificarDatosCliente($nombre,$apellido, $email,   $telefono, $dni, $nombreUsuario, $contrasena, $idUsuario);
+        $cliente=obtenerDatosCliente($idUsuario);
+        $sePudoModificarUsuario=true;
+        require_once ("../cookbooksUsuario.php"); 
     }
 
     function cargarUsuario () {
@@ -752,6 +758,49 @@ class entidad{
                 }
             }
             require_once("../vistaUsuarios.php");
+        }
+    }
+
+    function borradosUsuario () {
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $etiquetas=obtenerUsuariosBorrados();
+
+                if ( $etiquetas!="error"){
+                    $arrayNa = array();
+                    $i=0;
+                    foreach ($etiquetas as $key ) {
+                        $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
+                        'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
+                            'id_usuario' => $key['id_usuario'] );
+                        $i++;
+            
+                    }
+                }
+            require_once("../vistaUsuariosBorrados.php");
+        }else{
+            //ir al login
+        }
+    }
+    function agregarBorradoUsuario (){
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $id=$_POST['id_usuario'];
+            $borrar=agregarBorradoUsuario($id);
+            $usuarios=obtenerUsuarios();
+            if ( $usuarios!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($usuarios as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
+                        'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
+                            'id_usuario' => $key['id_usuario'] );
+                    $i++;
+                }
+            }
+            require_once("../vistaUsuarios.php");
+        }else{
+            require_once "../cookbooks.php";
         }
     }
 

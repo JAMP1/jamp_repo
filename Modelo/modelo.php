@@ -572,6 +572,31 @@ function eliminarUsuario($idUsuario){
 	}
 }
 
+function obtenerUsuariosBorrados(){
+  	$link = conectarBaseDatos();
+  	if ($link != "error"){
+  		$query = $link->prepare("SELECT `id_usuario`, `nombre`,`apellido`,`email`, `telefono`,`dni`,`nombreUsuario`, `contrasena` 
+	 							FROM usuario WHERE `baja`=1");
+  		$query->execute();
+  		$res=$query->fetchAll();
+  		$link=cerrarConexion();  	
+  	}else {
+  		$res= "error";
+  	}
+  	return $res;
+}
+function agregarBorradoUsuario($id) {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+		$query = $link->prepare("UPDATE `usuario` SET `baja`= 0 WHERE `id_usuario`= :Id");
+		$res = $query->execute(array('Id' => $id));
+		$link=cerrarConexion();
+	}else {
+		$res= "error";
+	}
+	return $res;
+}
+
 
 
  

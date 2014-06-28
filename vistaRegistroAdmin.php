@@ -71,7 +71,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Nombre</span>
-            <input type="text" class="form-control" name="nombre">
+            <input type="text" class="form-control" name="nombre" required="required">
           </div>
           </td>
         </tr>
@@ -79,7 +79,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Apellido</span>
-            <input type="text" class="form-control"  name="apellido">
+            <input type="text" class="form-control"  name="apellido" required="required">
           </div>
           </td>
         </tr>
@@ -87,7 +87,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Email</span>
-            <input type="text" class="form-control"  name="email">
+            <input type="email" class="form-control"  name="email" required="required">
           </div>
           </td>
         </tr>
@@ -95,7 +95,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Telefono</span>
-            <input type="text" class="form-control"  name="telefono">
+            <input type="text" class="form-control"  name="telefono" required="required">
           </div>
           </td>
         </tr>
@@ -103,7 +103,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">DNI</span>
-            <input type="text" class="form-control"  name="dni">
+            <input type="text" class="form-control"  name="dni" required="required" >
           </div>
           </td>
         </tr>
@@ -111,7 +111,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Usuario</span>
-            <input type="text" class="form-control"  name="nombreusuario"> 
+            <input type="text" class="form-control"  name="nombreusuario" required="required"> 
           </div>
           </td>
         </tr>
@@ -119,10 +119,23 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Contrasena</span>
-            <input type="password" class="form-control"  name="contrasena">        
+            <input type="password" class="form-control"  name="contrasena" required="required">        
             </div>
           </td>
         </tr>    
+        <tr>
+          <td>
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">Tipo de usuario</span>
+                <select class="form-control" name="id_permiso" id="filtroEditorial" required="required" >
+                    <option name="" value="" ></option>  
+                    <option value="1">Administrador</option>
+                    <option value="2">Usuario</option>
+                </select>
+            </div>
+          </td>
+        </tr>
+
         <tr>
            <td>
             <button class="btn btn-info" type="submit">Enviar</button>
