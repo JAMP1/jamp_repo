@@ -78,67 +78,67 @@
       </div>
     </div>
 
+<div class="row">
+    <div class="col-md-4">
+      <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=filtrar&clase=entidad">
+                <select name="tipo">
+                  <option value="editorial">Editorial</option> 
+                  <option value="titulo">Titulo</option> 
+                  <option value="autor">Autor</option> 
+                  <option value="precio">Precio</option> 
+                  <option value="etiqueta">Etiqueta</option> 
+        </select>
+        <button class="btn btn-info" type="submit">Ordenar </button>
+    </form>
+    </div>
 
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div>
-          <td><?php cargarLosPutosLibros()  ?></td>
+    <div class="col-md-6">
+        <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=buscar&clase=entidad">
+                  <select name="busquedaEditorial">
+                    <?php
+                    foreach ($arrayNu as $kay){
+                    echo 
+                    "<option value='".$kay['nombre']."'>".$kay['nombre']."</option>";
+                    }
+                    ?>   
+                  </select>
+                  <select name="busquedaEtiqueta">
+                    <?php
+                    foreach ($arrayNo as $koy){
+                    echo  
+                    "<option value='".$koy['nombre']."'>".$koy['nombre']."</option>";
+                    }
+                    ?>  
+                  </select>
+                  <select name="busquedaAutor">
+                    <?php
+                    foreach ($arrayNe as $kuy){
+                    echo 
+                      "<option value='".$kuy['nombre']."'>".$kuy['nombre']."</option>";
+                    
+                    }?>
+                  </select>
+          <button class="btn btn-info" type="submit"> Buscar </button>
+      </form>
+    </div>
+  </div>
+  <br>
+  <br>
+
           <?php
-      
-          
-            function cargarLosPutosLibros(){
-
-              $link = conectarBaseDeDatos();
-              if ($link != "error"){
-                $query = $link->prepare("SELECT `nombre`,`isbn`,`cantPag`, `stock`,`precio`,`id_libro` FROM libro WHERE `baja`=0");
-                $query->execute();
-                $res=$query->fetchAll();
-                
-              }
-              if ( $res!="error"){
-                $arrayNa = array();
-                $i=0;
-                foreach ($res as $key ) {
-                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
-                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
-                    $i++;
-                }
-              }
-              $fecha=getdate();
               foreach ($arrayNa as $key){
-                
-                echo  " <div class='col-md-4'>
-                        <h2>".$key['nombre']."</h2>
+                echo  " <div class='col-md-3'>
+                        <h2>".$key['titulo']."</h2>
+                        <h4>".$key['editorial']."</h4>
+                        <h4>".$key['autor']."</h4>
+                        <h4>".$key['etiqueta']."</h4>
+                        <h4>$".$key['precio']."</h4>
                         <p><img class='img-book' src='/JAMP/IMG/libro3.jpg' alt='cocina3'></p>
                         <br>
-                        <h4>".$fecha["month"]."".$fecha["weekday"]."".$fecha["year"]."</h4>
                         <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
                       </div>";
               } 
-            }          
-          function conectarBaseDeDatos(){
-            $db_host="127.0.0.1";
-                $db_user="root";
-                $db_pass="";
-                $db_base="ingenieria2";
-
-              try{
-
-                $cn = new PDO("mysql:dbname=$db_base;host=$db_host","$db_user","$db_pass");
-                $cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                //$cn->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-                return($cn);
-                
-              }catch(PDOException $e){
-                return "error" ;
-
-              }
-          }
-
-          ?>
-
-        </div>
+            ?>
     </div>    
       <hr>
 

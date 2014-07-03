@@ -34,8 +34,6 @@
               <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad"> Administración Libro</a></li>
               <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad"> Administración Usuario</a></li>
             </ul>
-
-
             <!--<li><a class="active" href="../PORTI/llamadaController.php?action=cargarIdioma"> Administración Idioma </a></li>
             <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro"> Administración Libro</a></li>
             <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario"> Usuario </a></li>
@@ -44,10 +42,14 @@
             <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
             </ul>
           </div><!-- /.navbar-collapse -->
+          <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfilAdministrador&clase=entidad&id_usuario"=<?php echo $_SESSION['id_usuario']?>>
+            <?php
+              echo "<input type='hidden' name='id_usuario' value='".$_SESSION['id_usuario']."'>";
+            ?>
+            <button type="submit">Mi perfil </button>
+          </form>
         </div>
       </nav>
-<div>
-</head>
 </head>
 <body>
             

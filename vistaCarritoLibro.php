@@ -13,6 +13,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8"/>
 <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
+<script >
+    function confirmaCompra(){
+      var arregloCantidad = document.getElementsByClassName('cantidadLibroEnCarrito');
+      var arregloPrecio = document.getElementsByClassName('precioLibroEnCarrito'); 
+      var suma=0;// parseInt(arregloCantidad[0].value);
+      for (var i = 0 ; i < arregloPrecio.length ; i++) {
+       // alert(arregloPrecio[i].value + arregloCantidad[i].value);
+        suma += (parseInt(arregloPrecio[i].value) * parseInt(arregloCantidad[i].value));
+      };
+      if(confirm("¿DESEA REALIZAR LA COMPRA POR LA SUMA TOTAL DE "+"$"+suma+"?")==true){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+</script>
+
 </head>
 <body class="laboratorix">
 <nav class="navbar navbar-inverse" role="navigation">
@@ -31,8 +49,10 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
     <?php
-	    echo "<li><a href ='/JAMP/cookbooksUsuario.php?id_usuario=".$idUsuario."'>Inicio </a></li>";
+	    //echo "<li><a href ='/JAMP/cookbooksUsuario.php?id_usuario=".$_SESSION['id_usuario']."'>Inicio </a></li>";
+    //echo "<li><a href ='/JAMP/cookbooksUsuario.php?id_usuario=".$_SESSION['id_usuario']."'>Inicio </a></li>";
     ?>
+    <li class=""><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=user"> Inicio </a></li>
     <li class="active"><a href ="#">MI CARRITO </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
@@ -52,32 +72,44 @@
         <td class="separados"><p>Cantidad</p></td>
         <td class="separados"><p>Eliminar Libro</p></td>
         </tr>
-        <tr>
         <?php
-        //var_dump($arrayNa);
+       //var_dump($arrayNa);
+       // var_dump($key);
+        if(count($arrayNa) > 0){
           foreach ($arrayNa as $key){
             echo  " <td class='separados'><p>".$key["nombre"]."</p></td>
                     <td class='separados'><p>".$key["isbn"]."</p></td>
                     <td class='separados'><p>".$key["cantPag"]."</p></td>
                     <td class='separados'><p>".$key["stock"]."</p></td>
-                    <td class='separados'><p>".$key["precio"]."</p></td>                    
-                    <td class='separados'><p><input type='number' min='1' value='1'></p>
+                    <td class='separados'><p>".$key["precio"]."</p></td>
+                    <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=actualizaCantidadDeLibros&clase=entidad'>                  
+                    <td class='separados'><p><input type='number' name='cantidad_libros' class='cantidadLibroEnCarrito' min='1' value='".$key["cantidad_pedida"]."'></p>
+                    <input type='hidden' name='id_carrito' value='".$key["id_carrito"]."'/>
+                    <input type='hidden' name='id_libro' value='".$key["id_libro"]."'>
+                    <input type='submit' class='btn btn-info' value='Confirmar cantidad'/>
+                    </form>
+                    <input type='hidden' class='precioLibroEnCarrito' value='".$key["precio"]."'>
                     </td>
                     <td>
 
-                    <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaLibro&clase=entidad'>
+                    <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaLibroCarrito&clase=entidad'>
                     <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
+                    <input name='id_carrito' type='hidden' value='".$key['id_carrito']."'/>
+                    <input name='id_usuario' type='hidden' value='".$idUsuario."'/>
                     <input type='submit' class='btn btn-info' value='Eliminar'/>
                     </form>
                     </td>
                     </tr>";
           }
+          // <td class='separados'><p><input type='number' class='cantidadLibroEnCarrito' min='1' value='1'></p>
           echo "<td class='separados'>
-                <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=comprarLibro&clase=entidad'>
-                <input name='id_libro' type='hidden' value=' '/>
+                <form method='POST' onSubmit='return confirmaCompra()' action='/JAMP/PORTI/llamadaController.php?action=comprarLibro&clase=entidad'>
+                <input name='id_carrito' type='hidden' value='".$arrayNa[0]['id_carrito']."'/>
+                <input name='id_usuario' type='hidden' value='".$idUsuario."'/>
                 <input type='submit' class='btn btn-info' value='Comprar'/>
                 </form>
                 </td>";
+          }
         ?>
 </table>
 </div>

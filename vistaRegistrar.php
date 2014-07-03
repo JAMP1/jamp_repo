@@ -29,7 +29,7 @@
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href="/JAMP/index.php"> Inicio </a></li>
+            <li class="active"><a href ="/JAMP/index.php"> Inicio </a></li>
             <!--<li><a class="active" href="#"> Quienes Somos</a></li>
             <li><a class="active" href="#"> Contacto</a></li>
             <li><a class="active" href="#"> Libros</a></li>-->

@@ -30,7 +30,7 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
-	<li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
+	<li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio </a></li>
     <li class="active"><a href ="#">Administrar Usuarios </a></li>
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=registroAdmin&clase=entidad">Alta Usuario </a></li>
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosUsuario&clase=entidad">Usuarios Borrados </a></li>
@@ -40,6 +40,17 @@
   </ul>
 </div>
 </nav>
+<div>
+<?php
+  if(isset($existe)){
+    echo "<div class='alert alert-danger'>Error! Ya existe registrado el usuario ingresado</div>";
+   // echo "<h4>Ya existe el nombre ingresado, busque en la lista o en los borrados</h4>";
+  }
+  if(isset($sePudoAlta)){
+    echo" <div class='alert alert-success'>Felicidades! Ya forma parte de nuestro sistema!!</div>";
+  }
+?>
+</div>
 <div class="row">
 <div class="col-md-12">
         <table class="table table-centered">
@@ -58,6 +69,7 @@
               
                 <?php
                 //var_dump($arrayNa);
+                
                   foreach ($arrayNa as $key){
                     echo
                     " <tr>

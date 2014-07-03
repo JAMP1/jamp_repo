@@ -36,7 +36,7 @@
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href="#"> Inicio </a></li>
+            <li class="active"><a href ="#"> Inicio </a></li>
             <!--<li><a class="active" href="#"> Quienes Somos</a></li>
             <li><a class="active" href="#"> Contacto</a></li>
             <li><a class="active" href="#"> Libros</a></li>-->
@@ -44,9 +44,8 @@
             <ul class="nav navbar-nav navbar-right">
           <?php 
             //echo $_COOKIE["IdCookie"];
-            $idUsuario = $_GET['id_usuario'];
             echo "<form method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
-                  <input name='idUsuario' type='hidden' value='".$idUsuario."'/>
+                  <input name='idUsuario' type='hidden' value='".$_SESSION['id_usuario']."'/>
                   
                   <input type='submit' class='btn btn-info' value='MI CARRITO'/>";
             
@@ -56,22 +55,20 @@
 
           <div>
         <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
-
             <div class="form-group">
               <ul class="nav navbar-nav navbar-right">
             <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
            </ul>
            </div>
-
-          </form>
-           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfil&clase=entidad&id_usuario"=<?php echo $idUsuario?>>
+        </form>
+           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfil&clase=entidad&id_usuario"=<?php echo $_SESSION['id_usuario']?>>
             <?php
-            echo "<input type='hidden' name='id_usuario' value=".$idUsuario."'>";
+            echo "<input type='hidden' name='id_usuario' value='".$_SESSION['id_usuario']."'>";
             ?>
             <button type="submit">Mi perfil </button>
           </form>
         </div>
-        s
+        
         </div><!--/.navbar-collapse -->
       </div>
     </div>
@@ -91,66 +88,75 @@
 
     
 
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div>
-          <td><?php cargarLosPutosLibros()  ?></td>
+     <div class="container">
+          <div class="row">
+
+
+    <div class="col-md-4">
+      <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=filtrarRegistrado&clase=entidad">
+                <select name="tipo">
+                  <option value="editorial">Editorial</option> 
+                  <option value="titulo">Titulo</option> 
+                  <option value="autor">Autor</option> 
+                  <option value="precio">Precio</option> 
+                  <option value="etiqueta">Etiqueta</option> 
+        </select>
+        <button class="btn btn-info" type="submit">Ordenar </button>
+    </form>
+    </div>
+
+    <div class="col-md-6">
+        <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=buscarRegistrado&clase=entidad">
+                  <select name="busquedaEditorial">
+                    <?php
+                    foreach ($arrayNu as $kay){
+                    echo 
+                    "<option value='".$kay['nombre']."'>".$kay['nombre']."</option>";
+                    }
+                    ?>   
+                  </select>
+                  <select name="busquedaEtiqueta">
+                    <?php
+                    foreach ($arrayNo as $koy){
+                    echo  
+                    "<option value='".$koy['nombre']."'>".$koy['nombre']."</option>";
+                    }
+                    ?>  
+                  </select>
+                  <select name="busquedaAutor">
+                    <?php
+                    foreach ($arrayNe as $kuy){
+                    echo 
+                      "<option value='".$kuy['nombre']."'>".$kuy['nombre']."</option>";
+                    
+                    }?>
+                  </select>
+          <button class="btn btn-info" type="submit"> Buscar </button>
+      </form>
+    </div>
+  </div>
+  <br>
+  <br>
+
           <?php
-
-            function cargarLosPutosLibros(){
-
-              $link = conectarBaseDeDatos();
-              if ($link != "error"){
-                $query = $link->prepare("SELECT `nombre`,`isbn`,`cantPag`, `stock`,`precio`,`id_libro` FROM libro WHERE `baja`=0");
-                $query->execute();
-                $res=$query->fetchAll();
-                
-              }
-              if ( $res!="error"){
-                $arrayNa = array();
-                $i=0;
-                foreach ($res as $key ) {
-                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
-                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
-                    $i++;
-                }
-              }
-              $fecha=getdate();
+          if(isset($arrayNa)){
+          if(count($arrayNa)>0){
               foreach ($arrayNa as $key){
-                
-                echo  " <div class='col-md-4'>
-                        <h2>".$key['nombre']."</h2>
+                echo  " <div class='col-md-3'>
+                        <h2>".$key['titulo']."</h2>
+                        <h4>".$key['editorial']."</h4>
+                        <h4>".$key['autor']."</h4>
+                        <h4>".$key['etiqueta']."</h4>
+                        <h4>$".$key['precio']."</h4>
                         <p><img class='img-book' src='/JAMP/IMG/libro3.jpg' alt='cocina3'></p>
                         <br>
-                        <h4>".$fecha["month"]."".$fecha["weekday"]."".$fecha["year"]."</h4>
                         <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
                       </div>";
               } 
-            }          
-          function conectarBaseDeDatos(){
-            $db_host="127.0.0.1";
-                $db_user="root";
-                $db_pass="";
-                $db_base="ingenieria2";
-
-              try{
-
-                $cn = new PDO("mysql:dbname=$db_base;host=$db_host","$db_user","$db_pass");
-                $cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                //$cn->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-                return($cn);
-                
-              }catch(PDOException $e){
-                return "error" ;
-
-              }
+            }
           }
-
-          ?>
-
-        </div>
-    </div>    
+            ?>
+    </div>     
       <hr>
 
       <footer>

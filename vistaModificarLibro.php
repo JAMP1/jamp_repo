@@ -29,7 +29,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li><a href="/JAMP/ADMIN/cookBooksAdmin.php">Inicio</a></li>
+            <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio</a></li>
             <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarLibro&clase=entidad">Administrar Libros</a></li>
             <li class="active"><a href="">Modificar Libro</a></li>
             <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosLibro&clase=entidad">Libros Borrados </a></li>
@@ -55,9 +55,15 @@
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Nombre Libro</span>
                   <?php
+                    if(isset($libro[0]['nombre'])){
                     echo "
                     <input type='text' class='form-control' value='".$libro[0]['nombre']."' 
                     name='nom_libro' id='nom_libro' required='required'>";
+                    }else{
+                      echo "
+                    <input type='text' class='form-control' value='' 
+                    name='nom_libro' id='nom_libro' required='required'>";
+                    }
                   ?>
                 </div>
                <!-- <input id="nombre" type="text" placeholder="Nombre Libro" name="nom_libro">-->
@@ -68,9 +74,15 @@
                   <div class="input-group input-group-lg">
                     <span class="input-group-addon">ISBN</span>
                     <?php
+                    if(isset($libro[0]['isbn'])){
                     echo "
                       <input type='text' class='form-control'  value='".$libro[0]['isbn']."'
                       name='isbn_libro' id='isbn_libro' required='required'>";
+                      }else{
+                      echo "
+                    <input type='text' class='form-control' value='' 
+                    name='nom_libro' id='nom_libro' required='required'>";
+                    }
                     ?>
                   </div>
                 </td>
@@ -80,10 +92,17 @@
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Total de paginas</span>
                   <?php
+                  if(isset($libro[0]['cantPag'])){
                   echo" 
                   <input type='text' class='form-control'  value='".$libro[0]['cantPag']."'
                   name='cantHojas_libro' id='cantHojas_libro' required='required'>";
+                  }else{
+                      echo "
+                    <input type='text' class='form-control' value='' 
+                    name='nom_libro' id='nom_libro' required='required'>";
+                    }
                   ?>
+
                 </div>
                 </td>
               </tr>
@@ -92,9 +111,15 @@
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Stock</span>
                   <?php
+                  if(isset($libro[0]['stock'])){
                   echo "
                   <input type='text' class='form-control'  value='".$libro[0]['stock']."'
                   name='cant_libro' id='cant_libro' required='required'>";
+                  }else{
+                      echo "
+                    <input type='text' class='form-control' value='' 
+                    name='nom_libro' id='nom_libro' required='required'>";
+                    }
                   ?>
                 </div>
                 <!--<input id="nombre" type="text" placeholder="Cantidad de libros" name="cant_libro">-->
@@ -105,9 +130,15 @@
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Precio</span>
                   <?php
+                  if(isset($libro[0]['precio'])){
                   echo "
                   <input type='text' class='form-control'  value='".$libro[0]['precio']."'
                   name='precio_libro' id='precio_libro' required='required'>";
+                  }else{
+                      echo "
+                    <input type='text' class='form-control' value='' 
+                    name='nom_libro' id='nom_libro' required='required'>";
+                    }
                   ?>
                 </div>
               <!--  <input id="nombre" type="text" placeholder="Precio" name="precio_libro">-->

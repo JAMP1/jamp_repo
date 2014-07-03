@@ -162,7 +162,10 @@ class entidad{
                             'id_us' => $key['id_editorial'] );
                     $i++;
                 }
-            }
+                        require_once("../vistaEditorial.php");
+         }
+
+
         }
     }
     function bajaEditorial () {
@@ -548,11 +551,11 @@ class entidad{
             $id_autor=$_POST["id_autor_libro"];
             $id_libro=$_POST["id_libro"];
             $arreglo = validarAltaLibro($nom, $isbn);
-            if((!empty($arreglo))){
-                if ($arreglo[0]['id_libro'] != $id_libro){
-                    $existe = 'existe';
-                    require_once("../vistaModificarLibro.php");
-                }else{
+            if((count($arreglo)==0)){
+                //if ( $arreglo[0]['id_libro'] != $id_libro){
+                 //   $existe = 'existe';
+                   // require_once("../vistaModificarLibro.php");
+                //}else{
                     $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor);
                     if ($intento){
                         $libros=obtenerLibros();
@@ -565,10 +568,14 @@ class entidad{
                                     'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
                                 $i++;
                             }
+                        $existe=null;
                         require_once("../vistaLibros.php");
                         }
                     }  
-                }
+                //}
+            }else{
+            $existe = 'existe';
+                    require_once("../vistaModificarLibro.php");
             }
         }
     }
@@ -612,17 +619,81 @@ class entidad{
                 $i=0;
                 foreach ($libros as $key ) {
                     $arrayNa[$i]=array('nombre' => $key[29] , 'isbn' => $key['isbn'], 
-                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
+                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'],
+                        'id_carrito'=>$key['id_carrito'], 'cantidad_pedida'=>$key['cantidad_pedida'] );
                     $i++;
                 }
                 //var_dump($arrayNa);
             } //TENGO QUE VER CÓMO HACER PARA LISTAR LOS LIBROS EN EL INICIO
         }
-    else {
-        $arrayNa=array();
-    }
+        else {
+            $arrayNa=array();
+        }
             require_once "../vistaCarritoLibro.php";
     }
+
+    function bajaLibroCarrito(){
+        $per=$_SESSION['permiso'];
+        if($per==2){
+            $id_libro=$_POST['id_libro'];
+            $id_carrito=$_POST['id_carrito'];
+            $idUsuario=$_POST['id_usuario'];
+            $borrar=eliminarLibroCarrito($id_libro, $id_carrito);
+            $libros=recuperarLibroCarrito($idUsuario);
+            if ( $libros!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($libros as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key[29] , 'isbn' => $key['isbn'], 
+                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'],
+                        'id_carrito'=>$key['id_carrito'] );
+                    $i++;
+                }
+            }
+            require_once("../vistaCarritoLibro.php");
+        }
+
+    }
+
+    function comprarLibro(){
+        $per=$_SESSION['permiso'];
+        if($per==2){
+            $id_carrito=$_POST['id_carrito'];
+            $idUsuario=$_POST['id_usuario'];
+            $id_venta= altaVenta($id_carrito);            
+            $id_venta=recuperarUltimaVenta($id_carrito);
+            //var_dump($id_venta[0]);
+            $libros=recuperarLibroCarrito($idUsuario);
+            //var_dump(count($libros));
+            altaVentaLibro($id_venta, $libros);
+            for ($i=0; $i < count($libros) ; $i++) { 
+                $borrar=eliminarLibroCarrito($libros[$i]["id_libro"], $id_carrito);
+            }
+            //require_once("../vistaCarritoLibro.php");
+
+            if ( $libros!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($libros as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key[29] , 'isbn' => $key['isbn'], 
+                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'],
+                        'id_carrito'=>$key['id_carrito'], 'cantidad_pedida'=>$key['cantidad_pedida']  );
+                    $i++;
+                }
+            }
+            require_once("../vistaCarritoLibro.php");
+        }
+    }
+
+    function actualizaCantidadDeLibros(){
+        $cantidad = $_POST['cantidad_libros'];
+        $id_carrito=$_POST['id_carrito'];
+        $id_libro=$_POST['id_libro'];
+        actualizaLibroCarrito($id_carrito, $id_libro , $cantidad);
+        var_dump($cantidad);
+        var_dump($id_carrito);
+    }
+
 
     function registrarme () {
         require_once "../vistaRegistrar.php";
@@ -688,7 +759,18 @@ class entidad{
                     $res = recuperarCliente($nombreUsuario);
                     altaCarrito($res[0]['id_usuario']);
                     $sePudoAlta = true;
-                    require_once("../vistaRegistrar.php");
+                    $usuarios=obtenerUsuarios();
+                    if ( $usuarios!="error"){
+                        $arrayNa = array();
+                        $i=0;
+                        foreach ($usuarios as $key ) {
+                            $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
+                                'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
+                                    'id_usuario' => $key['id_usuario'] );
+                            $i++;
+                        }
+                         require_once("../vistaUsuarios.php");
+                    }                   
                     //require_once("../cookbooks.php");
                     //header("Location: ../cookbooks.php");
                     //var_dump($res);
@@ -702,9 +784,13 @@ class entidad{
     function mostrarPerfil () {
         $id_usuario=$_POST ['id_usuario'];
         $cliente=obtenerDatosCliente($id_usuario);
-        var_dump($cliente);
-        var_dump($id_usuario);
         require_once ("../vistaPerfil.php");
+    }
+
+    function mostrarPerfilAdministrador () {
+        $id_usuario=$_POST ['id_usuario'];
+        $cliente=obtenerDatosCliente($id_usuario);
+        require_once ("../vistaPerfilAdministrador.php");
     }
 
     function modificarCliente () {
@@ -803,9 +889,501 @@ class entidad{
             require_once "../cookbooks.php";
         }
     }
+    function filtrar() {
+        if(isset($_GET['tipo'])){
+            $valor=$_GET['tipo'];
+            
+        }
+        else
+        if (isset($_POST['tipo'])){
+                $valor=$_POST['tipo'];
+                
+        }
+        switch ($valor) {
+            case 'editorial':
+                $todo=filtrarPorEditorial();
+                $arrayNa = array();
 
+            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+                require_once("../cookbooks.php");
+                break;
 
+            case 'titulo':
+                $todo=filtrarPorTitulo();
+                $arrayNa = array();
+            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+                require_once("../cookbooks.php");
+                break;
+            
+            case 'autor':
+                $todo=filtrarPorAutor();
+                $arrayNa = array();
+            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+                require_once("../cookbooks.php");
+                break;
+            
+            case 'precio':
+                $todo=filtrarPorPrecio();
+                $arrayNa = array();
+             $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+                require_once("../cookbooks.php");
+                break;
+            
+            case 'etiqueta':
+                $todo=filtrarPorEtiqueta();
+                $arrayNa = array();
+            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+                require_once("../cookbooks.php");
+                break;
+            
+            default:
+            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $todo=filtrarTodosLosLibros();
+                $arrayNa = array();
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+                require_once("../cookbooks.php");
+                break;
+        }
+    }
+function buscar() {
+        
+        $valorEditorial=$_POST['busquedaEditorial'];
+        $valorEtiqueta=$_POST['busquedaEtiqueta'];
+        $valorAutor=$_POST['busquedaAutor'];
+        $resultado=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor);
+        $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNa = array();
+        $i=0;
+        foreach ($resultado as $key ) {
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                    'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                $i++;
+                }
+        require_once("../cookbooks.php");
+}
 
+function buscarRegistrado() {
+        
+        $valorEditorial=$_POST['busquedaEditorial'];
+        $valorEtiqueta=$_POST['busquedaEtiqueta'];
+        $valorAutor=$_POST['busquedaAutor'];
+        $resultado=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor);
+        $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNa = array();
+        $i=0;
+        foreach ($resultado as $key ) {
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                    'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                $i++;
+                }
+        require_once("../cookbooksUsuario.php");
+}
+    function filtrarRegistrado() {
+        if(isset($_GET['tipo'])){
+            $valor=$_GET['tipo'];
+            
+        }
+        else
+        if (isset($_POST['tipo'])){
+                $valor=$_POST['tipo'];
+                
+        }
+        switch ($valor) {
+            case 'editorial':
+                $todo=filtrarPorEditorial();
+                $arrayNa = array();
+
+            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+        require_once("../cookbooksUsuario.php");
+                break;
+
+            case 'titulo':
+                $todo=filtrarPorTitulo();
+                $arrayNa = array();
+            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+        require_once("../cookbooksUsuario.php");
+                break;
+            
+            case 'autor':
+                $todo=filtrarPorAutor();
+                $arrayNa = array();
+            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+        require_once("../cookbooksUsuario.php");
+                break;
+            
+            case 'precio':
+                $todo=filtrarPorPrecio();
+                $arrayNa = array();
+             $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+        require_once("../cookbooksUsuario.php");
+                break;
+            
+            case 'etiqueta':
+                $todo=filtrarPorEtiqueta();
+                $arrayNa = array();
+            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+        require_once("../cookbooksUsuario.php");
+                break;
+            
+            default:
+            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $todo=filtrarTodosLosLibros();
+                $arrayNa = array();
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+        require_once("../cookbooksUsuario.php");
+                break;
+        }
+    }
 }
 
 

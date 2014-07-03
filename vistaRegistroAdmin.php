@@ -28,16 +28,12 @@
         <div class="navbar-collapse collapse" id="menu">
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-left">
-              <li class="active"><a href="../PORTI/llamadaController.php?action=volverInicio&clase=admin"> Inicio </a></li>
-              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEtiqueta&clase=entidad"> Administración Etiqueta </a></li>
-              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarAutor&clase=entidad"> Administración Autor</a></li>
-              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEditorial&clase=entidad"> Administración Editorial</a></li>
-              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad"> Administración Libro</a></li>
-              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad"> Administración Usuario</a></li>
+            <ul class="nav navbar-nav">
+              <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio </a></li>
+                <li><a href="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad">Administrar Usuarios </a></li>
+                <li class="active"><a href ="#">Alta Usuario </a></li>
+                <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosUsuario&clase=entidad">Usuarios Borrados </a></li>
             </ul>
-
-
             <!--<li><a class="active" href="../PORTI/llamadaController.php?action=cargarIdioma"> Administración Idioma </a></li>
             <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro"> Administración Libro</a></li>
             <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario"> Usuario </a></li>
@@ -46,32 +42,33 @@
             <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
             </ul>
           </div>
+          
         </div><!--/.navbar-collapse -->
       </div>
     </div>
 </div>
   </head>
-  <body><div>
-<?php
-  if(isset($existe)){
-    echo "<div class='alert alert-danger'>Error! Ya existe registrado el usuario ingresado</div>";
-   // echo "<h4>Ya existe el nombre ingresado, busque en la lista o en los borrados</h4>";
-  }
-  if(isset($sePudoAlta)){
-    echo" <div class='alert alert-success'>Felicidades! Ya forma parte de nuestro sistema!!</div>";
-  }
-?>
-</div>
+  <body>
+    <div>
+      <?php
+        if(isset($existe)){
+          echo "<div class='alert alert-danger'>Error! Ya existe registrado el usuario ingresado</div>";
+        }
+        if(isset($sePudoAlta)){
+          echo" <div class='alert alert-success'>Felicidades! Ya forma parte de nuestro sistema!!</div>";
+        }
+      ?>
+    </div>
 
 
-   <form action="/JAMP/PORTI/llamadaController.php?action=registrarAdministrador&clase=entidad" method="post">
+   <form onsubmit="return validaUsuario()" action="/JAMP/PORTI/llamadaController.php?action=registrarAdministrador&clase=entidad" method="post">
       <div class="panel panel-info">
       <table class="table table">
         <tr>
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Nombre</span>
-            <input type="text" class="form-control" name="nombre" required="required">
+            <input type="text" class="form-control" name="nombre" id="nombre" required="required">
           </div>
           </td>
         </tr>
@@ -79,7 +76,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Apellido</span>
-            <input type="text" class="form-control"  name="apellido" required="required">
+            <input type="text" class="form-control"  name="apellido" id="apellido" required="required">
           </div>
           </td>
         </tr>
@@ -87,7 +84,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Email</span>
-            <input type="email" class="form-control"  name="email" required="required">
+            <input type="email" class="form-control"  name="email" id="email" required="required">
           </div>
           </td>
         </tr>
@@ -95,7 +92,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Telefono</span>
-            <input type="text" class="form-control"  name="telefono" required="required">
+            <input type="text" class="form-control"  name="telefono" id="telefono" required="required">
           </div>
           </td>
         </tr>
@@ -103,7 +100,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">DNI</span>
-            <input type="text" class="form-control"  name="dni" required="required" >
+            <input type="text" class="form-control"  name="dni" id="dni" required="required" >
           </div>
           </td>
         </tr>
@@ -111,7 +108,7 @@
         <td>
           <div class="input-group input-group-lg">
             <span class="input-group-addon">Usuario</span>
-            <input type="text" class="form-control"  name="nombreusuario" required="required"> 
+            <input type="text" class="form-control"  name="nombreusuario" id="nombreusuario" required="required"> 
           </div>
           </td>
         </tr>

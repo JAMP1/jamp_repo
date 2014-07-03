@@ -340,7 +340,9 @@ function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio
 	}else {
 		$res= "error";
 	}
+	
 	return $res;
+
 }
 
 function altaLibroAutor($res2, $id_autor){
@@ -497,6 +499,69 @@ function recuperarLibroCarrito($idUsuario){
 	}
 }
 
+function altaVenta($id_carrito){
+	$link=conectarBaseDatos();
+	if($link != "error"){
+		$query=$link -> prepare(" INSERT INTO `venta`(`id_carrito`)
+									VALUES (:IdCarrito)");
+		$res= $query-> execute(array('IdCarrito'=>$id_carrito ));
+		
+		$link=cerrarConexion();
+		return $res;
+	}
+}
+function recuperarUltimaVenta($id_carrito){
+	$link=conectarBaseDatos();
+	if($link != "error"){
+		$query=$link->prepare("SELECT MAX(`id_venta`)  FROM `venta` WHERE id_carrito=:IdCarrito AND `baja`=0");
+		$res=$query->execute(array('IdCarrito'=>$id_carrito));
+		$res= $query->fetch();
+		$link=cerrarConexion();
+		return $res;
+	}
+}
+
+function altaVentaLibro($id_venta, $arreglo_libros){
+	$link=conectarBaseDatos();
+	if($link != "error"){
+		$i=0;
+		for ($i=0; $i < count($arreglo_libros) ; $i++) { 
+		
+			$query=$link -> prepare(" INSERT INTO `libroventa`(`id_libro`, `id_venta`)
+										VALUES (:IdLibro, :IdVenta)");
+			$res= $query-> execute(array('IdLibro'=>$arreglo_libros[$i]["id_libro"], 'IdVenta'=>$id_venta[0]));
+			$i++;
+		}
+		$link=cerrarConexion();
+		//return $res;
+	}
+}
+
+
+
+function eliminarLibroCarrito($id_libro, $id_carrito){
+	$link=conectarBaseDatos();
+	if($link != "error"){
+		$query=$link -> prepare(" DELETE FROM `carrito_libro`
+									WHERE id_libro= :IdLibro AND id_carrito=:IdCarrito");
+		$res= $query-> execute(array('IdLibro'=>$id_libro, 'IdCarrito'=>$id_carrito ));
+		$link=cerrarConexion();
+		return $res;
+	}
+}
+
+function actualizaLibroCarrito($id_carrito, $id_libro ,$cantidad_pedida){
+	$link = conectarBaseDatos();
+	if( $link != "error"){
+		$query= $link ->prepare("UPDATE `carrito_libro` SET `cantidad_pedida`= :CantidadPedida 
+								WHERE id_carrito = :IdCarrito AND id_libro = :IdLibro ");
+		$query -> execute(array('CantidadPedida' => $cantidad_pedida, 'IdCarrito'=>$id_carrito, 'IdLibro'=>$id_libro));
+		$link = cerrarConexion();
+	}else{
+		return "error";
+	}
+}
+
 function obtenerDatosCliente ($IdUsuario) {
 	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -597,7 +662,158 @@ function agregarBorradoUsuario($id) {
 	return $res;
 }
 
+function filtrarPorEditorial() {
+	 $link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` as l
+ 									INNER JOIN `etiqueta` as e ON l.id_etiqueta=e.id_etiqueta
+									INNER JOIN `libroautor` as la  ON la.id_libro=l.id_libro 
+									INNER JOIN `autor` as a ON a.id_autor=la.id_autor
+									INNER JOIN `editorial` as edi ON edi.id_editorial=l.id_editorial
+									WHERE l.baja=0 
+									ORDER BY edi.nombre ASC");
 
+		$res = $query -> execute();
+		$res = $query -> fetchAll();
+		
+		$link = cerrarConexion();
+	}else {
+		$res= "error";
+	}
+		return $res;
+}
+
+
+function filtrarPorEtiqueta() {
+	 $link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` as l
+ 									INNER JOIN `etiqueta` as e ON l.id_etiqueta=e.id_etiqueta
+									INNER JOIN `libroautor` as la  ON la.id_libro=l.id_libro 
+									INNER JOIN `autor` as a ON a.id_autor=la.id_autor
+									INNER JOIN `editorial` as edi ON edi.id_editorial=l.id_editorial
+									WHERE l.baja=0 
+									ORDER BY e.nombre");
+
+		$res = $query -> execute();
+		$res = $query -> fetchAll();
+		
+		$link = cerrarConexion();
+	}else {
+		$res= "error";
+	}
+		return $res;
+}
+
+function filtrarPorTitulo() {
+	 $link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` as l
+ 									INNER JOIN `etiqueta` as e ON l.id_etiqueta=e.id_etiqueta
+									INNER JOIN `libroautor` as la  ON la.id_libro=l.id_libro 
+									INNER JOIN `autor` as a ON a.id_autor=la.id_autor
+									INNER JOIN `editorial` as edi ON edi.id_editorial=l.id_editorial
+									WHERE l.baja=0 
+									ORDER BY l.nombre");
+
+		$res = $query -> execute();
+		$res = $query -> fetchAll();
+		
+		$link = cerrarConexion();
+	}else {
+		$res= "error";
+	}
+		return $res;
+}
+
+function filtrarPorAutor() {
+
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` as l
+ 									INNER JOIN `etiqueta` as e ON l.id_etiqueta=e.id_etiqueta
+									INNER JOIN `libroautor` as la  ON la.id_libro=l.id_libro 
+									INNER JOIN `autor` as a ON a.id_autor=la.id_autor
+									INNER JOIN `editorial` as edi ON edi.id_editorial=l.id_editorial
+									WHERE l.baja=0 
+									ORDER BY a.nombre");
+
+		$res = $query -> execute();
+		$res = $query -> fetchAll();
+		
+		$link = cerrarConexion();
+	}else {
+		$res= "error";
+	}
+		return $res;
+}
+
+function filtrarPorPrecio() {
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` as l
+ 									INNER JOIN `etiqueta` as e ON l.id_etiqueta=e.id_etiqueta
+									INNER JOIN `libroautor` as la  ON la.id_libro=l.id_libro 
+									INNER JOIN `autor` as a ON a.id_autor=la.id_autor
+									INNER JOIN `editorial` as edi ON edi.id_editorial=l.id_editorial
+									WHERE l.baja=0 
+									ORDER BY l.precio");
+
+		$res = $query -> execute();
+		$res = $query -> fetchAll();
+		
+		$link = cerrarConexion();
+	}else {
+		$res= "error";
+	}
+		return $res;
+}
+
+function filtrarTodosLosLibros(){
+ $link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` as l
+ 									INNER JOIN `etiqueta` as e ON l.id_etiqueta=e.id_etiqueta
+									INNER JOIN `libroautor` as la  ON la.id_libro=l.id_libro 
+									INNER JOIN `autor` as a ON a.id_autor=la.id_autor
+									INNER JOIN `editorial` as edi ON edi.id_editorial=l.id_editorial 
+									WHERE l.baja=0");
+
+		$res = $query -> execute();
+		$res = $query -> fetchAll();
+		
+		$link = cerrarConexion();
+		return $res;
+	}
+               
+} 
+
+
+function buscarTodo($editorial,$etiqueta,$autor){
+ $link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` as l
+ 									INNER JOIN `etiqueta` as e ON l.id_etiqueta=e.id_etiqueta
+									INNER JOIN `libroautor` as la  ON la.id_libro=l.id_libro 
+									INNER JOIN `autor` as a ON a.id_autor=la.id_autor
+									INNER JOIN `editorial` as edi ON edi.id_editorial=l.id_editorial 
+									WHERE l.baja=0 AND e.nombre=:etiqueta AND edi.nombre=:editorial AND a.nombre=:autor");
+
+		$res = $query -> execute(array('editorial' =>$editorial , 'etiqueta' =>$etiqueta, 'autor' =>$autor ));
+		$res = $query -> fetchAll();
+		
+		$link = cerrarConexion();
+		return $res;
+	}
+               
+}
 
  
  /*SELECT `l.nombre`, `a.nombre`, `a.apellido`, `e.nombre`, `l.precio`, 

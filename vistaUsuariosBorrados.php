@@ -30,10 +30,9 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
-  <li><a href ="/JAMP/ADMIN/cookBooksAdmin.php">Inicio </a></li>
+  <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio </a></li>
     <li><a href ="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad">Administrar Usuarios </a></li>
-    <li><a href ="/JAMP/PORTI/llamadaController.php?action=registrarme&clase=entidad">Alta Usuario </a></li>
-    <li><a href ="/JAMP/PORTI/llamadaController.php?action=registroAdmin&clase=entidad">Alta Administrador </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=registroAdmin&clase=entidad">Alta Usuario </a></li>
     <li class= "active"><a href ="#">Usuarios Borrados </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">

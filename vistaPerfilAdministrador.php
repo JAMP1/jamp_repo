@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
      <!-- <div class="container">-->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -31,23 +31,21 @@
           <label class="navbar-brand">CookBooks</label> 
         </div>
         <div class="navbar-collapse collapse" id="menu">
-
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=user"> Inicio </a></li>
-            <!--<li><a class="active" href="#"> Quienes Somos</a></li>
-            <li><a class="active" href="#"> Contacto</a></li>
-            <li><a class="active" href="#"> Libros</a></li>-->
+              <li ><a class="active" href="../PORTI/llamadaController.php?action=volverInicio&clase=admin"> Inicio </a></li>
+              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEtiqueta&clase=entidad"> Administración Etiqueta </a></li>
+              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarAutor&clase=entidad"> Administración Autor</a></li>
+              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEditorial&clase=entidad"> Administración Editorial</a></li>
+              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad"> Administración Libro</a></li>
+              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad"> Administración Usuario</a></li>
             </ul>
+            <!--<li><a class="active" href="../PORTI/llamadaController.php?action=cargarIdioma"> Administración Idioma </a></li>
+            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro"> Administración Libro</a></li>
+            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario"> Usuario </a></li>
+            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarVenta"> Ventas </a></li>-->
             <ul class="nav navbar-nav navbar-right">
-
-          <?php 
-            $idUsuario = $_POST['id_usuario'];
-            echo "<form method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
-                  <input name='idUsuario' type='hidden' value='".$idUsuario."'/>
-                  <input type='submit' class='btn btn-info' value='MI CARRITO'/>";
-            
-          ?>
+            <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
             </ul>
           </div>
 
@@ -61,8 +59,8 @@
           </form>         
         </div>      
         </div><!--/.navbar-collapse -->
-      </div>
     </div>
+  </div>
   <body>    
       <?php
       echo"

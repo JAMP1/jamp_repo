@@ -16,12 +16,43 @@
 					setcookie("IdCookie", $idUsuario);
 					if($prueba['id_permiso'] == 1) {// permiso=1 es Admin, distinto de 1 usuario
 						$_SESSION['permiso']=1;	
+						$_SESSION['id_usuario']= $idUsuario;
 						require_once("../ADMIN/cookBooksAdmin.php");
 					}													
 					else{
 						if ($prueba['id_permiso'] == 2) {
 							$_SESSION['permiso']=2;
-							header("Location: /JAMP/cookbooksUsuario.php?id_usuario=".$idUsuario."");
+							$_SESSION['id_usuario']=$idUsuario;
+							            $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+                $todo=filtrarTodosLosLibros();
+                $arrayNa = array();
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $i++;
+                }
+							require_once("../cookbooksUsuario.php");
 							//require_once ('./cookbooksUsuario.php');
 							//LA VARIABLE PASADA POR HEADER NO ES LO MAS LINDO PERO ES LO UNICO QUE SE ME OCURRIO PARA SAFARLA
 						}						
@@ -30,7 +61,7 @@
 				else{
 					$noUsuario=true;
 					//require_once("../cookbooks.php");
-					header("Location: /JAMP/cookbooks.php?noUsuario=".$noUsuario."");
+					header( "Location: ../PORTI/llamadaController.php?action=filtrar&clase=entidad&tipo=todos&noUsuario=".$noUsuario."" );
 			//		echo "no existe un usuario asi en la bd";
 				}
 			}
@@ -43,7 +74,7 @@
 				//$tmp=$_SESSION['URI'];
 				$_SESSION = array();
 				session_destroy();
-				header( "Location: /JAMP/cookbooks.php" );
+				header( "Location: ../PORTI/llamadaController.php?action=filtrar&clase=entidad&tipo=todos" );
 				//require_once("JAMP/cookbooks.php");
 				//DEBERIA HACE VAR_DUMP DE ALGO PARA SABER SI LLEGA POR EL LOGOUT A ESTA FUNCION
 		}
