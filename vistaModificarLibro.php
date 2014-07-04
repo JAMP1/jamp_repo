@@ -231,6 +231,13 @@
             </table>
           </div>
         </form>
+        <div>
+        <?php
+        if(isset($no_imagen)){
+            echo "<div class='alert alert-danger'>Error! Formato de imagen incorrecto o archivo faltante</div>";
+          }
+          ?>
+        </div>
         <!--  <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionLibro&clase=entidad" onSubmit="return validar()">
             <table class="table table">
               <tr>

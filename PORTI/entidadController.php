@@ -509,7 +509,7 @@ class entidad{
             $id_etiqueta=$_POST["id_etiqueta_libro"];
             $id_autor=$_POST["id_autor_libro"];
 
-            $mimetypes = array("image/jpeg", "image/pjpeg", "image/gif", "image/png");
+            //$mimetypes = array("image/jpeg", "image/pjpeg", "image/gif", "image/png");
             $name= $_FILES["portada"]["name"];
             $tipo_de_archivo= $_FILES["portada"]["type"]; //SIRVE PARA VERIFICAR QUE SEA IMAGEN
             $tmp_name= $_FILES["portada"]["tmp_name"];
@@ -525,8 +525,10 @@ class entidad{
                 $aver= explode("htdocs", $carpeta);
                 $referencia_util= $aver[1];
 
-                $arreglo= validarAltaLibro($nom, $isbn);   
-                if((!empty($arreglo))){
+                $buscaIdPorIsbn= validarModificacionLibro($isbn);
+                if($buscaIdPorIsbn != false){
+    //            $arreglo= validarAltaLibro($nom, $isbn);   
+      //          if((!empty($arreglo))){
                     $existe = 'existe';
                     require_once("../vistaAltaLibro.php");
                 }else{
@@ -566,43 +568,55 @@ class entidad{
             $id_libro=$_POST["id_libro"];
 
             $name= $_FILES["portada"]["name"];
-            $type= $_FILES["portada"]["type"];
+            $tipo_de_archivo= $_FILES["portada"]["type"]; //SIRVE PARA VERIFICAR QUE SEA IMAGEN
             $tmp_name= $_FILES["portada"]["tmp_name"];
             $size = $_FILES["portada"]["size"];
-            var_dump($name);
-            echo "+";
-            var_dump($type);
-            echo "+";
-            var_dump($tmp_name);
-            echo "+";
-            var_dump($size);
+            if( strpos($tipo_de_archivo, "gif") || strpos($tipo_de_archivo, "jpg") || 
+                strpos($tipo_de_archivo, "jpeg") || strpos($tipo_de_archivo, "png") ){
 
-            $arreglo = validarAltaLibro($nom, $isbn);
-            if((count($arreglo)==0)){
-                //if ( $arreglo[0]['id_libro'] != $id_libro){
-                 //   $existe = 'existe';
-                   // require_once("../vistaModificarLibro.php");
-                //}else{
-                    $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor);
-                    if ($intento){
-                        $libros=obtenerLibros();
-                        if ( $libros!="error"){
-                            $sePudoModificar = true;
-                            $arrayNa = array();
-                            $i=0;
-                            foreach ($libros as $key ) {
-                                $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                    'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
-                                $i++;
+                $tipo= explode(".", $name);
+                $type=strtolower($tipo[1]);
+                $referencia= sha1(date("r"));
+                $carpeta= "C:/xampp/htdocs/JAMP/IMG/".$referencia.".".$type;
+                move_uploaded_file($tmp_name, $carpeta);
+                $aver= explode("htdocs", $carpeta);
+                $referencia_util= $aver[1];
+
+                $buscaIdPorIsbn= validarModificacionLibro($isbn);
+                //var_dump($id_libro);
+                //var_dump($buscaIdPorIsbn);
+                if($buscaIdPorIsbn['id_libro']==$id_libro || $buscaIdPorIsbn==false ){
+
+                //$arreglo = validarAltaLibro($nom, $isbn);
+               // if((count($arreglo)==0)){
+                    //if ( $arreglo[0]['id_libro'] != $id_libro){
+                     //   $existe = 'existe';
+                       // require_once("../vistaModificarLibro.php");
+                    //}else{
+                        $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_util);
+                        if ($intento){
+                            $libros=obtenerLibros();
+                            if ( $libros!="error"){
+                                $sePudoModificar = true;
+                                $arrayNa = array();
+                                $i=0;
+                                foreach ($libros as $key ) {
+                                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
+                                        'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
+                                    $i++;
+                                }
+                            $existe=null;
+                            require_once("../vistaLibros.php");
                             }
-                        $existe=null;
-                        require_once("../vistaLibros.php");
-                        }
-                    }  
-                //}
-            }else{
-            $existe = 'existe';
+                        }  
+                    //}
+                }else{
+                    $existe = 'existe';
                     require_once("../vistaModificarLibro.php");
+                }
+            }else{                
+                $no_imagen="no_imagen";
+                require_once("../vistaModificarLibro.php");
             }
         }
     }
@@ -1124,11 +1138,13 @@ class entidad{
             $i++;
         }                
                 $todo=filtrarTodosLosLibros();
+               // var_dump($todo);
                 $arrayNa = array();
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
-                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'], 
+                        'id_libro'=>$key['id_libro']);
                     $i++;
                 }
                //var_dump($todo);

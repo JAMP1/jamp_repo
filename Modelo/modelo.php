@@ -322,14 +322,14 @@ function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editor
 	return $res;
 }
 
-function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor){
+function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_foto){
  	$link = conectarBaseDatos();
 	if ($link != "error"){
 		$query = $link->prepare("UPDATE `libro` SET `nombre`= :Nom , `isbn`=:Isbn, `cantPag`=:CantHojas, `stock`=:CantLibros, 
-			`precio` = :Precio, `id_editorial`= :IdEditorial, `id_etiqueta`=:IdEtiqueta
+			`precio` = :Precio, `id_editorial`= :IdEditorial, `id_etiqueta`=:IdEtiqueta, `referencia_foto`= :Referencia
 								WHERE `id_libro`= :IdLibro");
 		$res = $query->execute(array('IdLibro' => $id_libro, 'Nom'=> $nom, 'Isbn'=>$isbn, 'CantHojas'=>$cantHojas, 
-			'CantLibros'=>$cantLibros, 'Precio'=>$precio, 'IdEditorial'=>$id_editorial, 'IdEtiqueta'=>$id_etiqueta,));
+			'CantLibros'=>$cantLibros, 'Precio'=>$precio, 'IdEditorial'=>$id_editorial, 'IdEtiqueta'=>$id_etiqueta, 'Referencia'=>$referencia_foto));
 		//El proximo SELECT es para recuperar el id del libro para la modificacion en la tabla 'libroautor'
 		//$res = $query -> fetchAll();
 		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
@@ -372,6 +372,20 @@ function validarAltaLibro($nom, $isbn){
   		$query = $link->prepare("SELECT `nombre` `id_libro` FROM libro WHERE `nombre`=:nom OR `isbn` =:isbn ");
   		$res = $query->execute(array('nom' => $nom, 'isbn'=> $isbn));
   		$res=$query->fetchAll();
+  		$link=cerrarConexion();
+  	}else{
+  		$res = "error";
+  	}
+  	return $res;
+}
+
+function validarModificacionLibro($isbn){ 
+	//Realiza una consulta por isbn para verificar su existencia
+  	$link = conectarBaseDatos();
+  	if($link != "error"){
+  		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `isbn` =:isbn ");
+  		$res = $query->execute(array( 'isbn'=> $isbn));
+  		$res=$query->fetch();
   		$link=cerrarConexion();
   	}else{
   		$res = "error";
