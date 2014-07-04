@@ -47,7 +47,7 @@
                 }
         ?>
         <div class="col-md-12">
-          <form method="POST"  onSubmit = "return validaLibro()" action="llamadaController.php?action=confirmarModificacionLibro&clase=entidad">
+          <form method="POST"  onSubmit = "return validaLibro()" action="llamadaController.php?action=confirmarModificacionLibro&clase=entidad" enctype="multipart/form-data">
             <div class="panel panel-info">
             <table class="table table">
               <tr>
@@ -211,10 +211,10 @@
                 <td>
                   <div class="input-group input-group-lg">
                     <span class="input-group-addon">Portada</span>
-                      <input type="file" class="form-control" name="imagen">
+                      <input type="file" class="form-control" name="portada" id="portada">
                   </div>
                 <td>
-                  <button class="btn btn-info" type="submit">Modificar</button>
+                  <button class="btn btn-info" type="submit" name="enviar" id="enviar" >Modificar</button>
                 </td>
               </td>
               </tr>

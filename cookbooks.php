@@ -21,135 +21,131 @@
 
 <body>
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-     <!-- <div class="container">-->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <label class="navbar-brand">CookBooks</label> 
-        </div>
-        <div class="navbar-collapse collapse" id="menu">
-
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href="index.php"> Inicio </a></li>
-            <!--<li><a class="active" href="#"> Quienes Somos</a></li>
-            <li><a class="active" href="#"> Contacto</a></li>
-            <li><a class="active" href="#"> Libros</a></li>-->
-            <ul class="nav navbar-nav navbar-right"></ul>
-          </div>
-          <div>
-        <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
-            <div class="form-group">
-              <input type="text" id="username" placeholder="Usuario" class="form-control" placeholder="Usuario" name="username" value="" required="required" />
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Contraseña" class="form-control" id="password" name="password" required="required" />
-            </div>
-            <button type="submit" id="_submit" class="btn btn-success" name="_submit" >Entrar</button>
-          </form>
-           
-          <a href="/JAMP/PORTI/llamadaController.php?action=registrarme&clase=entidad"><span class="label label-info">Crear Cuenta </span></a>
-        </div>
-        </div><!--/.navbar-collapse -->
-      </div>
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- <div class="container">-->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <label class="navbar-brand">CookBooks</label> 
     </div>
+    <div class="navbar-collapse collapse" id="menu">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-left">
+          <li class="active"><a href="index.php"> Inicio </a></li>
+          <!--<li><a class="active" href="#"> Quienes Somos</a></li>
+          <li><a class="active" href="#"> Contacto</a></li>
+          <li><a class="active" href="#"> Libros</a></li>-->
+        <ul class="nav navbar-nav navbar-right"></ul></ul>
+      </div>
+      <div>
+        <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
+          <div class="form-group">
+            <input type="text" id="username" placeholder="Usuario" class="form-control" placeholder="Usuario" name="username" value="" required="required" />
+          </div>
+          <div class="form-group">
+            <input type="password" placeholder="Contraseña" class="form-control" id="password" name="password" required="required" />
+          </div>
+            <button type="submit" id="_submit" class="btn btn-success" name="_submit" >Entrar</button>
+        </form>
+        <a href="/JAMP/PORTI/llamadaController.php?action=registrarme&clase=entidad"><span class="label label-info">Crear Cuenta </span></a>
+      </div>
+    </div><!--/.navbar-collapse -->
+  </div>
+      </div>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div>
-      <?php
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div>
+    <?php
         if(isset($_GET['noUsuario'])){
           $noUsuario=$_GET['noUsuario'];
           if($noUsuario==1){
             echo "<div class='alert alert-danger'>Error! Usuario o Constrasena incorrecto!</div>";
           }
         }
-      ?>
-
+    ?>
+  </div>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Bienvenidos!</h1>
+      <p>Esto es un texto de prueba para ver como se ve nuestra página!</p>
     </div>
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Bienvenidos!</h1>
-        <p>Esto es un texto de prueba para ver como se ve nuestra página!</p>
-      </div>
-    </div>
-
-<div class="row">
+  </div>
+  <div class="row">
     <div class="col-md-4">
       <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=filtrar&clase=entidad">
-                <select name="tipo">
-                  <option value="editorial">Editorial</option> 
-                  <option value="titulo">Titulo</option> 
-                  <option value="autor">Autor</option> 
-                  <option value="precio">Precio</option> 
-                  <option value="etiqueta">Etiqueta</option> 
+        <select name="tipo">
+          <option value="editorial">Editorial</option> 
+          <option value="titulo">Titulo</option> 
+          <option value="autor">Autor</option> 
+          <option value="precio">Precio</option> 
+          <option value="etiqueta">Etiqueta</option> 
         </select>
         <button class="btn btn-info" type="submit">Ordenar </button>
-    </form>
+      </form>
     </div>
-
     <div class="col-md-6">
-        <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=buscar&clase=entidad">
-                  <select name="busquedaEditorial">
-                    <?php
-                    foreach ($arrayNu as $kay){
-                    echo 
-                    "<option value='".$kay['nombre']."'>".$kay['nombre']."</option>";
-                    }
-                    ?>   
-                  </select>
-                  <select name="busquedaEtiqueta">
-                    <?php
-                    foreach ($arrayNo as $koy){
-                    echo  
-                    "<option value='".$koy['nombre']."'>".$koy['nombre']."</option>";
-                    }
-                    ?>  
-                  </select>
-                  <select name="busquedaAutor">
-                    <?php
-                    foreach ($arrayNe as $kuy){
-                    echo 
-                      "<option value='".$kuy['nombre']."'>".$kuy['nombre']."</option>";
-                    
-                    }?>
-                  </select>
-          <button class="btn btn-info" type="submit"> Buscar </button>
+      <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=buscar&clase=entidad">
+        <select name="busquedaEditorial">
+          <?php
+            foreach ($arrayNu as $kay){
+              echo 
+                "<option value='".$kay['nombre']."'>".$kay['nombre']."</option>";
+            }
+          ?>   
+        </select>
+        <select name="busquedaEtiqueta">
+          <?php
+            foreach ($arrayNo as $koy){
+              echo  
+                "<option value='".$koy['nombre']."'>".$koy['nombre']."</option>";
+            }
+          ?>  
+        </select>
+        <select name="busquedaAutor">
+          <?php
+            foreach ($arrayNe as $kuy){
+              echo 
+                "<option value='".$kuy['nombre']."'>".$kuy['nombre']."</option>";
+            }
+          ?>
+        </select>
+        <button class="btn btn-info" type="submit"> Buscar </button>
       </form>
     </div>
   </div>
   <br>
   <br>
-
-          <?php
-              foreach ($arrayNa as $key){
-                echo  " <div class='col-md-3'>
+  <div>
+    <?php
+    //var_dump($arrayNa);
+      foreach ($arrayNa as $key){
+        $referencia= $key['referencia_foto'];
+              echo  " <div class='col-md-3'>
                         <h2>".$key['titulo']."</h2>
                         <h4>".$key['editorial']."</h4>
                         <h4>".$key['autor']."</h4>
                         <h4>".$key['etiqueta']."</h4>
                         <h4>$".$key['precio']."</h4>
-                        <p><img class='img-book' src='/JAMP/IMG/libro3.jpg' alt='cocina3'></p>
+                        <p><img class= 'img-book' src='$referencia' alt = 'cocina3' ></p>                       
                         <br>
                         <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
-                      </div>";
-              } 
-            ?>
-    </div>    
-      <hr>
-
-      <footer>
-        <p>&copy; Company 2014</p>
-      </footer>
-   <!-- </div>  /container -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+                        </div>";
+      }
+    ?>
+  </div>    
+  <hr>
+  <footer>
+    <p>&copy; Company 2014</p>
+  </footer>
+     <!-- </div>  /container -->
+      <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>-->
-  </body>
+</body>
 </html>

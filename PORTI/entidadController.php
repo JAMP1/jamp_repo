@@ -508,33 +508,47 @@ class entidad{
             $id_editorial=$_POST["id_editorial_libro"];
             $id_etiqueta=$_POST["id_etiqueta_libro"];
             $id_autor=$_POST["id_autor_libro"];
-            $imagen=true;
-            //$imagen= $_POST["imagen"];
-            //print_r($_FILES);
-            //echo $imagen;
-            //$imagen= $_FILES["image"];
-            //echo $imagen;
-            //var_dump($imagen);
-            $arreglo= validarAltaLibro($nom, $isbn);   
-            if((!empty($arreglo))){
-                $existe = 'existe';
-                require_once("../vistaAltaLibro.php");
-            }else{
-                $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $imagen);
-                if ($intento){
-                    $libros=obtenerLibros();
-                    if ( $libros!="error"){
-                       $arrayNa = array();
-                       $sePudoModificar = true;
-                       $i=0;
-                       foreach ($libros as $key ) {
-                            $arrayNa[$i]=array('nombre' => $key['nombre'],'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
-                            $i++;
+
+            $mimetypes = array("image/jpeg", "image/pjpeg", "image/gif", "image/png");
+            $name= $_FILES["portada"]["name"];
+            $tipo_de_archivo= $_FILES["portada"]["type"]; //SIRVE PARA VERIFICAR QUE SEA IMAGEN
+            $tmp_name= $_FILES["portada"]["tmp_name"];
+            $size = $_FILES["portada"]["size"];
+            if( strpos($tipo_de_archivo, "gif") || strpos($tipo_de_archivo, "jpg") || 
+                strpos($tipo_de_archivo, "jpeg") || strpos($tipo_de_archivo, "png") ){
+
+                $tipo= explode(".", $name);
+                $type=strtolower($tipo[1]);
+                $referencia= sha1(date("r"));
+                $carpeta= "C:/xampp/htdocs/JAMP/IMG/".$referencia.".".$type;
+                move_uploaded_file($tmp_name, $carpeta);
+                $aver= explode("htdocs", $carpeta);
+                $referencia_util= $aver[1];
+
+                $arreglo= validarAltaLibro($nom, $isbn);   
+                if((!empty($arreglo))){
+                    $existe = 'existe';
+                    require_once("../vistaAltaLibro.php");
+                }else{
+                    $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_util);
+                    if ($intento){
+                        $libros=obtenerLibros();
+                        if ( $libros!="error"){
+                           $arrayNa = array();
+                           $sePudoModificar = true;
+                           $i=0;
+                           foreach ($libros as $key ) {
+                                $arrayNa[$i]=array('nombre' => $key['nombre'],'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
+                                    'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'], 'referencia_foto'=>$key['referencia_foto'] );
+                                $i++;
+                            }
+                        require_once("../vistaLibros.php");
                         }
-                    require_once("../vistaLibros.php");
                     }
                 }
+            }else{
+                $no_imagen="no_imagen";
+                require_once("../vistaAltaLibro.php");
             }
         }
     }
@@ -550,6 +564,19 @@ class entidad{
             $id_etiqueta=$_POST["id_etiqueta_libro"];
             $id_autor=$_POST["id_autor_libro"];
             $id_libro=$_POST["id_libro"];
+
+            $name= $_FILES["portada"]["name"];
+            $type= $_FILES["portada"]["type"];
+            $tmp_name= $_FILES["portada"]["tmp_name"];
+            $size = $_FILES["portada"]["size"];
+            var_dump($name);
+            echo "+";
+            var_dump($type);
+            echo "+";
+            var_dump($tmp_name);
+            echo "+";
+            var_dump($size);
+
             $arreglo = validarAltaLibro($nom, $isbn);
             if((count($arreglo)==0)){
                 //if ( $arreglo[0]['id_libro'] != $id_libro){
@@ -588,7 +615,8 @@ class entidad{
                 $i=0;
                 foreach ($libros as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
-                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
+                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 
+                        'id_libro' => $key['id_libro'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
             }
@@ -597,13 +625,17 @@ class entidad{
             $libros=obtenerLibros();
             if ( $libros!="error"){
                 $arrayNa = array();
+                header("Content_Type: image/jpeg");
                 $i=0;
                 foreach ($libros as $key ) {
+                    echo $key['imagen'];
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
-                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
+                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'],
+                         'id_libro' => $key['id_libro'], 'referencia_foto'=>$key['referencia_foto'] );
                     $i++;
                 }
             } //TENGO QUE VER CÓMO HACER PARA LISTAR LOS LIBROS EN EL INICIO
+             
             require_once "../cookbooks.php";
         }
     }
@@ -889,6 +921,9 @@ class entidad{
             require_once "../cookbooks.php";
         }
     }
+
+
+
     function filtrar() {
         if(isset($_GET['tipo'])){
             $valor=$_GET['tipo'];
@@ -927,8 +962,8 @@ class entidad{
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -960,8 +995,8 @@ class entidad{
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -993,8 +1028,8 @@ class entidad{
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -1026,8 +1061,8 @@ class entidad{
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -1059,8 +1094,8 @@ class entidad{
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -1087,19 +1122,32 @@ class entidad{
         foreach ($resultadoEditorial as $key ) {
             $arrayNu[$i]=array('nombre' => $key['nombre']);
             $i++;
-        }
+        }                
                 $todo=filtrarTodosLosLibros();
                 $arrayNa = array();
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
+               //var_dump($todo);
                 require_once("../cookbooks.php");
                 break;
         }
     }
+ /*
+   function muestraImagen(){
+        echo "ESTOY EN MUESTRAIMAGEN";
+        $imagen= pruebaImagen();
+        $mime= $imagen['extension'];
+        $posta = $imagen['imagen'];
+        $laposta= imagejpeg($posta);
+        var_dump($laposta);
+        header("Content_Type = $mime ");
+        echo $laposta;
+    }*/
+
 function buscar() {
         
         $valorEditorial=$_POST['busquedaEditorial'];
@@ -1130,8 +1178,8 @@ function buscar() {
         $arrayNa = array();
         $i=0;
         foreach ($resultado as $key ) {
-            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                    'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                    'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                 $i++;
                 }
         require_once("../cookbooks.php");
@@ -1167,8 +1215,8 @@ function buscarRegistrado() {
         $arrayNa = array();
         $i=0;
         foreach ($resultado as $key ) {
-            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                    'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                    'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                 $i++;
                 }
         require_once("../cookbooksUsuario.php");
@@ -1211,8 +1259,8 @@ function buscarRegistrado() {
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
         require_once("../cookbooksUsuario.php");
@@ -1244,8 +1292,8 @@ function buscarRegistrado() {
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
         require_once("../cookbooksUsuario.php");
@@ -1277,8 +1325,8 @@ function buscarRegistrado() {
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
         require_once("../cookbooksUsuario.php");
@@ -1310,8 +1358,8 @@ function buscarRegistrado() {
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
         require_once("../cookbooksUsuario.php");
@@ -1343,8 +1391,8 @@ function buscarRegistrado() {
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
         require_once("../cookbooksUsuario.php");
@@ -1376,8 +1424,8 @@ function buscarRegistrado() {
                 $arrayNa = array();
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-                        'etiqueta' => $key[13] , 'precio' =>$key['precio']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
+                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
         require_once("../cookbooksUsuario.php");

@@ -301,15 +301,15 @@ function validarAltaAutor($nom){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $imagen) {
+function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_foto) {
 	// FALTA	insertar la FECHA
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 		$imagen = 1;
-		$query = $link->prepare("INSERT INTO `libro`(`id_editorial`, `id_etiqueta`, `stock`, `precio`, `isbn`, `cantPag`, `nombre`, `imagen`)
-		 						 VALUES (:Edi, :Eti, :Stock, :Precio, :Isbn, :CantHojas, :Nombre, :Imagen)");
+		$query = $link->prepare("INSERT INTO `libro`(`id_editorial`, `id_etiqueta`, `stock`, `precio`, `isbn`, `cantPag`, `nombre`,  `referencia_foto`)
+		 						 VALUES (:Edi, :Eti, :Stock, :Precio, :Isbn, :CantHojas, :Nombre,  :Referencia )");
 		$res = $query->execute(array('Nombre' => $nom , 'Edi' => $id_editorial , 'Eti'=> $id_etiqueta , 'Stock'=> $cantLibros ,
-		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas, 'Imagen'=>$imagen));
+		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas, 'Referencia'=>$referencia_foto ));
 		//El proximo SELECT es para recuperar el id del libro para el alta en la tabla 'libroautor'
 		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
 		$res2 = $query ->execute(array('Nombre' => $nom));
@@ -395,7 +395,10 @@ function obtenerLibrosBorrados(){
 function obtenerLibros(){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-	 	$query = $link->prepare("SELECT `nombre`,`isbn`,`cantPag`, `stock`,`precio`,`id_libro` FROM libro WHERE `baja`=0");
+	 	//$query = $link->prepare("SELECT `nombre`,`isbn`,`cantPag`, `stock`,`precio`,`id_libro`,`imagen`,`extension` 
+	 								//FROM libro WHERE `baja`=0");
+		$query = $link->prepare("SELECT * 
+	 								FROM libro WHERE `baja`=0");
 	 	$query->execute();
 	 	$res=$query->fetchAll();
 	 	$link=cerrarConexion();
@@ -814,8 +817,24 @@ function buscarTodo($editorial,$etiqueta,$autor){
 	}
                
 }
+/*
+function pruebaImagen(){
+	echo "ESTOY EN PRUEBAIMAGEN";
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` 
+									WHERE `id_libro` = :Id ");
 
- 
+		$res = $query -> execute(array('Id' =>42 ));
+		$res = $query -> fetch();
+		$link = cerrarConexion();
+		return $res;
+	}
+} */
+
+
+
  /*SELECT `l.nombre`, `a.nombre`, `a.apellido`, `e.nombre`, `l.precio`, 
  									FROM carrito as c 
 									 INNER JOIN carrito_libro as cl ON `c.id_carrito`=`cl.id_carrito` 

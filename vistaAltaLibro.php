@@ -45,7 +45,7 @@
 </nav>
 <div class="row">
 <div class="col-md-12">
-<form method="POST"  onSubmit = "return validaLibro()" action="llamadaController.php?action=confirmarAltaLibro&clase=entidad">
+<form method="POST"  onSubmit = "return validaLibro()" action="llamadaController.php?action=confirmarAltaLibro&clase=entidad" enctype="multipart/form-data">
   <div class="panel panel-info">
   <table class="table table">
     <tr>
@@ -161,11 +161,11 @@
     <td>
       <div class="input-group input-group-lg">
         <span class="input-group-addon">Portada</span>
-        <input type="file" class="form-control" name="imagen">
+        <input type="file" class="form-control" id="portada" name="portada">
 
       </div>
          <td>
-        <button class="btn btn-info" type="submit">Enviar</button>
+        <button class="btn btn-info" type="submit" name="enviar" id="enviar">Enviar</button>
       </td>
      <!-- <input id="campofotografia" name="imagen" type="file">    -->
     </td>
@@ -182,7 +182,9 @@
     echo "<div class='alert alert-danger'>Error! Ya existe el libro ingresado, busque en la lista o en los borrados</div>";
    // echo "<h4>Ya existe el nombre ingresado, busque en la lista o en los borrados</h4>";
   }
-
+  if(isset($no_imagen)){
+    echo "<div class='alert alert-danger'>Error! Formato de imagen incorrecto o archivo faltante</div>";
+  }
 ?>
 
 </div>

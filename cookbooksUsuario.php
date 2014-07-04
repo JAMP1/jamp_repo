@@ -142,13 +142,14 @@
           if(isset($arrayNa)){
           if(count($arrayNa)>0){
               foreach ($arrayNa as $key){
+                $referencia= $key['referencia_foto'];
                 echo  " <div class='col-md-3'>
                         <h2>".$key['titulo']."</h2>
                         <h4>".$key['editorial']."</h4>
                         <h4>".$key['autor']."</h4>
                         <h4>".$key['etiqueta']."</h4>
                         <h4>$".$key['precio']."</h4>
-                        <p><img class='img-book' src='/JAMP/IMG/libro3.jpg' alt='cocina3'></p>
+                        <p><img class='img-book' src='$referencia' alt='cocina3'></p>
                         <br>
                         <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
                       </div>";
