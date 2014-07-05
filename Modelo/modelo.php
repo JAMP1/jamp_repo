@@ -499,6 +499,20 @@ function eliminarLibro($id) {
 	return $res;
 }
 
+function validarUsuarioYDni($nombreUsuario, $dni){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT `nombreusuario`, `dni`, `id_usuario` 
+	 							FROM usuario WHERE `nombreusuario`=:Nom OR `dni`=:DNI");
+	 	$query->execute(array('Nom' => $nombreUsuario, 'DNI'=>$dni));
+	 	$res=$query->fetchAll();
+	 	$link=cerrarConexion();
+	}else {
+		$res= "error";
+	}
+	return $res;
+}
+
 function recuperarCliente($nombreUsuario){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -649,17 +663,18 @@ function modificarDatosCliente ($nombre, $apellido,  $email, $telefono, $dni,$no
 		$link = conectarBaseDatos();
 	if ($link != "error"){
 		
-		 	$query = $link->prepare("UPDATE `usuario` SET `nombre`=:Nombre , `apellido`=:Apellido, `email`=:Email, `telefono`=:Telefono, 
-											`dni`=:Dni, `nombreUsuario`=:NombreUsuario, `contrasena`=:Contrasena WHERE id_usuario=:idUsuario");
+		 	$query = $link->prepare("	UPDATE `usuario` SET `nombre`=:Nombre , `apellido`=:Apellido, 
+		 										`email`=:Email, `telefono`=:Telefono,`dni`=:Dni, `nombreUsuario`=:NombreUsuario,
+		 										`contrasena`=:Contrasena
+										WHERE id_usuario=:idUsuario");
 	 	$res=$query->execute(array('Nombre' => $nombre,
 	 							'Apellido' => $apellido,
 	 							'Email' => $email,
-	 							 'Telefono'=> $telefono,
-	 							 'Dni'=> $dni,
-	 							 'NombreUsuario'=> $nombreUsuario,
-	 							 'Contrasena'=> $contrasena,
-	 							 'idUsuario'=> $idUsuario));
-
+	 							'Telefono'=> $telefono,
+	 							'Dni'=> $dni,
+	 							'NombreUsuario'=> $nombreUsuario,
+	 							'Contrasena'=> $contrasena,
+	 							'idUsuario'=> $idUsuario));
 	 }else {
 	 	$res= "error";
 	 }
@@ -681,7 +696,7 @@ function obtenerUsuarios() {
 	return $res;
 }
 function validarAltaUsuario($nom){ 
-	//Realiza una consulta por nombre y otra por isbn pero recuperando los nombres, devuelve un array con ambos mergeados.
+	//Realiza una consulta por nombre
   	$link = conectarBaseDatos();
   	if($link != "error"){
   		$query = $link->prepare("SELECT `nombreUsuario` FROM usuario WHERE `nombreUsuario`=:nom");

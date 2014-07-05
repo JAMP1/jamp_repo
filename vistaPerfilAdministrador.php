@@ -18,7 +18,6 @@
 <title>Bienvenidos</title>
 </head>
 <body>
-
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
      <!-- <div class="container">-->
         <div class="navbar-header">
@@ -40,100 +39,137 @@
               <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad"> Administración Libro</a></li>
               <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad"> Administración Usuario</a></li>
             </ul>
-            <!--<li><a class="active" href="../PORTI/llamadaController.php?action=cargarIdioma"> Administración Idioma </a></li>
-            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro"> Administración Libro</a></li>
-            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario"> Usuario </a></li>
-            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarVenta"> Ventas </a></li>-->
             <ul class="nav navbar-nav navbar-right">
-            <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+              <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
             </ul>
           </div>
-
-          <div>
-        <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">     
-            <div class="form-group">
-              <ul class="nav navbar-nav navbar-right">
-            <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
-           </ul>
-           </div>
-          </form>         
-        </div>      
         </div><!--/.navbar-collapse -->
     </div>
   </div>
   <body>    
+    <div>
       <?php
-      echo"
-          <form onSubmit='return validaUsuario()' action='/JAMP/PORTI/llamadaController.php?action=modificarCliente&clase=entidad' method='post'>
-                <div class='panel panel-info'>
-                <table class='table table'>
-                  <tr>
-                  <td>
-                    <div class='input-group input-group-lg'>
-                      <span class='input-group-addon'>Nombre</span>
-                      <input type='text' class='form-control' name='nombre' id='nombre' required='required' value= '".$cliente['nombre']."'>
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                  <td>
-                    <div class='input-group input-group-lg'>
-                      <span class='input-group-addon'>Apellido</span>
-                      <input type='text' class='form-control'  name='apellido' id='apellido' required='required' value='".$cliente['apellido']."'>
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                  <td>
-                    <div class='input-group input-group-lg'>
-                      <span class='input-group-addon'>Email</span>
-                      <input type='email' class='form-control'  name='email' required='required' value='".$cliente['email']."'>
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                  <td>
-                    <div class='input-group input-group-lg'>
-                      <span class='input-group-addon'>Telefono</span>
-                      <input type='text' class='form-control'  name='telefono' id='telefono' required='required' value='".$cliente['telefono']."'>
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                  <td>
-                    <div class='input-group input-group-lg'>
-                      <span class='input-group-addon'>DNI</span>
-                      <input type='text' class='form-control'  name='dni' id='dni' required='required' value='".$cliente['dni']."'>
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                  <td>
-                    <div class='input-group input-group-lg'>
-                      <span class='input-group-addon'>Usuario</span>
-                      <input type='text' class='form-control'  name='nombreUsuario' id='nombreUsuario' required='required' value= '".$cliente['nombreUsuario']."'> 
-                    </div>
-                    </td>
-                  </tr>
-                  <tr>
-                  <td>
-                    <div class='input-group input-group-lg'>
-                      <span class='input-group-addon'>Contrasena</span>
-                      <input type='password' class='form-control'  name='contrasena' required='required' value= '".$cliente['contrasena']."'>        
-                      </div>
-                    </td>
-                  </tr>    
-                  <tr>
-                    <td>
-                      <input type='hidden' name= 'id_usuario' value='".$idUsuario."'> 
-                      <button class='btn btn-info' type='submit'>Modificar</button>
-                    </td>
-                  </td>
-                  </tr>
-                  </tr>
-                </table>
-              </div>
-          </form>";
-        ?>
-    </body>
-
+        if(isset($niAPalo)){
+          echo "<div class='alert alert-danger'>Error! Ya existe el DNI o Nombre de Usuario ingresado</div>";
+        }
+        if(isset($sePudoModificarAdmin)){
+          echo" <div class='alert alert-success'>Exito! Se ha modificado correctamente su informacion!!</div>";
+        }
+      ?>
+    </div>
+    <div class="col-md-12">
+      <form onsubmit="return validaUsuario()" action="/JAMP/PORTI/llamadaController.php?action=modificarAdmin&clase=entidad" method="post">
+        <div class="panel panel-info">
+          <table class="table table">
+            <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Nombre</span>
+                  <?php
+                    if(isset($nombre)){
+                      echo "<input type='text' value='".$nombre."' class='form-control' name='nombre' id='nombre' required='required'>";
+                    }else{
+                      echo "<input type='text' value='".$cliente['nombre']."' class='form-control' name='nombre' id='nombre' required='required' >";
+                    }
+                  ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Apellido</span>
+                  <?php
+                    if(isset($apellido)){
+                      echo "<input type='text' value='".$apellido."' class='form-control' name='apellido' id='apellido' required='required'>";
+                    }else{
+                      echo "<input type='text' value='".$cliente['apellido']."' class='form-control' name='apellido' id='apellido' required='required' >";
+                    }
+                  ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Email</span>
+                  <?php
+                    if(isset($email)){
+                      echo "<input type='email' value='".$email."' class='form-control' name='email' id='email' required='required'>";
+                    }else{
+                      echo "<input type='email' value='".$cliente['email']."' class='form-control' name='email' id='email' required='required' >";
+                    }
+                  ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Telefono</span>
+                  <?php
+                    if(isset($telefono)){
+                      echo "<input type='text' value='".$telefono."' class='form-control' name='telefono' id='telefono' required='required'>";
+                    }else{
+                      echo "<input type='text' value='".$cliente['telefono']."' class='form-control' name='telefono' id='telefono' required='required' >";
+                    }
+                  ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">DNI</span>
+                  <?php
+                    if(isset($dni)){
+                      echo "<input type='text' value='".$dni."' class='form-control' name='dni' id='dni' required='required'>";
+                    }else{
+                      echo "<input type='text' value='".$cliente['dni']."' class='form-control' name='dni' id='dni' required='required' >";
+                    }
+                  ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Usuario</span>
+                  <?php
+                    if(isset($nombreUsuario)){
+                      echo "<input type='text' value='".$nombreUsuario."' class='form-control' name='nombreUsuario' id='nombreUsuario' required='required'>";
+                    }else{
+                      echo "<input type='text' value='".$cliente['nombreUsuario']."' class='form-control' name='nombreUsuario' id='nombreUsuario' required='required' >";
+                    }
+                  ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Contrasena</span>
+                  <?php
+                    if(isset($contrasena)){
+                      echo "<input type='password' value='".$contrasena."' class='form-control' name='contrasena' id='contrasena' required='required'>";
+                    }else{
+                      echo "<input type='password' value='".$cliente['contrasena']."' class='form-control' name='contrasena' id='contrasena' required='required'>";
+                    }
+                  ?>       
+                </div>
+              </td>
+            </tr>    
+            <tr>
+              <td>
+                <?php
+                  echo "<input type='hidden' name= 'id_usuario' value='".$id_usuario."'>";
+                ?>
+                <button class="btn btn-info" type="submit">Modificar</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </form>
+    </div>  
+  </body>
+</html>

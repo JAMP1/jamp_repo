@@ -77,10 +77,10 @@ function validaUsuario(){
 		if ((patron.test(nom)) && (nom.length > 0)){
 			var nom=document.getElementById('telefono').value;
 			var tam = nom.length;
-			if ((patronNumerico.test(nom)) && (nom.length < 9)){
+			if ((patronNumerico.test(nom)) && (nom.length > 0) ){
 				var nom=document.getElementById('dni').value;
 				var tam = nom.length;
-				if ((patronNumerico.test(nom)) && (nom.length > 0)){
+				if ((patronNumerico.test(nom)) && (nom.length > 0) && (nom.length < 9)){
 					var nom=document.getElementById('nombreUsuario').value;
 					var tam = nom.length;
 					if ((patron.test(nom)) && (nom.length > 0)){
