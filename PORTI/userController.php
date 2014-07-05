@@ -29,8 +29,8 @@ class user {
                 $arrayNa = array();
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[21] ,
-                        'etiqueta' => $key[14] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                     $i++;
                 }
 							require_once("../cookbooksUsuario.php");

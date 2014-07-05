@@ -107,7 +107,60 @@ function modificarEtiqueta($usu,$id_us){
 	}
 	return $res;
 }
- 
+
+function recuperarEditorial($id){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT `nombre`,`id_editorial` FROM editorial WHERE `id_editorial`=:Id");
+	 	$query->execute(array('Id' => $id ));
+	 	$res=$query->fetch();
+	 	$link=cerrarConexion(); 
+	}else {
+	 	$res= "error";
+	}
+	return $res;
+}
+function recuperarEtiqueta($id){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT `nombre`,`id_etiqueta` FROM etiqueta WHERE `id_etiqueta`=:Id");
+	 	$query->execute(array('Id' => $id ));
+	 	$res=$query->fetch();
+	 	$link=cerrarConexion(); 
+	}else {
+	 	$res= "error";
+	}
+	return $res;
+}
+function recuperarAutor($id){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT `nombre`,`id_autor` FROM autor WHERE `id_autor`=:Id");
+	 	$query->execute(array('Id' => $id ));
+	 	$res=$query->fetch();
+	 	$link=cerrarConexion(); 
+	}else {
+	 	$res= "error";
+	}
+	return $res;
+}
+
+function recuperarLibroAutor($id){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT `nombre`, autor.id_autor 
+	 							FROM `autor` INNER JOIN `libroautor` ON autor.id_autor=libroautor.id_autor
+	 							WHERE id_libro=:Id");
+	 	$query->execute(array('Id' => $id ));
+	 	$res=$query->fetch();
+	 	$link=cerrarConexion(); 
+	}else {
+	 	$res= "error";
+	}
+	return $res;
+}
+
+
 function insertarEditorial($us) {
 	$link = conectarBaseDatos();
 	if ($link != "error"){
