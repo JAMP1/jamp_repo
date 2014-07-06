@@ -71,25 +71,25 @@ function validaUsuario(){
 	var patronNumerico=/^[0-9]+$/;
 	var nom=document.getElementById('nombre').value;
 	var tam = nom.length;
-	if ((patron.test(nom)) && (nom.length <= 30)){
+	if ((patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
 		var nom=document.getElementById('apellido').value;
 		var tam = nom.length;
-		if ((patron.test(nom)) && (nom.length > 0)){
+		if ((patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
 			var nom=document.getElementById('telefono').value;
 			var tam = nom.length;
-			if ((patronNumerico.test(nom)) && (nom.length > 0) ){
+			if ((patronNumerico.test(nom)) && (nom.length < 20) && (nom.length > 6) ){
 				var nom=document.getElementById('dni').value;
 				var tam = nom.length;
-				if ((patronNumerico.test(nom)) && (nom.length > 0) && (nom.length < 9)){
+				if ((patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 9)){
 					var nom=document.getElementById('nombreUsuario').value;
 					var tam = nom.length;
-					if ((patron.test(nom)) && (nom.length > 0)){
+					if ((patron.test(nom)) && (nom.length < 15) && (nom.length > 2)){
 					
 						return true;
 					}
 					else{
 						//("ERROR EN EL INGRESO DE DATOS");
-						alert("CAMPO NOMBRE DE USUARIO: Debe ingresar solo letras mayusculas y minusculas");
+						alert("CAMPO NOMBRE DE USUARIO: Debe ingresar solo letras mayusculas y minusculas, minimo de 3");
 						return false;
 					}
 				}
@@ -101,19 +101,19 @@ function validaUsuario(){
 			}
 			else{
 				//("ERROR EN EL INGRESO DE DATOS");
-				alert("CAMPO TELEFONO: Debe ingresar solo numeros enteros");
+				alert("CAMPO TELEFONO: Debe ingresar solo numeros enteros, minimo de 7, maximo de 20 digitos");
 				return false;
 			}
 		}
 		else{
 			//("ERROR EN EL INGRESO DE DATOS");
-			alert("CAMPO APELLIDO: Debe ingresar solo letras mayusculas y minusculas");
+			alert("CAMPO APELLIDO: Debe ingresar solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
 			return false;
 		}
 	}
 	else{
 		//("ERROR EN EL INGRESO DE DATOS");
-		alert("CAMPO NOMBRE: Debe ingresar solo letras mayusculas y minusculas");
+		alert("CAMPO NOMBRE: Debe ingresar solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
 		return false;
 	}	
 }

@@ -66,6 +66,9 @@
             echo "<div class='alert alert-danger'>Error! Usuario o Constrasena incorrecto!</div>";
           }
         }
+        if(isset($sePudoAlta)){
+            echo" <div class='alert alert-success'>Exito! Ya forma parte de nuestro sistema!!</div>";
+        }
     ?>
   </div>
   <div class="jumbotron">
