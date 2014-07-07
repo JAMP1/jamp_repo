@@ -37,9 +37,8 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
             <li class="active"><a href ="#"> Inicio </a></li>
-            <!--<li><a class="active" href="#"> Quienes Somos</a></li>
-            <li><a class="active" href="#"> Contacto</a></li>
-            <li><a class="active" href="#"> Libros</a></li>-->
+            <li> <a href="/JAMP/PORTI/llamadaController.php?action=bajaUsuarioRegistrado&clase=entidad"> Darme de Baja </a></li>
+            <?php echo "<li><a href=#><span class='label label-info'>".$_SESSION['usuario']."</span></a></li>"; ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
           <?php 
@@ -60,13 +59,6 @@
                     <ul class="nav navbar-nav navbar-right">
                       <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
                     </ul>
-               </div>
-            </form>
-            <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=bajaUsuarioRegistrado&clase=loginClase">
-                <div class="form-group">
-                  <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/JAMP/PORTI/llamadaController.php?action=bajaUsuarioRegistrado&clase=entidad"><span class="add-on"><i class="icon-remove-circle"> </i></span> Darme de Baja </a></li>
-                 </ul>
                </div>
             </form>
           </div>
@@ -101,9 +93,9 @@
      <div class="container">
           <div class="row">
 
-
+    <a name="nombreAncla"></a>
     <div class="col-md-4">
-      <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=filtrarRegistrado&clase=entidad">
+      <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=filtrarRegistrado&clase=entidad#nombreAncla">
                 <select name="tipo">
                   <option value="editorial">Editorial</option> 
                   <option value="titulo">Titulo</option> 
@@ -114,9 +106,9 @@
         <button class="btn btn-info" type="submit">Ordenar </button>
     </form>
     </div>
-
+    <a name="nombreAnclaDos"></a>
     <div class="col-md-6">
-        <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=buscarRegistrado&clase=entidad">
+        <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=buscarRegistrado&clase=entidad#nombreAnclaDos">
                   <select name="busquedaEditorial">
                     <?php
                     foreach ($arrayNu as $kay){
@@ -179,7 +171,12 @@
     </div>     
       <hr>
 
+<<<<<<< HEAD
   
+=======
+      <footer>
+      </footer>
+>>>>>>> 3484450fed064a79760385beffd92b5ababa5628
    <!-- </div>  /container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->

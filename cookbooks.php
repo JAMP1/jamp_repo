@@ -78,8 +78,9 @@
     </div>
   </div>
   <div class="row">
+    <a name="nombreAncla"></a>
     <div class="col-md-4">
-      <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=filtrar&clase=entidad">
+      <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=filtrar&clase=entidad#nombreAncla">
         <select name="tipo">
           <option value="editorial">Editorial</option> 
           <option value="titulo">Titulo</option> 
@@ -87,11 +88,13 @@
           <option value="precio">Precio</option> 
           <option value="etiqueta">Etiqueta</option> 
         </select>
-        <button class="btn btn-info" type="submit">Ordenar </button>
+        <button class="btn btn-info" type="submit"> Ordenar </button>
+        <!--<a href="#nombreAncla">Introducción</a><br>-->
       </form>
     </div>
     <div class="col-md-6">
-      <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=buscar&clase=entidad">
+      <a name="nombreAnclaDos"></a>
+      <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=buscar&clase=entidad#nombreAnclaDos">
         <select name="busquedaEditorial">
           <?php
             foreach ($arrayNu as $kay){
@@ -150,9 +153,30 @@
           $contar=0;
         }
       }
+      echo "<div class='row'>";
+      echo "<div class='col-md-4'>";
+      echo "<table class='table'>
+            <tr>
+            <td>Cantidad de libros:
+            </td>
+            <td><span class='label label-info'>".sizeof($resultado)."</span>
+            </td>
+            </tr>
+            <tr>
+                        ";
+            if (sizeof($resultado)==0){
+
+            echo "<div class='alert alert-warning' role='alert'>No se encontraron libros con ese criterio</div>";
+            }
+      echo  "
+            </tr>
+            </table>";
+      echo "</div>";
+      echo "</div>";
     ?>
   </table>
   <hr>
+
 
      <!-- </div>  /container -->
       <!-- Bootstrap core JavaScript
@@ -160,5 +184,8 @@
       <!-- Placed at the end of the document so the pages load faster -->
       <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>-->
+
 </body>
+<footer>
+</footer>
 </html>

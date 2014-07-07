@@ -33,6 +33,7 @@
               <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEditorial&clase=entidad"> Administración Editorial</a></li>
               <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad"> Administración Libro</a></li>
               <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad"> Administración Usuario</a></li>
+            <?php echo "<li><a href=#><span class='label label-info'>".$_SESSION['usuario']."</span></a></li>"; ?>
             </ul>
             <!--<li><a class="active" href="../PORTI/llamadaController.php?action=cargarIdioma"> Administración Idioma </a></li>
             <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro"> Administración Libro</a></li>
@@ -48,7 +49,7 @@
                     <li><a href="/JAMP/PORTI/llamadaController.php?action=bajaAdminRegistrado&clase=entidad"><span class="add-on"><i class="icon-remove-circle"> </i></span> Darme de Baja </a></li>
                  </ul>
                </div>
-            </form>
+          </form>
           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfilAdministrador&clase=entidad&id_usuario"=<?php echo $_SESSION['id_usuario']?>>
             <?php
               echo "<input type='hidden' name='id_usuario' value='".$_SESSION['id_usuario']."'>";
@@ -58,7 +59,6 @@
         </div>
       </nav>
 </head>
-<body>
-            
+<body>            
 </body>
 </html>

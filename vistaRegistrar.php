@@ -29,6 +29,7 @@
               <!--<li><a class="active" href="#"> Quienes Somos</a></li>
               <li><a class="active" href="#"> Contacto</a></li>
               <li><a class="active" href="#"> Libros</a></li>-->
+              
           <ul class="nav navbar-nav navbar-right"></ul>
         </div>
         <div>
