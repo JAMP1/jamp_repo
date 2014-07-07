@@ -1557,6 +1557,29 @@ function buscarRegistrado() {
                 break;
         }
     }
+
+    function bajaUsuarioRegistrado() {
+       
+            $id=$_SESSION['id_usuario'];
+            eliminarUsuario($id);
+            require_once("../index.php");
+            
+    }
+
+    function bajaAdminRegistrado() {
+       
+            $id=$_SESSION['id_usuario'];
+            $res=obtenerUsuariosAdmin();
+
+            if(sizeof($res)>1){
+                eliminarUsuario($id);
+                require_once("../index.php");
+            }
+            else{
+                //require_once("../ADMIN/cooBooksAdmin.php");
+                echo"no se puede realizar la baja debido a que es el último admin dado de alta en el sistema";
+            }
+    }
 }
 
 

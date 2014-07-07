@@ -36,7 +36,7 @@
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosAutor&clase=entidad">Autores Borrados </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <li><a href="/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+    <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
   </ul>
 </div>
 </nav>

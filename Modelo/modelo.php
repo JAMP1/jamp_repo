@@ -695,6 +695,20 @@ function obtenerUsuarios() {
 	}
 	return $res;
 }
+function obtenerUsuariosAdmin() {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT `id_usuario` 
+	 							FROM usuario WHERE `baja`=0 AND `id_permiso`=1");
+	 	$query->execute();
+	 	$res=$query->fetchAll();
+	 	$link=cerrarConexion();
+	}else {
+		$res= "error";
+	}
+	return $res;
+}
+
 function validarAltaUsuario($nom){ 
 	//Realiza una consulta por nombre
   	$link = conectarBaseDatos();
