@@ -13,13 +13,16 @@ function validar() {
 		return false;
 	}
 }
+ 
+    
+    
 
 function validaLibro(){
-	var patron=/^[a-z\sñA-Z]+$/;
-	var patronNumerico=/^[0-9]+$/;
+	var patron=/^\s+$/;
+	var patronNumerico=/^[0-9]+$/; 
 	var nom=document.getElementById('nom_libro').value;
 	var tam = nom.length;
-	if ((patron.test(nom)) && (nom.length <= 30)){
+	if ((!patron.test(nom)) && (nom.length <= 30)){
 		var nom=document.getElementById('isbn_libro').value;
 		var tam = nom.length;
 		if ((patronNumerico.test(nom)) && (nom.length > 0)){
@@ -67,23 +70,25 @@ function validaLibro(){
 }
 
 function validaUsuario(){
-	var patron=/^[a-z\sñA-Z]+$/;
+	var patron=/^\s+$/;
 	var patronNumerico=/^[0-9]+$/;
+	var regexp= new RegExp('^[a-z0-9]{1,10}$');
 	var nom=document.getElementById('nombre').value;
 	var tam = nom.length;
-	if ((patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
+	if ((!patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
 		var nom=document.getElementById('apellido').value;
 		var tam = nom.length;
-		if ((patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
+		if ((!patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
 			var nom=document.getElementById('telefono').value;
 			var tam = nom.length;
-			if ((patronNumerico.test(nom)) && (nom.length < 20) && (nom.length > 6) ){
+			if ((patronNumerico.test(nom)) && (nom.length < 20) && (nom.length > 6)){
 				var nom=document.getElementById('dni').value;
 				var tam = nom.length;
-				if ((patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 9)){
+				if ((patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 15)){
 					var nom=document.getElementById('nombreUsuario').value;
 					var tam = nom.length;
-					if ((patron.test(nom)) && (nom.length < 15) && (nom.length > 2)){
+
+					if ((!patron.test(nom)) && (nom.length < 15) && (nom.length > 2)){
 					
 						return true;
 					}
