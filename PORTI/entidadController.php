@@ -1340,11 +1340,13 @@ function buscar() {
         $arrayNa = array();
         $i=0;
         foreach ($resultado as $key ) {
-            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
-                    'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
-                $i++;
-                }
-        require_once("../cookbooks.php");
+                $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+                    $i++;
+        }
+            require_once("../cookbooks.php");
+        
+           
 }
 
 function buscarRegistrado() {
@@ -1613,8 +1615,9 @@ function buscarRegistrado() {
                 require_once("../index.php");
             }
             else{
-                //require_once("../ADMIN/cooBooksAdmin.php");
-                echo"no se puede realizar la baja debido a que es el último admin dado de alta en el sistema";
+
+                echo "<div class='alert alert-danger'>Error! no se puede realizar la baja debido a que es el último admin dado de alta en el sistema </div>";
+                 
             }
     }
 }
