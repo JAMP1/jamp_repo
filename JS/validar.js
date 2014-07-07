@@ -117,3 +117,12 @@ function validaUsuario(){
 		return false;
 	}	
 }
+
+function validarBaja(){
+
+	confirmar=confirm("¿Está seguro que desea darse de Baja del Sistema?"); 
+	if (confirmar) 
+		return true;
+	else
+		false;
+}

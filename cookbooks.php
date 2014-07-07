@@ -156,26 +156,28 @@
       echo "<div class='row'>";
       echo "<div class='col-md-4'>";
       echo "<table class='table'>
-            <tr>
-            <td>Cantidad de libros:
-            </td>
-            <td><span class='label label-info'>".sizeof($resultado)."</span>
-            </td>
-            </tr>
-            <tr>
-                        ";
-            if (sizeof($resultado)==0){
+                <tr>
+                  <td>Cantidad de libros:
+                  </td>
+                  <td>
+                    <span class='label label-info'>".sizeof($todo)."</span>
+                  </td>
+                </tr>
+                <tr>
+                ";
 
-            echo "<div class='alert alert-warning' role='alert'>No se encontraron libros con ese criterio</div>";
-            }
-      echo  "
-            </tr>
+                if(sizeof($todo)==0)
+                {
+                  echo "<div class='alert alert-warning' role='alert'>No se encontraron libros con ese criterio</div>";
+                }
+          echo  "
+                </tr>
             </table>";
       echo "</div>";
       echo "</div>";
     ?>
   </table>
-  <hr>
+  
 </body>
 <footer>
 </footer>

@@ -8,6 +8,9 @@
 <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
 <script src="/JAMP/LIBS/codigologin.js" type="text/javascript"></script>
 <script type="text/javascript" src="/JAMP/LIBS/validar.js"></script>
+
+<script type="text/javascript" src="/JAMP/JS/validar.js"></script>
+
 <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap-theme.css">
@@ -37,7 +40,11 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-left">
             <li class="active"><a href ="#"> Inicio </a></li>
-            <li> <a href="/JAMP/PORTI/llamadaController.php?action=bajaUsuarioRegistrado&clase=entidad"> Darme de Baja </a></li>
+
+            <form onSubmit="return validarBaja()" method="post" action="/JAMP/PORTI/llamadaController.php?action=bajaUsuarioRegistrado&clase=entidad">
+              <button class="btn btn-info" type="submit"> Darme de Baja </button>
+            </form>
+
             <?php echo "<li><a href=#><span class='label label-info'>".$_SESSION['usuario']."</span></a></li>"; ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -103,7 +110,7 @@
                   <option value="precio">Precio</option> 
                   <option value="etiqueta">Etiqueta</option> 
         </select>
-        <button class="btn btn-info" type="submit">Ordenar </button>
+        <button class="btn btn-info" type="submit"> Ordenar </button>
     </form>
     </div>
     <a name="nombreAnclaDos"></a>
@@ -140,44 +147,61 @@
   <br>
   <br>
 
+  <table>
           <?php
-          $contar=0;
-          if(isset($arrayNa)){
-          if(count($arrayNa)>0){
-              foreach ($arrayNa as $key){
-                if($contar==0){
-                  echo"<div class='row'>";
+              $contar=0;
+              if(isset($arrayNa)){
+              if(count($arrayNa)>0){
+                  foreach ($arrayNa as $key){
+                    if($contar==0){
+                      echo"<div class='row'>";
+                    }
+                    $referencia= $key['referencia_foto'];
+                    echo  " <div class='col-md-3'>
+                            <h2>".$key['titulo']."</h2>
+                            <h4>".$key['editorial']."</h4>
+                            <h4>".$key['autor']."</h4>
+                            <h4>".$key['etiqueta']."</h4>
+                            <h4>$".$key['precio']."</h4>
+                            <p><img class='img-book' src='$referencia' alt='cocina3'></p>
+                            <br>
+                            <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
+                          </div>";
+                  $contar++;
+                  if ($contar==4){
+                    echo"</div>";
+                    $contar=0;
+                  }
+                  } 
                 }
-                $referencia= $key['referencia_foto'];
-                echo  " <div class='col-md-3'>
-                        <h2>".$key['titulo']."</h2>
-                        <h4>".$key['editorial']."</h4>
-                        <h4>".$key['autor']."</h4>
-                        <h4>".$key['etiqueta']."</h4>
-                        <h4>$".$key['precio']."</h4>
-                        <p><img class='img-book' src='$referencia' alt='cocina3'></p>
-                        <br>
-                        <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
-                      </div>";
-              $contar++;
-              if ($contar==4){
-                echo"</div>";
-                $contar=0;
               }
-              } 
-            }
-          }
-            ?>
-    </div>     
-      <hr>
+              
+              echo "<div class='row'>";
+              echo "<div class='col-md-4'>";
+              echo "<table class='table'>
+                        <tr>
+                          <td>Cantidad de libros:
+                          </td>
+                          <td>
+                            <span class='label label-info'>".sizeof($todo)."</span>
+                          </td>
+                        </tr>
+                        <tr>
+                        ";
 
-      <footer>
-      </footer>
-   <!-- </div>  /container -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>-->
+                        if(sizeof($todo)==0)
+                        {
+                          echo "<div class='alert alert-warning' role='alert'>No se encontraron libros con ese criterio</div>";
+                        }
+                  echo  "
+                        </tr>
+                    </table>";
+              echo "</div>";
+              echo "</div>";
+        ?>
+  </table>
+
+  <footer>
+  </footer>
   </body>
 </html>
