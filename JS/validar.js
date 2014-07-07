@@ -71,19 +71,19 @@ function validaUsuario(){
 	var patronNumerico=/^[0-9]+$/;
 	var nom=document.getElementById('nombre').value;
 	var tam = nom.length;
-	if ((patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
+	if ((patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)&& (nom != "")){
 		var nom=document.getElementById('apellido').value;
 		var tam = nom.length;
-		if ((patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
+		if ((patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)&& (nom != "")){
 			var nom=document.getElementById('telefono').value;
 			var tam = nom.length;
-			if ((patronNumerico.test(nom)) && (nom.length < 20) && (nom.length > 6) ){
+			if ((patronNumerico.test(nom)) && (nom.length < 20) && (nom.length > 6) && (nom != "")){
 				var nom=document.getElementById('dni').value;
 				var tam = nom.length;
-				if ((patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 9)){
+				if ((patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 9)&& (nom != "")){
 					var nom=document.getElementById('nombreUsuario').value;
 					var tam = nom.length;
-					if ((patron.test(nom)) && (nom.length < 15) && (nom.length > 2)){
+					if ((patron.test(nom)) && (nom.length < 15) && (nom.length > 2)&& (nom != "")){
 					
 						return true;
 					}
