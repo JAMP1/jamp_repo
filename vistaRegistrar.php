@@ -3,7 +3,7 @@
   <head>
     <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
     <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/JAMP/LIBS/validar.js"></script>
+   <!-- <script type="text/javascript" src="/JAMP/LIBS/validar.js"></script>-->
     <script type="text/javascript" src="/JAMP/JS/validar.js"></script>
     <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap.css">
@@ -49,7 +49,7 @@
   <body>
     <div>
       <?php
-        if(isset($existe)){
+        if(isset($niAPalo)){
           echo "<div class='alert alert-danger'>Error! Ya existe registrado el usuario ingresado</div>";
          // echo "<h4>Ya existe el nombre ingresado, busque en la lista o en los borrados</h4>";
         }
@@ -59,14 +59,21 @@
       ?>
     </div>
     <div class="col-md-12">
-      <form action="/JAMP/PORTI/llamadaController.php?action=registrarCliente&clase=entidad" method="post">
+      <form onSubmit="return validaUsuario()" action="/JAMP/PORTI/llamadaController.php?action=registrarCliente&clase=entidad" method="post">
         <div class="panel panel-info">
           <table class="table table">
             <tr>
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Nombre</span>
-                  <input type="text" class="form-control" name="nombre">
+                  <?php
+                    if(isset($nombre)){
+                      echo "<input type='text' value='".$nombre."' class='form-control' name='nombre' id='nombre' required='required'>";
+                    }else{
+                      echo "<input type='text' value='' class='form-control' name='nombre' id='nombre' required='required'>";
+                    }
+                  ?>
+                 <!-- <input type="text" class="form-control" name="nombre" required="required">-->
                 </div>
               </td>
             </tr>
@@ -74,7 +81,14 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Apellido</span>
-                  <input type="text" class="form-control"  name="apellido">
+                  <?php
+                    if(isset($apellido)){
+                      echo "<input type='text' value='".$apellido."' class='form-control' name='apellido' id='apellido' required='required'>";
+                    }else{
+                      echo "<input type='text' value='' class='form-control' name='apellido' id='apellido' required='required'>";
+                    }
+                  ?>
+                <!--  <input type="text" class="form-control"  name="apellido" required="required">-->
                 </div>
               </td>
             </tr>
@@ -82,7 +96,14 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Email</span>
-                  <input type="text" class="form-control"  name="email">
+                  <?php
+                    if(isset($email)){
+                      echo "<input type='email' value='".$email."' class='form-control' name='email' id='email' required='required'>";
+                    }else{
+                      echo "<input type='email' value='' class='form-control' name='email' id='email' required='required'>";
+                    }
+                  ?>
+            <!--      <input type="email" class="form-control"  name="email" required="required">-->
                 </div>
               </td>
             </tr>
@@ -90,7 +111,14 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Telefono</span>
-                  <input type="text" class="form-control"  name="telefono">
+                  <?php
+                    if(isset($telefono)){
+                      echo "<input type='text' value='".$telefono."' class='form-control' name='telefono' id='telefono' required='required'>";
+                    }else{
+                      echo "<input type='text' value='' class='form-control' name='telefono' id='telefono' required='required'>";
+                    }
+                  ?>
+           <!--       <input type="text" class="form-control"  name="telefono" required="required">-->
                 </div>
               </td>
             </tr>
@@ -98,7 +126,14 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">DNI</span>
-                  <input type="text" class="form-control"  name="dni">
+                  <?php
+                    if(isset($dni)){
+                      echo "<input type='text' value='".$dni."' class='form-control' name='dni' id='dni' required='required'>";
+                    }else{
+                      echo "<input type='text' value='' class='form-control' name='dni' id='dni' required='required'>";
+                    }
+                  ?>
+         <!--         <input type="text" class="form-control"  name="dni" required="required">-->
                 </div>
               </td>
             </tr>
@@ -106,7 +141,14 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Usuario</span>
-                  <input type="text" class="form-control"  name="nombreusuario"> 
+                  <?php
+                    if(isset($nombreUsuario)){
+                      echo "<input type='text' value='".$nombreUsuario."' class='form-control' name='nombreUsuario' id='nombreUsuario' required='required'>";
+                    }else{
+                      echo "<input type='text' value='' class='form-control' name='nombreUsuario' id='nombreUsuario' required='required'>";
+                    }
+                  ?>
+          <!--        <input type="text" class="form-control"  name="nombreusuario" required="required"> -->
                 </div>
               </td>
             </tr>
@@ -114,7 +156,7 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Contrasena</span>
-                  <input type="password" class="form-control"  name="contrasena">        
+                  <input type="password" class="form-control"  name="contrasena" required="required">        
                   </div>
               </td>
             </tr>    

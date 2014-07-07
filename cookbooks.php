@@ -66,6 +66,9 @@
             echo "<div class='alert alert-danger'>Error! Usuario o Constrasena incorrecto!</div>";
           }
         }
+        if(isset($sePudoAlta)){
+            echo" <div class='alert alert-success'>Exito! Ya forma parte de nuestro sistema!!</div>";
+        }
     ?>
   </div>
   <div class="jumbotron">
@@ -123,7 +126,11 @@
 
     <?php
       //var_dump($arrayNa);
+      $contar=0;
       foreach ($arrayNa as $key){
+        If($contar==0){
+          echo "<div class='row'>";
+        }
         $referencia= $key['referencia_foto'];
               echo  " <tr> 
                       <div class='col-md-3'>
@@ -137,6 +144,11 @@
                       <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
                       </div>
                       </tr>";
+        $contar++;
+        if ($contar==4){
+          echo "</div>";
+          $contar=0;
+        }
       }
     ?>
   </table>

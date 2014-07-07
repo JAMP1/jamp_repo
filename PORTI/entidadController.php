@@ -753,45 +753,82 @@ class entidad{
     function registrarme () {
         require_once "../vistaRegistrar.php";
     }
-    function registrarCliente () {  //REVEER BIEN POR EL TEMA DEL DNI
-        $nombreUsuario= $_POST['nombreusuario'];
-        $cliente= recuperarCliente($nombreUsuario);
-        if ($cliente!="error"){
-            $arreglo= validarAltaUsuario($nombreUsuario);
-            if((!empty($arreglo))){
-                if ($arreglo[0]['nombreUsuario'] == $nombreUsuario){
-                $existe = 'existe';
-                require_once("../vistaRegistrar.php");
-               }
-            }else{
-                $nombre= $_POST['nombre'];
-                $apellido= $_POST['apellido'];
-                $dni= $_POST['dni'];
-                $contrasena= $_POST['contrasena'];
-                $telefono= $_POST['telefono'];
-                $email= $_POST['email'];       
-                $permiso = 2;
-                $intento= altaCliente($nombreUsuario, $nombre, $apellido, $dni,  $email, $telefono,$contrasena, $permiso);
-                if ($intento){
-                    $res = recuperarCliente($nombreUsuario);
-                    altaCarrito($res[0]['id_usuario']);
-                    $sePudoAlta = true;
-                    require_once("../vistaRegistrar.php");
-                    //require_once("../cookbooks.php");
-                    //header("Location: ../cookbooks.php");
-                    //var_dump($res);
-                //else
-                    //mensaje de error y que vuelva a vistaRegistrar.php
-                }
-            }
-        }
-    }
 
     function registroAdmin(){
         require_once("../vistaRegistroAdmin.php");
     }
 
-    function registrarAdministrador () { //REVEER BIEN
+    function registrarCliente () {  //REVEER BIEN POR EL TEMA DEL DNI
+        $nombre=$_POST ['nombre'];
+        $apellido=$_POST ['apellido'];
+        $email=$_POST ['email'];
+        $telefono=$_POST ['telefono'];
+        $dni=$_POST ['dni'];
+        $nombreUsuario=$_POST ['nombreUsuario'];
+        $contrasena=$_POST ['contrasena'];
+        $buscaNomUsuarioYDNI = validarUsuarioYDni($nombreUsuario, $dni);
+        if( (sizeof($buscaNomUsuarioYDNI)==0) ){
+            $permiso=2;
+            $intento= altaCliente($nombreUsuario, $nombre, $apellido, $dni,  $email, $telefono,$contrasena, $permiso);
+            if ($intento){
+                $res = recuperarCliente($nombreUsuario);
+                altaCarrito($res[0]['id_usuario']);
+                $sePudoAlta = true;
+
+            //      PEGO EL CACHO DE CODIGO QUE CARGA TODO LO NECESARIO PARA EL FILTRADO Y LA ORDENACION DE LIBROS
+            //      POR SUPUESTO QUE NO ES LO IDEAL REPETIR ESTE CACHO, PERO NO TENGO IDEA DE OTRA ALTERNATIVA
+            //      ADEMAS DE NO HABER HECHO YO EL CODIGO. POR EL MOMENTO ESTE PARCHE SAFA
+            //      PERO ESTÁ REPETIDO EN TODOS LOS CODIGOS QUE REDIRIGEN AL INICIO DE LOS USUARIOS
+
+                $resultadoAutor=obtenerAutores();
+                $resultadoEtiqueta=obtenerEtiquetas();
+                $resultadoEditorial=obtenerEditoriales();
+                $arrayNe = array();
+                $i=0;
+                foreach ($resultadoAutor as $key ) {
+                    $arrayNe[$i]=array('nombre' => $key['nombre']);
+                    $i++;
+                }
+                $arrayNo = array();
+                $i=0;
+                foreach ($resultadoEtiqueta as $key ) {
+                    $arrayNo[$i]=array('nombre' => $key['nombre']);
+                    $i++;
+                }
+                $i=0;
+                $arrayNu = array();
+                foreach ($resultadoEditorial as $key ) {
+                    $arrayNu[$i]=array('nombre' => $key['nombre']);
+                    $i++;
+                }
+                $todo=filtrarTodosLosLibros();
+                $arrayNa = array();
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+                    $i++;
+                }
+
+                require_once ("../cookbooks.php");
+            }
+        }else{
+            $i=0;
+            foreach ($buscaNomUsuarioYDNI as $key){
+                if ($key['nombreusuario']==$nombreUsuario ){
+                    $nombreUsuario="";
+                }
+                if($key['dni']==$dni ){
+                    $dni="";
+                }
+                $i++;
+            }  
+            $niAPalo=true;
+            require_once ("../vistaRegistrar.php");
+        }
+    }
+
+    function registrarAdministrador () { 
         $nombreUsuario= $_POST['nombreusuario'];
         $nombre= $_POST['nombre'];
         $apellido= $_POST['apellido'];

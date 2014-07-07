@@ -7,7 +7,9 @@
 <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
 <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
 <script src="/JAMP/LIBS/codigologin.js" type="text/javascript"></script>
-<script type="text/javascript" src="/JAMP/LIBS/validar.js"></script>
+<script type="text/javascript" src="/JAMP/JS/validar.js"></script>
+
+<!--<script type="text/javascript" src="/JAMP/LIBS/validar.js"></script>-->
 <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap-theme.css">
@@ -63,7 +65,7 @@
     }
   ?>
     <div class="col-md-12">
-      <form method="POST"  onSubmit = "return validaUsuario()" action="/JAMP/PORTI/llamadaController.php?action=modificarCliente&clase=entidad" enctype="multipart/form-data">
+      <form method="POST"  onSubmit = "return validaUsuario()" action="/JAMP/PORTI/llamadaController.php?action=modificarCliente&clase=entidad" >
         <div class="panel panel-info">
           <table class="table table">
             <tr>
@@ -76,7 +78,6 @@
                     }else{
                       echo "<input type='text' value='".$cliente['nombre']."' class='form-control' name='nombre' id='nombre' required='required'>";
                     }
-
                   ?>
                 </div>
                <!-- <input id="nombre" type="text" placeholder="Nombre Libro" name="nom_libro">-->
