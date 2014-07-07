@@ -139,9 +139,13 @@
   <br>
 
           <?php
+          $contar=0;
           if(isset($arrayNa)){
           if(count($arrayNa)>0){
               foreach ($arrayNa as $key){
+                if($contar==0){
+                  echo"<div class='row'>";
+                }
                 $referencia= $key['referencia_foto'];
                 echo  " <div class='col-md-3'>
                         <h2>".$key['titulo']."</h2>
@@ -153,6 +157,11 @@
                         <br>
                         <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
                       </div>";
+              $contar++;
+              if ($contar==4){
+                echo"</div>";
+                $contar=0;
+              }
               } 
             }
           }
