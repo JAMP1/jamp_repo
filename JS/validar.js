@@ -134,3 +134,14 @@ function validarBaja(){
 	else
 		false;
 }
+
+function validarRecuperaEmail(){
+	var patron= /^[a-zA-Z0-9_\-\.~]{2,}@[a-zA-Z0-9_\-\.~]{2,}\.[a-zA-Z]{2,4}$/;
+	var email= document.getElementById('email').value;
+	if(patron.test(email)){
+		alert("QUE HACE");
+		return true;
+	}
+	alert("QUE ONDA");
+	return false;
+}
