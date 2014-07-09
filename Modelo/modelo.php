@@ -236,7 +236,89 @@ function agregarBorradaEditoriales($id_us) {
 	}
 	return $res;
 }
- 
+//Idiomas
+function obtenerIdiomas(){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT `nombre`,`id_idioma` FROM idioma WHERE `baja`=0");
+	 	$query->execute();
+	 	$res=$query->fetchAll();
+	 	$link=cerrarConexion();
+	}else {
+		$res= "error";
+	}
+	return $res;
+}
+function eliminarIdioma($id_us) {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+		$query = $link->prepare("UPDATE `idioma`SET `baja`= 1 WHERE `id_idioma`= :Id_us");
+		$res = $query->execute(array('Id_us' => $id_us));
+		$link=cerrarConexion();
+	}else {
+		$res= "error";
+	}
+	return $res;
+}
+function insertarIdioma($us) {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+		$query = $link->prepare("INSERT INTO `idioma`(`nombre`) VALUES (:Nombre)");
+		$res = $query->execute(array('Nombre' => $us)) ;
+		$link=cerrarConexion();
+	}else {
+		$res= "error";
+	}
+	return $res;
+}
+function validarAltaIdioma($nom){
+  	$link = conectarBaseDatos();
+  	if($link != "error"){
+  		$query = $link->prepare("SELECT `nombre` FROM idioma WHERE `nombre`=:nom");
+  		$res = $query->execute(array('nom' => $nom));
+  		$res=$query->fetchAll();
+  		$link=cerrarConexion();
+  	}else{
+  		$res = "error";
+  	}
+  	return $res;
+}
+function modificarIdioma($nom,$id_idioma){
+ 	$link = conectarBaseDatos();
+	if ($link != "error"){
+		$query = $link->prepare("UPDATE `idioma` SET `nombre`= :Nom WHERE `id_idioma`= :Id");
+		$res = $query->execute(array('Id' => $id_idioma,
+		 							'Nom' => $nom));
+		$link=cerrarConexion();
+	}else{
+		$res= "error";
+	}
+	return $res;
+}
+function obtenerIdiomasBorrados(){
+  	$link = conectarBaseDatos();
+  	if ($link != "error"){
+  		$query = $link->prepare("SELECT `nombre`,`id_idioma` FROM idioma WHERE `baja`=1");
+  		$query->execute();
+  		$res=$query->fetchAll();
+  		$link=cerrarConexion();  	
+  	}else {
+  		$res= "error";
+  	}
+  	return $res;
+}
+function agregarBorradaIdiomas($id_idioma) {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+		$query = $link->prepare("UPDATE `idioma`SET `baja`= 0 WHERE `id_idioma`= :Id");
+		$res = $query->execute(array('Id' => $id_idioma));
+		$link=cerrarConexion();
+	}else {
+		$res= "error";	
+	}
+	return $res;
+}
+/////// 
 function insertarAutor($us) {
 	$link = conectarBaseDatos();
 	if ($link != "error"){

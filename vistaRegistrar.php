@@ -12,42 +12,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <label class="navbar-brand">CookBooks</label> 
-      </div>
-      <div class="navbar-collapse collapse" id="menu">
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href ="/JAMP/index.php"> Inicio </a></li>
-              <!--<li><a class="active" href="#"> Quienes Somos</a></li>
-              <li><a class="active" href="#"> Contacto</a></li>
-              <li><a class="active" href="#"> Libros</a></li>-->
-              
-          <ul class="nav navbar-nav navbar-right"></ul>
-        </div>
-        <div>
-          <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
-            <div class="form-group">
-              <input type="text" id="username" placeholder="Usuario" class="form-control" placeholder="Usuario" name="username" value="" required="required" />
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Contraseña" class="form-control" id="password" name="password" required="required" />
-            </div>
-            <button type="submit" id="_submit" class="btn btn-success" name="_submit" >Entrar</button>
-          </form>   
-          <a href="#"><span class="label label-info">Crear Cuenta </span></a>
-        </div>
-      </div><!--/.navbar-collapse -->
-    </div>
   </head>
   <body>
+      <nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <label class="navbar-brand">CookBooks</label> 
+        </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href ="/JAMP/index.php"> Inicio </a></li>
+        <li class="active"><a href="#">Crear Cuenta</a></li>
+      </ul>
+      <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
+      <div class="form-group">
+      <input type="text" id="username" placeholder="Usuario" class="form-control" placeholder="Usuario" name="username" value="" required="required" />
+      </div>
+      <div class="form-group">
+      <input type="password" placeholder="Contraseña" class="form-control" id="password" name="password" required="required" />
+      </div>
+      <button type="submit" id="_submit" class="btn btn-info" name="_submit" >Entrar</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
     <div>
       <?php
         if(isset($niAPalo)){

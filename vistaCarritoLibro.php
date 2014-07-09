@@ -34,31 +34,29 @@
 </head>
 <body class="laboratorix">
 <nav class="navbar navbar-inverse" role="navigation">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <label class="navbar-brand">CookBooks</label> 
-  </div>
-
-  <!-- Collect the nav links, forms, and other content for toggling -->
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  <ul class="nav navbar-nav">
-    <?php
-	    //echo "<li><a href ='/JAMP/cookbooksUsuario.php?id_usuario=".$_SESSION['id_usuario']."'>Inicio </a></li>";
-    //echo "<li><a href ='/JAMP/cookbooksUsuario.php?id_usuario=".$_SESSION['id_usuario']."'>Inicio </a></li>";
-    ?>
-    <li class=""><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=user"> Inicio </a></li>
-    <li class="active"><a href ="#">MI CARRITO </a></li>
-  </ul>
-  <ul class="nav navbar-nav navbar-right">
-    <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
-  </ul>
-</div>
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <label class="navbar-brand">CookBooks</label> 
+        </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
+      <ul class="nav navbar-nav">
+        <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=user"> Inicio </a></li>
+        <li class="active"><a href ="#">Mi Carrito</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
 <div class="row">
 <div class="col-md-12">
@@ -77,7 +75,8 @@
        // var_dump($key);
         if(count($arrayNa) > 0){
           foreach ($arrayNa as $key){
-            echo  " <td class='separados'><p>".$key["nombre"]."</p></td>
+            echo  " <tr>
+                    <td class='separados'><p>".$key["nombre"]."</p></td>
                     <td class='separados'><p>".$key["isbn"]."</p></td>
                     <td class='separados'><p>".$key["cantPag"]."</p></td>
                     <td class='separados'><p>".$key["stock"]."</p></td>
@@ -102,14 +101,17 @@
                     </tr>";
           }
           // <td class='separados'><p><input type='number' class='cantidadLibroEnCarrito' min='1' value='1'></p>
-          echo "<td class='separados'>
+          echo "<tr>
+                <td class='separados'>
                 <form method='POST' onSubmit='return confirmaCompra()' action='/JAMP/PORTI/llamadaController.php?action=comprarLibro&clase=entidad'>
                 <input name='id_carrito' type='hidden' value='".$arrayNa[0]['id_carrito']."'/>
                 <input name='id_usuario' type='hidden' value='".$idUsuario."'/>
                 <input type='submit' class='btn btn-info' value='Comprar'/>
                 </form>
-                </td>";
+                </td>
+                </tr>";
           }
+      else { echo "<div class='alert alert-warning' role='alert'>Actualmente no hay libros en tu carrito</div>";}
         ?>
 </table>
 </div>

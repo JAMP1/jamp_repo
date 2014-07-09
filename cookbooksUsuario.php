@@ -24,8 +24,9 @@
 
 <body>
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-     <!-- <div class="container">-->
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -35,52 +36,33 @@
           </button>
           <label class="navbar-brand">CookBooks</label> 
         </div>
-        <div class="navbar-collapse collapse" id="menu">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href ="#"> Inicio </a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+      </ul>
+      <form  class="navbar-form navbar-right" onSubmit="return validarBaja()" method="post" action="/JAMP/PORTI/llamadaController.php?action=bajaUsuarioRegistrado&clase=entidad">
+        <button class="btn btn-info" type="submit"> Darme de Baja </button>
+      </form>
+      <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfil&clase=entidad&id_usuario"=<?php echo $_SESSION['id_usuario']?>>
+      <?php
+      echo "<input type='hidden' name='id_usuario' value='".$_SESSION['id_usuario']."'>";
+      ?>
+      <button class="btn btn-info" type="submit">Mi perfil </button>
+      </form>
+      <?php 
+      echo "<form class='navbar-form navbar-right' method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
+                  <input name='idUsuario' type='hidden' value='".$_SESSION['id_usuario']."'/>           
+                  <button class='btn btn-info' type='submit'> Mi Carrito </button>";
+      ?>
 
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href ="#"> Inicio </a></li>
-
-            <form onSubmit="return validarBaja()" method="post" action="/JAMP/PORTI/llamadaController.php?action=bajaUsuarioRegistrado&clase=entidad">
-              <button class="btn btn-info" type="submit"> Darme de Baja </button>
-            </form>
-
-            <?php echo "<li><a href=#><span class='label label-info'>".$_SESSION['usuario']."</span></a></li>"; ?>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-          <?php 
-            //echo $_COOKIE["IdCookie"];
-            echo "<form method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
-                  <input name='idUsuario' type='hidden' value='".$_SESSION['id_usuario']."'/>
-                  
-                  <input type='submit' class='btn btn-info' value='MI CARRITO'/>";
-            
-          ?>
-            </ul>
-          </div>
-
-          <div>
-          <div>
-            <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
-                <div class="form-group">
-                    <ul class="nav navbar-nav navbar-right">
-                      <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
-                    </ul>
-               </div>
-            </form>
-          </div>
-
-           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfil&clase=entidad&id_usuario"=<?php echo $_SESSION['id_usuario']?>>
-            <?php
-            echo "<input type='hidden' name='id_usuario' value='".$_SESSION['id_usuario']."'>";
-            ?>
-            <button type="submit">Mi perfil </button>
-          </form>
-        </div>
-        
-        </div><!--/.navbar-collapse -->
-      </div>
-    </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
@@ -147,7 +129,6 @@
   <br>
   <br>
 
-  <table>
           <?php
               $contar=0;
               if(isset($arrayNa)){
@@ -163,7 +144,7 @@
                             <h4>".$key['autor']."</h4>
                             <h4>".$key['etiqueta']."</h4>
                             <h4>$".$key['precio']."</h4>
-                            <p><img class='img-book' src='$referencia' alt='cocina3'></p>
+                            <p><img class='img-book' src='$referencia' alt='cocina3' height='200' weight='200'></p>
                             <br>
                             <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
                           </div>";
@@ -176,7 +157,7 @@
                 }
               }
               
-          /*    echo "<div class='row'>";
+              echo "<div class='row'>";
               echo "<div class='col-md-4'>";
               echo "<table class='table'>
                         <tr>
@@ -197,11 +178,8 @@
                         </tr>
                     </table>";
               echo "</div>";
-              echo "</div>";*/
+              echo "</div>";
         ?>
-  </table>
-</div>     
-
    <!-- </div>  /container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->

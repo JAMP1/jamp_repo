@@ -6,8 +6,8 @@
 <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
 <script src="../LIBS/jquery.js" type="text/javascript"></script>
 <script src="../LIBS/codigologin.js" type="text/javascript"></script>
-<script type="text/javascript" src="/..LIBS/validar.js"></script>
-<script type="text/javascript" src="/..LIBS/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../LIBS/validar.js"></script>
+<script type="text/javascript" src="../LIBS/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../LIBS/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="../LIBS/bootstrap/css/bootstrap-theme.css">
 <link rel="stylesheet" type="text/css" href="../LIBS/bootstrap/font-awesome/css/font-awesome.min.css">
@@ -26,35 +26,32 @@
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
             <ul class="nav navbar-nav navbar-left">
-              <li class="active"><a href="../PORTI/llamadaController.php?action=volverInicio&clase=admin"> Inicio </a></li>
-              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEtiqueta&clase=entidad"> Administración Etiqueta </a></li>
-              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarAutor&clase=entidad"> Administración Autor</a></li>
-              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarEditorial&clase=entidad"> Administración Editorial</a></li>
-              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad"> Administración Libro</a></li>
-              <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad"> Administración Usuario</a></li>
-            <?php echo "<li><a href=#><span class='label label-info'>".$_SESSION['usuario']."</span></a></li>"; ?>
+              <li class="active"><a href="../PORTI/llamadaController.php?action=volverInicio&clase=admin"> Inicio </a></li>  
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrar <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="../PORTI/llamadaController.php?action=cargarEtiqueta&clase=entidad"> Administración Etiqueta </a></li>
+                  <li><a href="../PORTI/llamadaController.php?action=cargarAutor&clase=entidad"> Administración Autor</a></li>
+                  <li><a href="../PORTI/llamadaController.php?action=cargarEditorial&clase=entidad"> Administración Editorial</a></li>
+                  <li><a href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad"> Administración Libro</a></li>
+                  <li><a href="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad"> Administración Usuario</a></li>
+                  <li><a href="../PORTI/llamadaController.php?action=cargarIdioma&clase=entidad"> Administración Idiomas</a></li>
+                </ul>
+              </li>
             </ul>
-            <!--<li><a class="active" href="../PORTI/llamadaController.php?action=cargarIdioma"> Administración Idioma </a></li>
-            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarLibro"> Administración Libro</a></li>
-            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarUsuario"> Usuario </a></li>
-            <li><a class="active" href="../PORTI/llamadaController.php?action=cargarVenta"> Ventas </a></li>-->
             <ul class="nav navbar-nav navbar-right">
-            <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
-            </ul>
-          </div><!-- /.navbar-collapse -->
-          <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=bajaAdminRegistrado&clase=loginClase">
-                <div class="form-group">
-                  <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/JAMP/PORTI/llamadaController.php?action=bajaAdminRegistrado&clase=entidad"><span class="add-on"><i class="icon-remove-circle"> </i></span> Darme de Baja </a></li>
-                 </ul>
-               </div>
-          </form>
+                <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+            </ul>          
+            <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=bajaAdminRegistrado&clase=loginClase">
+                    <button class="btn btn-info" type="submit">Darme de Baja </button>
+            </form>
           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfilAdministrador&clase=entidad&id_usuario"=<?php echo $_SESSION['id_usuario']?>>
             <?php
               echo "<input type='hidden' name='id_usuario' value='".$_SESSION['id_usuario']."'>";
             ?>
-            <button type="submit">Mi perfil </button>
+            <button class="btn btn-info" type="submit">Mi perfil </button>
           </form>
         </div>
       </nav>

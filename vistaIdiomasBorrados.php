@@ -3,7 +3,7 @@
 <head>
 <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
 
-<title>Administracion de Autores</title>
+<title>Administracion de Idiomas</title>
 <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
 <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
 <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.js"></script>
@@ -32,9 +32,9 @@
   <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
   <ul class="nav navbar-nav">
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio </a></li>
-    <li class="activa"><a href ="/JAMP/PORTI/llamadaController.php?action=cargarAutor&clase=entidad">Administrar Autores</a></li>
-    <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaAutor&clase=entidad">Alta Autor </a></li>
-    <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosAutor&clase=entidad">Autores Borrados </a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=cargarIdioma&clase=entidad">Administrar Idiomas</a></li>
+    <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaIdioma&clase=entidad">Alta Idioma </a></li>
+    <li class="active"><a href ="/JAMP/PORTI/llamadaController.php?action=borradosIdioma&clase=entidad">Idiomas Borrados </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -46,7 +46,7 @@
         <table class="table table-centered">
         <tr>
         <td class="separados"><p>Nombre</p></td>
-        <td class="separados"><p>Agregar Autor</p></td>
+        <td class="separados"><p>Agregar Idioma</p></td>
         </tr>
         <tr>
         <?php
@@ -54,8 +54,8 @@
          foreach ($arrayNa as $key){
           echo  "<td class='separados'><p>".$key['nombre']."</p></td>
             <td class='separados'>
-            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaAutor&clase=entidad'>
-            <input name='id_autor' type='hidden' value='".$key['id_us']."'/>
+            <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaIdioma&clase=entidad'>
+            <input name='id_idioma' type='hidden' value='".$key['id_us']."'/>
             <input type='submit' class='btn btn-info' value='Agregar'/>
             </form>
             </tr>";

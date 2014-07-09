@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -17,7 +16,10 @@
   <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
   </head>
   <body class="laboratorix text-pag">
+    <!--<div class="container">-->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!--<div class="container">-->
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
@@ -27,43 +29,44 @@
           </button>
           <label class="navbar-brand">CookBooks</label> 
         </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
           <ul class="nav navbar-nav">
               <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio</a></li>
-              <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarEtiqueta&clase=entidad">Administrar Etiquetas</a></li>
-              <li class="active"><a href="">Modificar Etiqueta</a></li>
-              <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosEtiqueta&clase=entidad">Etiquetas Borradas </a></li>
+              <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarIdioma&clase=entidad">Administrar Idiomas</a></li>
+              <li><a href="llamadaController.php?action=altaIdioma&clase=entidad">Alta Idioma</a></li>
+              <li class="active"><a href="">Modificar Idiomas</a></li>
+              <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosIdiomas&clase=entidad">Idiomas Borrados </a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
-          </ul>
+    <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+  </ul>
         </div><!-- /.navbar-collapse -->
         </div>
       </nav><br><br><br>
       <div class="row">
        <div class="col-md-12">
-      <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionEtiqueta&clase=entidad" onSubmit="return validar()">
+      <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionIdioma&clase=entidad" onSubmit="return validar()">
       <table class="table table-bordered" border="">
           <tr>
           <td><p>Nombre</p>
           </td>
           </tr>
-        <td><input id="nombre" name="nom_etiqueta" type="text" placeholder="<?php echo $n;?>" required="required"/></td>
+        <td><input id = "nombre" name="nom_idioma" type="text" placeholder="<?php echo $n;?>" required="required"/></td>
         </tr>
       </table>
-      <?php echo "<input name='id_etiqueta' type='hidden' value='".$id."'/>"?>
-      <input type="submit" class="btn btn-info" value="Modificar"/>
+      <?php echo "<input name='id_idioma' type='hidden' value='".$id."'/>"?>
+      <input type="submit" class="btn btn-info" value="Modificar" />
       </form>
-      <a href="llamadaController.php?action=cargarEtiqueta&clase=entidad">Volver</a>
+      <a href="llamadaController.php?action=cargarIdioma&clase=entidad">Volver</a>
       </div>
       <div>
 <?php
   if(isset($existe)){
-    echo "<div class='alert alert-danger'>Error! Ya existe la etiqueta ingresada, busque en la lista o en los borrados</div>";
+    echo "<div class='alert alert-danger'>Error! Ya existe el Idioma ingresado, busque en la lista o en los borrados</div>";
     //echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
   }
-  
 ?>
 </div>
      <!-- </div>-->

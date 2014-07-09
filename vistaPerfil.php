@@ -20,45 +20,35 @@
 <title>Bienvenidos</title>
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-     <!-- <div class="container">-->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <label class="navbar-brand">CookBooks</label> 
-    </div>
-    <div class="navbar-collapse collapse" id="menu">
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-left">
-          <li class="active"><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=user"> Inicio </a></li>
-            <!--<li><a class="active" href="#"> Quienes Somos</a></li>
-            <li><a class="active" href="#"> Contacto</a></li>
-            <li><a class="active" href="#"> Libros</a></li>-->
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <?php 
-            //$idUsuario = $_POST['id_usuario'];
-            echo "<form method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <label class="navbar-brand">CookBooks</label> 
+        </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
+      <ul class="nav navbar-nav">
+        <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=user"> Inicio </a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
+      </ul>
+      <?php 
+      echo "<form class='navbar-form navbar-right' method='POST' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
                   <input name='idUsuario' type='hidden' value='".$id_usuario."'/>
-                  <input type='submit' class='btn btn-info' value='MI CARRITO'/>";            
-          ?>
-        </ul>
-      </div>
-      <div>
-        <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">     
-          <div class="form-group">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
-            </ul>
-          </div>
-        </form>         
-      </div>      
-    </div><!--/.navbar-collapse -->
-  </div>
+                  <button class='btn btn-info' type='submit'> Mi Carrito </button>";;            
+      ?>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
   <?php
     if(isset($niAPalo)){
       echo "<div class='alert alert-danger'>Error! Ya existe el DNI o Nombre de Usuario ingresado</div>";

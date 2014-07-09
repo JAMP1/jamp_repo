@@ -3,7 +3,7 @@
 <head>
 <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
 
-<title>Administracion de Autores</title>
+<title>Administracion de Idiomas</title>
 <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
 <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
 
@@ -35,9 +35,9 @@
     <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
     <ul class="nav navbar-nav">
         <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio</a></li>
-        <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarAutor&clase=entidad">Administrar Autores</a></li>
-        <li class="active"><a href="#">Alta Autor</a></li>
-        <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosAutores&clase=entidad">Autores Borrados </a></li>
+        <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarIdioma&clase=entidad">Administrar Idiomas</a></li>
+        <li class="active"><a href="#">Alta Idioma</a></li>
+        <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosIdiomas&clase=entidad">Idiomas Borrados </a></li>
     
     </ul>
     <ul class="nav navbar-nav navbar-right">
@@ -47,11 +47,11 @@
 </nav>
 <div class="row">
 <div class="col-md-12">
-<form onSubmit="return validar()" method="POST" action="llamadaController.php?action=confirmarAltaAutor&clase=entidad">
+<form onSubmit="return validar()" method="POST" action="llamadaController.php?action=confirmarAltaIdioma&clase=entidad">
 <table class="table table">
 <tr>
 <td>
-<input id="nombre" type="text" placeholder="Ingrese nombre autor" name="nom_autor">
+<input id="nombre" type="text" placeholder="Ingrese nombre del idioma" name="nom_idioma">
 </td>
 <td>
 <button class="btn btn-info" type="submit">Enviar</button>
@@ -62,8 +62,7 @@
 <div>
 <?php
   if(isset($existe)){
-    echo "<div class='alert alert-danger'>Error! Ya existe el autor ingresada, busque en la lista o en los borrados</div>";
-   // echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
+    echo "<div class='alert alert-danger'>Error! Ya existe el idioma ingresado, busque en la lista o en los borrados</div>";
   }
 ?>
 </div>

@@ -293,7 +293,149 @@ class entidad{
         }
     }
     //fin abm editorial
-
+    //ABM IDIOMA
+    function altaIdioma (){
+            require_once("../vistaAltaIdioma.php");
+    }
+    function bajaIdioma () {
+        $per=$_SESSION['permiso'];
+        if($per==1){
+        $id=$_POST['id_idioma'];
+        $borrar=eliminarIdioma($id);
+        $idiomas=obtenerIdiomas();
+        if ( $idiomas!="error"){
+            $arrayNa = array();
+            $i=0;
+            foreach ($idiomas as $key ) {
+                $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                        'id_us' => $key['id_idioma'] );
+                $i++;
+            }
+        }
+        $sePudoBaja = true;
+        require_once("../vistaIdiomas.php");
+        }
+    }
+    function cargarIdioma () {
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $idiomas=obtenerIdiomas();
+            if ( $idiomas!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($idiomas as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                            'id_us' => $key['id_idioma'] );
+                    $i++;
+                }
+            }
+            require_once("../vistaIdiomas.php");
+        }else{
+            require_once './cookbooks.php';
+        }
+    }
+    function confirmarAltaIdioma () {
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $nom=$_POST["nom_idioma"];
+            $arreglo= validarAltaIdioma($nom);
+            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+                $existe = 'existe';
+                require_once("../vistaModificarIdioma.php");
+            }else{
+                $intento=insertarIdioma($nom);
+                if ($intento){
+                    $idiomas=obtenerIdiomas();
+                    if ( $idiomas!="error"){
+                        $arrayNa = array();
+                        $i=0;
+                        foreach ($idiomas as $key ) {
+                            $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                                'id_us' => $key['id_idioma'] );
+                            $i++;
+                        }
+                        $sePudoAlta = true;
+                        require_once("../vistaIdiomas.php");
+                    }
+                }
+            }
+        }
+    }
+    function modificarIdioma () {
+        $per=$_SESSION['permiso'];
+        $n=$_GET['nombre'];
+        //echo $n;
+        if($per==1){
+            $id=$_POST['id_idioma'];
+            require_once("../vistaModificarIdioma.php");
+        }
+    }
+    function confirmarModificacionIdioma () {
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $nom=$_POST['nom_idioma'];
+            $id=$_POST['id_idioma'];
+            $arreglo= validarAltaIdioma($nom);
+            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+                $existe = 'existe';
+                require_once("../vistaAltaIdioma.php");
+            }else{
+                $intento=modificarIdioma($nom,$id);
+                if ($intento){
+                    $idiomas=obtenerIdiomas();
+                    if ( $idiomas!="error"){
+                        $arrayNa = array();
+                        $i=0;
+                        foreach ($idiomas as $key ) {
+                            $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                                'id_us' => $key['id_idioma'] );
+                            $i++;
+                        }
+                        $sePudoModificar = true;
+                        require_once("../vistaIdiomas.php");
+                    }            
+                }
+            }       
+        }
+    }
+        function borradosIdiomas () {
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $idiomas=obtenerIdiomasBorrados();
+                if ( $idiomas!="error"){
+                    $arrayNa = array();
+                    $i=0;
+                    foreach ($idiomas as $key ) {
+                        $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                                'id_us' => $key['id_idioma'] );
+                        $i++;
+                    }
+                }
+            require_once("../vistaIdiomasBorrados.php");
+        }else{
+            //ir al login
+        }
+    }
+    function agregarBorradaIdioma () {   
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $id=$_POST['id_idioma'];
+            $borrar=agregarBorradaIdiomas($id);
+            $idiomas=obtenerIdiomas();
+            if ( $idiomas!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($idiomas as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] ,
+                            'id_us' => $key['id_idioma'] );
+                    $i++;
+                }                
+            }
+            $sePudoReAlta = true;
+            require_once("../vistaIdiomas.php");
+        }
+    } 
+    //lerolero
     //ABM AUTOR
     function altaAutor (){
             require_once("../vistaAltaAutor.php");
