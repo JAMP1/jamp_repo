@@ -194,7 +194,15 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Portada</span>
-                  <input type="file" class="form-control" name="portada" id="portada">
+                  <?php
+                    echo "<form method='' action='' >
+                          <input type='image' src='".$libro[0]['referencia_foto']."' value='' name='antigua_portada'>
+                          <input type= 'hidden' value='".$libro[0]['referencia_foto']."' name='vieja_portada'>
+                          <input type='file' accept='image/*' class='form-control' name='nueva_portada' id='nueva_portada'>
+                          </form> ";
+                    
+                  //<input type="file" class="form-control" name="portada" id="portada" >
+                  ?>
                 </div>
                 <td>
                   <button class="btn btn-info" type="submit" name="enviar" id="enviar" >Modificar</button>

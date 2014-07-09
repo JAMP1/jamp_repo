@@ -41,7 +41,22 @@
 </div>
 </nav>
 <div class="row">
-<div class="col-md-12">
+  <?php 
+    if(isset($sePudoModificar)){
+      echo "<div class='alert alert-success'>Exito! la editorial fue modificada correctamente!!</div>";
+    }  
+    if (isset($sePudoBaja)){
+      echo "<div class='alert alert-success'>Exito! la editorial ha sido borrada correctamente!!</div>";
+      echo "<div class='alert alert-info'>Acceda a Editoriales Borradas si desea revertir esta accion</div>";
+    }
+    if(isset($sePudoReAlta)){
+      echo" <div class='alert alert-success'>Exito! Se ha re-agregado la editorial correctamente!!</div>";
+    }
+    if(isset($sePudoAlta)){
+      echo" <div class='alert alert-success'>Exito! Se ha agregado la editorial correctamente!!</div>"; 
+    }
+  ?>
+  <div class="col-md-12">
         <table class="table table-centered">
         <tr>
         <td class="separados"><p>Nombre</p></td>
@@ -69,11 +84,6 @@
         }
         ?>
 </table>
-<?php 
-  if(isset($sePudoModificar)){
-            echo "<div class='alert alert-success'>Operacion exitosa!!</div>";
-          }  
-?>
 </div>
 </div>
 </body>

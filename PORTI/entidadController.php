@@ -3,6 +3,7 @@ require_once("../Modelo/modelo.php");
 $nombre=$_GET["action"];
 session_start();
 class entidad{
+    //ABM ETIQUETA
     function altaEtiqueta (){
         require_once("../vistaAltaEtiqueta.php");
     }
@@ -15,7 +16,7 @@ class entidad{
             if ( $etiquetas!="error"){
                 $arrayNa = array();
                 $i=0;
-                $sePudoModificar = true;
+                $sePudoReAlta = true;
                 foreach ($etiquetas as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] ,
                             'id_us' => $key['id_etiqueta'] );
@@ -40,6 +41,7 @@ class entidad{
                 $i++;
             }
         }
+        $sePudoBaja=true;
         require_once("../vistaEtiquetas.php");
         }
     }
@@ -144,6 +146,9 @@ class entidad{
             require_once "../cookbooks.php";
         }
     }
+    //fin abm etiqueta
+
+    //ABM EDITORIAL
     function altaEditorial () {
         require_once("../vistaAltaEditorial.php");
     }
@@ -156,16 +161,14 @@ class entidad{
             if ( $editoriales!="error"){
                 $arrayNa = array();
                 $i=0;
-                $sePudoModificar = true;
                 foreach ($editoriales as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] ,
                             'id_us' => $key['id_editorial'] );
                     $i++;
                 }
-                        require_once("../vistaEditorial.php");
-         }
-
-
+                $sePudoReAlta=true;
+                require_once("../vistaEditorial.php");
+            }
         }
     }
     function bajaEditorial () {
@@ -183,6 +186,7 @@ class entidad{
                     $i++;
                 }
             }
+            $sePudoBaja=true;
             require_once("../vistaEditorial.php");
         }
     }
@@ -229,13 +233,13 @@ class entidad{
                     $editoriales=obtenerEditoriales();
                     if ( $editoriales!="error"){
                         $arrayNa = array();
-                        $sePudoModificar = true;
                         $i=0;
                     foreach ($editoriales as $key ) {
                         $arrayNa[$i]=array('nombre' => $key['nombre'] ,
                              'id_us' => $key['id_editorial'] );
                         $i++;           
                     }
+                    $sePudoAlta=true;
                     require_once("../vistaEditorial.php");
                     }
                 }
@@ -257,13 +261,13 @@ class entidad{
                     $editoriales=obtenerEditoriales();
                     if ( $editoriales!="error"){
                         $arrayNa = array();
-                        $sePudoModificar = true;
                         $i=0;
                         foreach ($editoriales as $key ) {
                             $arrayNa[$i]=array('nombre' => $key['nombre'] ,
                                 'id_us' => $key['id_editorial'] );
                             $i++;
                         }
+                        $sePudoModificar = true;
                         require_once("../vistaEditorial.php");
                     }           
                 }
@@ -288,6 +292,9 @@ class entidad{
             require_once './cookbooks.php';
         }
     }
+    //fin abm editorial
+
+    //ABM AUTOR
     function altaAutor (){
             require_once("../vistaAltaAutor.php");
     }
@@ -298,16 +305,15 @@ class entidad{
             $borrar=agregarBorradaAutores($id);
             $autores=obtenerAutores();
             if ( $autores!="error"){
-                $sePudoModificar = true;
                 $arrayNa = array();
                 $i=0;
                 foreach ($autores as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] ,
                             'id_us' => $key['id_autor'] );
                     $i++;
-                }
+                }                
             }
-        
+            $sePudoReAlta = true;
             require_once("../vistaAutores.php");
         }
     }
@@ -326,6 +332,7 @@ class entidad{
                 $i++;
             }
         }
+        $sePudoBaja = true;
         require_once("../vistaAutores.php");
         }
     }
@@ -370,13 +377,13 @@ class entidad{
                     $autores=obtenerAutores();
                     if ( $autores!="error"){
                         $arrayNa = array();
-                        $sePudoModificar = true;
                         $i=0;
                         foreach ($autores as $key ) {
                             $arrayNa[$i]=array('nombre' => $key['nombre'] ,
                                 'id_us' => $key['id_autor'] );
                             $i++;
                         }
+                        $sePudoAlta = true;
                         require_once("../vistaAutores.php");
                     }
                 }
@@ -398,20 +405,19 @@ class entidad{
                     $autores=obtenerAutores();
                     if ( $autores!="error"){
                         $arrayNa = array();
-                        $sePudoModificar = true;
                         $i=0;
                         foreach ($autores as $key ) {
                             $arrayNa[$i]=array('nombre' => $key['nombre'] ,
                                 'id_us' => $key['id_autor'] );
                             $i++;
                         }
+                        $sePudoModificar = true;
                         require_once("../vistaAutores.php");
                     }            
                 }
             }       
         }
     }
-
     function cargarAutor () {
         $per=$_SESSION['permiso'];
         if($per==1){
@@ -430,6 +436,9 @@ class entidad{
             require_once './cookbooks.php';
         }
     }
+    //fin abm autor
+
+    //ABM LIBRO
     function altaLibro (){
         require_once("../vistaAltaLibro.php");
     }
@@ -442,13 +451,13 @@ class entidad{
             if ( $libros!="error"){
                 $arrayNa = array();
                 $i=0;
-                $sePudoModificar = true;
                 foreach ($libros as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
                                 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
                     $i++;
                 }
             }
+            $sePudoReAlta = true;
             require_once("../vistaLibros.php");
         }
     }
@@ -467,6 +476,7 @@ class entidad{
                     $i++;
                 }
             }
+            $sePudoBaja = true;
             require_once("../vistaLibros.php");
         }
     }
@@ -524,10 +534,88 @@ class entidad{
             $nom_etiqueta = $arreglo_etiqueta["nombre"];
             $nom_autor= $arreglo_autor["nombre"];
 
+            $tipo_de_archivo= $_FILES["portada"]["type"];
+            if(strpos($tipo_de_archivo,"gif")||strpos($tipo_de_archivo, "jpg")||strpos($tipo_de_archivo, "jpeg")
+                                                                            ||strpos($tipo_de_archivo, "png")  ){
+                $tamanio = $_FILES["portada"]["size"];
+                if($tamanio > 1 ){
+                    $name= $_FILES["portada"]["name"];
+                    $tmp_name= $_FILES["portada"]["tmp_name"];
+                    $tipo= explode(".", $name);
+                    $type=strtolower($tipo[1]);
+                    $referencia= sha1(date("r"));
+                    $carpeta= "C:/xampp/htdocs/JAMP/IMG/".$referencia.".".$type;
+                    move_uploaded_file($tmp_name, $carpeta);
+                    $aver= explode("htdocs", $carpeta);
+                    $referencia_util= $aver[1];
+                }else{
+                    $estaMalElTamanio = true;
+                    require_once("../vistaAltaLibro.php");
+                }     
+
+            }else{
+                if (isset($_POST["vieja_portada"])){
+                    $referencia_util = $_POST["vieja_portada"];
+                }else{
+                    $no_imagen="no_imagen";
+                    require_once("../vistaAltaLibro.php");
+                }
+            }
+            
+            /*    $tamanio = $_FILES["portada"]["size"];
+                if($tamanio > 1 ){            
+                    $name= $_FILES["portada"]["name"];
+                    $tipo_de_archivo= $_FILES["portada"]["type"]; //SIRVE PARA VERIFICAR QUE SEA IMAGEN
+                    $tmp_name= $_FILES["portada"]["tmp_name"];
+                    $size = $_FILES["portada"]["size"];
+                    if( ( strpos($tipo_de_archivo, "gif") || strpos($tipo_de_archivo, "jpg") || 
+                    strpos($tipo_de_archivo, "jpeg") || strpos($tipo_de_archivo, "png") ) ){
+                        $tipo= explode(".", $name);
+                        $type=strtolower($tipo[1]);
+                        $referencia= sha1(date("r"));
+                        $carpeta= "C:/xampp/htdocs/JAMP/IMG/".$referencia.".".$type;
+                        move_uploaded_file($tmp_name, $carpeta);
+                        $aver= explode("htdocs", $carpeta);
+                        $referencia_util= $aver[1];
+                    }
+                }else{
+                    $referencia_util = $_POST["portada"];
+                }
+            */
+            if(isset($referencia_util)){
+                $buscaIdPorIsbn= validarModificacionLibro($isbn);
+                if($buscaIdPorIsbn != false){
+                    $existe = 'existe';
+                    $isbn="";
+                    require_once("../vistaAltaLibro.php");
+                }else{
+                    $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_util);
+                    if ($intento){
+                        $libros=obtenerLibros();
+                        if ( $libros!="error"){
+                           $arrayNa = array();
+                           $i=0;
+                           foreach ($libros as $key ) {
+                                $arrayNa[$i]=array('nombre' => $key['nombre'],'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
+                                    'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'], 'referencia_foto'=>$key['referencia_foto'] );
+                                $i++;
+                            }
+                        $sePudoAlta=true;
+                        require_once("../vistaLibros.php");
+                        }
+                    }
+                }
+            }else{
+               // $no_imagen="no_imagen";
+                //require_once("../vistaAltaLibro.php");
+            }
+        }
+/*
             $name= $_FILES["portada"]["name"];
             $tipo_de_archivo= $_FILES["portada"]["type"]; //SIRVE PARA VERIFICAR QUE SEA IMAGEN
             $tmp_name= $_FILES["portada"]["tmp_name"];
             $size = $_FILES["portada"]["size"];
+
             if( strpos($tipo_de_archivo,"gif") || strpos($tipo_de_archivo,"jpg") || strpos($tipo_de_archivo,"jpeg") || strpos($tipo_de_archivo, "png") ){
 
                 $tipo= explode(".", $name);
@@ -536,38 +624,8 @@ class entidad{
                 $carpeta= "C:/xampp/htdocs/JAMP/IMG/".$referencia.".".$type;
                 move_uploaded_file($tmp_name, $carpeta);
                 $aver= explode("htdocs", $carpeta);
-                $referencia_util= $aver[1];
+                $referencia_util= $aver[1];*/
 
-                $buscaIdPorIsbn= validarModificacionLibro($isbn);
-                if($buscaIdPorIsbn != false){
-    //            $arreglo= validarAltaLibro($nom, $isbn);   
-      //          if((!empty($arreglo))){
-                   // $arrayNa=array('nombre'=>$nom,'isbn'=>$isbn,'cantPag'=>$cantHojas,'stock' =>$cantLibros,
-                     //   'precio'=>$precio,'id_libro'=>$id_libro,'referencia_foto'=>$referencia_util);
-                    $existe = 'existe';
-                    require_once("../vistaAltaLibro.php");
-                }else{
-                    $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_util);
-                    if ($intento){
-                        $libros=obtenerLibros();
-                        if ( $libros!="error"){
-                           $arrayNa = array();
-                           $sePudoModificar = true;
-                           $i=0;
-                           foreach ($libros as $key ) {
-                                $arrayNa[$i]=array('nombre' => $key['nombre'],'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                    'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'], 'referencia_foto'=>$key['referencia_foto'] );
-                                $i++;
-                            }
-                        require_once("../vistaLibros.php");
-                        }
-                    }
-                }
-            }else{
-                $no_imagen="no_imagen";
-                require_once("../vistaAltaLibro.php");
-            }
-        }
     }
     function confirmarModificacionLibro (){
         $per=$_SESSION['permiso'];
@@ -588,12 +646,37 @@ class entidad{
             $nom_etiqueta = $arreglo_etiqueta["nombre"];
             $nom_autor= $arreglo_autor["nombre"];
 
-            $name= $_FILES["portada"]["name"];
-            $tipo_de_archivo= $_FILES["portada"]["type"]; //SIRVE PARA VERIFICAR QUE SEA IMAGEN
-            $tmp_name= $_FILES["portada"]["tmp_name"];
-            $size = $_FILES["portada"]["size"];
-            if( strpos($tipo_de_archivo, "gif") || strpos($tipo_de_archivo, "jpg") || 
-                strpos($tipo_de_archivo, "jpeg") || strpos($tipo_de_archivo, "png") ){
+           /* $portada_vieja= $_POST["vieja_portada"];
+            var_dump($portada_vieja);
+            $extension = $_FILES["nueva_portada"]["type"];
+            var_dump(count($extension));
+            var_dump($tamanio);
+            echo $extension;*/
+            $buscaIdPorIsbn= validarModificacionLibro($isbn);
+            $libro=recuperarLibro($buscaIdPorIsbn["id_libro"]); // SIRVE PARA DEVOLVER LA PORTADA ORIGINAL EN CASO DE ERROR
+
+            $tamanio = $_FILES["nueva_portada"]["size"];
+            if($tamanio > 1 ){            
+                $name= $_FILES["nueva_portada"]["name"];
+                $tipo_de_archivo= $_FILES["nueva_portada"]["type"]; //SIRVE PARA VERIFICAR QUE SEA IMAGEN
+                $tmp_name= $_FILES["nueva_portada"]["tmp_name"];
+                $size = $_FILES["nueva_portada"]["size"];
+                if( ( strpos($tipo_de_archivo, "gif") || strpos($tipo_de_archivo, "jpg") || 
+                strpos($tipo_de_archivo, "jpeg") || strpos($tipo_de_archivo, "png") ) ){
+                    $tipo= explode(".", $name);
+                    $type=strtolower($tipo[1]);
+                    $referencia= sha1(date("r"));
+                    $carpeta= "C:/xampp/htdocs/JAMP/IMG/".$referencia.".".$type;
+                    move_uploaded_file($tmp_name, $carpeta);
+                    $aver= explode("htdocs", $carpeta);
+                    $referencia_util= $aver[1];
+                }
+            }else{
+                $referencia_util = $_POST["vieja_portada"];
+            }
+
+          /*  if( 2<1 && ( strpos($tipo_de_archivo, "gif") || strpos($tipo_de_archivo, "jpg") || 
+                strpos($tipo_de_archivo, "jpeg") || strpos($tipo_de_archivo, "png") ) ){
                 $tipo= explode(".", $name);
                 $type=strtolower($tipo[1]);
                 $referencia= sha1(date("r"));
@@ -601,13 +684,13 @@ class entidad{
                 move_uploaded_file($tmp_name, $carpeta);
                 $aver= explode("htdocs", $carpeta);
                 $referencia_util= $aver[1];
-                $buscaIdPorIsbn= validarModificacionLibro($isbn);
+                */
+            if(isset($referencia_util)){
                 if($buscaIdPorIsbn['id_libro']==$id_libro || $buscaIdPorIsbn==false ){
                     $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_util);
                     if ($intento){
                         $libros=obtenerLibros();
                         if ( $libros!="error"){
-                            $sePudoModificar = true;
                             $arrayNa = array();
                             $i=0;
                             foreach ($libros as $key ) {
@@ -616,6 +699,7 @@ class entidad{
                                 $i++;
                             }
                         $existe=null;
+                        $sePudoModificar=true;
                         require_once("../vistaLibros.php");
                         }
                     }  
@@ -662,6 +746,7 @@ class entidad{
             require_once "../cookbooks.php";
         }
     }
+    //fin abm libro
 
     function cargarCarrito(){
         $idUsuario = $_POST['idUsuario'];
@@ -725,7 +810,6 @@ class entidad{
                 $borrar=eliminarLibroCarrito($libros[$i]["id_libro"], $id_carrito);
             }
             //require_once("../vistaCarritoLibro.php");
-
             if ( $libros!="error"){
                 $arrayNa = array();
                 $i=0;
@@ -1035,6 +1119,7 @@ class entidad{
                     $i++;
                 }
             }
+            $bajaOk=true;
             require_once("../vistaUsuarios.php");
         }
     }
@@ -1076,6 +1161,7 @@ class entidad{
                     $i++;
                 }
             }
+            $reAltaOk=true;
             require_once("../vistaUsuarios.php");
         }else{
             require_once "../cookbooks.php";

@@ -41,17 +41,25 @@
 </div>
 </nav>
 <div>
-<?php
+
+</div>
+<div class="row">
+  <?php
   if(isset($existe)){
     echo "<div class='alert alert-danger'>Error! Ya existe registrado el usuario ingresado</div>";
    // echo "<h4>Ya existe el nombre ingresado, busque en la lista o en los borrados</h4>";
   }
   if(isset($sePudoAlta)){
-    echo" <div class='alert alert-success'>Felicidades! Ya forma parte de nuestro sistema!!</div>";
+    echo" <div class='alert alert-success'>Exito! El usuario es parte de nuestro sistema!!</div>";
   }
+  if(isset($bajaOk)){
+    echo" <div class='alert alert-success'>Exito! El usuario ha sido borrado correctamente</div>";
+    echo" <div class='alert alert-info'>Acceda a Usuarios Borrados si desea revertir esta accion</div>";
+  }
+  if(isset($reAltaOk)){
+    echo" <div class='alert alert-success'>Exito! Se ha re-agregado el usuario correctamente!!</div>";
+  }    
 ?>
-</div>
-<div class="row">
 <div class="col-md-12">
         <table class="table table-centered">
         <tr>
@@ -81,7 +89,7 @@
                       <td class='separados'><p>".$key["nombreUsuario"]."</p></td>
                       
                       <td>
-                      <form action='/JAMP/PORTI/llamadaController.php?action=bajaUsuario&clase=entidad' method='post'>
+                      <form onSubmit='return confirmar()' action='/JAMP/PORTI/llamadaController.php?action=bajaUsuario&clase=entidad' method='post'>
                       <input type='hidden' name= 'id_usuario' value='".$key['id_usuario']."'> 
                       <button class='btn btn-info' type='submit'>Eliminar</button>
                       </form>

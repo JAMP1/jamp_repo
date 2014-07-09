@@ -41,6 +41,21 @@
 </div>
 </nav>
 <div class="row">
+  <?php 
+    if(isset($sePudoModificar)){
+      echo "<div class='alert alert-success'>Exito! el libro fue modificado correctamente!!</div>";
+    }  
+    if (isset($sePudoBaja)){
+      echo "<div class='alert alert-success'>Exito! el libro ha sido borrado correctamente!!</div>";
+      echo "<div class='alert alert-info'>Acceda a Libros Borrados si desea revertir esta accion</div>";
+    }
+    if(isset($sePudoReAlta)){
+      echo" <div class='alert alert-success'>Exito! Se ha re-agregado el libro correctamente!!</div>";
+    }
+    if(isset($sePudoAlta)){
+      echo" <div class='alert alert-success'>Exito! Se ha agregado el libro correctamente!!</div>"; 
+    }
+  ?>
 <div class="col-md-12">
         <table class="table table-centered">
         <tr>
@@ -78,11 +93,6 @@
         ?>
 </table>
 
-<?php 
-  if(isset($sePudoModificar)){
-            echo "<div class='alert alert-success'>Operacion exitosa!!</div>";
-          }  
-?>
 </div>
 </div>
 </body>

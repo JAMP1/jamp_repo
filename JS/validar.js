@@ -1,11 +1,20 @@
 
 function validar() {
-	var patron=/^[a-z\sñA-Z]+$/;
+	//var patron=/^[a-z\sñA-Z]+$/;
+	var patron= /^[a-zA-Z]+/;
+	//var patron= /[a-zA-Z]+$/;
+	var patronfin= /[a-zA-Z]+$/;
+	//var patron=/^[a-zA-Z]+\s*[a-zA-Z]+$/;
 	var nom=document.getElementById('nombre').value;
 	var tam = nom.length;
-	if ((patron.test(nom)) && (nom.length <= 20)){
-	
-		return true;
+	if ((patron.test(nom)) && (nom.length <= 20) && patronfin.test(nom)){
+		patron= /[a-zA-Z]+$/;
+		if (patron.test(nom)){
+			return true;
+		/*}else{
+			alert("Debe  ");
+			return false;
+		}*/
 	}
 	else{
 		//("ERROR EN EL INGRESO DE DATOS");
@@ -19,6 +28,12 @@ function validaLibro(){
 	var patronNumerico=/^[0-9]+$/;
 	var nom=document.getElementById('nom_libro').value;
 	var tam = nom.length;
+	var pruebaPatron= /[^\w^ñ^(á|é|í|ó|ú)^\s^]/;
+
+	alert( pruebaPatron.test(nom));
+	alert("Estamos");
+
+
 	if ((patron.test(nom)) && (nom.length <= 30)){
 		var nom=document.getElementById('isbn_libro').value;
 		var tam = nom.length;

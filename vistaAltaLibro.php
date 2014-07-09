@@ -51,6 +51,9 @@
         if(isset($no_imagen)){
           echo "<div class='alert alert-danger'>Error! Formato de imagen incorrecto o archivo faltante</div>";
         }
+        if(isset($estaMalElTamanio)){
+          echo "<div class='alert alert-danger'>Error! Tamanio de imagen muy pequeño</div>";
+        }
       ?>
     </div>
     <div class="col-md-12">
@@ -211,7 +214,19 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Portada</span>
-                  <input type="file" class="form-control" id="portada" name="portada">
+                  <?php
+                    if(isset($referencia_util)){
+                      echo "<form method='' action='' >
+                            <input type='image' src='".$referencia_util."' value='' >
+                            <input type= 'hidden' value='".$referencia_util."' name='vieja_portada'>
+                            <input type='file' accept='image/*' class='form-control' name='portada' id='portada'>
+                            </form> ";
+                    }else{
+                      echo "<input type='file'  class='form-control' id='portada' name='portada' required='required'>"; 
+                    }
+                  //<input type="file" class="form-control" name="portada" id="portada" >
+                  ?>
+                  
                 </div>
                 <td>
                   <button class="btn btn-info" type="submit" name="enviar" id="enviar">Enviar</button>

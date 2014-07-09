@@ -621,8 +621,6 @@ function altaVentaLibro($id_venta, $arreglo_libros){
 	}
 }
 
-
-
 function eliminarLibroCarrito($id_libro, $id_carrito){
 	$link=conectarBaseDatos();
 	if($link != "error"){
