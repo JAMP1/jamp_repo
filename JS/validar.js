@@ -1,40 +1,31 @@
 
 function validar() {
-	//var patron=/^[a-z\sñA-Z]+$/;
+	//valida que no haya espacios en blanco al principio y a final
+	//pero no lo hace con los intermedios
 	var patron= /^[a-zA-Z]+/;
-	//var patron= /[a-zA-Z]+$/;
 	var patronfin= /[a-zA-Z]+$/;
-	//var patron=/^[a-zA-Z]+\s*[a-zA-Z]+$/;
 	var nom=document.getElementById('nombre').value;
 	var tam = nom.length;
-	if ((patron.test(nom)) && (nom.length <= 20) && patronfin.test(nom)){
-		patron= /[a-zA-Z]+$/;
-		if (patron.test(nom)){
-			return true;
-		/*}else{
-			alert("Debe  ");
-			return false;
-		}*/
+	if ((patron.test(nom)) && (nom.length <= 20) && (patronfin.test(nom))){
+		return true;
 	}
 	else{
 		//("ERROR EN EL INGRESO DE DATOS");
 		alert("Debe ingresar solo letras mayusculas y minusculas");
 		return false;
 	}
-}
+}    
 
 function validaLibro(){
-	var patron=/^[a-z\sñA-Z]+$/;
-	var patronNumerico=/^[0-9]+$/;
+	//se valida que los campos de numeros sean numeros
+	//y que el nombre no tenga espacios blancos al principio ni al final
+	//pero no en el medio	
+	var patron= /^[a-zA-Z]+/;
+	var patronfin= /[a-zA-Z]+$/;
+	var patronNumerico=/^[0-9]+$/; 
 	var nom=document.getElementById('nom_libro').value;
 	var tam = nom.length;
-	var pruebaPatron= /[^\w^ñ^(á|é|í|ó|ú)^\s^]/;
-
-	alert( pruebaPatron.test(nom));
-	alert("Estamos");
-
-
-	if ((patron.test(nom)) && (nom.length <= 30)){
+	if ((patron.test(nom)) && (nom.length <= 30) && (patronfin.test(nom))){
 		var nom=document.getElementById('isbn_libro').value;
 		var tam = nom.length;
 		if ((patronNumerico.test(nom)) && (nom.length > 0)){
@@ -76,29 +67,31 @@ function validaLibro(){
 	}
 	else{
 		//("ERROR EN EL INGRESO DE DATOS");
-		alert("CAMPO NOMBRE: Debe ingresar solo letras mayusculas y minusculas");
+		alert("CAMPO NOMBRE: Debe ingresar solo letras mayusculas y minusculas, sin espacios blancos al inicio ni al final");
 		return false;
 	}	
 }
 
 function validaUsuario(){
-	var patron=/^[a-z\sñA-Z]+$/;
+	var patron=/^\s+$/;
 	var patronNumerico=/^[0-9]+$/;
+	var regexp= new RegExp('^[a-z0-9]{1,10}$');
 	var nom=document.getElementById('nombre').value;
 	var tam = nom.length;
-	if ((patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
+	if ((!patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
 		var nom=document.getElementById('apellido').value;
 		var tam = nom.length;
-		if ((patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
+		if ((!patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
 			var nom=document.getElementById('telefono').value;
 			var tam = nom.length;
-			if ((patronNumerico.test(nom)) && (nom.length < 20) && (nom.length > 6) ){
+			if ((patronNumerico.test(nom)) && (nom.length < 20) && (nom.length > 6)){
 				var nom=document.getElementById('dni').value;
 				var tam = nom.length;
-				if ((patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 9)){
+				if ((patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 15)){
 					var nom=document.getElementById('nombreUsuario').value;
 					var tam = nom.length;
-					if ((patron.test(nom)) && (nom.length < 15) && (nom.length > 2)){
+
+					if ((!patron.test(nom)) && (nom.length < 15) && (nom.length > 2)){
 					
 						return true;
 					}
@@ -131,4 +124,13 @@ function validaUsuario(){
 		alert("CAMPO NOMBRE: Debe ingresar solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
 		return false;
 	}	
+}
+
+function validarBaja(){
+
+	confirmar=confirm("¿Está seguro que desea darse de Baja del Sistema?"); 
+	if (confirmar) 
+		return true;
+	else
+		false;
 }

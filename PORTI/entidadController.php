@@ -1401,7 +1401,8 @@ function buscar() {
         $valorEditorial=$_POST['busquedaEditorial'];
         $valorEtiqueta=$_POST['busquedaEtiqueta'];
         $valorAutor=$_POST['busquedaAutor'];
-        $resultado=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor);
+        //$resultado=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor); $resultado ahora es $todo
+        $todo=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor);
         $resultadoAutor=obtenerAutores();
         $resultadoEtiqueta=obtenerEtiquetas();
         $resultadoEditorial=obtenerEditoriales();
@@ -1425,12 +1426,14 @@ function buscar() {
         }
         $arrayNa = array();
         $i=0;
-        foreach ($resultado as $key ) {
-            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
-                    'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
-                $i++;
-                }
-        require_once("../cookbooks.php");
+        foreach ($todo as $key ) {
+                $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+                    $i++;
+        }
+            require_once("../cookbooks.php");
+        
+           
 }
 
 function buscarRegistrado() {
@@ -1438,7 +1441,7 @@ function buscarRegistrado() {
         $valorEditorial=$_POST['busquedaEditorial'];
         $valorEtiqueta=$_POST['busquedaEtiqueta'];
         $valorAutor=$_POST['busquedaAutor'];
-        $resultado=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor);
+        $todo=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor);
         $resultadoAutor=obtenerAutores();
         $resultadoEtiqueta=obtenerEtiquetas();
         $resultadoEditorial=obtenerEditoriales();
@@ -1462,7 +1465,7 @@ function buscarRegistrado() {
         }
         $arrayNa = array();
         $i=0;
-        foreach ($resultado as $key ) {
+        foreach ($todo as $key ) {
             $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                     'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
                 $i++;
@@ -1682,7 +1685,7 @@ function buscarRegistrado() {
     }
 
     function bajaUsuarioRegistrado() {
-       
+            //if(isset($confirmar)){
             $id=$_SESSION['id_usuario'];
             eliminarUsuario($id);
             require_once("../index.php");
@@ -1699,8 +1702,9 @@ function buscarRegistrado() {
                 require_once("../index.php");
             }
             else{
-                //require_once("../ADMIN/cooBooksAdmin.php");
-                echo"no se puede realizar la baja debido a que es el último admin dado de alta en el sistema";
+
+                echo "<div class='alert alert-danger'>Error! no se puede realizar la baja debido a que es el último admin dado de alta en el sistema </div>";
+                 
             }
     }
 }
