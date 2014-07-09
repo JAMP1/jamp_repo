@@ -34,10 +34,10 @@
           <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
           <ul class="nav navbar-nav">
               <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio</a></li>
-              <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarIdioma&clase=entidad">Administrar Idiomas</a></li>
-              <li><a href="llamadaController.php?action=altaIdioma&clase=entidad">Alta Idioma</a></li>
-              <li class="active"><a href="">Modificar Idiomas</a></li>
-              <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosIdiomas&clase=entidad">Idiomas Borrados </a></li>
+              <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarAutor&clase=entidad">Administrar Autores</a></li>
+              <li><a href="llamadaController.php?action=altaAutor&clase=entidad">Alta Autor</a></li>
+              <li class="active"><a href="">Modificar Autores</a></li>
+              <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosAutores&clase=entidad">Autores Borrados </a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
     <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -47,24 +47,24 @@
       </nav><br><br><br>
       <div class="row">
        <div class="col-md-12">
-      <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionIdioma&clase=entidad" onSubmit="return validar()">
+      <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionAutor&clase=entidad" onSubmit="return validar()">
       <table class="table table-bordered" border="">
           <tr>
           <td><p>Nombre</p>
           </td>
           </tr>
-        <td><input id = "nombre" name="nom_Idioma" type="text" placeholder="<?php echo $n;?>" required="required"/></td>
+        <td><input id = "nombre" name="nom_autor" type="text" placeholder="<?php echo $n;?>" required="required"/></td>
         </tr>
       </table>
-      <?php echo "<input name='id_idioma' type='hidden' value='".$id."'/>"?>
+      <?php echo "<input name='id_autor' type='hidden' value='".$id."'/>"?>
       <input type="submit" class="btn btn-info" value="Modificar" />
       </form>
-      <a href="llamadaController.php?action=cargarIdioma&clase=entidad">Volver</a>
+      <a href="llamadaController.php?action=cargarAutor&clase=entidad">Volver</a>
       </div>
       <div>
 <?php
   if(isset($existe)){
-    echo "<div class='alert alert-danger'>Error! Ya existe el idioma ingresado, busque en la lista o en los borrados</div>";
+    echo "<div class='alert alert-danger'>Error! Ya existe el Autor ingresado, busque en la lista o en los borrados</div>";
     //echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
   }
 ?>
