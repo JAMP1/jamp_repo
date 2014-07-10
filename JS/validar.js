@@ -93,7 +93,14 @@ function validaUsuario(){
 					var nom=document.getElementById('nombreUsuario').value;
 					var tam = nom.length;
 					if ((patronNomUsu.test(nom)) && (nom.length < 15) && (nom.length > 2)){
-						return true;
+						nom= document.getElementById('contrasena').value;
+						tam=nom.length;
+						if(patronNomUsu.test(nom) && (nom.length <15) && (nom.length > 2)){
+							return true;
+						}else{
+							alert("CAMPO CONTRASENA: Debe letras mayusculas y/o minusculas y/o digitos del 0 al 9, minimo de 3, maximo de 14");
+							return false;
+						}						
 					}
 					else{
 						//("ERROR EN EL INGRESO DE DATOS");
@@ -127,12 +134,13 @@ function validaUsuario(){
 }
 
 function validarBaja(){
-
-	confirmar=confirm("¿Está seguro que desea darse de Baja del Sistema?"); 
-	if (confirmar) 
+	var confirmar=confirm("¿Está seguro que desea darse de Baja del Sistema?"); 
+	alert(confirmar);
+	if (confirmar){ 
 		return true;
-	else
+	}else{
 		false;
+	}
 }
 
 function validarRecuperaEmail(){
@@ -153,10 +161,38 @@ function validarRecuperaEmail(){
 }
 
 function confirmar(){
-	confirmar= confirm("¿Está seguro que desea realizar esta operacion?");
+	confirmar= confirm("¿Está seguro que desea realizar esta operacion?");}
+
 	if(confirmar){
 		return true;
 	}else{
 		return false;
 	}
+}
+
+function validarAutor(){
+	var patron= /^[a-zA-Z]+/;
+	var patronfin= /[a-zA-Z]+$/;
+	var patronTexto= /^[a-z\sA-Z]+$/;
+	var nom=document.getElementById('nom_autor').value;
+	var tam = nom.length;
+	if ((patron.test(nom)) && (nom.length <= 20) && (patronfin.test(nom))){
+		nom = document.getElementById('detalle_autor').value;
+		if(	patron.test(nom)	&&	patronfin.test(nom)	&&	patronTexto.test(nom) && (nom.length <= 200) ){
+			return true;			
+		}else{
+			if(nom.length == 0){
+				confirmar=confirm("Por defecto el detalle será 'no posee'");
+				return confirmar;
+			}else{
+				alert("El detalle no puede empezar ni terminar con espacios en blanco, y solamente acepta letras mayusculas y minusculas, con un maximo de 200 caracteres");
+				return false;
+			}
+		}
+	}
+	else{
+		//("ERROR EN EL INGRESO DE DATOS");
+		alert("Debe ingresar solo letras mayusculas y minusculas en el nombre");
+		return false;
+	}	
 }

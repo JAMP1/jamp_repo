@@ -508,13 +508,18 @@ class entidad{
     function confirmarAltaAutor () {
         $per=$_SESSION['permiso'];
         if($per==1){
-            $nom=$_POST["nom_autor"];
+            $nom=$_POST['nom_autor'];
             $arreglo= validarAltaAutor($nom);
             if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
                 $existe = 'existe';
                 require_once("../vistaAltaAutor.php");
             }else{
-                $intento=insertarAutor($nom);
+                if(isset($_POST['detalle_autor'])){
+                    $detalle= $_POST['detalle_autor'];
+                }else{
+                    $detalle= "no posee";
+                }
+                $intento=insertarAutor($nom, $detalle);
                 if ($intento){
                     $autores=obtenerAutores();
                     if ( $autores!="error"){

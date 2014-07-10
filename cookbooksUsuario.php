@@ -8,6 +8,7 @@
 <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
 <script src="/JAMP/LIBS/codigologin.js" type="text/javascript"></script>
 <script type="text/javascript" src="/JAMP/LIBS/validar.js"></script>
+<script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
 
 <script type="text/javascript" src="/JAMP/JS/validar.js"></script>
 
@@ -45,7 +46,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
       </ul>
-      <form  class="navbar-form navbar-right" onSubmit="return validarBaja()" method="post" action="/JAMP/PORTI/llamadaController.php?action=bajaUsuarioRegistrado&clase=entidad">
+      <form  class="navbar-form navbar-right" onSubmit="return confirmar()" method="post" action="/JAMP/PORTI/llamadaController.php?action=bajaUsuarioRegistrado&clase=entidad">
         <button class="btn btn-info" type="submit"> Darme de Baja </button>
       </form>
       <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfil&clase=entidad&id_usuario"=<?php echo $_SESSION['id_usuario']?>>

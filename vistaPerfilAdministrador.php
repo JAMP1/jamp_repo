@@ -8,7 +8,7 @@
 <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
 <script src="/JAMP/LIBS/codigologin.js" type="text/javascript"></script>
 <!--<script type="text/javascript" src="/JAMP/LIBS/validar.js"></script>-->
-<script type="text/javascript" src="/JAMP/JS/validar.js"></script>-
+<script type="text/javascript" src="/JAMP/JS/validar.js"></script>
 
 <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap.css">

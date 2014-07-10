@@ -319,11 +319,11 @@ function agregarBorradaIdiomas($id_idioma) {
 	return $res;
 }
 /////// 
-function insertarAutor($us) {
+function insertarAutor($us, $detalle) {
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-		$query = $link->prepare("INSERT INTO `autor`(`nombre`) VALUES (:Nombre)");
-		$res = $query->execute(array('Nombre' => $us)) ;
+		$query = $link->prepare("INSERT INTO `autor`(`nombre`, `detalle`) VALUES (:Nombre, :Detalle)");
+		$res = $query->execute(array('Nombre' => $us, 'Detalle'=>$detalle)) ;
 		$link=cerrarConexion();
 	}else {
 		$res= "error";
