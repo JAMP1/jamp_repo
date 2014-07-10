@@ -436,7 +436,7 @@ function validarAltaAutor($nom){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_foto) {
+function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $referencia_foto) {
 	// FALTA	insertar la FECHA
 	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -447,17 +447,17 @@ function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editor
 		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas, 'Referencia'=>$referencia_foto ));
 		//El proximo SELECT es para recuperar el id del libro para el alta en la tabla 'libroautor'
 		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
-		$res2 = $query ->execute(array('Nombre' => $nom));
-		$res2 = $query ->fetchAll();
+		//$res2 = $query ->execute(array('Nombre' => $nom));
+		//$res2 = $query ->fetchAll();
 		$link=cerrarConexion();
-		altaLibroAutor($res2,$id_autor);
+		//altaLibroAutor($res2,$id_autor);
 	}else {
 		$res= "error";
 	}
 	return $res;
 }
 
-function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_foto){
+function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $referencia_foto){
  	$link = conectarBaseDatos();
 	if ($link != "error"){
 		$query = $link->prepare("UPDATE `libro` SET `nombre`= :Nom , `isbn`=:Isbn, `cantPag`=:CantHojas, `stock`=:CantLibros, 
@@ -467,11 +467,10 @@ function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio
 			'CantLibros'=>$cantLibros, 'Precio'=>$precio, 'IdEditorial'=>$id_editorial, 'IdEtiqueta'=>$id_etiqueta, 'Referencia'=>$referencia_foto));
 		//El proximo SELECT es para recuperar el id del libro para la modificacion en la tabla 'libroautor'
 		//$res = $query -> fetchAll();
-		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
-		$res2 = $query ->execute(array('Nombre' => $nom));
-		$res2 = $query ->fetchAll();
+		//$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
+		//$res2 = $query ->execute(array('Nombre' => $nom));
+		//$res2 = $query ->fetchAll();
 		$link=cerrarConexion();
-		modificarLibroAutor($res2, $id_autor);
 	}else {
 		$res= "error";
 	}
@@ -480,22 +479,22 @@ function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio
 
 }
 
-function altaLibroAutor($res2, $id_autor){
+function altaLibroAutor($id_libro, $id_autor){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 		$query = $link -> prepare("INSERT INTO `libroautor`(`id_autor`, `id_libro`)
 									VALUES (:IdAutor, :IdLibro)");
-		$res3 = $query -> execute(array('IdAutor' => $id_autor , 'IdLibro' => $res2[0]['id_libro'] ));
+		$res3 = $query -> execute(array('IdAutor' => $id_autor , 'IdLibro' => $id_libro ));
 		$link=cerrarConexion();
 	}
 }
-function modificarLibroAutor($res2, $id_autor){
+function modificarLibroAutor($id_libro, $id_autor){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 		$query = $link -> prepare("UPDATE `libroautor` SET `id_autor`=:IdAutor, `id_libro`=:IdLibro
 								WHERE `id_libro`=:IdLibro ");
 		//var_dump($res2);
-		$res3 = $query -> execute(array('IdAutor' => $id_autor , 'IdLibro' => $res2[0]['id_libro'] ));
+		$res3 = $query -> execute(array('IdAutor' => $id_autor , 'IdLibro' => $id_libro ));
 		$link=cerrarConexion();
 	}
 }
@@ -598,7 +597,7 @@ function validarUsuarioYDni($nombreUsuario, $dni){
 function recuperarCliente($nombreUsuario){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-	 	$query = $link->prepare("SELECT `nombreusuario`, `id_usuario` FROM usuario WHERE `nombreusuario`=:Nom");
+	 	$query = $link->prepare("SELECT `nombreusuario`, `id_usuario`, `email` FROM usuario WHERE `nombreusuario`=:Nom");
 	 	$query->execute(array('Nom' => $nombreUsuario));
 	 	$res=$query->fetchAll();
 	 	$link=cerrarConexion();

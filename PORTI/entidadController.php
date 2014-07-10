@@ -626,8 +626,8 @@ class entidad{
         $per=$_SESSION['permiso'];
         $n=$_GET['nombre'];
         if($per==1){
-            $id=$_POST['id_libro'];
-            $libro=recuperarLibro($id);
+            $id_libro=$_POST['id_libro'];
+            $libro=recuperarLibro($id_libro);
             $arreglo_editorial= recuperarEditorial($libro[0]['id_editorial']);
             $arreglo_etiqueta= recuperarEtiqueta($libro[0]['id_etiqueta']);
             $arreglo_autor= recuperarLibroAutor($libro[0]['id_libro']);
@@ -703,27 +703,6 @@ class entidad{
                     require_once("../vistaAltaLibro.php");
                 }
             }
-            
-            /*    $tamanio = $_FILES["portada"]["size"];
-                if($tamanio > 1 ){            
-                    $name= $_FILES["portada"]["name"];
-                    $tipo_de_archivo= $_FILES["portada"]["type"]; //SIRVE PARA VERIFICAR QUE SEA IMAGEN
-                    $tmp_name= $_FILES["portada"]["tmp_name"];
-                    $size = $_FILES["portada"]["size"];
-                    if( ( strpos($tipo_de_archivo, "gif") || strpos($tipo_de_archivo, "jpg") || 
-                    strpos($tipo_de_archivo, "jpeg") || strpos($tipo_de_archivo, "png") ) ){
-                        $tipo= explode(".", $name);
-                        $type=strtolower($tipo[1]);
-                        $referencia= sha1(date("r"));
-                        $carpeta= "C:/xampp/htdocs/JAMP/IMG/".$referencia.".".$type;
-                        move_uploaded_file($tmp_name, $carpeta);
-                        $aver= explode("htdocs", $carpeta);
-                        $referencia_util= $aver[1];
-                    }
-                }else{
-                    $referencia_util = $_POST["portada"];
-                }
-            */
             if(isset($referencia_util)){
                 $buscaIdPorIsbn= validarModificacionLibro($isbn);
                 if($buscaIdPorIsbn != false){
@@ -731,7 +710,10 @@ class entidad{
                     $isbn="";
                     require_once("../vistaAltaLibro.php");
                 }else{
-                    $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_util);
+                    $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $referencia_util);
+                    $buscaIdPorIsbn= validarModificacionLibro($isbn);
+                    $id_libro= $buscaIdPorIsbn['id_libro'];
+                    altaLibroAutor($id_libro, $id_autor);
                     if ($intento){
                         $libros=obtenerLibros();
                         if ( $libros!="error"){
@@ -752,21 +734,6 @@ class entidad{
                 //require_once("../vistaAltaLibro.php");
             }
         }
-/*
-            $name= $_FILES["portada"]["name"];
-            $tipo_de_archivo= $_FILES["portada"]["type"]; //SIRVE PARA VERIFICAR QUE SEA IMAGEN
-            $tmp_name= $_FILES["portada"]["tmp_name"];
-            $size = $_FILES["portada"]["size"];
-
-            if( strpos($tipo_de_archivo,"gif") || strpos($tipo_de_archivo,"jpg") || strpos($tipo_de_archivo,"jpeg") || strpos($tipo_de_archivo, "png") ){
-
-                $tipo= explode(".", $name);
-                $type=strtolower($tipo[1]);
-                $referencia= sha1(date("r"));
-                $carpeta= "C:/xampp/htdocs/JAMP/IMG/".$referencia.".".$type;
-                move_uploaded_file($tmp_name, $carpeta);
-                $aver= explode("htdocs", $carpeta);
-                $referencia_util= $aver[1];*/
 
     }
     function confirmarModificacionLibro (){
@@ -788,15 +755,6 @@ class entidad{
             $nom_etiqueta = $arreglo_etiqueta["nombre"];
             $nom_autor= $arreglo_autor["nombre"];
 
-           /* $portada_vieja= $_POST["vieja_portada"];
-            var_dump($portada_vieja);
-            $extension = $_FILES["nueva_portada"]["type"];
-            var_dump(count($extension));
-            var_dump($tamanio);
-            echo $extension;*/
-            $buscaIdPorIsbn= validarModificacionLibro($isbn);
-            $libro=recuperarLibro($buscaIdPorIsbn["id_libro"]); // SIRVE PARA DEVOLVER LA PORTADA ORIGINAL EN CASO DE ERROR
-
             $tamanio = $_FILES["nueva_portada"]["size"];
             if($tamanio > 1 ){            
                 $name= $_FILES["nueva_portada"]["name"];
@@ -814,22 +772,16 @@ class entidad{
                     $referencia_util= $aver[1];
                 }
             }else{
-                $referencia_util = $_POST["vieja_portada"];
+                if(isset($_POST["vieja_portada"])){
+                    $referencia_util = $_POST["vieja_portada"];
+                }
             }
-
-          /*  if( 2<1 && ( strpos($tipo_de_archivo, "gif") || strpos($tipo_de_archivo, "jpg") || 
-                strpos($tipo_de_archivo, "jpeg") || strpos($tipo_de_archivo, "png") ) ){
-                $tipo= explode(".", $name);
-                $type=strtolower($tipo[1]);
-                $referencia= sha1(date("r"));
-                $carpeta= "C:/xampp/htdocs/JAMP/IMG/".$referencia.".".$type;
-                move_uploaded_file($tmp_name, $carpeta);
-                $aver= explode("htdocs", $carpeta);
-                $referencia_util= $aver[1];
-                */
             if(isset($referencia_util)){
+                $buscaIdPorIsbn= validarModificacionLibro($isbn);
+                $libro=recuperarLibro($buscaIdPorIsbn["id_libro"]); // SIRVE PARA COMPARAR EL ID DEL ISBN INGRESADO CON EL ANTIGUO
                 if($buscaIdPorIsbn['id_libro']==$id_libro || $buscaIdPorIsbn==false ){
-                    $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $id_autor, $referencia_util);
+                    $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $referencia_util);
+                    modificarLibroAutor($id_libro,$id_autor);
                     if ($intento){
                         $libros=obtenerLibros();
                         if ( $libros!="error"){
@@ -1068,8 +1020,10 @@ class entidad{
             $sePudoModificarUsuario=true;
             $intento= altaCliente($nombreUsuario, $nombre, $apellido, $dni,  $email, $telefono,$contrasena, $permiso);
             if ($intento){
-                $res = recuperarCliente($nombreUsuario);
-                altaCarrito($res[0]['id_usuario']);
+                if($permiso==2){
+                    $res = recuperarCliente($nombreUsuario);
+                    altaCarrito($res[0]['id_usuario']);
+                }
                 $sePudoAlta = true;
                 $usuarios=obtenerUsuarios();
                 if ( $usuarios!="error"){
@@ -1249,20 +1203,36 @@ class entidad{
         $per=$_SESSION['permiso'];
         if($per==1){
             $id=$_POST['id_usuario'];
-            $res = eliminarUsuario($id);
-            $usuarios=obtenerUsuarios();
-            if($usuarios!="error"){
-                $arrayNa = array();
-                $i=0;
-                foreach ($usuarios as $key){
-                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
-                        'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                            'id_usuario' => $key['id_usuario'] );
-                    $i++;
+            if($id == $_SESSION['id_usuario']){
+                $noBajaASiMismo=true;
+                $usuarios=obtenerUsuarios();
+                if($usuarios!="error"){
+                    $arrayNa = array();
+                    $i=0;
+                    foreach ($usuarios as $key){
+                        $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
+                            'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
+                                'id_usuario' => $key['id_usuario'] );
+                        $i++;
+                    }
                 }
+                require_once("../vistaUsuarios.php");
+            }else{                
+                $res = eliminarUsuario($id);
+                $usuarios=obtenerUsuarios();
+                if($usuarios!="error"){
+                    $arrayNa = array();
+                    $i=0;
+                    foreach ($usuarios as $key){
+                        $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
+                            'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
+                                'id_usuario' => $key['id_usuario'] );
+                        $i++;
+                    }
+                }
+                $bajaOk=true;
+                require_once("../vistaUsuarios.php");
             }
-            $bajaOk=true;
-            require_once("../vistaUsuarios.php");
         }
     }
 
@@ -1270,18 +1240,16 @@ class entidad{
         $per=$_SESSION['permiso'];
         if($per==1){
             $etiquetas=obtenerUsuariosBorrados();
-
-                if ( $etiquetas!="error"){
-                    $arrayNa = array();
-                    $i=0;
-                    foreach ($etiquetas as $key ) {
-                        $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
-                        'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                            'id_usuario' => $key['id_usuario'] );
-                        $i++;
-            
-                    }
+            if ( $etiquetas!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($etiquetas as $key ) {
+                    $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
+                    'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
+                        'id_usuario' => $key['id_usuario'] );
+                    $i++;        
                 }
+            }
             require_once("../vistaUsuariosBorrados.php");
         }else{
             //ir al login
@@ -1828,27 +1796,191 @@ function buscarRegistrado() {
 
     function bajaUsuarioRegistrado() {
             //if(isset($confirmar)){
-            $id=$_SESSION['id_usuario'];
+            /*$id=$_SESSION['id_usuario'];
             eliminarUsuario($id);
             require_once("../index.php");
-            
+            */
+        $per=$_SESSION['permiso'];
+        if($per==2){
+            $id=$_SESSION['id_usuario'];                 
+            $res = eliminarUsuario($id);
+            $usuarios=obtenerUsuarios();
+            if($res!="error"){
+                $resultadoAutor=obtenerAutores();
+                $resultadoEtiqueta=obtenerEtiquetas();
+                $resultadoEditorial=obtenerEditoriales();
+                $arrayNe = array();
+                $i=0;
+                foreach ($resultadoAutor as $key ) {
+                    $arrayNe[$i]=array('nombre' => $key['nombre']);
+                    $i++;
+                }
+                $arrayNo = array();
+                $i=0;
+                foreach ($resultadoEtiqueta as $key ) {
+                    $arrayNo[$i]=array('nombre' => $key['nombre']);
+                    $i++;
+                }
+                $i=0;
+                $arrayNu = array();
+                foreach ($resultadoEditorial as $key ) {
+                    $arrayNu[$i]=array('nombre' => $key['nombre']);
+                    $i++;
+                }
+                $todo=filtrarTodosLosLibros();
+                $arrayNa = array();
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+                    $i++;
+                }
+                $bajaOk=true;
+                require_once ("../cookbooks.php");    
+            }else{
+                echo "hubo error en la baja del usuario";
+            }
+        }    
     }
 
-    function bajaAdminRegistrado() {
-       
+    function bajaAdminRegistrado() {         
+        $per=$_SESSION['permiso'];
+        if($per==1){
             $id=$_SESSION['id_usuario'];
-            $res=obtenerUsuariosAdmin();
-
-            if(sizeof($res)>1){
-                eliminarUsuario($id);
-                require_once("../index.php");
+            $admins=obtenerUsuariosAdmin();
+            if(count($admins) <= 1){
+                $noBajaUltimoAdmin=true;
+                
+                require_once("../ADMIN/cookBooksAdmin.php");
+            }else{                
+                $res = eliminarUsuario($id);
+                $usuarios=obtenerUsuarios();
+                if($res!="error"){
+                    $resultadoAutor=obtenerAutores();
+                    $resultadoEtiqueta=obtenerEtiquetas();
+                    $resultadoEditorial=obtenerEditoriales();
+                    $arrayNe = array();
+                    $i=0;
+                    foreach ($resultadoAutor as $key ) {
+                        $arrayNe[$i]=array('nombre' => $key['nombre']);
+                        $i++;
+                    }
+                    $arrayNo = array();
+                    $i=0;
+                    foreach ($resultadoEtiqueta as $key ) {
+                        $arrayNo[$i]=array('nombre' => $key['nombre']);
+                        $i++;
+                    }
+                    $i=0;
+                    $arrayNu = array();
+                    foreach ($resultadoEditorial as $key ) {
+                        $arrayNu[$i]=array('nombre' => $key['nombre']);
+                        $i++;
+                    }
+                    $todo=filtrarTodosLosLibros();
+                    $arrayNa = array();
+                    $i=0;
+                    foreach ($todo as $key ) {
+                        $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                            'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+                        $i++;
+                    }
+                    $bajaOk=true;
+                    require_once ("../cookbooks.php");
+                }
+                echo "hubo error en la baja";
             }
-            else{
+        }    
 
-                echo "<div class='alert alert-danger'>Error! no se puede realizar la baja debido a que es el último admin dado de alta en el sistema </div>";
-                 
-            }
     }
+    function olvideMiContrasena(){
+        require_once('../vistaRecuperarContrasena.php');
+    }
+
+    function recuperarContrasena(){
+        $email=$_POST['email'];
+        $nombreUsuario=$_POST['nombre_usuario'];
+        $usuario= recuperarCliente($nombreUsuario);
+        if(count($usuario) == 0){
+            $noExisteUsuario=true;
+            require_once("../vistaRecuperarContrasena.php");
+        }else{
+            if($usuario[0]['email'] != $email){
+                $noEstaBienEmail=true;
+                require_once("../vistaRecuperarContrasena.php");
+            }else{
+                $seEnvioCorreo=true;
+                $resultadoAutor=obtenerAutores();
+                $resultadoEtiqueta=obtenerEtiquetas();
+                $resultadoEditorial=obtenerEditoriales();
+                $arrayNe = array();
+                $i=0;
+                foreach ($resultadoAutor as $key ) {
+                    $arrayNe[$i]=array('nombre' => $key['nombre']);
+                    $i++;
+                }
+                $arrayNo = array();
+                $i=0;
+                foreach ($resultadoEtiqueta as $key ) {
+                $arrayNo[$i]=array('nombre' => $key['nombre']);
+                    $i++;
+                }
+                $i=0;
+                $arrayNu = array();
+                foreach ($resultadoEditorial as $key ) {
+                    $arrayNu[$i]=array('nombre' => $key['nombre']);
+                    $i++;
+                }
+                $todo=filtrarTodosLosLibros();
+                $arrayNa = array();
+                $i=0;
+                foreach ($todo as $key ) {
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+                    $i++;
+                }
+                require_once("../cookbooks.php");
+            }
+        }
+    }
+
+    function publicoInicio(){
+        if(isset($_GET['olvideMiContrasena'])){
+            $olvideMiContrasena=true;
+        }
+        $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $todo=filtrarTodosLosLibros();
+        $arrayNa = array();
+        $i=0;
+        foreach ($todo as $key ) {
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+            $i++;
+        }
+
+        require_once("../cookbooks.php");
+    }
+
 }
 
 

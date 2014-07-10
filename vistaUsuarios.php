@@ -59,6 +59,9 @@
   }
   if(isset($reAltaOk)){
     echo" <div class='alert alert-success'>Exito! Se ha re-agregado el usuario correctamente!!</div>";
+  }
+  if(isset($noBajaASiMismo)){
+    echo "<div class='alert alert-danger'>Error! Para darse de baja a usted mismo debe hacerlo desde el inicio con el boton Darme de Baja</div>";
   }    
 ?>
 <div class="col-md-12">
@@ -87,8 +90,7 @@
                       <td class='separados'><p>".$key["email"]."</p></td>
                       <td class='separados'><p>".$key["telefono"]."</p></td>
                       <td class='separados'><p>".$key["dni"]."</p></td>
-                      <td class='separados'><p>".$key["nombreUsuario"]."</p></td>
-                      
+                      <td class='separados'><p>".$key["nombreUsuario"]."</p></td>                      
                       <td>
                       <form onSubmit='return confirmar()' action='/JAMP/PORTI/llamadaController.php?action=bajaUsuario&clase=entidad' method='post'>
                       <input type='hidden' name= 'id_usuario' value='".$key['id_usuario']."'> 

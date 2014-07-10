@@ -29,8 +29,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href ="/JAMP/index.php"> Inicio </a></li>
-        <li class="active"><a href="#">Crear Cuenta</a></li>
+        <li><a href ="/JAMP/index.php"> Inicio </a></li>        
       </ul>
       <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
       <div class="form-group">
@@ -42,6 +41,8 @@
       <button type="submit" id="_submit" class="btn btn-info" name="_submit" >Entrar</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="#">Crear Cuenta</a></li>
+        <li><a href="/JAMP/PORTI/llamadaController.php?action=publicoInicio&clase=entidad&olvideMiContrasena=true">Olvide mi contraseña</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

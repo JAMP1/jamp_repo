@@ -196,12 +196,19 @@
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Portada</span>
                   <?php
-                    echo "<form method='' action='' >
-                          <input type='image' src='".$libro[0]['referencia_foto']."' value='' name='antigua_portada'>
-                          <input type= 'hidden' value='".$libro[0]['referencia_foto']."' name='vieja_portada'>
-                          <input type='file' accept='image/*' class='form-control' name='nueva_portada' id='nueva_portada'>
-                          </form> ";
-                    
+                    if (isset($referencia_util)){
+                      echo "<form method='' action='' >
+                            <input type='image' src='".$referencia_util."' value='' name='antigua_portada'>
+                            <input type= 'hidden' value='".$referencia_util."' name='vieja_portada'>
+                            <input type='file' accept='image/*' class='form-control' name='nueva_portada' id='nueva_portada'>
+                            </form>";
+                    }else{
+                      echo "<form method='' action='' >
+                            <input type='image' src='".$libro[0]['referencia_foto']."' value='' name='antigua_portada'>
+                            <input type= 'hidden' value='".$libro[0]['referencia_foto']."' name='vieja_portada'>
+                            <input type='file' accept='image/*' class='form-control' name='nueva_portada' id='nueva_portada'>
+                            </form> ";
+                    }
                   //<input type="file" class="form-control" name="portada" id="portada" >
                   ?>
                 </div>
@@ -213,8 +220,8 @@
             <tr>
               <td>
                 <?php
-                  if(isset($id)){
-                    echo "<input name='id_libro' type='hidden' value='".$id."'/>";
+                  if(isset($id_libro)){
+                    echo "<input name='id_libro' type='hidden' value='".$id_libro."'/>";
                   }
                 ?>
               </td>

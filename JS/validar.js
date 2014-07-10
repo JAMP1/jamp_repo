@@ -74,14 +74,16 @@ function validaLibro(){
 
 function validaUsuario(){
 	var patron=/^\s+$/;
+	var patronNomApe= /^[a-zA-Z]+\s*[a-zA-Z]+$/;
 	var patronNumerico=/^[0-9]+$/;
+	var patronNomUsu= /^[a-zA-Z0-9]+$/;
 	var regexp= new RegExp('^[a-z0-9]{1,10}$');
 	var nom=document.getElementById('nombre').value;
 	var tam = nom.length;
-	if ((!patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
+	if ((patronNomApe.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
 		var nom=document.getElementById('apellido').value;
 		var tam = nom.length;
-		if ((!patron.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
+		if ((patronNomApe.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
 			var nom=document.getElementById('telefono').value;
 			var tam = nom.length;
 			if ((patronNumerico.test(nom)) && (nom.length < 20) && (nom.length > 6)){
@@ -90,14 +92,12 @@ function validaUsuario(){
 				if ((patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 15)){
 					var nom=document.getElementById('nombreUsuario').value;
 					var tam = nom.length;
-
-					if ((!patron.test(nom)) && (nom.length < 15) && (nom.length > 2)){
-					
+					if ((patronNomUsu.test(nom)) && (nom.length < 15) && (nom.length > 2)){
 						return true;
 					}
 					else{
 						//("ERROR EN EL INGRESO DE DATOS");
-						alert("CAMPO NOMBRE DE USUARIO: Debe ingresar solo letras mayusculas y minusculas, minimo de 3");
+						alert("CAMPO NOMBRE DE USUARIO: Debe letras mayusculas y/o minusculas y/o digitos del 0 al 9, minimo de 3, maximo de 14");
 						return false;
 					}
 				}
@@ -115,13 +115,13 @@ function validaUsuario(){
 		}
 		else{
 			//("ERROR EN EL INGRESO DE DATOS");
-			alert("CAMPO APELLIDO: Debe ingresar solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
+			alert("CAMPO APELLIDO: Debe ingresar hasta 2 apellidos, solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
 			return false;
 		}
 	}
 	else{
 		//("ERROR EN EL INGRESO DE DATOS");
-		alert("CAMPO NOMBRE: Debe ingresar solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
+		alert("CAMPO NOMBRE: Debe ingresar hasta 2 nombres, solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
 		return false;
 	}	
 }
@@ -137,11 +137,26 @@ function validarBaja(){
 
 function validarRecuperaEmail(){
 	var patron= /^[a-zA-Z0-9_\-\.~]{2,}@[a-zA-Z0-9_\-\.~]{2,}\.[a-zA-Z]{2,4}$/;
+	var patronNomUsu= /^[a-zA-Z0-9]+$/;
 	var email= document.getElementById('email').value;
 	if(patron.test(email)){
-		alert("QUE HACE");
-		return true;
+		var nombre_usuario= document.getElementById('nombre_usuario').value;
+		if( (patronNomUsu.test(nombre_usuario)) && (nombre_usuario.length <=30) && (nombre_usuario.length >2)){
+			return true;
+		}else{
+			alert("Error ortografico en el Nombre de Usuario, se aceptan letras mayusculas y/o minusculas y/o digitos numericos");
+			return false;
+		}
 	}
-	alert("QUE ONDA");
+	alert("Error ortografico en la direccion de email");
 	return false;
+}
+
+function confirmar(){
+	confirmar= confirm("¿Está seguro que desea realizar esta operacion?");
+	if(confirmar){
+		return true;
+	}else{
+		return false;
+	}
 }

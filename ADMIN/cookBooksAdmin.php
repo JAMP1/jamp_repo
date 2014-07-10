@@ -44,7 +44,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
             </ul>          
-            <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=bajaAdminRegistrado&clase=loginClase">
+            <form class="navbar-form navbar-right" method="POST" onSubmit="return validarBaja()" role="search" action="/JAMP/PORTI/llamadaController.php?action=bajaAdminRegistrado&clase=entidad">
                     <button class="btn btn-info" type="submit">Darme de Baja </button>
             </form>
           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfilAdministrador&clase=entidad&id_usuario"=<?php echo $_SESSION['id_usuario']?>>
@@ -56,6 +56,13 @@
         </div>
       </nav>
 </head>
-<body>            
+<body> 
+  <div>
+    <?php        
+        if(isset($noBajaUltimoAdmin)){
+            echo" <div class='alert alert-danger'>Cuidado! No puede eliminar el unico admin activo del sistema!!</div>";
+        }
+    ?>
+  </div>           
 </body>
 </html>

@@ -24,31 +24,32 @@
 <nav class="navbar navbar-inverse" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <label class="navbar-brand">CookBooks</label> 
-        </div>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <label class="navbar-brand">CookBooks</label> 
+    </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href ="#"> Inicio </a></li>
       </ul>
       <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=login&clase=loginClase">
-      <div class="form-group">
-      <input type="text" id="username" placeholder="Usuario" class="form-control" placeholder="Usuario" name="username" value="" required="required" />
-      </div>
-      <div class="form-group">
-      <input type="password" placeholder="Contraseña" class="form-control" id="password" name="password" required="required" />
-      </div>
-      <button type="submit" id="_submit" class="btn btn-info" name="_submit" >Entrar</button>
+        <div class="form-group">
+          <input type="text" id="username" placeholder="Usuario" class="form-control" placeholder="Usuario" name="username" value="" required="required" />
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Contraseña" class="form-control" id="password" name="password" required="required" />
+        </div>
+        <button type="submit" id="_submit" class="btn btn-info" name="_submit" >Entrar</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-      <li> <a href="/JAMP/PORTI/llamadaController.php?action=registrarme&clase=entidad">Crear Cuenta</a></li>
+        <li><a href="/JAMP/PORTI/llamadaController.php?action=registrarme&clase=entidad">Crear Cuenta</a></li>
+        <li><a href="../PORTI/llamadaController.php?action=olvideMiContrasena&clase=entidad">Olvide mi contraseña</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -65,6 +66,12 @@
         }
         if(isset($sePudoAlta)){
             echo" <div class='alert alert-success'>Exito! Ya forma parte de nuestro sistema!!</div>";
+        }
+        if(isset($seEnvioCorreo)){
+          echo "<div class='alert alert-success'>Felicidades! Se ha enviado un mail con la contrasena correspondiente!</div>";
+        }
+        if(isset($bajaOk)){
+           echo "<div class='alert alert-success'>Se ha dado de baja satisfactoriamente</div>";
         }
     ?>
   </div>
