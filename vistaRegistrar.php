@@ -156,7 +156,7 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Contrasena</span>
-                  <input type="password" class="form-control"  name="contrasena" required="required">        
+                  <input type="password" class="form-control"  name="contrasena" id="contrasena" required="required">        
                   </div>
               </td>
             </tr>    
