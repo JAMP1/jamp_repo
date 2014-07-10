@@ -44,7 +44,8 @@
       <?php 
       echo "<form class='navbar-form navbar-right' method='POST' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
                   <input name='idUsuario' type='hidden' value='".$id_usuario."'/>
-                  <button class='btn btn-info' type='submit'> Mi Carrito </button>";;            
+                  <button class='btn btn-info' type='submit'> Mi Carrito </button>
+            </form>";;            
       ?>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

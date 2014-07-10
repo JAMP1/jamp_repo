@@ -1,4 +1,3 @@
-
 function validar() {
 	//valida que no haya espacios en blanco al principio y a final
 	//pero no lo hace con los intermedios
@@ -25,48 +24,43 @@ function validaLibro(){
 	var patronNumerico=/^[0-9]+$/; 
 	var nom=document.getElementById('nom_libro').value;
 	var tam = nom.length;
-	if ((patron.test(nom)) && (nom.length <= 30) && (patronfin.test(nom))){
+	if ( (patron.test(nom)) && (nom.length <= 30) && (patronfin.test(nom)) ){
 		var nom=document.getElementById('isbn_libro').value;
 		var tam = nom.length;
-		if ((patronNumerico.test(nom)) && (nom.length > 0)){
+		if ( (patronNumerico.test(nom)) && (nom.length > 0) ){
 			var nom=document.getElementById('cantHojas_libro').value;
 			var tam = nom.length;
-			if ((patronNumerico.test(nom)) && (nom.length > 0)){
+			if ( (patronNumerico.test(nom)) && (nom.length > 0) ){
 				var nom=document.getElementById('cant_libro').value;
 				var tam = nom.length;
-				if ((patronNumerico.test(nom)) && (nom.length > 0)){
+				if ( (patronNumerico.test(nom)) && (nom.length > 0) ){
 					var nom=document.getElementById('precio_libro').value;
 					var tam = nom.length;
-					if ((patronNumerico.test(nom)) && (nom.length > 0)){
+					if ( (patronNumerico.test(nom)) && (nom.length > 0) ){
 					
 						return true;
 					}
 					else{
-						//("ERROR EN EL INGRESO DE DATOS");
 						alert("CAMPO PRECIO: Debe ingresar solo numeros");
 						return false;
 					}
 				}
 				else{
-					//("ERROR EN EL INGRESO DE DATOS");
 					alert("CAMPO STOCK: Debe ingresar solo numeros enteros");
 					return false;
 				}
 			}
 			else{
-				//("ERROR EN EL INGRESO DE DATOS");
 				alert("CAMPO TOTAL DE PAGINAS: Debe ingresar solo numeros enteros");
 				return false;
 			}
 		}
 		else{
-			//("ERROR EN EL INGRESO DE DATOS");
 			alert("CAMPO ISBN: Debe ingresar solo numeros enteros");
 			return false;
 		}
 	}
 	else{
-		//("ERROR EN EL INGRESO DE DATOS");
 		alert("CAMPO NOMBRE: Debe ingresar solo letras mayusculas y minusculas, sin espacios blancos al inicio ni al final");
 		return false;
 	}	
@@ -77,10 +71,10 @@ function validaUsuario(){
 	var patronNomApe= /^[a-zA-Z]+\s*[a-zA-Z]+$/;
 	var patronNumerico=/^[0-9]+$/;
 	var patronNomUsu= /^[a-zA-Z0-9]+$/;
-	var regexp= new RegExp('^[a-z0-9]{1,10}$');
+	//var regexp= new RegExp('^[a-z0-9]{1,10}$');
 	var nom=document.getElementById('nombre').value;
 	var tam = nom.length;
-	if ((patronNomApe.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
+	if ( (patronNomApe.test(nom)) && (nom.length <= 30) && (nom.length > 2) ){
 		var nom=document.getElementById('apellido').value;
 		var tam = nom.length;
 		if ((patronNomApe.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
@@ -92,7 +86,10 @@ function validaUsuario(){
 				if ((patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 15)){
 					var nom=document.getElementById('nombreUsuario').value;
 					var tam = nom.length;
+					alert(nom);
+					alert("A punto de validar usuario");
 					if ((patronNomUsu.test(nom)) && (nom.length < 15) && (nom.length > 2)){
+						//return confirm('HOLA?');
 						nom= document.getElementById('contrasena').value;
 						tam=nom.length;
 						if(patronNomUsu.test(nom) && (nom.length <15) && (nom.length > 2)){
@@ -161,7 +158,7 @@ function validarRecuperaEmail(){
 }
 
 function confirmar(){
-	confirmar= confirm("¿Está seguro que desea realizar esta operacion?");}
+	confirmar= confirm("¿Está seguro que desea realizar esta operacion?");
 
 	if(confirmar){
 		return true;

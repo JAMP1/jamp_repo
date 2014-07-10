@@ -725,6 +725,18 @@ function actualizaLibroCarrito($id_carrito, $id_libro ,$cantidad_pedida){
 	}
 }
 
+function actualizaCarrito($id_usuario){
+	$link = conectarBaseDatos();
+	if( $link != "error"){
+		$query= $link ->prepare("UPDATE `carrito` SET `baja`= 0 
+								WHERE id_usuario = :IdUsuario ");
+		$query -> execute(array('IdUsuario'=>$id_usuario));
+		$link = cerrarConexion();
+	}else{
+		return "error";
+	}
+}
+
 function obtenerDatosCliente ($IdUsuario) {
 	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -764,7 +776,7 @@ function modificarDatosCliente ($nombre, $apellido,  $email, $telefono, $dni,$no
 function obtenerUsuarios() {
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-	 	$query = $link->prepare("SELECT `id_usuario`, `nombre`,`apellido`,`email`, `telefono`,`dni`,`nombreUsuario`, `contrasena` 
+	 	$query = $link->prepare("SELECT * 
 	 							FROM usuario WHERE `baja`=0");
 	 	$query->execute();
 	 	$res=$query->fetchAll();
@@ -815,10 +827,21 @@ function eliminarUsuario($idUsuario){
 	}
 }
 
+function eliminarAdmin($idUsuario){
+	$link = conectarBaseDatos();
+	if( $link != "error"){
+		$query= $link ->prepare("UPDATE `usuario` SET `baja`= 1 WHERE id_usuario = :IdUsuario");
+		$query -> execute(array('IdUsuario' => $idUsuario));
+		$link = cerrarConexion();
+	}else{
+		return "error";
+	}
+}
+
 function obtenerUsuariosBorrados(){
   	$link = conectarBaseDatos();
   	if ($link != "error"){
-  		$query = $link->prepare("SELECT `id_usuario`, `nombre`,`apellido`,`email`, `telefono`,`dni`,`nombreUsuario`, `contrasena` 
+  		$query = $link->prepare("SELECT * 
 	 							FROM usuario WHERE `baja`=1");
   		$query->execute();
   		$res=$query->fetchAll();

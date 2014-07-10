@@ -94,6 +94,7 @@
                       <td>
                       <form onSubmit='return confirmar()' action='/JAMP/PORTI/llamadaController.php?action=bajaUsuario&clase=entidad' method='post'>
                       <input type='hidden' name= 'id_usuario' value='".$key['id_usuario']."'> 
+                      <input type='hidden' name= 'permiso' value='".$key['permiso']."'> 
                       <button class='btn btn-info' type='submit'>Eliminar</button>
                       </form>
                       </td>

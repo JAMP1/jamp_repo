@@ -72,6 +72,7 @@
                       <td>
                       <form action='/JAMP/PORTI/llamadaController.php?action=agregarBorradoUsuario&clase=entidad' method='post'>
                       <input type='hidden' name= 'id_usuario' value='".$key['id_usuario']."'> 
+                      <input type='hidden' name= 'permiso' value='".$key['permiso']."'> 
                       <button class='btn btn-info' type='submit'>Agregar</button>
                       </form>
                       </td>

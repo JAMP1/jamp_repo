@@ -130,9 +130,9 @@
                   <span class="input-group-addon">Usuario</span>
                   <?php
                     if(isset($nombreUsuario)){
-                      echo "<input type='text' value='".$nombreUsuario."' class='form-control' name='nombreusuario' id='nombreusuario' required='required'>";
+                      echo "<input type='text' value='".$nombreUsuario."' class='form-control' name='nombreUsuario' id='nombreUsuario' required='required'>";
                     }else{
-                      echo "<input type='text' value='' class='form-control' name='nombreusuario' id='nombreusuario' required='required' >";
+                      echo "<input type='text' value='' class='form-control' name='nombreUsuario' id='nombreUsuario' required='required' >";
                     }
                   ?>
                 </div>
@@ -142,7 +142,7 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Contrasena</span>
-                  <input type="password" class="form-control"  name="contrasena" required="required">        
+                  <input type="password" class="form-control"  name="contrasena" id="contrasena" required="required">        
                 </div>
               </td>
             </tr>    

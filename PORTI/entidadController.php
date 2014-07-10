@@ -1012,7 +1012,7 @@ class entidad{
     }
 
     function registrarAdministrador () { 
-        $nombreUsuario= $_POST['nombreusuario'];
+        $nombreUsuario= $_POST['nombreUsuario'];
         $nombre= $_POST['nombre'];
         $apellido= $_POST['apellido'];
         $dni= $_POST['dni'];
@@ -1046,7 +1046,7 @@ class entidad{
         }else{
             $i=0;
             foreach ($buscaNomUsuarioYDNI as $key){
-                if ($key['nombreusuario']==$nombreUsuario ){
+                if ($key['nombreUsuario']==$nombreUsuario ){
                     $nombreUsuario="";
                 }
                 if($key['dni']==$dni ){
@@ -1195,7 +1195,7 @@ class entidad{
                 foreach ($usuarios as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
                         'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                            'id_usuario' => $key['id_usuario'] );
+                            'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'] );
                     $i++;
                 }
             }
@@ -1217,13 +1217,19 @@ class entidad{
                     foreach ($usuarios as $key){
                         $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
                             'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                                'id_usuario' => $key['id_usuario'] );
+                                'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'] );
                         $i++;
                     }
                 }
                 require_once("../vistaUsuarios.php");
-            }else{                
-                $res = eliminarUsuario($id);
+            }else{ 
+                $permiso=$_POST['permiso'];
+                if($permiso==1){
+                    $res = eliminarAdmin($id);
+                }
+                if($permiso==2){
+                    $res = eliminarUsuario($id);
+                }                
                 $usuarios=obtenerUsuarios();
                 if($usuarios!="error"){
                     $arrayNa = array();
@@ -1231,7 +1237,7 @@ class entidad{
                     foreach ($usuarios as $key){
                         $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
                             'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                                'id_usuario' => $key['id_usuario'] );
+                                'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'] );
                         $i++;
                     }
                 }
@@ -1251,7 +1257,7 @@ class entidad{
                 foreach ($etiquetas as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
                     'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                        'id_usuario' => $key['id_usuario'] );
+                        'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'] );
                     $i++;        
                 }
             }
@@ -1264,7 +1270,11 @@ class entidad{
         $per=$_SESSION['permiso'];
         if($per==1){
             $id=$_POST['id_usuario'];
+            $permiso=$_POST['permiso'];
             $borrar=agregarBorradoUsuario($id);
+            if($permiso==2){
+                actualizaCarrito($id);
+            }
             $usuarios=obtenerUsuarios();
             if ( $usuarios!="error"){
                 $arrayNa = array();
@@ -1272,7 +1282,7 @@ class entidad{
                 foreach ($usuarios as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
                         'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                            'id_usuario' => $key['id_usuario'] );
+                            'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'] );
                     $i++;
                 }
             }
@@ -1855,10 +1865,9 @@ function buscarRegistrado() {
             $admins=obtenerUsuariosAdmin();
             if(count($admins) <= 1){
                 $noBajaUltimoAdmin=true;
-                
                 require_once("../ADMIN/cookBooksAdmin.php");
             }else{                
-                $res = eliminarUsuario($id);
+                $res = eliminarAdmin($id);
                 $usuarios=obtenerUsuarios();
                 if($res!="error"){
                     $resultadoAutor=obtenerAutores();
