@@ -1473,7 +1473,7 @@ class entidad{
                 break;
             
             default:
-            $resultadoAutor=obtenerAutores();
+        $resultadoAutor=obtenerAutores();
         $resultadoEtiqueta=obtenerEtiquetas();
         $resultadoEditorial=obtenerEditoriales();
         $arrayNe = array();
