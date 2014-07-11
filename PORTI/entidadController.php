@@ -669,7 +669,7 @@ class entidad{
             $nom=$_POST["nom_libro"];
             $isbn=$_POST["isbn_libro"];
             $cantHojas=$_POST["cantHojas_libro"];
-            $cantLibros=$_POST["cant_libro"];
+            $cantLibros=1;
             $precio=$_POST["precio_libro"];
             $id_editorial=$_POST["id_editorial_libro"];
             $id_etiqueta=$_POST["id_etiqueta_libro"];
@@ -747,7 +747,7 @@ class entidad{
             $nom=$_POST["nom_libro"];
             $isbn=$_POST["isbn_libro"];
             $cantHojas=$_POST["cantHojas_libro"];
-            $cantLibros=$_POST["cant_libro"];
+            $cantLibros=1;
             $precio=$_POST["precio_libro"];
             $id_editorial=$_POST["id_editorial_libro"];
             $id_etiqueta=$_POST["id_etiqueta_libro"];
@@ -759,7 +759,6 @@ class entidad{
             $nom_editorial= $arreglo_editorial["nombre"];
             $nom_etiqueta = $arreglo_etiqueta["nombre"];
             $nom_autor= $arreglo_autor["nombre"];
-
             $tamanio = $_FILES["nueva_portada"]["size"];
             if($tamanio > 1 ){            
                 $name= $_FILES["nueva_portada"]["name"];

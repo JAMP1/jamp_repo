@@ -106,21 +106,21 @@
               <!--  <input id="nombre" type="text" placeholder="Cantidad de hojas" name="cantHojas_libro"> -->
               </td>
             </tr>
-            <tr>
+          <!--  <tr>
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Stock</span>
                   <?php
-                    if(isset($cantLibros)){
+             /*       if(isset($cantLibros)){
                       echo "<input type='text' value='".$cantLibros."' class='form-control' name='cant_libro' id='cant_libro' required='required'>";
                     }else{
                       echo "<input type='text' class='form-control' name='cant_libro' id='cant_libro' required='required'>";
-                    }
+                    }*/
                   ?>
                 </div>
-                <!--<input id="nombre" type="text" placeholder="Cantidad de libros" name="cant_libro">-->
+                
               </td>
-            </tr>
+            </tr>-->
             <tr>
               <td>
                 <div class="input-group input-group-lg">

@@ -32,7 +32,7 @@
   <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
   <ul class="nav navbar-nav">
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio </a></li>
-    <li class="activa"><a href ="#">Administrar Autores </a></li>
+    <li class="active"><a href ="#">Administrar Autores </a></li>
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaAutor&clase=entidad">Alta Autor </a></li>
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosAutores&clase=entidad">Autores Borrados </a></li>
   </ul>

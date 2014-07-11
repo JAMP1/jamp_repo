@@ -36,8 +36,8 @@
     <ul class="nav navbar-nav">
         <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio</a></li>
         <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarEditorial&clase=entidad">Administrar Editoriales</a></li>
-        <li class="active"><a href="#">Alta Editoriales</a></li>
-        <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosEditorial&clase=entidad">Editoriales Borradas </a></li>
+        <li class="active"><a href="#">Alta Editorial</a></li>
+        <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosEditorial&clase=entidad">Editoriales Borradas</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>

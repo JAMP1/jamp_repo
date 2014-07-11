@@ -34,7 +34,7 @@
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio </a></li>
     <li class="activa"><a href ="/JAMP/PORTI/llamadaController.php?action=cargarAutor&clase=entidad">Administrar Autores</a></li>
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaAutor&clase=entidad">Alta Autor </a></li>
-    <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosAutor&clase=entidad">Autores Borrados </a></li>
+    <li class="active"><a href ="#">Autores Borrados </a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -46,7 +46,7 @@
         <table class="table table-centered">
         <tr>
         <td class="separados"><p>Nombre</p></td>
-        <td class="separados"><p>Agregar Autor</p></td>
+        <td class="separados"><p>Restaurar Autor</p></td>
         </tr>
         <tr>
         <?php
@@ -56,7 +56,7 @@
             <td class='separados'>
             <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaAutor&clase=entidad'>
             <input name='id_autor' type='hidden' value='".$key['id_us']."'/>
-            <input type='submit' class='btn btn-info' value='Agregar'/>
+            <input type='submit' class='btn btn-info' value='Restaurar'/>
             </form>
             </tr>";
         }

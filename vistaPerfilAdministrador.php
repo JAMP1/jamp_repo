@@ -22,19 +22,19 @@
 <body>
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
      <!-- <div class="container">-->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <label class="navbar-brand">CookBooks</label> 
-        </div>
-        <div class="navbar-collapse collapse" id="menu">
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
-             <ul class="nav navbar-nav navbar-left">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <label class="navbar-brand">CookBooks</label> 
+      </div>
+      <div class="navbar-collapse collapse" id="menu">
+			  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
+            <ul class="nav navbar-nav navbar-left">
               <li><a href="../PORTI/llamadaController.php?action=volverInicio&clase=admin"> Inicio </a></li>  
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrar <span class="caret"></span></a>
@@ -51,6 +51,9 @@
             <ul class="nav navbar-nav navbar-right">
               <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
             </ul>
+            <form class="navbar-form navbar-right">
+              <button class="defuse btn btn-info" type="button">Mi perfil </button>
+            </form>
           </div>
         </div><!--/.navbar-collapse -->
     </div>

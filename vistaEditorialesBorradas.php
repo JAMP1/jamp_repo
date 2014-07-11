@@ -32,7 +32,7 @@
   <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
   <ul class="nav navbar-nav">
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio </a></li>
-    <li class="activa"><a href ="/JAMP/PORTI/llamadaController.php?action=cargarEditorial&clase=entidad">Administrar Editorial </a></li>
+    <li class="activa"><a href ="/JAMP/PORTI/llamadaController.php?action=cargarEditorial&clase=entidad">Administrar Editoriales</a></li>
     <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaEditorial&clase=entidad">Alta Editorial </a></li>
     <li class="active"><a href ="#">Editoriales Borradas </a></li>
   </ul>
@@ -46,7 +46,7 @@
         <table class="table table-centered">
         <tr>
         <td class="separados"><p>Nombre</p></td>
-        <td class="separados"><p>Agregar Editorial</p></td>
+        <td class="separados"><p>Restaurar Editorial</p></td>
         </tr>
         <tr>
         <?php
@@ -56,7 +56,7 @@
             <td class='separados'>
             <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaEditorial&clase=entidad'>
             <input name='id_editorial' type='hidden' value='".$key['id_us']."'/>
-            <input type='submit' class='btn btn-info' value='Agregar'/>
+            <input type='submit' class='btn btn-info' value='Restaurar'/>
             </form>
             </tr>";
         }

@@ -140,10 +140,10 @@
                     }
                     $referencia= $key['referencia_foto'];
                     echo  " <div class='col-md-3'>
-                            <h2>".$key['titulo']."</h2>
-                            <h4>".$key['editorial']."</h4>
-                            <h4>".$key['autor']."</h4>
-                            <h4>".$key['etiqueta']."</h4>
+                            <h2>Titulo: ".$key['titulo']."</h2>
+                            <h4>Editorial: ".$key['editorial']."</h4>
+                            <h4>Autor: ".$key['autor']."</h4>
+                            <h4>Tag: ".$key['etiqueta']."</h4>
                             <h4>$".$key['precio']."</h4>
                             <p><img class='img-book' src='$referencia' alt='cocina3' height='200' weight='200'></p>
                             <br>

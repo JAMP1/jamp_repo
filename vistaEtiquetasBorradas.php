@@ -47,7 +47,7 @@
         <table class="table table-centered">
         <tr>
         <td class="separados"><p>Nombre</p></td>
-        <td class="separados"><p>Agregar Etiqueta</p></td>
+        <td class="separados"><p>Restaurar Etiqueta</p></td>
         </tr>
         <tr>
         <?php
@@ -57,7 +57,7 @@
             <td class='separados'>
             <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaEtiqueta&clase=entidad'>
             <input name='id_etiqueta' type='hidden' value='".$key['id_us']."'/>
-            <input type='submit' class='btn btn-info' value='Agregar'/>
+            <input type='submit' class='btn btn-info' value='Restaurar'/>
             </form>
             </tr>";
         }
