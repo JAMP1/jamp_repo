@@ -888,6 +888,7 @@ class entidad{
                     $i++;
                 }
             }
+            $sePudoBaja=true;
             require_once("../vistaCarritoLibro.php");
         }
 
@@ -944,7 +945,7 @@ class entidad{
         $arregloDeClaves= array();
         $i=0;
         foreach ($carrito as $key) {    //esto pone todas los id de los libros en un solo arreglo
-            $arregloDeClaves[$r]= $key['id_libro'];
+            $arregloDeClaves[$i]= $key['id_libro'];
             $i++;
         }
 

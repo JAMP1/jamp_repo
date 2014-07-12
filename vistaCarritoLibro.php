@@ -67,7 +67,12 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div class="row">
-<div class="col-md-12">
+  <?php
+    if(isset($sePudoBaja)){
+      echo "<div class='alert alert-success'>Se ha eliminado el libro exitosamente!</div>";
+    }
+  ?>
+  <div class="col-md-12">
         <table class="table table-centered">
         <tr>
         <td class="separados"><p>Nombre</p></td>
