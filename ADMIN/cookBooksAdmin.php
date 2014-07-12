@@ -44,9 +44,9 @@
           <ul class="nav navbar-nav navbar-right">
               <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
           </ul>          
-          <form class="navbar-form navbar-right" method="POST" onSubmit="return confirmar()" role="search" action="/JAMP/PORTI/llamadaController.php?action=bajaAdminRegistrado&clase=entidad">
+          <!--<form class="navbar-form navbar-right" method="POST" onSubmit="return confirmar()" role="search" action="/JAMP/PORTI/llamadaController.php?action=bajaAdminRegistrado&clase=entidad">
             <button class="btn btn-info" type="submit">Darme de Baja </button>
-          </form>
+          </form>-->
           <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfilAdministrador&clase=entidad&id_usuario"=<?php echo $_SESSION['id_usuario']?>>
             <?php
               echo "<input type='hidden' name='id_usuario' value='".$_SESSION['id_usuario']."'>";

@@ -52,7 +52,7 @@
               <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
             </ul>
             <form class="navbar-form navbar-right">
-              <button class="defuse btn btn-info" type="button">Mi perfil </button>
+              <button class="active btn btn-primary" type="button">Mi perfil </button>
             </form>
           </div>
         </div><!--/.navbar-collapse -->
@@ -181,6 +181,9 @@
             </tr>
           </table>
         </div>
+      </form>
+      <form class="navbar-form navbar-right" method="POST" onSubmit="return confirmar()" role="search" action="/JAMP/PORTI/llamadaController.php?action=bajaAdminRegistrado&clase=entidad">
+        <button class="btn btn-danger" type="submit">Darme de Baja </button>
       </form>
     </div>  
   </body>

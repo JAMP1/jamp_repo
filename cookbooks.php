@@ -125,7 +125,6 @@
     <br>
     <?php
       $contar=0;
-     
       foreach ($arrayNa as $key){
         if($contar==0){
            echo "<div class='row'>";
@@ -145,10 +144,10 @@
                 </tr>
         ";
         $contar++;
-        /*if ($contar==4){
+        if ($contar%4==0){
           echo "</div>";
           $contar=0;
-        }*/
+        }
       }
       echo "
         </div>
@@ -171,8 +170,7 @@
         </table>";
       echo "</div>";
       echo "</div>";
-    ?>
-    
+    ?>    
     <hr>
 
 
