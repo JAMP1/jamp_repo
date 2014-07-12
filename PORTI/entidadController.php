@@ -884,7 +884,7 @@ class entidad{
                 foreach ($libros as $key ) {
                     $arrayNa[$i]=array('nombre' => $key[29] , 'isbn' => $key['isbn'], 
                         'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'],
-                        'id_carrito'=>$key['id_carrito'] );
+                        'id_carrito'=>$key['id_carrito'], 'cantidad_pedida'=>$key['cantidad_pedida'] );
                     $i++;
                 }
             }

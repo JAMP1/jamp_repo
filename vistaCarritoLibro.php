@@ -65,7 +65,6 @@
         <td class="separados"><p>Nombre</p></td>
         <td class="separados"><p>ISBN</p></td>
         <td class="separados"><p>Cantidad pag</p></td>
-        <td class="separados"><p>Stock</p></td>
         <td class="separados"><p>Precio</p></td>
         <td class="separados"><p>Cantidad</p></td>
         <td class="separados"><p>Eliminar Libro</p></td>
@@ -79,7 +78,6 @@
                     <td class='separados'><p>".$key["nombre"]."</p></td>
                     <td class='separados'><p>".$key["isbn"]."</p></td>
                     <td class='separados'><p>".$key["cantPag"]."</p></td>
-                    <td class='separados'><p>".$key["stock"]."</p></td>
                     <td class='separados'><p>".$key["precio"]."</p></td>
                     <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=actualizaCantidadDeLibros&clase=entidad'>                  
                     <td class='separados'><p><input type='number' name='cantidad_libros' class='cantidadLibroEnCarrito' min='1' value='".$key["cantidad_pedida"]."'></p>
