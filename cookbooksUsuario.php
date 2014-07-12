@@ -135,7 +135,7 @@
                   </form>";
               }else{
                 $marca= " 
-                  <form method='post' action='/JAMP/PORTI/llamadaController.php?action=agregarLibroCarrito&clase=entidad' >
+                  <form method='post' onSubmit='return confirmar()' action='/JAMP/PORTI/llamadaController.php?action=agregarLibroCarrito&clase=entidad' >
                     <button class='btn btn-success' type='submit'> Agregar al carrito </button>
                     <input name='id_libro' type='hidden' value='".$key['id_libro']."'>
                   </form>";
