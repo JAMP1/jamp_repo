@@ -51,7 +51,8 @@
           <?php 
             echo "<form class='navbar-form navbar-right' method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
                   <input name='idUsuario' type='hidden' value='".$_SESSION['id_usuario']."'/>           
-                  <button class='btn btn-info' type='submit'> Mi Carrito </button>";
+                  <button class='btn btn-info' type='submit'> Mi Carrito </button>
+                  </form>";
           ?>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -122,6 +123,22 @@
             foreach ($arrayNa as $key){
               if($contar==0){
                 echo"<div class='row'>";
+              }              
+              //PUEDE SER QUE SE PUDRA TODO CUANDO HAGA ALGUNOS CAMBIOS
+              //VER BIEN LOS INDICES DE LO QUE SE CARGA EN EL ARREGLO 
+              //EN EL MODULO DE ENTIDAD CONTROLLER Y TAMBIÉN EN EL LOGIN CONTROLLER
+              //DEBO VER COMO PONERLE UNA MARCA DE QUE YA ESTÁ EN EL CARRITO
+              if($key['marca']){
+                $marca= " 
+                  <form>
+                    <button class='btn btn-warning' type='button'> Agregado al carrito <i class='glyphicon glyphicon-ok'></i></button>
+                  </form>";
+              }else{
+                $marca= " 
+                  <form method='post' action='/JAMP/PORTI/llamadaController.php?action=agregarLibroCarrito&clase=entidad' >
+                    <button class='btn btn-success' type='submit'> Agregar al carrito </button>
+                    <input name='id_libro' type='hidden' value='".$key['id_libro']."'>
+                  </form>";
               }
               $referencia= $key['referencia_foto'];
               echo  " <div class='col-md-3'>
@@ -130,10 +147,11 @@
                       <h4>Autor: ".$key['autor']."</h4>
                       <h4>Tag: ".$key['etiqueta']."</h4>
                       <h4>$".$key['precio']."</h4>
-                      <p><img class='img-book' src='$referencia' alt='cocina3' height='200' weight='200'></p>
+                      <p><img class='img-book img-rounded' src='$referencia' alt='cocina3' height='200' weight='200'></p>
                       <br>
-                      <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
-                      </div>
+                      <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>";
+              echo  $marca;
+              echo "  </div>
               ";
               $contar++;
               if ($contar%4==0){

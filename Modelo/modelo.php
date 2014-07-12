@@ -642,6 +642,33 @@ function altaCarrito($idUsuario){
 	}
 }
 
+function agregarLibroCarrito($id_carrito,$id_libro){
+	//agrega a la tabla libro_carrito una tupla que representa un libro en el carrito del usuario
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare("INSERT INTO `carrito_libro`(`id_carrito`,`id_libro`)
+									VALUES (:IdCarrito, :IdLibro)");
+		$res = $query -> execute(array('IdCarrito' => $id_carrito, 'IdLibro'=>$id_libro));
+		$link = cerrarConexion();
+		return $res;
+	}
+}
+
+function obtenerLibrosEnCarrito($id_carrito){
+	//devuelve las tuplas correspondientes al usuario de la tabla carrito_libro
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query= $link -> prepare("SELECT `id_libro` 
+									FROM `carrito_libro`
+									WHERE `id_carrito`= :IdCarrito");
+		$res = $query -> execute(array('IdCarrito' => $id_carrito));
+		$res = $query -> fetchAll();
+		$link = cerrarConexion();
+		return $res;
+	}
+}
+
+
 function recuperarLibroCarrito($idUsuario){
 	$link = conectarBaseDatos();
 	if($link != "error"){
@@ -1015,6 +1042,21 @@ function buscarTodo($editorial,$etiqueta,$autor){
 	}
                
 }
+
+function buscaIdCarritoPorIdUsuario($idUsuario){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT `id_carrito`
+ 									FROM `carrito` 
+									WHERE id_usuario=:id_usuario");
+
+		$res = $query -> execute(array('id_usuario' =>$idUsuario));
+		$res = $query -> fetch();		
+		$link = cerrarConexion();
+		return $res;
+	}
+}
+
 /*
 function pruebaImagen(){
 	echo "ESTOY EN PRUEBAIMAGEN";

@@ -23,36 +23,52 @@
 						if ($prueba['id_permiso'] == 2) {
 							$_SESSION['permiso']=2;
 							$_SESSION['id_usuario']=$idUsuario;
-							            $resultadoAutor=obtenerAutores();
-        $resultadoEtiqueta=obtenerEtiquetas();
-        $resultadoEditorial=obtenerEditoriales();
-        $arrayNe = array();
-        $i=0;
-        foreach ($resultadoAutor as $key ) {
-            $arrayNe[$i]=array('nombre' => $key['nombre']);
-            $i++;
-        }
-        $arrayNo = array();
-        $i=0;
-        foreach ($resultadoEtiqueta as $key ) {
-        $arrayNo[$i]=array('nombre' => $key['nombre']);
-            $i++;
-        }
-        $i=0;
-        $arrayNu = array();
-        foreach ($resultadoEditorial as $key ) {
-            $arrayNu[$i]=array('nombre' => $key['nombre']);
-            $i++;
-        }
-                $todo=filtrarTodosLosLibros();
-                $arrayNa = array();
-                $i=0;
-                foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
-                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
-                    $i++;
-                }
-							require_once("../cookbooksUsuario.php");
+							$resultadoAutor=obtenerAutores();
+				        $resultadoEtiqueta=obtenerEtiquetas();
+				        $resultadoEditorial=obtenerEditoriales();
+				        $arrayNe = array();
+				        $i=0;
+				        foreach ($resultadoAutor as $key ) {
+				            $arrayNe[$i]=array('nombre' => $key['nombre']);
+				            $i++;
+				        }
+				        $arrayNo = array();
+				        $i=0;
+				        foreach ($resultadoEtiqueta as $key ) {
+				        $arrayNo[$i]=array('nombre' => $key['nombre']);
+				            $i++;
+				        }
+				        $i=0;
+				        $arrayNu = array();
+				        foreach ($resultadoEditorial as $key ) {
+				            $arrayNu[$i]=array('nombre' => $key['nombre']);
+				            $i++;
+				        }
+		                $todo=filtrarTodosLosLibros();
+		                $arrayNa = array();
+		                $i=0;
+
+		                $id_carrito= buscaIdCarritoPorIdUsuario($idUsuario);
+		                $carrito= obtenerLibrosEnCarrito($id_carrito['id_carrito']); //esto obtiene todo lo del carrito
+				        $arregloDeClaves= array();
+				        $r=0;
+				        foreach ($carrito as $key) {    //esto pone todas los id de los libros en un solo arreglo
+				            $arregloDeClaves[$i]= $key['id_libro'];
+				            $r++;
+				        }
+
+		                foreach ($todo as $key ) {
+		                	if(in_array($key['id_libro'], $arregloDeClaves)){ //esto corrobora si existe o no para la marca respectiva
+				                $marca=true;
+				            }else{ 
+				                $marca=false;
+				            }
+		                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+		                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
+		                        'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+		                    $i++;
+		                }
+						require_once("../cookbooksUsuario.php");
 							//require_once ('./cookbooksUsuario.php');
 							//LA VARIABLE PASADA POR HEADER NO ES LO MAS LINDO PERO ES LO UNICO QUE SE ME OCURRIO PARA SAFARLA
 						}						

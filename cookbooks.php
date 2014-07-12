@@ -137,7 +137,7 @@
                 <h4>Autor: ".$key['autor']."</h4>
                 <h4>Tag: ".$key['etiqueta']."</h4>
                 <h4>$".$key['precio']."</h4>
-                <p><img class= 'img-book' src='$referencia' alt = 'cocina3' height='200' weight='200' ></p>                       
+                <p><img class= 'img-book img-rounded' src='$referencia' alt = 'cocina3' height='200' weight='200' ></p>                       
                 <br>
                 <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
                 </div>
