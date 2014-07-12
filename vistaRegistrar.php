@@ -43,7 +43,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li class="active"><a href="#">Crear Cuenta</a></li>
-        <li><a href="/JAMP/PORTI/llamadaController.php?action=publicoInicio&clase=entidad&olvideMiContrasena=true">Olvide mi contraseña</a></li>
+        <li><a href="../PORTI/llamadaController.php?action=olvideMiContrasena&clase=entidad">Olvide mi contraseña</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

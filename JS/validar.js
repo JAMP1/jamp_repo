@@ -28,7 +28,7 @@ function validaLibro(){
 	if ( (patron.test(nom)) && (nom.length <= 50) && (patronfin.test(nom)) && (patronNomLibro.test(nom))  ){
 		var nom=document.getElementById('isbn_libro').value;
 		var tam = nom.length;
-		if ( (patronNumerico.test(nom)) && (nom.length > 0) && (nom.length < 14) ){
+		if ( (patronNumerico.test(nom)) && (nom.length == 13) ){
 			var nom=document.getElementById('cantHojas_libro').value;
 			var tam = nom.length;
 			if ( (patronNumerico.test(nom)) && (nom.length > 0) ){
@@ -49,7 +49,7 @@ function validaLibro(){
 			}
 		}
 		else{
-			alert("CAMPO ISBN: Debe ingresar solo numeros enteros, menor a 14 digitos");
+			alert("CAMPO ISBN: Debe ingresar solo numeros enteros, exactamente 13 digitos");
 			return false;
 		}
 	}
