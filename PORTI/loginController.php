@@ -53,7 +53,7 @@
 				        $arregloDeClaves= array();
 				        $r=0;
 				        foreach ($carrito as $key) {    //esto pone todas los id de los libros en un solo arreglo
-				            $arregloDeClaves[$i]= $key['id_libro'];
+				            $arregloDeClaves[$r]= $key['id_libro'];
 				            $r++;
 				        }
 

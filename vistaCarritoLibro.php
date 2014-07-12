@@ -50,11 +50,19 @@
       <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
       <ul class="nav navbar-nav">
         <li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=user"> Inicio </a></li>
-        <li class="active"><a href ="#">Mi Carrito</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
       </ul>
+      <form class="navbar-form navbar-right" method="POST" role="search" action="/JAMP/PORTI/llamadaController.php?action=mostrarPerfil&clase=entidad&id_usuario"=<?php echo $_SESSION['id_usuario']?>>
+        <?php
+          echo "<input type='hidden' name='id_usuario' value='".$_SESSION['id_usuario']."'>";
+        ?>
+        <button class="btn btn-info" type="submit">Mi perfil </button>
+      </form>
+      <form class="navbar-form navbar-right">
+        <button class="active btn btn-primary" type="button">Mi Carrito </button>
+      </form>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
