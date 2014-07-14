@@ -658,7 +658,7 @@ function obtenerLibrosEnCarrito($id_carrito){
 	//devuelve las tuplas correspondientes al usuario de la tabla carrito_libro
 	$link = conectarBaseDatos();
 	if($link != "error"){
-		$query= $link -> prepare("SELECT `id_libro` 
+		$query= $link -> prepare("SELECT `id_libro`,`cantidad_pedida`
 									FROM `carrito_libro`
 									WHERE `id_carrito`= :IdCarrito");
 		$res = $query -> execute(array('IdCarrito' => $id_carrito));
@@ -720,6 +720,7 @@ function recuperarVentaPorId($id_venta){
 		$query= $link->prepare("SELECT *
 								FROM `venta` as v
 								INNER JOIN `libroventa` as lv ON v.id_venta=lv.id_venta
+								INNER JOIN `estado_venta` as ev ON v.estado_venta=ev.id_estado
 								INNER JOIN `libro` as l ON lv.id_libro=l.id_libro
 								WHERE v.id_venta=:IdVenta");
 		$res= $query->execute(array('IdVenta'=>$id_venta));
@@ -734,6 +735,7 @@ function recuperarTodasLasVentas($id_carrito){
 	if($link != "error"){
 		$query=$link->prepare("	SELECT *  FROM `venta` as v
 								INNER JOIN `libroventa` as lv ON  v.id_venta=lv.id_venta
+								INNER JOIN `estado_venta` as ev ON v.estado_venta=ev.id_estado
 								INNER JOIN `libro`	as l ON lv.id_libro=l.id_libro
 								WHERE id_carrito=:IdCarrito ORDER BY `fecha` DESC");
 		$res=$query->execute(array('IdCarrito'=>$id_carrito));
@@ -747,14 +749,16 @@ function altaVentaLibro($id_venta, $arreglo_libros){
 	//recibe el id de la tabla venta que representa la venta del usuario en cuestion
 	// recibe un arreglo con las claves de los libros correspondientes a la venta
 	//  inserta una tupla en la tabla "libroventa" por cada libro en el arreglo
+	// POSIBLEMENTE TENGA QUE DAR DE ALTA TAMBIEN EL ESTADO
 	$link=conectarBaseDatos();
 	if($link != "error"){
 		$i=0;
 		for ($i=0; $i < count($arreglo_libros) ; $i++) { 
 		
-			$query=$link -> prepare(" INSERT INTO `libroventa`(`id_libro`, `id_venta`)
-										VALUES (:IdLibro, :IdVenta)");
-			$res= $query-> execute(array('IdLibro'=>$arreglo_libros[$i]["id_libro"], 'IdVenta'=>$id_venta[0]));
+			$query=$link -> prepare(" INSERT INTO `libroventa`(`id_libro`, `id_venta`, `cantidad_comprada`)
+										VALUES (:IdLibro, :IdVenta, :CantComprada)");
+			$res= $query-> execute(array('IdLibro'=>$arreglo_libros[$i]["id_libro"], 'IdVenta'=>$id_venta[0], 
+										'CantComprada'=>$arreglo_libros[$i]["cantidad_pedida"]));
 			$i++;
 		}
 		$link=cerrarConexion();

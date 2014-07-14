@@ -42,9 +42,15 @@
             ?>
             <button class="btn btn-info" type="submit">Mi perfil </button>
           </form>
-          <form class="navbar-form navbar-right">
-            <button class="active btn btn-primary" type="button">Mi Carrito </button>
+          <form class="navbar-form navbar-right" method="post" action="/JAMP/PORTI/llamadaController.php?action=verTodasLasVentas&clase=entidad">
+            <button class='btn btn-info navbar-right' type='submit' > Mis Compras </button>
           </form>
+          <?php 
+            echo "<form class='navbar-form navbar-right' method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
+                  <input name='idUsuario' type='hidden' value='".$_SESSION['id_usuario']."'/>           
+                  <button class='btn btn-info' type='submit'> Mi Carrito </button>
+                  </form>";
+          ?>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>

@@ -41,6 +41,9 @@
             ?>
             <button class="btn btn-info" type="submit">Mi perfil </button>
           </form>
+          <form class="navbar-form navbar-right" method="post" action="/JAMP/PORTI/llamadaController.php?action=verTodasLasVentas&clase=entidad">
+            <button class=' btn btn-info navbar-right' type='submit' > Mis Compras </button>
+          </form>
           <form class="navbar-form navbar-right">
             <button class="active btn btn-primary" type="button">Mi Carrito </button>
           </form>
@@ -128,6 +131,7 @@
               echo "
                 <tr>
                   <td class='separados'><p>Compras realizadas</p></td>
+                  <td class='separados'><p>Estado</p></td>
                   <td class='separados'><p></p></td>
                 </tr>
               ";
@@ -136,6 +140,7 @@
                   <div class='row'>
                     <tr>
                       <td class='separados'><p>".$key['fecha']."</p></td>
+                      <td class='separados'><p>".$key['nombre_estado']."</p></td>
                       <td>
                         <form method='post' action='llamadaController.php?action=verDetalleVenta&clase=entidad'>
                           <input type='hidden' name='id_venta' value='".$key['id_venta']."'>
@@ -152,9 +157,6 @@
           ?>
         </table>
       </div>
-      <form class="navbar-form navbar-right" onSubmit="return confirmar()" method="post" action="/JAMP/PORTI/llamadaController.php?action=verTodasLasVentas&clase=entidad">
-        <button class=' btn btn-danger navbar-right' type='submit' > Verme las ventas </button>
-      </form>
     </div>
   </body>
 </html>

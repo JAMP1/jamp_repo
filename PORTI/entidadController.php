@@ -868,8 +868,13 @@ class entidad{
             if ($ventas != "error"){
                 $arregloVentas= array();
                 $i=0;
+                $fecha=0;
                 foreach ($ventas as $key) {
-                    $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta'] );
+                    if($fecha != $key['fecha']){
+                        $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta'],
+                                                'nombre_estado'=>$key['nombre_estado']);
+                    }
+                    $fecha = $key['fecha'];
                     $i++;
                 }
             }
@@ -945,7 +950,8 @@ class entidad{
                     $arregloVentas= array();
                     $i=0;
                     foreach ($ventas as $key) {
-                        $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta']);
+                        $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta'],
+                                                'nombre_estado'=>$key['nombre_estado']);
                         $i++;
                     }
                 }
@@ -959,6 +965,10 @@ class entidad{
         if($per==2){
             $id_venta=$_POST['id_venta'];
             $arregloVentas= recuperarVentaPorId($id_venta);
+            $total=0;
+            foreach($arregloVentas as $key){
+                $total = $total + ($key['cantidad_comprada']*$key['precio']);
+            }
             //var_dump($libros_vendidos);
             require_once("../vistaHistorialDeVentasUsuario.php");
         }

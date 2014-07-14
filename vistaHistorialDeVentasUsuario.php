@@ -42,6 +42,9 @@
             ?>
             <button class="btn btn-info" type="submit">Mi perfil </button>
           </form>
+          <form class="navbar-form navbar-right" method="post" action="">
+            <button class='active btn btn-primary navbar-right' type='button' > Mis Compras </button>
+          </form>
           <?php 
             echo "<form class='navbar-form navbar-right' method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
                   <input name='idUsuario' type='hidden' value='".$_SESSION['id_usuario']."'/>           
@@ -56,14 +59,15 @@
         <table class="table table-centered">
           <?php 
             if(isset($arregloVentas)){
-              if(count($arregloVentas)>1){
+          //    if(count($arregloVentas)>1){
                 echo "
                     <tr>
                       <td class='separados'><p>Fecha de compra</p></td>
                       <td class='separados'><p>Nombre</p></td>
                       <td class='separados'><p>ISBN</p></td>
-                      <td class='separados'><p>Cantidad pag</p></td>
-                      <td class='separados'><p>Precio</p></td>
+                      <td class='separados'><p>Cantidad libros</p></td>                      
+                      <td class='separados'><p>Precio general</p></td>
+                      <td class='separados'><p>Estado</p></td>
                     </tr>
                   ";
                 foreach($arregloVentas as $key){
@@ -72,13 +76,20 @@
                       <td class='separados'><p>".$key['fecha']."</p></td>
                       <td class='separados'><p>".$key['nombre']."</p></td>
                       <td class='separados'><p>".$key['isbn']."</p></td>
-                      <td class='separados'><p>".$key['cantPag']."</p></td>
-                      <td class='separados'><p>".$key['precio']."</p></td>
+                      <td class='separados'><p>".$key['cantidad_comprada']."</p></td>
+                      <td class='separados'><p>$".$key['precio']*$key['cantidad_comprada']."</p></td>
+                      <td class='separados'><p>".$key['nombre_estado']."</p></td>
                     </tr>
                   ";
                 }
-              }else{
-                echo "
+                if(isset($total)){
+                  echo "<tr>
+                          <td class='separados'><p>Precio total</p></td>
+                          <td class='separados'><p>$".$total."</p></td>
+                        </tr>";
+                }
+          //    }else{
+                /*echo "
                   <tr>
                     <td class='separados'><p>Compra realizada el ".$arregloVentas[0]['fecha']." </p></td>
                     <td class='separados'><p></p></td>
@@ -88,6 +99,7 @@
                     <td class='separados'><p>ISBN</p></td>
                     <td class='separados'><p>Cantidad pag</p></td>
                     <td class='separados'><p>Precio</p></td>
+                    <td class='separados'><p>Estado</p></td>
                   </tr>
                 ";
                 foreach ($arregloVentas as $key) {
@@ -98,11 +110,18 @@
                         <td class='separados'><p>".$key['isbn']."</p></td>
                         <td class='separados'><p>".$key['cantPag']."</p></td>
                         <td class='separados'><p>".$key['precio']."</p></td>
+                        <td class='separados'><p>".$key['nombre_estado']."</p></td>
                       </tr>
                     </div> 
                   ";
                 }
-              }
+                if(isset($total)){
+                  echo "<tr>
+                          <td class='separados'><p>Precio total</p></td>
+                          <td class='separados><p>".$total."</p></td>
+                        </tr>";
+                }*/
+          //    }
             }else{
               echo "<div class='alert alert-warning'>Usted no ha realizado ninguna compra</div>";
             }
