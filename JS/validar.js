@@ -184,3 +184,41 @@ function validarAutor(){
 		return false;
 	}	
 }
+
+function validarTarjeta(){
+	var patronNumerico=/^[0-9]+$/;
+	var patronFecha= new RegExp("(((0[123456789]|10|11|12)/(([2][0-1][1-9][0-9]))))");
+	var num= document.getElementById('numero_tarjeta').value;
+	if(patronNumerico.test(num) && num.length==4){
+		num= document.getElementById('numero_seguridad').value;
+		if(patronNumerico.test(num) && num.length>2 && num.length<7){
+			num= document.getElementById('fecha_vencimiento').value;
+			if(patronFecha.test(num)){
+				return confirm("Datos correctos, ¿desea confirmar la compra?");
+			}else{
+				alert("FECHA: debe ingresar un mes y un año con el formato 'mm/aaaa' ");
+				return false;
+			}
+		}else{
+			alert("NUMERO DE SEGURIDAD: debe tener de 3 a 6 digitos numericos");
+			return false;
+		}
+	}else{
+		alert("NUMERO DE TARJETA: debe tener exactamente 4 digitos numericos");
+		return false;
+	}
+}
+
+function confirmaCompra(){
+	var arregloCantidad = document.getElementsByClassName('cantidadLibroEnCarrito');
+	var arregloPrecio = document.getElementsByClassName('precioLibroEnCarrito'); 
+	var suma=0;// parseInt(arregloCantidad[0].value);
+	for (var i = 0 ; i < arregloPrecio.length ; i++) {
+		suma += (parseInt(arregloPrecio[i].value) * parseInt(arregloCantidad[i].value));
+	};
+	if(confirm("¿DESEA REALIZAR LA COMPRA POR LA SUMA TOTAL DE "+"$"+suma+"?")==true){
+	   	return true;
+	}else{
+        return false;
+    }
+}

@@ -848,10 +848,8 @@ class entidad{
 
     function cargarCarrito(){
         $idUsuario = $_POST['idUsuario'];
-       // var_dump($idUsuario);
         $libros=recuperarLibroCarrito($idUsuario);
-        if (count($libros)> 0){
-        //print_r($libros);
+        if (count($libros) > 0){
             if ( $libros!="error"){
                 $arrayNa = array();
                 $i=0;
@@ -861,13 +859,22 @@ class entidad{
                         'id_carrito'=>$key['id_carrito'], 'cantidad_pedida'=>$key['cantidad_pedida'] );
                     $i++;
                 }
-                //var_dump($arrayNa);
-            } //TENGO QUE VER CÓMO HACER PARA LISTAR LOS LIBROS EN EL INICIO
+            } 
         }
-        else {
-            $arrayNa=array();
+        //TAMBIÉN TENGO QUE CARGAR LAS FECHAS DE LAS VENTAS QUE TUVO EL USUARIO PARA LISTARLAS
+        $id_carrito= buscaIdCarritoPorIdUsuario($idUsuario);
+        $ventas=recuperarTodasLasVentas($id_carrito['id_carrito']);
+        if(count($ventas) > 0){
+            if ($ventas != "error"){
+                $arregloVentas= array();
+                $i=0;
+                foreach ($ventas as $key) {
+                    $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta'] );
+                    $i++;
+                }
+            }
         }
-            require_once "../vistaCarritoLibro.php";
+        require_once "../vistaCarritoLibro.php";
     }
 
     function bajaLibroCarrito(){
@@ -876,7 +883,7 @@ class entidad{
             $id_libro=$_POST['id_libro'];
             $id_carrito=$_POST['id_carrito'];
             $idUsuario=$_POST['id_usuario'];
-            $borrar=eliminarLibroCarrito($id_libro, $id_carrito);
+            $borrar=eliminarUnLibroDeCarrito($id_carrito, $id_libro);
             $libros=recuperarLibroCarrito($idUsuario);
             if ( $libros!="error"){
                 $arrayNa = array();
@@ -888,38 +895,94 @@ class entidad{
                     $i++;
                 }
             }
+            $id_carrito= buscaIdCarritoPorIdUsuario($idUsuario);
+            $ventas=recuperarTodasLasVentas($id_carrito['id_carrito']);
+            if(count($ventas) > 0){
+                if ($ventas != "error"){
+                    $arregloVentas= array();
+                    $i=0;
+                    foreach ($ventas as $key) {
+                        $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado']);
+                        $i++;
+                    }
+                }
+            }
             $sePudoBaja=true;
             require_once("../vistaCarritoLibro.php");
         }
 
     }
 
+
+    function solicitarCompraLibro(){
+        $id_carrito=$_POST['id_carrito'];
+        $idUsuario=$_POST['id_usuario'];
+        require_once("../vistaDatosTarjeta.php");
+    }
+
     function comprarLibro(){
+        //este modulo debe obtener toda la informacion del carrito del usuario
+        // dar de alta una unica venta correspondiente al carrito del usuario
+        //  dar de alta una tupla por libro en tabla "libroventa" con el id de la venta respectiva y el del libro en cuestion
+        //   eliminar la informacion correspondiente a la tabla "carrito_libro" del usuario en cuestion
+        // 
+        //  DEBERIA CONSIDERAR A QUE VISTA DEVUELVO AL USUARIO Y QUE INFORMACION VOY A CARGAR EN LA MISMA
         $per=$_SESSION['permiso'];
         if($per==2){
             $id_carrito=$_POST['id_carrito'];
-            $idUsuario=$_POST['id_usuario'];
-            $id_venta= altaVenta($id_carrito);            
-            $id_venta=recuperarUltimaVenta($id_carrito);
-            //var_dump($id_venta[0]);
-            $libros=recuperarLibroCarrito($idUsuario);
-            //var_dump(count($libros));
-            altaVentaLibro($id_venta, $libros);
-            for ($i=0; $i < count($libros) ; $i++) { 
-                $borrar=eliminarLibroCarrito($libros[$i]["id_libro"], $id_carrito);
-            }
-            //require_once("../vistaCarritoLibro.php");
-            if ( $libros!="error"){
-                $arrayNa = array();
-                $i=0;
-                foreach ($libros as $key ) {
-                    $arrayNa[$i]=array('nombre' => $key[29] , 'isbn' => $key['isbn'], 
-                        'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'],
-                        'id_carrito'=>$key['id_carrito'], 'cantidad_pedida'=>$key['cantidad_pedida']  );
-                    $i++;
+            $idUsuario=$_POST['id_usuario'];          
+            
+            $libros= obtenerLibrosEnCarrito($id_carrito); //obtiene un arreglo que contiene un arreglo por libro
+            altaVenta($id_carrito); //efectua el alta en la tabla venta correspondiente al id del carrito del usuario
+            $id_venta=recuperarUltimaVenta($id_carrito); //recupera el id de la venta dada de alta recientemente para el alta en la tabla libroventa
+            altaVentaLibro($id_venta, $libros); //efectua el alta en la tabla libroventa por cada uno de los libros comprados
+            eliminarLibroCarrito($id_carrito); //realiza la limpieza del carrito completo
+
+            $id_carrito= buscaIdCarritoPorIdUsuario($idUsuario);
+            $ventas=recuperarTodasLasVentas($id_carrito['id_carrito']);
+            if(count($ventas) > 0){
+                if ($ventas != "error"){
+                    $arregloVentas= array();
+                    $i=0;
+                    foreach ($ventas as $key) {
+                        $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta']);
+                        $i++;
+                    }
                 }
             }
             require_once("../vistaCarritoLibro.php");
+        }
+    }
+
+    function verDetalleVenta(){
+        $per=$_SESSION['permiso'];
+        if($per==2){
+            $id_venta=$_POST['id_venta'];
+            $arregloVentas= recuperarVentaPorId($id_venta);
+            //var_dump($libros_vendidos);
+            require_once("../vistaHistorialDeVentasUsuario.php");
+        }
+    }
+
+    function verTodasLasVentas(){
+        $per=$_SESSION['permiso'];
+        if($per==2){
+            $id_usuario=$_SESSION['id_usuario'];
+            $id_carrito= buscaIdCarritoPorIdUsuario($id_usuario);
+            $arregloVentas = recuperarTodasLasVentas($id_carrito['id_carrito']);
+            //var_dump($arregloVentas);
+            require_once("../vistaHistorialDeVentasUsuario.php");
+            /*foreach ($arregloVentas as $key ) {
+            if(in_array($key['id_libro'], $arregloDeClaves)){ //esto corrobora si existe o no para la marca respectiva
+                $marca=true;
+            }else{ 
+                $marca=false;
+            }
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
+                'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+            $i++;
+            }*/   
         }
     }
 
@@ -2138,10 +2201,5 @@ function buscarRegistrado() {
 
         require_once("../cookbooks.php");
     }
-
 }
-
-
-
- 
 ?>

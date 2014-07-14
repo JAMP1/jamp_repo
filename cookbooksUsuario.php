@@ -151,8 +151,7 @@
                       <br>
                       <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>";
               echo  $marca;
-              echo "  </div>
-              ";
+              echo "  </div> ";
               $contar++;
               if ($contar%4==0){
                 echo"</div>";

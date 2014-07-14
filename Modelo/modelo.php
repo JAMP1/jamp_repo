@@ -692,6 +692,7 @@ function recuperarLibroCarrito($idUsuario){
 }
 
 function altaVenta($id_carrito){
+	//realiza la insercion de una venta de todo un carrito en la tabla venta
 	$link=conectarBaseDatos();
 	if($link != "error"){
 		$query=$link -> prepare(" INSERT INTO `venta`(`id_carrito`)
@@ -713,7 +714,39 @@ function recuperarUltimaVenta($id_carrito){
 	}
 }
 
+function recuperarVentaPorId($id_venta){
+	$link=conectarBaseDatos();
+	if($link != "error"){
+		$query= $link->prepare("SELECT *
+								FROM `venta` as v
+								INNER JOIN `libroventa` as lv ON v.id_venta=lv.id_venta
+								INNER JOIN `libro` as l ON lv.id_libro=l.id_libro
+								WHERE v.id_venta=:IdVenta");
+		$res= $query->execute(array('IdVenta'=>$id_venta));
+		$res= $query->fetchAll();
+		$link=cerrarConexion();
+		return $res;
+	}
+}
+
+function recuperarTodasLasVentas($id_carrito){
+	$link=conectarBaseDatos();
+	if($link != "error"){
+		$query=$link->prepare("	SELECT *  FROM `venta` as v
+								INNER JOIN `libroventa` as lv ON  v.id_venta=lv.id_venta
+								INNER JOIN `libro`	as l ON lv.id_libro=l.id_libro
+								WHERE id_carrito=:IdCarrito ORDER BY `fecha` DESC");
+		$res=$query->execute(array('IdCarrito'=>$id_carrito));
+		$res= $query->fetchAll();
+		$link=cerrarConexion();
+		return $res;
+	}
+}
+
 function altaVentaLibro($id_venta, $arreglo_libros){
+	//recibe el id de la tabla venta que representa la venta del usuario en cuestion
+	// recibe un arreglo con las claves de los libros correspondientes a la venta
+	//  inserta una tupla en la tabla "libroventa" por cada libro en el arreglo
 	$link=conectarBaseDatos();
 	if($link != "error"){
 		$i=0;
@@ -729,16 +762,30 @@ function altaVentaLibro($id_venta, $arreglo_libros){
 	}
 }
 
-function eliminarLibroCarrito($id_libro, $id_carrito){
+function eliminarLibroCarrito($id_carrito){
+	//elimina todas las tuplas que se corresponden con el id del carrito recibido por parametro
 	$link=conectarBaseDatos();
 	if($link != "error"){
 		$query=$link -> prepare(" DELETE FROM `carrito_libro`
-									WHERE id_libro= :IdLibro AND id_carrito=:IdCarrito");
-		$res= $query-> execute(array('IdLibro'=>$id_libro, 'IdCarrito'=>$id_carrito ));
+									WHERE `id_carrito`=:IdCarrito");
+		$res= $query-> execute(array('IdCarrito'=>$id_carrito ));
 		$link=cerrarConexion();
 		return $res;
 	}
 }
+
+function eliminarUnLibroDeCarrito($id_carrito, $id_libro){
+	//elimina todas las tuplas que se corresponden con el id del carrito recibido por parametro
+	$link=conectarBaseDatos();
+	if($link != "error"){
+		$query=$link -> prepare(" DELETE FROM `carrito_libro`
+									WHERE `id_carrito`=:IdCarrito AND `id_libro`=:IdLibro");
+		$res= $query-> execute(array('IdCarrito'=>$id_carrito, 'IdLibro'=>$id_libro ));
+		$link=cerrarConexion();
+		return $res;
+	}
+}
+
 
 function actualizaLibroCarrito($id_carrito, $id_libro ,$cantidad_pedida){
 	$link = conectarBaseDatos();
