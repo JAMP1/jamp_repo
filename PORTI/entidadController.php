@@ -872,7 +872,7 @@ class entidad{
                 foreach ($ventas as $key) {
                     if($fecha != $key['fecha']){
                         $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta'],
-                                                'nombre_estado'=>$key['nombre_estado']);
+                                                'nombre_estado'=>$key['nombre_estado'], 'precio_total'=> $key['precio_total']);
                     }
                     $fecha = $key['fecha'];
                     $i++;
@@ -923,6 +923,11 @@ class entidad{
     function solicitarCompraLibro(){
         $id_carrito=$_POST['id_carrito'];
         $idUsuario=$_POST['id_usuario'];
+        $precioTotal=$_POST['precioTotal'];
+        $stringCantidades= $_POST['stringCantidades'];
+        $stringPrecios= $_POST['stringPrecios'];
+        //$arreglo_cantidades= explode(" ", $stringCantidades, -1);
+        //$arreglo_precios = explode(" ", $stringPrecios, -1);
         require_once("../vistaDatosTarjeta.php");
     }
 
@@ -936,13 +941,27 @@ class entidad{
         $per=$_SESSION['permiso'];
         if($per==2){
             $id_carrito=$_POST['id_carrito'];
-            $idUsuario=$_POST['id_usuario'];          
-            
+            $idUsuario=$_POST['idUsuario'];  
+            $stringCantidades= $_POST['stringCantidades'];
+            $stringPrecios= $_POST['stringPrecios'];
+            $arreglo_cantidades= explode(" ", $stringCantidades, -1);
+            $arreglo_precios = explode(" ", $stringPrecios, -1);        
+            $precioTotal = $_POST['precioTotal'];
+
             $libros= obtenerLibrosEnCarrito($id_carrito); //obtiene un arreglo que contiene un arreglo por libro
-            altaVenta($id_carrito); //efectua el alta en la tabla venta correspondiente al id del carrito del usuario
+            altaVenta($id_carrito, $precioTotal); //efectua el alta en la tabla venta correspondiente al id del carrito del usuario
             $id_venta=recuperarUltimaVenta($id_carrito); //recupera el id de la venta dada de alta recientemente para el alta en la tabla libroventa
-            altaVentaLibro($id_venta, $libros); //efectua el alta en la tabla libroventa por cada uno de los libros comprados
+            altaVentaLibro($id_venta, $libros, $arreglo_cantidades, $arreglo_precios); //efectua el alta en la tabla libroventa por cada uno de los libros comprados
             eliminarLibroCarrito($id_carrito); //realiza la limpieza del carrito completo
+
+         /*   echo "Libros en carrito: ";
+            var_dump($libros);
+            echo " Identificador de la venta: ";
+            var_dump($id_venta);
+            echo " Arreglo de cantidades: ";
+            var_dump($arreglo_cantidades);
+            echo " Arreglo de precios: ";
+            var_dump($arreglo_precios);*/
 
             $id_carrito= buscaIdCarritoPorIdUsuario($idUsuario);
             $ventas=recuperarTodasLasVentas($id_carrito['id_carrito']);
@@ -950,9 +969,13 @@ class entidad{
                 if ($ventas != "error"){
                     $arregloVentas= array();
                     $i=0;
+                    $fecha=0;
                     foreach ($ventas as $key) {
-                        $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta'],
-                                                'nombre_estado'=>$key['nombre_estado']);
+                        if($fecha != $key['fecha']){
+                            $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta'],
+                                                    'nombre_estado'=>$key['nombre_estado'], 'precio_total'=> $key['precio_total']);                            
+                        }
+                        $fecha = $key['fecha'];
                         $i++;
                     }
                 }

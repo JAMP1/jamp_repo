@@ -4,7 +4,7 @@
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
     <title>Administracion de Libros</title>
     <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
-    <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
+    <script src="/JAMP/JS/validar.js" type="text/javascript"></script>
     <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap-theme.css">
@@ -13,7 +13,7 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
   </head>
-  <body class="laboratorix">
+  <body class="laboratorix" onload="actualizar()">
     <nav class="navbar navbar-inverse" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -60,7 +60,8 @@
         <div class="panel-heading">
           <h3 class="panel-title">Contenido del carrito</h3>
         </div>
-        <table class="table table-centered">
+        </td>
+        <table class="table table-centered">          
           <?php 
             if(isset($arrayNa)){
               if(count($arrayNa)>0){
@@ -95,14 +96,13 @@
                         <td class='separados'><p>".$key["nombre"]."</p></td>
                         <td class='separados'><p>".$key["isbn"]."</p></td>
                         <td class='separados'><p>".$key["cantPag"]."</p></td>
-                        <td class='separados'><p>$".$key["precio"]."</p></td>
-                        <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=actualizaCantidadDeLibros&clase=entidad'>                  
-                          <td class='separados'><p><input type='number' name='cantidad_libros' class='cantidadLibroEnCarrito' min='1' value='".$key["cantidad_pedida"]."'></p>
+                        <td class='separados'><span class='glyphicon glyphicon-usd'></span><p>".$key["precio"]."</p></td>
+                        <input type='hidden' class='precios' value='".$key["precio"]."'>              
+                        <td class='separados'>
+                          <p><input type='number' onclick='actualizar()' name='cantidad_libros' class='cantidadLibroEnCarrito form-control' min='1' value='".$key["cantidad_pedida"]."'></p>
                           <input type='hidden' name='id_carrito' value='".$key["id_carrito"]."'/>
-                          <input type='hidden' name='id_libro' value='".$key["id_libro"]."'>
-                          <input type='submit' class='btn btn-info' value='Confirmar cantidad'/>
-                        </form>
-                        <input type='hidden' class='precioLibroEnCarrito' value='".$key["precio"]."'>
+                          <input type='hidden' name='id_libro' value='".$key["id_libro"].">
+                          <input type='hidden' class='precioLibroEnCarrito' value='".$key["precio"]."'>
                         </td>
                         <td>
                           <form method='POST' onSubmit='return confirmar()' action='/JAMP/PORTI/llamadaController.php?action=bajaLibroCarrito&clase=entidad'>
@@ -117,6 +117,13 @@
                       </tr>
                     </div>";
                 }
+               /* echo "
+                  <tr>
+                    <td class='separados'>
+                      
+                    </td>
+                  </tr>
+                ";*/
                 // debo evitar que el tipo pueda "comprar" si no posee libros en su carrito
                 echo "
                   <tr>
@@ -124,6 +131,8 @@
                       <form method='POST' onSubmit='return confirmaCompra()' action='/JAMP/PORTI/llamadaController.php?action=solicitarCompraLibro&clase=entidad'>
                         <input name='id_carrito' type='hidden' value='".$arrayNa[0]['id_carrito']."'/>
                         <input name='id_usuario' type='hidden' value='".$idUsuario."'/>
+                        <div id='total'>            
+                        </div><br>
                         <input type='submit' class='btn btn-info' value='Solicitar Compra'/>
                       </form>
                     </td>
@@ -158,6 +167,7 @@
                     <tr>
                       <td class='separados'><p>".$key['fecha']."</p></td>
                       <td class='separados'><p>Estado: ".$key['nombre_estado']."</p></td>
+                      <td class='separados'><p>Monto: $".$key['precio_total']."</p></td>
                       <td>
                         <form method='post' action='llamadaController.php?action=verDetalleVenta&clase=entidad'>
                           <input type='hidden' name='id_venta' value='".$key['id_venta']."'>
@@ -177,3 +187,17 @@
     </div>
   </body>
 </html>
+
+<!--
+  FORMULARIO QUE MOSTRABA LA CANTIDAD DE UN LIBRO QUE EL USUARIO SELECCIONABA
+  LO GUARDO POR SEGURIDAD
+
+  <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=actualizaCantidadDeLibros&clase=entidad'>                  
+    <td class='separados'>
+    <p><input type='number' onclick='actualizar()' name='cantidad_libros' class='cantidadLibroEnCarrito' min='1' value='".$key["cantidad_pedida"]."'></p>
+    <input type='hidden' name='id_carrito' value='".$key["id_carrito"]."'/>
+    <input type='hidden' name='id_libro' value='".$key["id_libro"]."'>
+    <input type='submit' class='btn btn-info' value='Confirmar cantidad'/>
+  </form>
+
+  -->

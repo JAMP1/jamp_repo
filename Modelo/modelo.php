@@ -691,18 +691,7 @@ function recuperarLibroCarrito($idUsuario){
 	}
 }
 
-function altaVenta($id_carrito){
-	//realiza la insercion de una venta de todo un carrito en la tabla venta
-	$link=conectarBaseDatos();
-	if($link != "error"){
-		$query=$link -> prepare(" INSERT INTO `venta`(`id_carrito`)
-									VALUES (:IdCarrito)");
-		$res= $query-> execute(array('IdCarrito'=>$id_carrito ));
-		
-		$link=cerrarConexion();
-		return $res;
-	}
-}
+
 function recuperarUltimaVenta($id_carrito){
 	$link=conectarBaseDatos();
 	if($link != "error"){
@@ -745,7 +734,20 @@ function recuperarTodasLasVentas($id_carrito){
 	}
 }
 
-function altaVentaLibro($id_venta, $arreglo_libros){
+function altaVenta($id_carrito, $precioTotal){
+	//realiza la insercion de una venta de todo un carrito en la tabla venta
+	$link=conectarBaseDatos();
+	if($link != "error"){
+		$query=$link -> prepare(" INSERT INTO `venta`(`id_carrito`,`precio_total`)
+									VALUES (:IdCarrito, :PrecioTotal)");
+		$res= $query-> execute(array('IdCarrito'=>$id_carrito, 'PrecioTotal'=>$precioTotal));
+		
+		$link=cerrarConexion();
+		return $res;
+	}
+}
+
+function altaVentaLibro($id_venta, $arreglo_libros, $arreglo_cantidades, $arreglo_precios){//ESTO NO SE TERMINA!
 	//recibe el id de la tabla venta que representa la venta del usuario en cuestion
 	// recibe un arreglo con las claves de los libros correspondientes a la venta
 	//  inserta una tupla en la tabla "libroventa" por cada libro en el arreglo
@@ -753,13 +755,13 @@ function altaVentaLibro($id_venta, $arreglo_libros){
 	$link=conectarBaseDatos();
 	if($link != "error"){
 		$i=0;
-		for ($i=0; $i < count($arreglo_libros) ; $i++) { 
-		
-			$query=$link -> prepare(" INSERT INTO `libroventa`(`id_libro`, `id_venta`, `cantidad_comprada`)
-										VALUES (:IdLibro, :IdVenta, :CantComprada)");
+		for ($i=0; $i < count($arreglo_libros) ; $i++) { 		
+			$query=$link -> prepare(" INSERT INTO `libroventa`(`id_libro`, `id_venta`, `cantidad_comprada`, `precio_unidad`)
+										VALUES (:IdLibro, :IdVenta, :CantComprada, :PrecioUnidad)");
+			//$res= $query-> execute(array('IdLibro'=>$arreglo_libros[$i]["id_libro"], 'IdVenta'=>$id_venta[0], 
+			//							'CantComprada'=>$arreglo_libros[$i]["cantidad_pedida"]));
 			$res= $query-> execute(array('IdLibro'=>$arreglo_libros[$i]["id_libro"], 'IdVenta'=>$id_venta[0], 
-										'CantComprada'=>$arreglo_libros[$i]["cantidad_pedida"]));
-			$i++;
+										'CantComprada'=>$arreglo_cantidades[$i], 'PrecioUnidad'=>$arreglo_precios[$i] ));
 		}
 		$link=cerrarConexion();
 		//return $res;
@@ -1084,7 +1086,6 @@ function buscarTodo($editorial,$etiqueta,$autor){
 									INNER JOIN `autor` as a ON a.id_autor=la.id_autor
 									INNER JOIN `editorial` as edi ON edi.id_editorial=l.id_editorial 
 									WHERE l.baja=0 AND e.nombre=:etiqueta AND edi.nombre=:editorial AND a.nombre=:autor");
-
 		$res = $query -> execute(array('editorial' =>$editorial , 'etiqueta' =>$etiqueta, 'autor' =>$autor ));
 		$res = $query -> fetchAll();
 		
@@ -1108,6 +1109,16 @@ function buscaIdCarritoPorIdUsuario($idUsuario){
 	}
 }
 
+function buscaVentasEntreDosFechas($fecha_inicial, $fecha_final){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query=$link -> prepare("SELECT *
+								FROM `venta` as v
+								INNER JOIN `libroventa` as lv ON v.id_venta=lv.id_venta
+								INNER JOIN `libro` as l ON lv.id_libro=l.id_libro
+								WHERE `fecha` BETWEEN AND");
+	}
+}
 /*
 function pruebaImagen(){
 	echo "ESTOY EN PRUEBAIMAGEN";

@@ -35,11 +35,11 @@ function validaLibro(){
 				var nom=document.getElementById('precio_libro').value;
 				patronNumerico=/^\d*,?\d+$/;
 				var tam = nom.length;
-				if ( (patronNumerico.test(nom)) && (nom.length > 0) ){					
+				if ( (patronNumerico.test(nom)) && (nom.length > 0) && (nom.length <11) ){					
 					return true;
 				}
 				else{
-					alert("CAMPO PRECIO: Debe ingresar solo numeros, para decimales utilice el caracter ','");
+					alert("CAMPO PRECIO: Debe ingresar solo numeros, hasta 10 digitos, para decimales utilice el caracter ','");
 					return false;
 				}
 			}
@@ -189,7 +189,7 @@ function validarTarjeta(){
 	var patronNumerico=/^[0-9]+$/;
 	var patronFecha= new RegExp("(((0[123456789]|10|11|12)/(([2][0-1][1-9][0-9]))))");
 	var num= document.getElementById('numero_tarjeta').value;
-	if(patronNumerico.test(num) && num.length==4){
+	if(patronNumerico.test(num) && num.length>11 && num.length<17){
 		num= document.getElementById('numero_seguridad').value;
 		if(patronNumerico.test(num) && num.length>2 && num.length<7){
 			num= document.getElementById('fecha_vencimiento').value;
@@ -204,23 +204,13 @@ function validarTarjeta(){
 			return false;
 		}
 	}else{
-		alert("NUMERO DE TARJETA: debe tener exactamente 4 digitos numericos");
+		alert("NUMERO DE TARJETA: debe tener entre 12 y 16 digitos numericos");
 		return false;
 	}
 }
 
 function confirmaCompra(){
-	var arregloCantidad = document.getElementsByClassName('cantidadLibroEnCarrito');
-	var arregloPrecio = document.getElementsByClassName('precioLibroEnCarrito'); 
-	var suma=0;// parseInt(arregloCantidad[0].value);
-	for (var i = 0 ; i < arregloPrecio.length ; i++) {
-		suma += (parseInt(arregloPrecio[i].value) * parseInt(arregloCantidad[i].value));
-	};
-	if(confirm("¿DESEA REALIZAR LA COMPRA POR LA SUMA TOTAL DE "+"$"+suma+"?")==true){
-	   	return true;
-	}else{
-        return false;
-    }
+	return confirm("¿Desea efectuar la compra por el total establecido?");
 }
 
 function validarFechaParaBusqueda(){
@@ -229,4 +219,57 @@ function validarFechaParaBusqueda(){
 	var fecha= document.getElementById('anio_inicial');
 	alert(patronFecha.test(fecha));
 	return confirm("¿?");
+}
+
+
+/*function actualizar(){
+	var array=document.getElementsByClassName('hola');
+	var suma=0;
+	var umpalumpa="<input type=text value="
+	for (var i = 0; i < array.length; i++) {
+	  suma=parseInt(array[i].value)+suma ;
+	}
+	var res = umpalumpa.concat(suma);
+	var res2=res.concat(">")
+	document.getElementById("myDiv").innerHTML=res2;
+}*/
+
+function actualizar(){
+	var array=document.getElementsByClassName('cantidadLibroEnCarrito');
+	var precios=document.getElementsByClassName('precios');
+	var suma=0;
+	var stringCantidades= "";
+	var stringPrecios= "";
+	var precio=0;
+	var umpalumpa="Precio total <span class='glyphicon glyphicon-usd'></span><p>";
+	for (var i = 0; i < array.length; i++) {
+		var str= precios[i].value;
+		precio= str.replace(",",".");
+		cantidad= parseFloat(array[i].value);
+		if(! isNaN(cantidad)){
+			stringCantidades = stringCantidades.concat(cantidad);
+			stringCantidades = stringCantidades.concat(" ");
+			stringPrecios = stringPrecios.concat(precio);
+			stringPrecios = stringPrecios.concat(" ");
+			suma=(parseFloat(array[i].value)*parseFloat(precio)) +suma ;
+		}
+	}
+	var str= suma.toString();
+	var indiceDeComa= str.indexOf(".");
+	if(indiceDeComa != -1){
+		var cachoEntero= str.substr(0, indiceDeComa);
+		var cachoDecimal= str.substr(indiceDeComa, 3);
+		str = cachoEntero.concat(cachoDecimal);
+	}
+	var res = umpalumpa.concat(str);
+	var res2=res.concat("</p><input type=hidden name=precioTotal value=");
+	res = res2.concat(str);
+	res2 = res.concat(">");
+	res = res2.concat("<input type=hidden name=stringCantidades value='");
+	res = res.concat(stringCantidades);
+	res2= res.concat("'>");
+	res = res2.concat("<input type=hidden name=stringPrecios value='");
+	res = res.concat(stringPrecios);
+	res2= res.concat("'>");
+	document.getElementById("total").innerHTML=res2;
 }

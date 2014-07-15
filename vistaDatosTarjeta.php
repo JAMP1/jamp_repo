@@ -56,7 +56,7 @@
     </nav>
     <div class="jumbotron">
       <div class="container">
-        <h3>Solicitud de compra [TODAVIA FALTA MOSTRAR EL TOTAL DEL PRECIO QUE DEBE PAGAR]</h3>
+        <h3>Solicitud de compra por: <span class='glyphicon glyphicon-usd'></span><?php echo $precioTotal ; ?></h3>
         <h4>Ingrese los datos de la tarjeta de credito:</h4>
       </div>
       <br>
@@ -79,10 +79,20 @@
         </td>
         <td>
           <input type="hidden" value="<?php echo $id_carrito ?>" name="id_carrito">
-          <input type="hidden" value="<?php echo $idUsuario ?>" name="id_usuario">
+          <input type="hidden" value="<?php echo $idUsuario ?>" name="idUsuario">
+          <input type="hidden" value="<?php echo $stringCantidades ?>" name="stringCantidades">
+          <input type="hidden" value="<?php echo $stringPrecios ?>" name="stringPrecios">
+          <input type="hidden" value="<?php echo $precioTotal ?>" name="precioTotal">
           <button class="btn btn-info" type="submit" name="enviar" id="enviar">Confirmar Compra</button>
         </td>
       </form>
+      <?php
+        echo "
+          <form class='navbar-form navbar-right' method='POST' onSubmit='' action='/JAMP/PORTI/llamadaController.php?action=cargarCarrito&clase=entidad'>
+            <input name='idUsuario' type='hidden' value='".$_SESSION['id_usuario']."'/>           
+            <button class='btn btn-warning' type='submit'> Volver al carrito </button>
+          </form>";
+      ?>
     </div>
   </body>
 </html>

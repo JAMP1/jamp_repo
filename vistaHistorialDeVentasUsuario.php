@@ -66,7 +66,7 @@
                       <td class='separados'><p>Nombre</p></td>
                       <td class='separados'><p>ISBN</p></td>
                       <td class='separados'><p>Cantidad libros</p></td>                      
-                      <td class='separados'><p>Precio general</p></td>
+                      <td class='separados'><p>Precio unidad</p></td>
                       <td class='separados'><p>Estado</p></td>
                     </tr>
                   ";
@@ -77,7 +77,7 @@
                       <td class='separados'><p>".$key['nombre']."</p></td>
                       <td class='separados'><p>".$key['isbn']."</p></td>
                       <td class='separados'><p>".$key['cantidad_comprada']."</p></td>
-                      <td class='separados'><p>$".$key['precio']*$key['cantidad_comprada']."</p></td>
+                      <td class='separados'><p>$".$key['precio_unidad']*$key['cantidad_comprada']."</p></td>
                       <td class='separados'><p>".$key['nombre_estado']."</p></td>
                     </tr>
                   ";
@@ -85,7 +85,7 @@
                 if(isset($total)){
                   echo "<tr>
                           <td class='separados'><p>Precio total</p></td>
-                          <td class='separados'><p>$".$total."</p></td>
+                          <td class='separados'><p>$".$key['precio_total']."</p></td>
                         </tr>";
                 }
           //    }else{
