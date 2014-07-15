@@ -56,19 +56,33 @@
         }
       ?>
     <div class="col-md-12">
-      <div class="panel panel-info">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Contenido del carrito</h3>
+        </div>
         <table class="table table-centered">
           <?php 
             if(isset($arrayNa)){
-              echo "
-                <tr>
-                  <td class='separados'><p>Nombre</p></td>
-                  <td class='separados'><p>ISBN</p></td>
-                  <td class='separados'><p>Cantidad pag</p></td>
-                  <td class='separados'><p>Precio</p></td>
-                  <td class='separados'><p>Cantidad</p></td>
-                  <td class='separados'><p>Eliminar Libro</p></td>
-                </tr>";
+              if(count($arrayNa)>0){
+                echo "
+                  <tr>
+                    <td class='separados'><p>Nombre</p></td>
+                    <td class='separados'><p>ISBN</p></td>
+                    <td class='separados'><p>Cantidad pag</p></td>
+                    <td class='separados'><p>Precio</p></td>
+                    <td class='separados'><p>Cantidad</p></td>
+                    <td class='separados'><p>Eliminar Libro</p></td>
+                  </tr>
+                ";
+              }else{
+                echo "
+                  <tr>
+                    <td class='separados'>
+                     <div class='alert alert-warning' role='alert'>Actualmente no hay libros en tu carrito</div>
+                    </td>
+                  </tr>
+                ";
+              }
             }
           ?>
           <?php
@@ -125,22 +139,25 @@
     <br>
     <div class="col-md-6">
       <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Compras realizadas</h3>
+        </div>
         <table class="table table-centered">
           <?php 
             if(isset($arregloVentas)){
-              echo "
+             /* echo "
                 <tr>
                   <td class='separados'><p>Compras realizadas</p></td>
                   <td class='separados'><p>Estado</p></td>
                   <td class='separados'><p></p></td>
                 </tr>
-              ";
+              ";*/
               foreach ($arregloVentas as $key) {
                 echo "
                   <div class='row'>
                     <tr>
                       <td class='separados'><p>".$key['fecha']."</p></td>
-                      <td class='separados'><p>".$key['nombre_estado']."</p></td>
+                      <td class='separados'><p>Estado: ".$key['nombre_estado']."</p></td>
                       <td>
                         <form method='post' action='llamadaController.php?action=verDetalleVenta&clase=entidad'>
                           <input type='hidden' name='id_venta' value='".$key['id_venta']."'>

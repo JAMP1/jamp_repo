@@ -907,7 +907,8 @@ class entidad{
                     $arregloVentas= array();
                     $i=0;
                     foreach ($ventas as $key) {
-                        $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado']);
+                        $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta'],
+                                                'nombre_estado'=>$key['nombre_estado']);
                         $i++;
                     }
                 }
@@ -2211,5 +2212,27 @@ function buscarRegistrado() {
 
         require_once("../cookbooks.php");
     }
+
+    function busquedaLibros(){
+        require_once("../vistaBusquedaLibros.php");
+    }
+
+    function efectuarBusqueda(){
+        //ESTE MODULO DEBE: obtener las dos fechas por post
+        //                  llamar a la funcion que se encargue de la busqueda de los libros
+        //                      dicha funcion debera realizar un macheo con las tablas ventas, libros, y libroventa
+        //                      tengo que pensar que informacion recupero
+        //                  posteriormente cargar los libros en un arreglo y cargar la vista que los muestre
+        $fecha_inicial= $_POST['fecha_inicial'];
+        if(isset($_POST['hora_inicial'])){
+            $hora_inicial=$_POST['hora_inicial'];
+        }
+        $fecha_final= $_POST['fecha_final'];
+        if(isset($_POST['hora_final'])){
+            $hora_final=$_POST['hora_final'];
+        }
+
+    }
+
 }
 ?>

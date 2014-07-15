@@ -222,3 +222,11 @@ function confirmaCompra(){
         return false;
     }
 }
+
+function validarFechaParaBusqueda(){
+	var patronFecha= new RegExp(" ( ([2][01][01][0123456789])/(0[123456789]|10|11|12)/([0][123456789]|[12][0123456789]|[3][01]) ) ");
+	var num= new RegExp("([2][0][0-1][0-9])");
+	var fecha= document.getElementById('anio_inicial');
+	alert(patronFecha.test(fecha));
+	return confirm("¿?");
+}
