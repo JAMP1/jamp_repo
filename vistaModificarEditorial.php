@@ -41,6 +41,13 @@
     </nav><br><br>
     <div class="row">
       <div class="col-md-8">
+        <div>
+          <?php
+            if(isset($existe)){
+              echo "<div class='alert alert-danger'>Error! Ya existe la editorial ingresada, busque en la lista o en los borrados</div>";
+            }
+          ?>
+        </div>
         <div class="panel panel-info">
           <div class="panel-heading">
             <h3 class="panel-title">Modificar datos de editorial</h3>
@@ -71,13 +78,5 @@
         </div>
       </div>
     </div>  
-    <div>
-      <?php
-        if(isset($existe)){
-          echo "<div class='alert alert-danger'>Error! Ya existe la editorial ingresada, busque en la lista o en los borrados</div>";
-         // echo "Ya existe el nombre ingresado, busque en la lista o en los borrados";
-        }
-      ?>
-    </div>
   </body>
 </html>

@@ -356,12 +356,12 @@ function eliminarAutor($id_us) {
 	return $res;
 }
 
-function modificarAutor($nom,$id_autor){
+function modificarAutor($nom,$id_autor, $detalle){
  	$link = conectarBaseDatos();
 	if ($link != "error"){
-		$query = $link->prepare("UPDATE `autor` SET `nombre`= :Nom WHERE `id_autor`= :Id");
+		$query = $link->prepare("UPDATE `autor` SET `nombre`= :Nom, `detalle`=:Detalle WHERE `id_autor`= :Id");
 		$res = $query->execute(array('Id' => $id_autor,
-		 							'Nom' => $nom));
+		 							'Nom' => $nom, 'Detalle'=>$detalle));
 		$link=cerrarConexion();
 	}else{
 		$res= "error";

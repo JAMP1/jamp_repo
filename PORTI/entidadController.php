@@ -103,20 +103,20 @@ class entidad{
     function confirmarModificacionEtiqueta (){
         $per=$_SESSION['permiso'];
         if($per==1){
-            $nom=$_POST['nombre_etiqueta'];
+            $nombre_etiqueta=$_POST['nombre_etiqueta'];
             $id=$_POST['id_etiqueta'];
-            $arreglo= validarAltaEtiqueta($nom);
+            $arreglo= validarAltaEtiqueta($nombre_etiqueta);
             if((!empty($arreglo)) && ($arreglo[0]['id_etiqueta'] != $id)){
                 $existe = 'existe';
-                require_once("../vistaAltaEtiqueta.php");
+                require_once("../vistaModificarEtiqueta.php");
             }else{
-                $intento=modificarEtiqueta($nom,$id);
+                $intento=modificarEtiqueta($nombre_etiqueta,$id);
                 if ($intento){
                     $etiquetas=obtenerEtiquetas();
                     if ( $etiquetas!="error"){
                         $arrayNa = array();
                         if(!empty($arreglo)){
-                            if($nom != $arreglo[0]['nombre']){
+                            if($nombre_etiqueta != $arreglo[0]['nombre']){
                                 $sePudoModificar = true;
                             }
                         }else{
@@ -385,14 +385,14 @@ class entidad{
     function confirmarModificacionIdioma () {
         $per=$_SESSION['permiso'];
         if($per==1){
-            $nom=$_POST['nombre_idioma'];
+            $nombre_idioma=$_POST['nombre_idioma'];
             $id=$_POST['id_idioma'];
-            $arreglo= validarAltaIdioma($nom);
+            $arreglo= validarAltaIdioma($nombre_idioma);
             if((!empty($arreglo)) && ($arreglo[0]['id_idioma'] != $id)){
                 $existe = 'existe';
-                require_once("../vistaAltaIdioma.php");
+                require_once("../vistaModificarIdioma.php");
             }else{
-                $intento=modificarIdioma($nom,$id);
+                $intento=modificarIdioma($nombre_idioma,$id);
                 if ($intento){
                     $idiomas=obtenerIdiomas();
                     if ( $idiomas!="error"){
@@ -404,7 +404,7 @@ class entidad{
                             $i++;
                         }
                         if(!empty($arreglo)){
-                            if($nom != $arreglo[0]['nombre']){
+                            if($nombre_idioma != $arreglo[0]['nombre']){
                                 $sePudoModificar = true;
                             }
                         }else{
@@ -560,14 +560,15 @@ class entidad{
     function confirmarModificacionAutor () {
         $per=$_SESSION['permiso'];
         if($per==1){
-            $nom=$_POST['nom_autor'];
+            $nombre_autor=$_POST['nom_autor'];
             $id=$_POST['id_autor'];
-            $arreglo= validarAltaAutor($nom);
+            $detalle_autor= $_POST['detalle_autor'];
+            $arreglo= validarAltaAutor($nombre_autor);
             if((!empty($arreglo)) && ($arreglo[0]['id_autor'] != $id)){
                 $existe = 'existe';
-                require_once("../vistaAltaAutor.php");
+                require_once("../vistaModificarAutor.php");
             }else{
-                $intento=modificarAutor($nom,$id);
+                $intento=modificarAutor($nombre_autor,$id,$detalle_autor);
                 if ($intento){
                     $autores=obtenerAutores();
                     if ( $autores!="error"){
