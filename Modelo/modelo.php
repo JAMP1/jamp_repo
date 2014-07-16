@@ -274,7 +274,7 @@ function insertarIdioma($us) {
 function validarAltaIdioma($nom){
   	$link = conectarBaseDatos();
   	if($link != "error"){
-  		$query = $link->prepare("SELECT `nombre` FROM idioma WHERE `nombre`=:nom");
+  		$query = $link->prepare("SELECT * FROM idioma WHERE `nombre`=:nom");
   		$res = $query->execute(array('nom' => $nom));
   		$res=$query->fetchAll();
   		$link=cerrarConexion();
@@ -334,7 +334,7 @@ function insertarAutor($us, $detalle) {
 function obtenerAutores(){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-	 	$query = $link->prepare("SELECT `nombre`,`id_autor` FROM autor WHERE `baja`=0");
+	 	$query = $link->prepare("SELECT * FROM autor WHERE `baja`=0");
 	 	$query->execute();
 	 	$res=$query->fetchAll();
 	 	$link=cerrarConexion();
@@ -384,7 +384,7 @@ function agregarBorradaAutores($id_autor) {
 function obtenerAutoresBorrados(){
   	$link = conectarBaseDatos();
   	if ($link != "error"){
-  		$query = $link->prepare("SELECT `nombre`,`id_autor` FROM autor WHERE `baja`=1");
+  		$query = $link->prepare("SELECT * FROM autor WHERE `baja`=1");
   		$query->execute();
   		$res=$query->fetchAll();
   		$link=cerrarConexion();  	
@@ -397,7 +397,7 @@ function obtenerAutoresBorrados(){
 function validarAltaEtiqueta($nom){
   	$link = conectarBaseDatos();
   	if($link != "error"){
-  		$query = $link->prepare("SELECT `nombre` FROM etiqueta WHERE `nombre`=:nom");
+  		$query = $link->prepare("SELECT * FROM etiqueta WHERE `nombre`=:nom");
   		$res = $query->execute(array('nom' => $nom));
   		$res=$query->fetchAll();
   		$link=cerrarConexion();
@@ -410,7 +410,7 @@ function validarAltaEtiqueta($nom){
 function validarAltaEditorial($nom){
   	$link = conectarBaseDatos();
   	if($link != "error"){
-  		$query = $link->prepare("SELECT `nombre` FROM editorial WHERE `nombre`=:nom");
+  		$query = $link->prepare("SELECT * FROM editorial WHERE `nombre`=:nom");
   		$res = $query->execute(array('nom' => $nom));
   		$res=$query->fetchAll();
   		$link=cerrarConexion();
@@ -423,7 +423,7 @@ function validarAltaEditorial($nom){
 function validarAltaAutor($nom){
   	$link = conectarBaseDatos();
   	if($link != "error"){
-  		$query = $link->prepare("SELECT `nombre` FROM autor WHERE `nombre`=:nom");
+  		$query = $link->prepare("SELECT * FROM autor WHERE `nombre`=:nom");
   		$res = $query->execute(array('nom' => $nom));
   		$res=$query->fetchAll();
   		$link=cerrarConexion();

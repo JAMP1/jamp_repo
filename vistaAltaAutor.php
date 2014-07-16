@@ -2,14 +2,10 @@
 <html>
   <head>
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
-
     <title>Administracion de Autores</title>
     <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
     <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
-
     <script type="text/javascript" src="/JAMP/JS/validar.js"></script>
-
-
     <script type="text/javascript" src="../JAMP/LIBS/bootstrap/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap-theme.css">
@@ -52,10 +48,13 @@
         }
       ?>
     </div>
-    <div class="col-md-12">
-      <form onSubmit="return validarAutor()" method="POST" action="llamadaController.php?action=confirmarAltaAutor&clase=entidad">
-        <div class="panel panel-info">
-          <table class="table table">          
+    <div class="col-md-12">      
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Alta de autor</h3>
+        </div>
+        <table class="table table-bordered table-centered">          
+          <form onSubmit="return validarAutor()" method="POST" action="llamadaController.php?action=confirmarAltaAutor&clase=entidad">
             <tr>
               <td>
                 <div class="input-group input-group-lg">
@@ -71,7 +70,11 @@
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Detalle/Descripcion</span>
                     <?php
-                      echo "<input type='text' class='form-control' name='detalle_autor' id='detalle_autor' >";
+                      if(isset($detalle)){
+                        echo "<input type='text' value='".$detalle."' class='form-control' name='detalle_autor' id='detalle_autor' >";
+                      }else{
+                        echo "<input type='text' class='form-control' name='detalle_autor' id='detalle_autor' >";
+                      }
                     ?>
                 </div>
               </td>
@@ -81,9 +84,9 @@
                 <button class="btn btn-info" type="submit">Enviar</button>
               </td>
             </tr>
-          </table>
-        </div>
-      </form>  
+          </form> 
+        </table>
+      </div>
     </div>
   </body>
 </html>

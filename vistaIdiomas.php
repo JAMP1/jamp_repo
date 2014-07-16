@@ -55,33 +55,40 @@
           echo" <div class='alert alert-success'>Exito! Se ha agregado el idioma correctamente!!</div>"; 
         }
       ?>
-      <div class="col-md-12">
-        <table class="table table-centered">
-          <tr>
-            <td class="separados"><p>Nombre</p></td>
-            <td class="separados"><p>Eliminar Idioma</p></td>
-            <td class="separados"><p>Modificar Idioma</p></td>
-          </tr>
-          <tr>
-            <?php
-              foreach ($arrayNa as $key){
-                echo  "
-                  <td class='separados'><p>".$key['nombre']."</p></td>
-                  <td class='separados'>
-                    <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaIdioma&clase=entidad'>
-                      <input name='id_idioma' type='hidden' value='".$key['id_us']."'/>
-                      <input type='submit' class='btn btn-info' value='Eliminar'/>
-                    </form>
-                  </td>
-                  <td class='separados'>
-                    <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=modificarIdioma&clase=entidad&nombre=".$key['nombre']."'>
-                      <input name='id_idioma' type='hidden' value='".$key['id_us']."'/>
-                      <input type='submit' class='btn btn-info' value='Modificar'/>
-                    </form>
-                  </td>";
-              }
-            ?>
-        </table>
+      <div class="col-md-8">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Idiomas</h3>
+          </div>
+          <table class="table table-centered table-bordered">
+            <tr>
+              <td class="separados"><p>Nombre</p></td>
+              <td class="separados"><p>Eliminar Idioma</p></td>
+              <td class="separados"><p>Modificar Idioma</p></td>
+            </tr>
+            <tr>
+              <?php
+                foreach ($arrayNa as $key){
+                  echo  "
+                    <td class='separados'><p>".$key['nombre']."</p></td>
+                    <td class='separados'>
+                      <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaIdioma&clase=entidad'>
+                        <input name='id_idioma' type='hidden' value='".$key['id_us']."'/>
+                        <input type='submit' class='btn btn-danger' value='Eliminar'/>
+                      </form>
+                    </td>
+                    <td class='separados'>
+                      <form method='POST' action='/JAMP/PORTI/llamadaController.php?action=modificarIdioma&clase=entidad&nombre=".$key['nombre']."'>
+                        <input name='id_idioma' type='hidden' value='".$key['id_us']."'/>
+                        <input type='submit' class='btn btn-info' value='Modificar'/>
+                      </form>
+                    </td>
+                  </tr>
+                  ";
+                }
+              ?>
+          </table>
+        </div>
       </div>
     </div>
   </body>

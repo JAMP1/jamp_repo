@@ -65,7 +65,7 @@
                     <td>
                       <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaLibro&clase=entidad'>
                         <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
-                        <input type='submit' class='btn btn-info' value='Restaurar'/>
+                        <input type='submit' class='btn btn-success' value='Restaurar'/>
                       </form>
                     </tr>
                   ";

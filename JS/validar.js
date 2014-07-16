@@ -170,7 +170,7 @@ function validarAutor(){
 			return true;			
 		}else{
 			if(nom.length == 0){
-				confirmar=confirm("Por defecto el detalle será 'no posee'");
+				confirmar=confirm("Por defecto el detalle sera 'no posee'");
 				return confirmar;
 			}else{
 				alert("El detalle no puede empezar ni terminar con espacios en blanco, y solamente acepta letras mayusculas y minusculas, con un maximo de 200 caracteres");

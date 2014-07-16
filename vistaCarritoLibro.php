@@ -61,7 +61,7 @@
           <h3 class="panel-title">Contenido del carrito</h3>
         </div>
         </td>
-        <table class="table table-centered">          
+        <table class="table table-centered table-bordered">          
           <?php 
             if(isset($arrayNa)){
               if(count($arrayNa)>0){
@@ -151,7 +151,7 @@
         <div class="panel-heading">
           <h3 class="panel-title">Compras realizadas</h3>
         </div>
-        <table class="table table-centered">
+        <table class="table table-centered table-bordered">
           <?php 
             if(isset($arregloVentas)){
              /* echo "

@@ -82,7 +82,7 @@
                     <td>
                       <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaLibro&clase=entidad'>
                         <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>
-                        <input type='submit' class='btn btn-info' value='Eliminar'/>
+                        <input type='submit' class='btn btn-danger' value='Eliminar'/>
                       </form>
                     </td>
                     <td class='separados'>
