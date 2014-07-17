@@ -436,15 +436,17 @@ function validarAltaAutor($nom){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $referencia_foto) {
+function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $referencia_foto, $detalle) {
 	// FALTA	insertar la FECHA
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 		$imagen = 1;
-		$query = $link->prepare("INSERT INTO `libro`(`id_editorial`, `id_etiqueta`, `stock`, `precio`, `isbn`, `cantPag`, `nombre`,  `referencia_foto`)
-		 						 VALUES (:Edi, :Eti, :Stock, :Precio, :Isbn, :CantHojas, :Nombre,  :Referencia )");
+		$query = $link->prepare("INSERT INTO `libro`(`id_editorial`, `id_etiqueta`, `stock`, `precio`, `isbn`, `cantPag`,
+														 `nombre`,  `referencia_foto`, `detalle_libro`)
+		 						 VALUES (:Edi, :Eti, :Stock, :Precio, :Isbn, :CantHojas, :Nombre,  :Referencia, :Detalle )");
 		$res = $query->execute(array('Nombre' => $nom , 'Edi' => $id_editorial , 'Eti'=> $id_etiqueta , 'Stock'=> $cantLibros ,
-		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas, 'Referencia'=>$referencia_foto ));
+		 							'Precio'=> $precio , 'Isbn'=> $isbn , 'CantHojas'=> $cantHojas, 
+		 							'Referencia'=>$referencia_foto, 'Detalle'=>$detalle ));
 		//El proximo SELECT es para recuperar el id del libro para el alta en la tabla 'libroautor'
 		$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");
 		//$res2 = $query ->execute(array('Nombre' => $nom));
@@ -457,14 +459,16 @@ function insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editor
 	return $res;
 }
 
-function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $referencia_foto){
+function modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $referencia_foto, $detalle){
  	$link = conectarBaseDatos();
 	if ($link != "error"){
 		$query = $link->prepare("UPDATE `libro` SET `nombre`= :Nom , `isbn`=:Isbn, `cantPag`=:CantHojas, `stock`=:CantLibros, 
-			`precio` = :Precio, `id_editorial`= :IdEditorial, `id_etiqueta`=:IdEtiqueta, `referencia_foto`= :Referencia
+			`precio` = :Precio, `id_editorial`= :IdEditorial, `id_etiqueta`=:IdEtiqueta,
+			 `referencia_foto`= :Referencia, `detalle_libro`=:Detalle
 								WHERE `id_libro`= :IdLibro");
 		$res = $query->execute(array('IdLibro' => $id_libro, 'Nom'=> $nom, 'Isbn'=>$isbn, 'CantHojas'=>$cantHojas, 
-			'CantLibros'=>$cantLibros, 'Precio'=>$precio, 'IdEditorial'=>$id_editorial, 'IdEtiqueta'=>$id_etiqueta, 'Referencia'=>$referencia_foto));
+			'CantLibros'=>$cantLibros, 'Precio'=>$precio, 'IdEditorial'=>$id_editorial, 'IdEtiqueta'=>$id_etiqueta, 
+			'Referencia'=>$referencia_foto, 'Detalle'=>$detalle));
 		//El proximo SELECT es para recuperar el id del libro para la modificacion en la tabla 'libroautor'
 		//$res = $query -> fetchAll();
 		//$query = $link->prepare("SELECT `id_libro` FROM libro WHERE `nombre` = :Nombre");

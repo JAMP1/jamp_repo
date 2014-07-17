@@ -35,8 +35,18 @@ function validaLibro(){
 				var nom=document.getElementById('precio_libro').value;
 				patronNumerico=/^\d*,?\d+$/;
 				var tam = nom.length;
-				if ( (patronNumerico.test(nom)) && (nom.length > 0) && (nom.length <11) ){					
-					return true;
+				if ( (patronNumerico.test(nom)) && (nom.length > 0) && (nom.length <11) ){		
+					nom=document.getElementById('detalle_libro').value;
+					if(nom.length== 0){
+						return confirm("ATENCION! Por defecto el detalle del libro sera 'NO POSEE', ¿desea continuar?");
+					}else{			
+						if(nom.length>=400){
+							alert("CAMPO DETALLE: debe tener una longitud maxima de 400 caracteres, contando espacios en blanco");
+							return false;
+						}else{
+							return true;
+						}
+					}	
 				}
 				else{
 					alert("CAMPO PRECIO: Debe ingresar solo numeros, hasta 10 digitos, para decimales utilice el caracter ','");
