@@ -1047,8 +1047,7 @@ class entidad{
         $id_carrito=$_POST['id_carrito'];
         $id_libro=$_POST['id_libro'];
         actualizaLibroCarrito($id_carrito, $id_libro , $cantidad);
-        var_dump($cantidad);
-        var_dump($id_carrito);
+      
     }
 
     function agregarLibroCarrito(){
@@ -2276,7 +2275,22 @@ function buscarRegistrado() {
         if(isset($_POST['hora_final'])){
             $hora_final=$_POST['hora_final'];
         }
-
+       /* var_dump($fecha_inicial);
+        echo "||";
+        var_dump($fecha_final);*/
+        $libros_vendidos = buscaVentasEntreDosFechas($fecha_inicial, $fecha_final);
+        //fecha, persona, cantidad, precio del libro, isbn, y nombrelibro
+        // nombre del usuario, la fecha, el total, un boton el detalle ( libro, precio, cantidad) y total, ademas el estado(cambiable) 
+        /*echo "  el arreglo tiene: ";
+        var_dump($libros_vendidos);*/
+        $arrayNa = array();
+        $i=0;
+        foreach ($libros_vendidos as $key ) {
+            $arrayNa[$i]=array('titulo' => $key[36] , 'usuario' => $key['nombreUsuario'] , 'precio_unidad'=>$key['precio_unidad'] ,
+                'fecha' => $key['fecha'] , 'isbn' =>$key['isbn'], 'cantidad_comprada'=>$key['cantidad_comprada']);
+            $i++;
+        }
+        require_once("../vistaBusquedaLibros.php");
     }
 
 }

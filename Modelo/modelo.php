@@ -1112,11 +1112,22 @@ function buscaIdCarritoPorIdUsuario($idUsuario){
 function buscaVentasEntreDosFechas($fecha_inicial, $fecha_final){
 	$link = conectarBaseDatos();
 	if($link != "error"){
-		$query=$link -> prepare("SELECT *
+		/*$query=$link -> prepare("SELECT *
 								FROM `venta` as v
 								INNER JOIN `libroventa` as lv ON v.id_venta=lv.id_venta
 								INNER JOIN `libro` as l ON lv.id_libro=l.id_libro
-								WHERE `fecha` BETWEEN AND");
+								WHERE `fecha` BETWEEN AND");*/
+		$query=$link ->prepare(" SELECT * 
+								FROM `venta` as v 
+								INNER JOIN `carrito` as c ON v.id_carrito=c.id_carrito
+								INNER JOIN `usuario` as u ON c.id_usuario=u.id_usuario
+								INNER JOIN `libroventa` as lv ON v.id_venta=lv.id_venta 
+								INNER JOIN `libro` as l ON lv.id_libro=l.id_libro 
+								WHERE `fecha` BETWEEN :FechaInicial AND :FechaFinal ");
+		$res= $query ->execute(array(':FechaInicial'=>$fecha_inicial, 'FechaFinal'=>$fecha_final));
+		$res= $query ->fetchAll();
+		$link = cerrarConexion();
+		return $res;
 	}
 }
 /*

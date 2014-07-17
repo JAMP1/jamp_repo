@@ -127,6 +127,86 @@
       $contar=0;
       foreach ($arrayNa as $key){
         if($contar==0){
+           echo "<div class='container-fluid'>";
+           echo "<div class='row'>";
+        }
+        $referencia= $key['referencia_foto'];
+        echo  "
+                 <div class='col-md-3'>
+                <table>
+                <tr>
+                <td>
+                <h2>Titulo: ".$key['titulo']."</h2>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <h4>Editorial: ".$key['editorial']."</h4>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <h4>Autor: ".$key['autor']."</h4>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <h4>Tag: ".$key['etiqueta']."</h4>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <h4>$".$key['precio']."</h4>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <p><img class= 'img-book img-rounded' src='$referencia' alt = 'cocina3' height='200' weight='200' ></p>                       
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
+                </td>
+                </tr>
+                </table>
+                </div>
+        ";
+        $contar++;
+        if ($contar%4==0){
+          echo "</div>";
+          echo "</div>";
+          $contar=0;
+        }
+      }
+      echo "
+        </div>
+        <div class='container'>
+        <div class='row'>
+        <div class='col-md-4'>
+        <table class='table'>
+          <tr>
+            <td>Cantidad de libros:</td>
+            <td>
+              <span class='label label-info'>".sizeof($todo)."</span>
+            </td>
+          </tr>
+          <tr>
+      ";
+      if(sizeof($todo)==0){
+        echo "<div class='alert alert-warning' role='alert'>No se encontraron libros con ese criterio</div>";
+      }
+      echo  "
+        </tr>
+        </table>";
+      echo "</div>";
+      echo "</div>";
+      echo "</div>";
+    ?> 
+  <!--  <?php
+      $contar=0;
+   /*   foreach ($arrayNa as $key){
+        if($contar==0){
            echo "<div class='row'>";
         }
         $referencia= $key['referencia_foto'];
@@ -169,8 +249,8 @@
         </tr>
         </table>";
       echo "</div>";
-      echo "</div>";
-    ?>    
+      echo "</div>";*/
+    ?>    -->
     <hr>
 
 

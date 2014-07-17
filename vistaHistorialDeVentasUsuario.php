@@ -59,7 +59,7 @@
         <div class="panel-heading">
           <?php
             if(isset($enDetalle)){
-              echo "<h3 class= 'panel-title'> Compra realizada el dia ".$arregloVentas[0]["fecha"]."";
+              echo "<h3 class= 'panel-title'> Compra realizada el dia ".$arregloVentas[0]["fecha"]."</h3>";
             }else{
               echo "<h3 class='panel-title'>Todas las compras efectuadas</h3>";
             }
