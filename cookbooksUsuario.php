@@ -68,8 +68,9 @@
         }
       ?>
       <div class="container">
-        <h1>Bienvenidos!</h1>
-        <p>Esto es un texto de prueba para ver como se ve nuestra página!</p>
+        <!--<h1>Bienvenidos!</h1>-->
+        <img src="/JAMP/IMG/cookbooks.png" width="390px" height="160px">
+        <!--<p>Esto es un texto de prueba para ver como se ve nuestra página!</p>-->
       </div>
       </div>
       <div class="container">
