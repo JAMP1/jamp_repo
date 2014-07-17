@@ -71,11 +71,11 @@
     </div>
     <!--<div class="jumbotron">
       <div class="container">
-        <!--<h1>Bienvenidos!</h1>-->
+        <h1>Bienvenidos!</h1>-->
         <img src="/JAMP/IMG/cookbooks.png" width="390px" height="160px">
         <!--<img src="/JAMP/IMG/background.png">-->
       </div>
-    </div>-->
+    </div>
     <div class="row">
       <a name="nombreAncla"></a>
       <div class="col-md-4">
