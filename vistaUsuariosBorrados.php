@@ -72,7 +72,7 @@
                     <form onSubmit='return confirmar()' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradoUsuario&clase=entidad' method='post'>
                       <input type='hidden' name= 'id_usuario' value='".$key['id_usuario']."'> 
                       <input type='hidden' name= 'permiso' value='".$key['permiso']."'> 
-                      <button class='btn btn-info' type='submit'>Restaurar</button>
+                      <button class='btn btn-success' type='submit'>Restaurar</button>
                     </form>
                   </td>
                 </tr>

@@ -40,57 +40,99 @@
         </ul>
       </div>
     </nav>      
+    <div class="container">   
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="panel panel-info">
           <div class="panel-heading">
             <h3 class="panel-title"><i class='glyphicon glyphicon-search'></i> Busqueda de libros vendidos entre dos fechas</h3>
           </div>
-          <table class="table table-centered">
-            <form class="form-horizontal" onSubmit="return validarFechaParaBusqueda()" method="post" action="/JAMP/PORTI/llamadaController.php?action=efectuarBusqueda&clase=entidad">
-              <br>    
-              <div class="panel panel-warning">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Fecha inicial</h3>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-addon">Dia</span>
-                  <input type="text" class="form-control input-small" placeholder="dd" id="dia_inicial" name="dia_inicial" required="required"> 
-                  <span class="input-group-addon">Mes</span>   
-                  <input type="text" class="form-control input-small" placeholder="mm" id="mes_inicial" name="mes_inicial" required="required">
-                  <span class="input-group-addon">Año</span>
-                  <input type="text" class="form-control input-small" placeholder="aaaa" id="anio_inicial" name="anio_inicial" required="required">
-                </div>              
-                <div class="input-group">
-                  <span class="input-group-addon">Hora (opcional)</span>
-                  <input type="text" class="form-control input-small" placeholder="00" id="hora_inicial" name="hora_inicial">
-                  <span class="input-group-addon">Minutos (opcional)</span>
-                  <input type="text" class="form-control input-small" placeholder="00" id="minuto_inicial" name="minuto_inicial">
-                </div>         
-              </div>    
-              <div class="panel panel-warning">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Fecha final</h3>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-addon">Dia</span>
-                  <input type="text" class="form-control input-small" placeholder="dd" id="dia_final" name="dia_final" required="required"> 
-                  <span class="input-group-addon">Mes</span>   
-                  <input type="text" class="form-control input-small" placeholder="mm" id="mes_final" name="mes_final" required="required">
-                  <span class="input-group-addon">Año</span>
-                  <input type="text" class="form-control input-small" placeholder="aaaa" id="anio_final" name="anio_final" required=" required">
-                </div>              
-                <div class="input-group">
-                  <span class="input-group-addon">Hora (opcional)</span>
-                  <input type="text" class="form-control input-small" placeholder="00" id="hora_final" name="hora_final">
-                  <span class="input-group-addon">Minutos (opcional)</span>
-                  <input type="text" class="form-control input-small" placeholder="00" id="minuto_final" name="minuto_final">
-                </div>         
-              </div>                    
-              <button class=' btn btn-danger navbar-right' type='submit' > Buscar </button>
-            </form>
-          </table>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">   
+    <div class="row table-bordered">
+      <div class="col-md-6">
+        <form class="form-horizontal" onSubmit="return validarFechaParaBusqueda()" method="post" action="/JAMP/PORTI/llamadaController.php?action=efectuarBusqueda&clase=entidad">   
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h3 class="panel-title">Fecha inicial</h3>
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">Fecha</span>
+              <input type="date" class="form-control input-small" id="fecha_inicial" name="fecha_inicial" required="required"> 
+            </div> 
+            <div class="input-group">
+              <span class="input-group-addon">Hora (opcional)</span>
+              <input type="text" class="form-control input-small" placeholder="00" id="hora_inicial" name="hora_inicial">
+              <span class="input-group-addon">Minutos (opcional)</span>
+              <input type="text" class="form-control input-small" placeholder="00" id="minuto_inicial" name="minuto_inicial">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">              
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h3 class="panel-title">Fecha final</h3>
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">Fecha</span>
+              <input type="date" class="form-control input-small" id="fecha_final" name="fecha_final" required="required"> 
+            </div>         
+            <div class="input-group">
+              <span class="input-group-addon">Hora (opcional)</span>
+              <input type="text" class="form-control input-small" placeholder="00" id="hora_final" name="hora_final">
+              <span class="input-group-addon">Minutos (opcional)</span>
+              <input type="text" class="form-control input-small" placeholder="00" id="minuto_final" name="minuto_final">
+            </div>         
+          </div> 
+        </div> 
+                
+      <button class=' btn btn-danger navbar-right' type='submit' > Buscar </button>
+    </form>
+    </div> 
+    </div> 
+    <br>
+    <div class="col-md-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <?php
+            if(isset($arrayNa)){
+              echo "<h3 class='panel-title'>Libros vendidos entre las fechas seleccionadas</h3>";
+            }
+          ?>
+        </div>
+        <table class="table table-centered table-bordered">
+          <?php 
+            if(isset($arrayNa)){
+              if(count($arrayNa)>0){
+                echo "
+                    <td class='separados'><p>Nombre Libro</p></td>
+                    <td class='separados'><p>ISBN</p></td>
+                    <td class='separados'><p>Cantidad vendida</p></td>                      
+                    <td class='separados'><p>Precio unidad</p></td>
+                    <td class='separados'><p>Usuario comprador</p></td>
+                    <td class='separados'><p>Fecha de venta</p></td>
+                  </tr>
+                ";
+                foreach($arrayNa as $key){
+                  echo "
+                      <td class='separados'><p>".$key['titulo']."</p></td>
+                      <td class='separados'><p>".$key['isbn']."</p></td>
+                      <td class='separados'><p>".$key['cantidad_comprada']."</p></td>
+                      <td class='separados'><p>$".$key['precio_unidad']."</p></td>
+                      <td class='separados'><p>".$key['usuario']."</p></td>
+                      <td class='separados'><p>".$key['fecha']."</p></td>
+                    </tr>
+                  ";
+                }
+              }else{
+                echo "<div class='alert alert-danger'>No han habido ventas en el intervalo seleccionado!</div>";
+              }
+            }
+          ?>
+        </table>
       </div>
     </div>
   </body>

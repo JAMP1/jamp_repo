@@ -170,7 +170,7 @@ function validarAutor(){
 			return true;			
 		}else{
 			if(nom.length == 0){
-				confirmar=confirm("Por defecto el detalle será 'no posee'");
+				confirmar=confirm("Por defecto el detalle sera 'no posee'");
 				return confirmar;
 			}else{
 				alert("El detalle no puede empezar ni terminar con espacios en blanco, y solamente acepta letras mayusculas y minusculas, con un maximo de 200 caracteres");
@@ -214,11 +214,11 @@ function confirmaCompra(){
 }
 
 function validarFechaParaBusqueda(){
-	var patronFecha= new RegExp(" ( ([2][01][01][0123456789])/(0[123456789]|10|11|12)/([0][123456789]|[12][0123456789]|[3][01]) ) ");
+	/*var patronFecha= new RegExp(" ( ([2][01][01][0123456789])/(0[123456789]|10|11|12)/([0][123456789]|[12][0123456789]|[3][01]) ) ");
 	var num= new RegExp("([2][0][0-1][0-9])");
 	var fecha= document.getElementById('anio_inicial');
 	alert(patronFecha.test(fecha));
-	return confirm("¿?");
+	return confirm("¿?");*/
 }
 
 

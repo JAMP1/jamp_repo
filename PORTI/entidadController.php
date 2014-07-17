@@ -47,7 +47,7 @@ class entidad{
     }
     function modificarEtiqueta () {
         $per=$_SESSION['permiso'];
-        $n=$_GET['nombre'];
+        $nombre_etiqueta=$_GET['nombre'];
         //echo $n;
         if($per==1){
         $id=$_POST['id_etiqueta'];
@@ -103,19 +103,25 @@ class entidad{
     function confirmarModificacionEtiqueta (){
         $per=$_SESSION['permiso'];
         if($per==1){
-            $nom=$_POST['nom_etiqueta'];
+            $nombre_etiqueta=$_POST['nombre_etiqueta'];
             $id=$_POST['id_etiqueta'];
-            $arreglo= validarAltaEtiqueta($nom);
-            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+            $arreglo= validarAltaEtiqueta($nombre_etiqueta);
+            if((!empty($arreglo)) && ($arreglo[0]['id_etiqueta'] != $id)){
                 $existe = 'existe';
-                require_once("../vistaAltaEtiqueta.php");
+                require_once("../vistaModificarEtiqueta.php");
             }else{
-                $intento=modificarEtiqueta($nom,$id);
+                $intento=modificarEtiqueta($nombre_etiqueta,$id);
                 if ($intento){
                     $etiquetas=obtenerEtiquetas();
                     if ( $etiquetas!="error"){
                         $arrayNa = array();
-                        $sePudoModificar = true;
+                        if(!empty($arreglo)){
+                            if($nombre_etiqueta != $arreglo[0]['nombre']){
+                                $sePudoModificar = true;
+                            }
+                        }else{
+                            $sePudoModificar = true;
+                        }
                         $i=0;
                         foreach ($etiquetas as $key ) {
                             $arrayNa[$i]=array('nombre' => $key['nombre'] ,
@@ -192,7 +198,7 @@ class entidad{
     }
     function modificarEditorial () {
         $per=$_SESSION['permiso'];
-        $n=$_GET['nombre'];
+        $nombre_editorial=$_GET['nombre'];
         //echo $n;
         if($per==1){
             $id=$_POST['id_editorial'];
@@ -249,10 +255,10 @@ class entidad{
     function confirmarModificacionEditorial () {
         $per=$_SESSION['permiso'];
         if($per==1){
-            $nom=$_POST['nom_editorial'];
+            $nom=$_POST['nombre_editorial'];
             $id=$_POST['id_editorial'];
             $arreglo= validarAltaEditorial($nom);
-            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+            if((!empty($arreglo)) && ($arreglo[0]['id_editorial'] != $id)){
                 $existe = 'existe';
                 require_once("../vistaAltaEditorial.php");
             }else{
@@ -267,7 +273,13 @@ class entidad{
                                 'id_us' => $key['id_editorial'] );
                             $i++;
                         }
-                        $sePudoModificar = true;
+                        if(!empty($arreglo)){
+                            if($nom != $arreglo[0]['nombre']){
+                                $sePudoModificar = true;
+                            }
+                        }else{
+                            $sePudoModificar = true;
+                        }
                         require_once("../vistaEditorial.php");
                     }           
                 }
@@ -365,7 +377,7 @@ class entidad{
     }
     function modificarIdioma () {
         $per=$_SESSION['permiso'];
-        $n=$_GET['nombre'];
+        $nombre_idioma=$_GET['nombre'];
         //echo $n;
         if($per==1){
             $id=$_POST['id_idioma'];
@@ -375,14 +387,14 @@ class entidad{
     function confirmarModificacionIdioma () {
         $per=$_SESSION['permiso'];
         if($per==1){
-            $nom=$_POST['nom_idioma'];
+            $nombre_idioma=$_POST['nombre_idioma'];
             $id=$_POST['id_idioma'];
-            $arreglo= validarAltaIdioma($nom);
-            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+            $arreglo= validarAltaIdioma($nombre_idioma);
+            if((!empty($arreglo)) && ($arreglo[0]['id_idioma'] != $id)){
                 $existe = 'existe';
-                require_once("../vistaAltaIdioma.php");
+                require_once("../vistaModificarIdioma.php");
             }else{
-                $intento=modificarIdioma($nom,$id);
+                $intento=modificarIdioma($nombre_idioma,$id);
                 if ($intento){
                     $idiomas=obtenerIdiomas();
                     if ( $idiomas!="error"){
@@ -393,14 +405,20 @@ class entidad{
                                 'id_us' => $key['id_idioma'] );
                             $i++;
                         }
-                        $sePudoModificar = true;
+                        if(!empty($arreglo)){
+                            if($nombre_idioma != $arreglo[0]['nombre']){
+                                $sePudoModificar = true;
+                            }
+                        }else{
+                            $sePudoModificar = true;
+                        }
                         require_once("../vistaIdiomas.php");
                     }            
                 }
             }       
         }
     }
-        function borradosIdiomas () {
+    function borradosIdiomas () {
         $per=$_SESSION['permiso'];
         if($per==1){
             $idiomas=obtenerIdiomasBorrados();
@@ -453,7 +471,7 @@ class entidad{
                 $i=0;
                 foreach ($autores as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                            'id_us' => $key['id_autor'] );
+                            'id_us' => $key['id_autor'], 'detalle'=>$key['detalle']  );
                     $i++;
                 }                
             }
@@ -472,7 +490,7 @@ class entidad{
             $i=0;
             foreach ($autores as $key ) {
                 $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                        'id_us' => $key['id_autor'] );
+                        'id_us' => $key['id_autor'], 'detalle'=>$key['detalle']  );
                 $i++;
             }
         }
@@ -482,7 +500,8 @@ class entidad{
     }
     function modificarAutor () {
         $per=$_SESSION['permiso'];
-        $n=$_GET['nombre'];
+        $nombre_autor=$_GET['nombre'];
+        $detalle_autor=$_POST['detalle_autor'];
         //echo $n;
         if($per==1){
             $id=$_POST['id_autor'];
@@ -498,7 +517,7 @@ class entidad{
                     $i=0;
                     foreach ($autores as $key ) {
                         $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                                'id_us' => $key['id_autor'] );
+                                'id_us' => $key['id_autor'], 'detalle'=>$key['detalle']  );
                         $i++;
                     }
                 }
@@ -512,15 +531,16 @@ class entidad{
         if($per==1){
             $nom=$_POST['nom_autor'];
             $arreglo= validarAltaAutor($nom);
-            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+            //FALTA EL ID
+            if(!empty($_POST['detalle_autor'])){
+                $detalle= $_POST['detalle_autor'];
+            }else{
+                $detalle= "no posee";
+            }
+            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom) ){
                 $existe = 'existe';
                 require_once("../vistaAltaAutor.php");
-            }else{
-                if(isset($_POST['detalle_autor'])){
-                    $detalle= $_POST['detalle_autor'];
-                }else{
-                    $detalle= "no posee";
-                }
+            }else{                
                 $intento=insertarAutor($nom, $detalle);
                 if ($intento){
                     $autores=obtenerAutores();
@@ -529,7 +549,7 @@ class entidad{
                         $i=0;
                         foreach ($autores as $key ) {
                             $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                                'id_us' => $key['id_autor'] );
+                                'id_us' => $key['id_autor'], 'detalle'=>$key['detalle'] );
                             $i++;
                         }
                         $sePudoAlta = true;
@@ -542,14 +562,15 @@ class entidad{
     function confirmarModificacionAutor () {
         $per=$_SESSION['permiso'];
         if($per==1){
-            $nom=$_POST['nom_autor'];
+            $nombre_autor=$_POST['nom_autor'];
             $id=$_POST['id_autor'];
-            $arreglo= validarAltaAutor($nom);
-            if((!empty($arreglo)) && ($arreglo[0]['nombre'] == $nom)){
+            $detalle_autor= $_POST['detalle_autor'];
+            $arreglo= validarAltaAutor($nombre_autor);
+            if((!empty($arreglo)) && ($arreglo[0]['id_autor'] != $id)){
                 $existe = 'existe';
-                require_once("../vistaAltaAutor.php");
+                require_once("../vistaModificarAutor.php");
             }else{
-                $intento=modificarAutor($nom,$id);
+                $intento=modificarAutor($nombre_autor,$id,$detalle_autor);
                 if ($intento){
                     $autores=obtenerAutores();
                     if ( $autores!="error"){
@@ -557,7 +578,7 @@ class entidad{
                         $i=0;
                         foreach ($autores as $key ) {
                             $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                                'id_us' => $key['id_autor'] );
+                                'id_us' => $key['id_autor'], 'detalle'=>$key['detalle']  );
                             $i++;
                         }
                         $sePudoModificar = true;
@@ -576,7 +597,7 @@ class entidad{
                 $i=0;
                 foreach ($autores as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] ,
-                            'id_us' => $key['id_autor'] );
+                            'id_us' => $key['id_autor'], 'detalle'=>$key['detalle']  );
                     $i++;
                 }
             }
@@ -916,7 +937,7 @@ class entidad{
                     $i=0;
                     foreach ($ventas as $key) {
                         $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado'], 'id_venta'=>$key['id_venta'],
-                                                'nombre_estado'=>$key['nombre_estado']);
+                                                'nombre_estado'=>$key['nombre_estado'], 'precio_total'=> $key['precio_total']);
                         $i++;
                     }
                 }
@@ -997,10 +1018,11 @@ class entidad{
         if($per==2){
             $id_venta=$_POST['id_venta'];
             $arregloVentas= recuperarVentaPorId($id_venta);
-            $total=0;
+            $enDetalle=true;
+            /*$total=0;
             foreach($arregloVentas as $key){
                 $total = $total + ($key['cantidad_comprada']*$key['precio']);
-            }
+            }*/
             //var_dump($libros_vendidos);
             require_once("../vistaHistorialDeVentasUsuario.php");
         }
@@ -1033,8 +1055,7 @@ class entidad{
         $id_carrito=$_POST['id_carrito'];
         $id_libro=$_POST['id_libro'];
         actualizaLibroCarrito($id_carrito, $id_libro , $cantidad);
-        var_dump($cantidad);
-        var_dump($id_carrito);
+      
     }
 
     function agregarLibroCarrito(){
@@ -2308,7 +2329,22 @@ function buscarRegistrado() {
         if(isset($_POST['hora_final'])){
             $hora_final=$_POST['hora_final'];
         }
-
+       /* var_dump($fecha_inicial);
+        echo "||";
+        var_dump($fecha_final);*/
+        $libros_vendidos = buscaVentasEntreDosFechas($fecha_inicial, $fecha_final);
+        //fecha, persona, cantidad, precio del libro, isbn, y nombrelibro
+        // nombre del usuario, la fecha, el total, un boton el detalle ( libro, precio, cantidad) y total, ademas el estado(cambiable) 
+        /*echo "  el arreglo tiene: ";
+        var_dump($libros_vendidos);*/
+        $arrayNa = array();
+        $i=0;
+        foreach ($libros_vendidos as $key ) {
+            $arrayNa[$i]=array('titulo' => $key[36] , 'usuario' => $key['nombreUsuario'] , 'precio_unidad'=>$key['precio_unidad'] ,
+                'fecha' => $key['fecha'] , 'isbn' =>$key['isbn'], 'cantidad_comprada'=>$key['cantidad_comprada']);
+            $i++;
+        }
+        require_once("../vistaBusquedaLibros.php");
     }
 
 }

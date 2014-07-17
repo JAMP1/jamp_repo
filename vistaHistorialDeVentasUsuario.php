@@ -56,13 +56,25 @@
     </nav>
     <div class="col-md-12">
       <div class="panel panel-info">
-        <table class="table table-centered">
+        <div class="panel-heading">
+          <?php
+            if(isset($enDetalle)){
+              echo "<h3 class= 'panel-title'> Compra realizada el dia ".$arregloVentas[0]["fecha"]."</h3>";
+            }else{
+              echo "<h3 class='panel-title'>Todas las compras efectuadas</h3>";
+            }
+            ?>
+        </div>
+        <table class="table table-centered table-bordered">
           <?php 
             if(isset($arregloVentas)){
-          //    if(count($arregloVentas)>1){
                 echo "
-                    <tr>
-                      <td class='separados'><p>Fecha de compra</p></td>
+                    <tr>";
+                if(!isset($enDetalle)){
+                  echo "
+                      <td class='separados'><p>Fecha de compra</p></td>";
+                }
+                echo "
                       <td class='separados'><p>Nombre</p></td>
                       <td class='separados'><p>ISBN</p></td>
                       <td class='separados'><p>Cantidad libros</p></td>                      
@@ -72,8 +84,12 @@
                   ";
                 foreach($arregloVentas as $key){
                   echo "
-                    <tr>
-                      <td class='separados'><p>".$key['fecha']."</p></td>
+                    <tr>";
+                  if(!isset($enDetalle)){
+                    echo "
+                      <td class='separados'><p>".$key['fecha']."</p></td>";
+                  }
+                  echo "
                       <td class='separados'><p>".$key['nombre']."</p></td>
                       <td class='separados'><p>".$key['isbn']."</p></td>
                       <td class='separados'><p>".$key['cantidad_comprada']."</p></td>
@@ -88,40 +104,16 @@
                           <td class='separados'><p>$".$key['precio_total']."</p></td>
                         </tr>";
                 }
-          //    }else{
-                /*echo "
-                  <tr>
-                    <td class='separados'><p>Compra realizada el ".$arregloVentas[0]['fecha']." </p></td>
-                    <td class='separados'><p></p></td>
-                  </tr>
-                  <tr>
-                    <td class='separados'><p>Nombre</p></td>
-                    <td class='separados'><p>ISBN</p></td>
-                    <td class='separados'><p>Cantidad pag</p></td>
-                    <td class='separados'><p>Precio</p></td>
-                    <td class='separados'><p>Estado</p></td>
-                  </tr>
-                ";
-                foreach ($arregloVentas as $key) {
-                  echo "
-                    <div class='row'>
-                      <tr>
-                        <td class='separados'><p>".$key['nombre']."</p></td>
-                        <td class='separados'><p>".$key['isbn']."</p></td>
-                        <td class='separados'><p>".$key['cantPag']."</p></td>
-                        <td class='separados'><p>".$key['precio']."</p></td>
-                        <td class='separados'><p>".$key['nombre_estado']."</p></td>
-                      </tr>
-                    </div> 
-                  ";
+                if(isset($enDetalle)){
+                  echo "<td>
+                          <form method='post' action='llamadaController.php?action=verTodasLasVentas&clase=entidad'>
+                            <input type='hidden' name='id_venta' value='".$key['id_venta']."'>
+                            <button type='submit' class='btn btn-info'>
+                              <span class='glyphicon glyphicon-eye-open'></span> Ver todas las compras
+                            </button>
+                          </form>
+                        </td>";
                 }
-                if(isset($total)){
-                  echo "<tr>
-                          <td class='separados'><p>Precio total</p></td>
-                          <td class='separados><p>".$total."</p></td>
-                        </tr>";
-                }*/
-          //    }
             }else{
               echo "<div class='alert alert-warning'>Usted no ha realizado ninguna compra</div>";
             }

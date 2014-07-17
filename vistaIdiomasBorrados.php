@@ -40,27 +40,33 @@
       </div>
     </nav>
     <div class="row">
-      <div class="col-md-12">
-        <table class="table table-centered">
-          <tr>
-            <td class="separados"><p>Nombre</p></td>
-            <td class="separados"><p>Restaurar Idioma</p></td>
-          </tr>
-          <tr>
-          <?php
-            foreach ($arrayNa as $key){
-              echo  "
-                <td class='separados'><p>".$key['nombre']."</p></td>
-                <td class='separados'>
-                <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaIdioma&clase=entidad'>
-                  <input name='id_idioma' type='hidden' value='".$key['id_us']."'/>
-                  <input type='submit' class='btn btn-info' value='Restaurar'/>
-                </form>
-                </tr>
-              ";
-            }
-          ?>
-        </table>
+      <div class="col-md-8">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Idiomas borrados</h3>
+          </div>
+          <table class="table table-centered">
+            <tr>
+              <td class="separados"><p>Nombre</p></td>
+              <td class="separados"><p>Restaurar Idioma</p></td>
+            </tr>
+            <tr>
+            <?php
+              foreach ($arrayNa as $key){
+                echo  "
+                    <td class='separados'><p>".$key['nombre']."</p></td>
+                    <td class='separados'>
+                      <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=agregarBorradaIdioma&clase=entidad'>
+                        <input name='id_idioma' type='hidden' value='".$key['id_us']."'/>
+                        <input type='submit' class='btn btn-success' value='Restaurar'/>
+                      </form>
+                    </td>
+                  </tr>
+                ";
+              }
+            ?>
+          </table>
+        </div>
       </div>
     </div>
   </body>

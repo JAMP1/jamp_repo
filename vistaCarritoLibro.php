@@ -61,7 +61,7 @@
           <h3 class="panel-title">Contenido del carrito</h3>
         </div>
         </td>
-        <table class="table table-centered">          
+        <table class="table table-centered table-bordered">          
           <?php 
             if(isset($arrayNa)){
               if(count($arrayNa)>0){
@@ -99,7 +99,7 @@
                         <td class='separados'><span class='glyphicon glyphicon-usd'></span><p>".$key["precio"]."</p></td>
                         <input type='hidden' class='precios' value='".$key["precio"]."'>              
                         <td class='separados'>
-                          <p><input type='number' onclick='actualizar()' name='cantidad_libros' class='cantidadLibroEnCarrito form-control' min='1' value='".$key["cantidad_pedida"]."'></p>
+                          <p><input type='number' onkeydown='actualizar()' onclick='actualizar()' name='cantidad_libros' class='cantidadLibroEnCarrito form-control' min='1' value='".$key["cantidad_pedida"]."'></p>
                           <input type='hidden' name='id_carrito' value='".$key["id_carrito"]."'/>
                           <input type='hidden' name='id_libro' value='".$key["id_libro"].">
                           <input type='hidden' class='precioLibroEnCarrito' value='".$key["precio"]."'>
@@ -151,7 +151,7 @@
         <div class="panel-heading">
           <h3 class="panel-title">Compras realizadas</h3>
         </div>
-        <table class="table table-centered">
+        <table class="table table-centered table-bordered">
           <?php 
             if(isset($arregloVentas)){
              /* echo "
