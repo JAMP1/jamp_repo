@@ -704,6 +704,12 @@ class entidad{
             $nom_etiqueta = $arreglo_etiqueta["nombre"];
             $nom_autor= $arreglo_autor["nombre"];
 
+            if(!empty($_POST['detalle_libro'])){
+                $detalle= $_POST['detalle_libro'];
+            }else{
+                $detalle= "no posee";
+            }
+
             $tipo_de_archivo= $_FILES["portada"]["type"];
             if(strpos($tipo_de_archivo,"gif")||strpos($tipo_de_archivo, "jpg")||strpos($tipo_de_archivo, "jpeg")
                                                                             ||strpos($tipo_de_archivo, "png")  ){
@@ -738,7 +744,8 @@ class entidad{
                     $isbn="";
                     require_once("../vistaAltaLibro.php");
                 }else{
-                    $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $referencia_util);
+                    $intento=insertarLibro($nom, $isbn, $cantHojas, $cantLibros, $precio, 
+                                            $id_editorial, $id_etiqueta, $referencia_util, $detalle);
                     $buscaIdPorIsbn= validarModificacionLibro($isbn);
                     $id_libro= $buscaIdPorIsbn['id_libro'];
                     altaLibroAutor($id_libro, $id_autor);
@@ -749,7 +756,8 @@ class entidad{
                            $i=0;
                            foreach ($libros as $key ) {
                                 $arrayNa[$i]=array('nombre' => $key['nombre'],'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                    'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'], 'referencia_foto'=>$key['referencia_foto'] );
+                                    'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'], 
+                                    'referencia_foto'=>$key['referencia_foto'], 'detalle_libro'=>$key['detalle_libro'] );
                                 $i++;
                             }
                         $sePudoAlta=true;
@@ -783,6 +791,11 @@ class entidad{
             $nom_etiqueta = $arreglo_etiqueta["nombre"];
             $nom_autor= $arreglo_autor["nombre"];
             $tamanio = $_FILES["nueva_portada"]["size"];
+            if(!empty($_POST['detalle_libro'])){
+                $detalle= $_POST['detalle_libro'];
+            }else{
+                $detalle= "no posee";
+            }
             if($tamanio > 1 ){            
                 $name= $_FILES["nueva_portada"]["name"];
                 $tipo_de_archivo= $_FILES["nueva_portada"]["type"]; //SIRVE PARA VERIFICAR QUE SEA IMAGEN
@@ -807,7 +820,8 @@ class entidad{
                 $buscaIdPorIsbn= validarModificacionLibro($isbn);
                 $libro=recuperarLibro($buscaIdPorIsbn["id_libro"]); // SIRVE PARA COMPARAR EL ID DEL ISBN INGRESADO CON EL ANTIGUO
                 if($buscaIdPorIsbn['id_libro']==$id_libro || $buscaIdPorIsbn==false ){
-                    $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, $id_editorial, $id_etiqueta, $referencia_util);
+                    $intento=modificarLibro($id_libro, $nom, $isbn, $cantHojas, $cantLibros, $precio, 
+                                            $id_editorial, $id_etiqueta, $referencia_util, $detalle);
                     modificarLibroAutor($id_libro,$id_autor);
                     if ($intento){
                         $libros=obtenerLibros();
@@ -816,7 +830,8 @@ class entidad{
                             $i=0;
                             foreach ($libros as $key ) {
                                 $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                    'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'] );
+                                    'stock' =>$key['stock'],'precio'=>$key['precio'], 
+                                    'id_libro' => $key['id_libro'], 'detalle_libro'=>$key['detalle_libro'] );
                                 $i++;
                             }
                         $existe=null;
@@ -844,7 +859,7 @@ class entidad{
                 foreach ($libros as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
                         'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 
-                        'id_libro' => $key['id_libro'], 'referencia_foto'=>$key['referencia_foto']);
+                        'id_libro' => $key['id_libro'], 'referencia_foto'=>$key['referencia_foto'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
                 }
             }
@@ -859,7 +874,8 @@ class entidad{
                     echo $key['imagen'];
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'isbn' => $key['isbn'], 
                         'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'],
-                         'id_libro' => $key['id_libro'], 'referencia_foto'=>$key['referencia_foto'] );
+                         'id_libro' => $key['id_libro'], 'referencia_foto'=>$key['referencia_foto'], 
+                         'detalle_libro'=>$key['detalle_libro'] );
                     $i++;
                 }
             } //TENGO QUE VER CÓMO HACER PARA LISTAR LOS LIBROS EN EL INICIO
@@ -1105,9 +1121,9 @@ class entidad{
             }else{ 
                 $marca=false;
             }
-            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                 'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+                'id_libro'=>$key['id_libro'], 'marca'=>$marca, 'detalle_libro'=>$key['detalle_libro'], 'detalle_autor'=>$key['detalle']);
             $i++;
             
         }        
@@ -1172,7 +1188,7 @@ class entidad{
                 foreach ($todo as $key ) {
                     $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro']);
+                        'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
                 }
 
@@ -1355,9 +1371,9 @@ class entidad{
                 }else{ 
                     $marca=false;
                 }
-                $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                     'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                    'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+                    'id_libro'=>$key['id_libro'], 'marca'=>$marca, 'detalle_libro'=>$key['detalle_libro'], 'detalle_autor'=>$key['detalle']);
                 $i++;
             }
 
@@ -1394,7 +1410,7 @@ class entidad{
                 foreach ($usuarios as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
                         'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                            'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'] );
+                            'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'], 'detalle_libro'=>$key['detalle_libro'] );
                     $i++;
                 }
             }
@@ -1481,7 +1497,7 @@ class entidad{
                 foreach ($usuarios as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
                         'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                            'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'] );
+                            'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'], 'detalle_libro'=>$key['detalle_libro'] );
                     $i++;
                 }
             }
@@ -1534,7 +1550,7 @@ class entidad{
                 foreach ($todo as $key ) {
                     $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro']);
+                        'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -1568,7 +1584,7 @@ class entidad{
                 foreach ($todo as $key ) {
                     $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro']);
+                        'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -1602,7 +1618,7 @@ class entidad{
                 foreach ($todo as $key ) {
                     $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro']);
+                        'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -1636,7 +1652,7 @@ class entidad{
                 foreach ($todo as $key ) {
                     $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro']);
+                        'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -1669,7 +1685,8 @@ class entidad{
                 $i=0;
                 foreach ($todo as $key ) {
                     $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
-                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 
+                        'referencia_foto'=>$key['referencia_foto'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -1704,7 +1721,7 @@ class entidad{
                 foreach ($todo as $key ) {
                     $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'], 
-                        'id_libro'=>$key['id_libro']);
+                        'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
                 }
                //var_dump($todo);
@@ -1802,7 +1819,8 @@ function buscar() {
         $i=0;
         foreach ($todo as $key ) {
                 $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
-                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto']);
+                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 
+                        'referencia_foto'=>$key['referencia_foto'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
         }
             require_once("../cookbooks.php");
@@ -1855,9 +1873,9 @@ function buscarRegistrado() {
             }else{ 
                 $marca=false;
             }
-            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                     'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                    'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+                    'id_libro'=>$key['id_libro'], 'marca'=>$marca, 'detalle_libro'=>$key['detalle_libro'], 'detalle_autor'=>$key['detalle']);
             $i++;
         }
         require_once("../cookbooksUsuario.php");
@@ -1916,9 +1934,9 @@ function buscarRegistrado() {
             }else{ 
                 $marca=false;
             }
-            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                 'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+                'id_libro'=>$key['id_libro'], 'marca'=>$marca, 'detalle_libro'=>$key['detalle_libro'], 'detalle_autor'=>$key['detalle']);
             $i++;
         }
         require_once("../cookbooksUsuario.php");
@@ -1955,9 +1973,9 @@ function buscarRegistrado() {
                     }else{ 
                         $marca=false;
                     }
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+                        'id_libro'=>$key['id_libro'], 'marca'=>$marca, 'detalle_libro'=>$key['detalle_libro'], 'detalle_autor'=>$key['detalle']);
                     $i++;
                 }
         require_once("../cookbooksUsuario.php");
@@ -1994,9 +2012,9 @@ function buscarRegistrado() {
                     }else{ 
                         $marca=false;
                     }
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+                        'id_libro'=>$key['id_libro'], 'marca'=>$marca, 'detalle_libro'=>$key['detalle_libro'], 'detalle_autor'=>$key['detalle']);
                     $i++;
                 }
         require_once("../cookbooksUsuario.php");
@@ -2033,9 +2051,9 @@ function buscarRegistrado() {
                     }else{ 
                         $marca=false;
                     }
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+                        'id_libro'=>$key['id_libro'], 'marca'=>$marca, 'detalle_libro'=>$key['detalle_libro'], 'detalle_autor'=>$key['detalle']);
                     $i++;
                 }
         require_once("../cookbooksUsuario.php");
@@ -2072,9 +2090,9 @@ function buscarRegistrado() {
             }else{ 
                 $marca=false;
             }
-            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                 'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+                'id_libro'=>$key['id_libro'], 'marca'=>$marca, 'detalle_libro'=>$key['detalle_libro'], 'detalle_autor'=>$key['detalle']);
             $i++;
         }
         require_once("../cookbooksUsuario.php");
@@ -2111,9 +2129,9 @@ function buscarRegistrado() {
                     }else{ 
                         $marca=false;
                     }
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro'], 'marca'=>$marca);
+                        'id_libro'=>$key['id_libro'], 'marca'=>$marca, 'detalle_libro'=>$key['detalle_libro'], 'detalle_autor'=>$key['detalle']);
                     $i++;
                 }
         require_once("../cookbooksUsuario.php");
@@ -2160,7 +2178,7 @@ function buscarRegistrado() {
                 foreach ($todo as $key ) {
                     $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro']);
+                        'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
                 }
                 $bajaOk=true;
@@ -2210,7 +2228,7 @@ function buscarRegistrado() {
                     foreach ($todo as $key ) {
                         $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                             'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                            'id_libro'=>$key['id_libro']);
+                            'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                         $i++;
                     }
                     $bajaOk=true;
@@ -2265,7 +2283,7 @@ function buscarRegistrado() {
                 foreach ($todo as $key ) {
                     $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                        'id_libro'=>$key['id_libro']);
+                        'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
                 }
                 require_once("../cookbooks.php");
@@ -2304,7 +2322,7 @@ function buscarRegistrado() {
         foreach ($todo as $key ) {
             $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
                 'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
-                'id_libro'=>$key['id_libro']);
+                'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
             $i++;
         }
 

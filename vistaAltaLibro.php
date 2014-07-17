@@ -215,6 +215,20 @@
             <tr>
               <td>
                 <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Detalle/Descripcion</span>
+                    <?php
+                      if(isset($detalle)){
+                        echo "<textarea cols='60' rows='5' class='form-control' name='detalle_libro' id='detalle_libro' >".$detalle."</textarea>";
+                      }else{
+                        echo "<textarea class='form-control' cols='60' rows='5' name='detalle_libro' id='detalle_libro' ></textarea>";
+                      }
+                    ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="input-group input-group-lg">
                   <span class="input-group-addon">Portada</span>
                   <?php
                     if(isset($referencia_util)){

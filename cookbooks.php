@@ -126,12 +126,15 @@
     <br>
     <?php
       $contar=0;
+      $i=0;
       foreach ($arrayNa as $key){
         if($contar==0){
            echo "<div class='container-fluid'>";
            echo "<div class='row'>";
         }
         $referencia= $key['referencia_foto'];
+        $detalle = $key['detalle_libro'];
+        $titulo = $key['titulo'];
         echo  "
                  <div class='col-md-3'>
                 <table>
@@ -166,19 +169,40 @@
                 </td>
                 </tr>
                 <tr>
-                <td>
-                <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
+                <td>                
+                  <button class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModal".$i."'>
+                    Ver detalles &raquo;
+                  </button>
+                  <div class='modal fade' id='myModal".$i."' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog'>
+                      <div class='modal-content'>
+                        <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
+                          <h4 class='modal-title' id='myModalLabel'>Detalles del libro: ".$titulo."</h4>
+                        </div>
+                        <div class='modal-body'>
+                          <textarea readonly cols='60' rows='5' class='form-control' name='detalle_libro' id='detalle_libro' >".$detalle."</textarea>
+                        </div>
+                        <div class='modal-footer'>
+                          <button type='button' class='btn btn-default' data-dismiss='modal'>Cerrar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
                 </tr>
                 </table>
                 </div>
         ";
+        $i++;
         $contar++;
         if ($contar%4==0){
           echo "</div>";
           echo "</div>";
           $contar=0;
         }
+        //<p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
+        //<button type="button" class="btn btn-primary">Obvio papu</button>
       }
       echo "
         </div>

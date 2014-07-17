@@ -122,6 +122,7 @@
       <br>
       <?php
         $contar=0;
+        $i=0;
         if(isset($arrayNa)){
           if(count($arrayNa)>0){
             foreach ($arrayNa as $key){
@@ -145,6 +146,9 @@
                   </form>";
               }
               $referencia= $key['referencia_foto'];
+              $titulo=$key['titulo'];
+              $detalle= $key['detalle_libro'];
+              $detalle_autor= $key['detalle_autor'];
               echo  " <div class='col-md-3'>
                       <h2>Titulo: ".$key['titulo']."</h2>
                       <h4>Editorial: ".$key['editorial']."</h4>
@@ -153,7 +157,29 @@
                       <h4>$".$key['precio']."</h4>
                       <p><img class='img-book img-rounded' src='$referencia' alt='cocina3' height='200' weight='200'></p>
                       <br>
-                      <p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>";
+                      <button class='btn btn-primary' data-toggle='modal' data-target='#myModal".$i."'>
+                    Ver detalles &raquo;
+                  </button>
+                  <div class='modal fade' id='myModal".$i."' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog'>
+                      <div class='modal-content'>
+                        <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
+                          <h4 class='modal-title' id='myModalLabel'>Detalles del libro: ".$titulo."</h4>
+                        </div>
+                        <div class='modal-body'>
+                          <textarea readonly cols='60' rows='5' class='form-control' name='detalle_libro' id='detalle_libro' >".$detalle."</textarea>
+                          <p>Detalle del autor: ".$key['autor']."</p>
+                          <textarea readonly cols='60' rows='5' class='form-control' name='detalle_libro' id='detalle_libro' >".$detalle_autor."</textarea>
+                        </div>
+                        <div class='modal-footer'>
+                          <button type='button' class='btn btn-default' data-dismiss='modal'>Cerrar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                      ";
+                      $i++;
               echo  $marca;
               echo "  </div> ";
               $contar++;
@@ -184,6 +210,7 @@
               </table>";
         echo "</div>";
         echo "</div>";
+        //<p><a class= 'btn btn-default' href='#'' role='button'>Ver detalles &raquo;</a></p>
       ?>
      <!-- </div>  /container -->
     <!-- Bootstrap core JavaScript
