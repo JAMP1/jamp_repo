@@ -334,6 +334,8 @@ class entidad{
             require_once './cookbooks.php';
         }
     }
+
+    
     function confirmarAltaIdioma () {
         $per=$_SESSION['permiso'];
         if($per==1){
@@ -881,6 +883,12 @@ class entidad{
         }
         require_once "../vistaCarritoLibro.php";
     }
+
+    
+    
+    
+
+
 
     function bajaLibroCarrito(){
         $per=$_SESSION['permiso'];
@@ -1694,6 +1702,52 @@ class entidad{
         header("Content_Type = $mime ");
         echo $laposta;
     }*/
+function buscarUsuarioCarrito(){
+
+    $valor=obtenerUsuariosConCarrito();
+    if (($valor != "error") && (count($valor) > 0)){
+        $arrayNa = array();
+        $i=0;
+        foreach ($valor as $key ) {
+            $arrayNa[$i]=array('nombreUsuario' => $key['nombreUsuario'], 'idUsuario' => $key['id_usuario']);
+            $i++;
+        }
+        require_once("../vistaCarritosAdmin.php");
+    }
+}
+
+function cargarCarritosAdmin () {
+
+    $valor=obtenerUsuariosConCarrito();
+    if (($valor != "error") && (count($valor) > 0)){
+        $arrayNu = array();
+        $i=0;
+        foreach ($valor as $key ) {
+            $arrayNu[$i]=array('nombreUsuario' => $key['nombreUsuario'], 'idUsuario' => $key['id_usuario']);
+            $i++;
+        }
+    }
+
+    if (isset($_POST['idUsuario'])) {
+        $usuario=$_POST['idUsuario'];
+        $libros=recuperarLibroCarrito($usuario);
+        if (count($libros) > 0){
+            if ( $libros!="error"){
+                $arrayNa = array();
+                $i=0;
+                foreach ($libros as $key ) {
+                  $arrayNa[$i]=array('nombre' => $key[29] , 'isbn' => $key['isbn'], 
+                       'cantPag' =>$key['cantPag'], 'stock' =>$key['stock'],'precio'=>$key['precio'], 'id_libro' => $key['id_libro'],
+                        'id_carrito'=>$key['id_carrito'], 'cantidad_pedida'=>$key['cantidad_pedida'], 'idUsuario'=>$key['nombreUsuario'] );
+                   $i++;
+                } 
+            } 
+
+       }
+    }
+    require_once "../vistaCarritosAdmin.php";
+
+}
 
 function buscar() {
         

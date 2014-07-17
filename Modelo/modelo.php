@@ -668,6 +668,28 @@ function obtenerLibrosEnCarrito($id_carrito){
 	}
 }
 
+function recuperarUsuarios(){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `carrito`  
+ 									INNER JOIN `usuario` ON usuario.id_usuario=carrito.id_usuario
+									INNER JOIN `carrito_libro` ON carrito.id_carrito=carrito_libro.id_carrito 
+									INNER JOIN `libro` ON libro.id_libro=carrito_libro.id_libro
+									INNER JOIN `libroautor`  ON libroautor.id_libro=libro.id_libro 
+									INNER JOIN `autor`  ON autor.id_autor=libroautor.id_autor
+									INNER JOIN `editorial`  ON editorial.id_editorial=libro.id_editorial 
+									WHERE carrito.id_usuario= :IdUsuario AND carrito.baja= :0");
+		$res = $query -> execute(array('IdUsuario' => $idUsuario ));
+		$res = $query -> fetchAll();
+		$query = $link -> prepare("SELECT * FROM `carrito` WHERE `id_usuario`= :IdUsuario");
+		$res2= $query -> execute(array('IdUsuario' => $idUsuario));
+		$res2 = $query-> fetchAll();
+		$link = cerrarConexion();
+		return $res;
+	}
+	
+}
 
 function recuperarLibroCarrito($idUsuario){
 	$link = conectarBaseDatos();
@@ -866,6 +888,28 @@ function obtenerUsuarios() {
 	}
 	return $res;
 }
+
+function obtenerUsuariosConCarrito() {
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT DISTINCT u.nombreUsuario, u.id_usuario
+	 							FROM `usuario` as u
+	 							INNER JOIN `carrito` as c ON c.id_usuario=u.id_usuario
+	 							INNER JOIN `carrito_libro` as cl ON cl.id_carrito=c.id_carrito
+	 							WHERE u.baja=0");
+	 	$res = $query -> execute();
+		$res = $query -> fetchAll();		
+		$link = cerrarConexion();
+	}
+	else{
+
+		$res="error";
+	}
+		return $res;
+	
+}
+
+
 function obtenerUsuariosAdmin() {
 	$link = conectarBaseDatos();
 	if ($link != "error"){
