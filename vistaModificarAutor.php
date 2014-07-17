@@ -54,7 +54,7 @@
             <h3 class="panel-title">Modificar datos de autor</h3>
           </div>
           <table class="table table-centered">
-            <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionAutor&clase=entidad" onSubmit="return validar()">
+            <form class="formulario" method="POST" action="llamadaController.php?action=confirmarModificacionAutor&clase=entidad" onSubmit="return validarAutor()">
               <tr>
                 <td>
                   <div class="input-group input-group-lg">

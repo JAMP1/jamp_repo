@@ -3,9 +3,10 @@ function validar() {
 	//pero no lo hace con los intermedios
 	var patron= /^[a-zA-Z]+/;
 	var patronfin= /[a-zA-Z]+$/;
+	var patronNombre= /^[a-zA-Z]+$/;
 	var nom=document.getElementById('nombre').value;
 	var tam = nom.length;
-	if ((patron.test(nom)) && (nom.length <= 20) && (patronfin.test(nom))){
+	if ((patron.test(nom)) && (nom.length <= 20) && (patronfin.test(nom) && (patronNombre.test(nom)))){
 		return true;
 	}
 	else{
@@ -225,10 +226,17 @@ function confirmaCompra(){
 
 function validarFechaParaBusqueda(){
 	/*var patronFecha= new RegExp(" ( ([2][01][01][0123456789])/(0[123456789]|10|11|12)/([0][123456789]|[12][0123456789]|[3][01]) ) ");
-	var num= new RegExp("([2][0][0-1][0-9])");
-	var fecha= document.getElementById('anio_inicial');
-	alert(patronFecha.test(fecha));
-	return confirm("¿?");*/
+	var num= new RegExp("([2][0][0-1][0-9])");*/
+	/*var fechaIni= document.getElementById('fecha_inicial');
+	var fechaFin= document.getElementById('fecha_final');
+	alert(fechaIni>fechaFin);
+	alert(fechaFin>fechaIni);
+	if (fechaIni >= fechaFin) {
+		alert("ERROR! La fecha de inicio debe ser menor que la fecha de fin");
+		return false;
+	}else{
+		return true;
+	}*/
 }
 
 

@@ -255,14 +255,14 @@ class entidad{
     function confirmarModificacionEditorial () {
         $per=$_SESSION['permiso'];
         if($per==1){
-            $nom=$_POST['nombre_editorial'];
+            $nombre_editorial=$_POST['nombre_editorial'];
             $id=$_POST['id_editorial'];
-            $arreglo= validarAltaEditorial($nom);
+            $arreglo= validarAltaEditorial($nombre_editorial);
             if((!empty($arreglo)) && ($arreglo[0]['id_editorial'] != $id)){
                 $existe = 'existe';
-                require_once("../vistaAltaEditorial.php");
+                require_once("../vistaModificarEditorial.php");
             }else{
-                $intento=modificarEditorial($nom,$id);
+                $intento=modificarEditorial($nombre_editorial,$id);
                 if ($intento){
                     $editoriales=obtenerEditoriales();
                     if ( $editoriales!="error"){
@@ -564,8 +564,16 @@ class entidad{
         if($per==1){
             $nombre_autor=$_POST['nom_autor'];
             $id=$_POST['id_autor'];
-            $detalle_autor= $_POST['detalle_autor'];
+           // $detalle_autor= $_POST['detalle_autor'];
             $arreglo= validarAltaAutor($nombre_autor);
+            if(!empty($_POST['detalle_autor'])){
+                $detalle_autor= $_POST['detalle_autor'];
+                /*if(count($detalle)==0){
+                    $detalle="no posee";
+                }*/
+            }else{
+                $detalle_autor= "no posee";
+            }
             if((!empty($arreglo)) && ($arreglo[0]['id_autor'] != $id)){
                 $existe = 'existe';
                 require_once("../vistaModificarAutor.php");
@@ -677,7 +685,8 @@ class entidad{
                 $i=0;
                 foreach ($libros as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] ,'isbn' => $key['isbn'],'cantPag' =>$key['cantPag'], 
-                                'stock' =>$key['stock'],'precio'=>$key['precio'],'id_libro' => $key['id_libro'] );
+                                'stock' =>$key['stock'],'precio'=>$key['precio'],
+                                'id_libro' => $key['id_libro'], 'detalle_libro'=>$key['detalle_libro'] );
                     $i++;
                 }
             }
@@ -1186,7 +1195,7 @@ class entidad{
                 $arrayNa = array();
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
                         'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
@@ -1410,7 +1419,7 @@ class entidad{
                 foreach ($usuarios as $key ) {
                     $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
                         'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                            'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'], 'detalle_libro'=>$key['detalle_libro'] );
+                            'id_usuario' => $key['id_usuario'], 'permiso'=>$key['id_permiso'] );
                     $i++;
                 }
             }
@@ -1548,7 +1557,7 @@ class entidad{
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
                         'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
@@ -1582,7 +1591,7 @@ class entidad{
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
                         'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
@@ -1616,7 +1625,7 @@ class entidad{
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
                         'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
@@ -1650,7 +1659,7 @@ class entidad{
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
                         'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
@@ -1684,7 +1693,7 @@ class entidad{
         }
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 
                         'referencia_foto'=>$key['referencia_foto'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
@@ -1719,7 +1728,7 @@ class entidad{
                 $arrayNa = array();
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'], 
                         'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
@@ -1818,7 +1827,7 @@ function buscar() {
         $arrayNa = array();
         $i=0;
         foreach ($todo as $key ) {
-                $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 
                         'referencia_foto'=>$key['referencia_foto'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
@@ -2176,7 +2185,7 @@ function buscarRegistrado() {
                 $arrayNa = array();
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
                         'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
@@ -2226,7 +2235,7 @@ function buscarRegistrado() {
                     $arrayNa = array();
                     $i=0;
                     foreach ($todo as $key ) {
-                        $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                        $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                             'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
                             'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                         $i++;
@@ -2281,7 +2290,7 @@ function buscarRegistrado() {
                 $arrayNa = array();
                 $i=0;
                 foreach ($todo as $key ) {
-                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                         'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
                         'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
@@ -2320,7 +2329,7 @@ function buscarRegistrado() {
         $arrayNa = array();
         $i=0;
         foreach ($todo as $key ) {
-            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[19] ,
+            $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
                 'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
                 'id_libro'=>$key['id_libro'], 'detalle_libro'=>$key['detalle_libro']);
             $i++;
@@ -2340,21 +2349,8 @@ function buscarRegistrado() {
         //                      tengo que pensar que informacion recupero
         //                  posteriormente cargar los libros en un arreglo y cargar la vista que los muestre
         $fecha_inicial= $_POST['fecha_inicial'];
-        if(isset($_POST['hora_inicial'])){
-            $hora_inicial=$_POST['hora_inicial'];
-        }
         $fecha_final= $_POST['fecha_final'];
-        if(isset($_POST['hora_final'])){
-            $hora_final=$_POST['hora_final'];
-        }
-       /* var_dump($fecha_inicial);
-        echo "||";
-        var_dump($fecha_final);*/
         $libros_vendidos = buscaVentasEntreDosFechas($fecha_inicial, $fecha_final);
-        //fecha, persona, cantidad, precio del libro, isbn, y nombrelibro
-        // nombre del usuario, la fecha, el total, un boton el detalle ( libro, precio, cantidad) y total, ademas el estado(cambiable) 
-        /*echo "  el arreglo tiene: ";
-        var_dump($libros_vendidos);*/
         $arrayNa = array();
         $i=0;
         foreach ($libros_vendidos as $key ) {
@@ -2363,6 +2359,36 @@ function buscarRegistrado() {
             $i++;
         }
         require_once("../vistaBusquedaLibros.php");
+    }
+
+    function busquedaUsuarios(){
+        require_once("../vistaBusquedaUsuarios.php");
+    }
+    
+    function efectuarBusquedaUsuarios(){
+        $fecha_inicial= $_POST['fecha_inicial'];
+        $fecha_final= $_POST['fecha_final'];
+        $usuarios = buscaUsuariosEntreDosFechas($fecha_inicial, $fecha_final);
+        $arrayNa = array();
+        $i=0;
+        foreach ($usuarios as $key ) {
+            if($key['baja']==1){
+                $estado="Inactiva";
+            }else{
+                $estado="Activa";
+            }
+            if($key['id_permiso']==1){
+                $permiso="Administrador";
+            }else{
+                $permiso="Usuario";
+            }
+            $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
+                'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'usuario'=>$key['nombreUsuario'] , 
+                'contrasena'=>$key['contrasena'], 'id_usuario' => $key['id_usuario'], 'tipo_usuario'=>$permiso, 
+                'estado'=>$estado, 'fecha'=>$key['fecha_alta'] );
+            $i++;
+        }
+        require_once("../vistaBusquedaUsuarios.php");
     }
 
 }

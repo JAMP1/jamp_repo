@@ -69,12 +69,12 @@
           }
       ?>
     </div>
-    <div class="jumbotron">
+    <!--<div class="jumbotron">
       <div class="container">
         <h1>Bienvenidos!</h1>
         <p>Esto es un texto de prueba para ver como se ve nuestra página!</p>
       </div>
-    </div>
+    </div>-->
     <div class="row">
       <a name="nombreAncla"></a>
       <div class="col-md-4">

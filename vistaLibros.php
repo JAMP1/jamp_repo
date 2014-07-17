@@ -67,6 +67,7 @@
               <td class="separados"><p>ISBN</p></td>
               <td class="separados"><p>Cantidad pag</p></td>
               <td class="separados"><p>Precio</p></td>
+              <td class="separados"><p>Detalle/Descripcion</p></td>
               <td class="separados"><p>Eliminar Libro</p></td>
               <td class="separados"><p>Modificar Libro</p></td>
             </tr>
@@ -79,6 +80,7 @@
                     <td class='separados'><p>".$key["isbn"]."</p></td>
                     <td class='separados'><p>".$key["cantPag"]."</p></td>   
                     <td class='separados'><p>$".$key["precio"]."</p></td>
+                    <td class='separados'><textarea cols='55'  class='form-control' readonly >".$key['detalle_libro']."</textarea></td>
                     <td>
                       <form method='POST' onSubmit='return confirmar()'' action='/JAMP/PORTI/llamadaController.php?action=bajaLibro&clase=entidad'>
                         <input name='id_libro' type='hidden' value='".$key['id_libro']."'/>

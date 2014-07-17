@@ -534,7 +534,7 @@ function validarModificacionLibro($isbn){
 function obtenerLibrosBorrados(){
   	$link = conectarBaseDatos();
   	if ($link != "error"){
-  		$query = $link->prepare("SELECT `nombre`,`isbn`,`cantPag`, `stock`,`precio`,`id_libro` FROM libro WHERE `baja`=1");
+  		$query = $link->prepare("SELECT * FROM libro WHERE `baja`=1");
   		$query->execute();
   		$res=$query->fetchAll();
   		$link=cerrarConexion();  	
@@ -1172,6 +1172,19 @@ function buscaVentasEntreDosFechas($fecha_inicial, $fecha_final){
 								INNER JOIN `libroventa` as lv ON v.id_venta=lv.id_venta 
 								INNER JOIN `libro` as l ON lv.id_libro=l.id_libro 
 								WHERE `fecha` BETWEEN :FechaInicial AND :FechaFinal ");
+		$res= $query ->execute(array(':FechaInicial'=>$fecha_inicial, 'FechaFinal'=>$fecha_final));
+		$res= $query ->fetchAll();
+		$link = cerrarConexion();
+		return $res;
+	}
+}
+
+function buscaUsuariosEntreDosFechas($fecha_inicial, $fecha_final){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query=$link ->prepare(" SELECT * 
+								FROM `usuario` 
+								WHERE `fecha_alta` BETWEEN :FechaInicial AND :FechaFinal ");
 		$res= $query ->execute(array(':FechaInicial'=>$fecha_inicial, 'FechaFinal'=>$fecha_final));
 		$res= $query ->fetchAll();
 		$link = cerrarConexion();

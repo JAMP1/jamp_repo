@@ -30,8 +30,8 @@
         <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
         <ul class="nav navbar-nav">
       	<li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio </a></li>
-          <li class="active"><a href ="#">Busqueda libros </a></li>
-          <li><a href ="/JAMP/PORTI/llamadaController.php?action=busquedaUsuarios&clase=entidad">Busqueda usuarios </a></li>          
+          <li><a href ="/JAMP/PORTI/llamadaController.php?action=busquedaLibros&clase=entidad">Busqueda libros </a></li>
+          <li class="active"><a href ="#">Busqueda usuarios </a></li> 
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -43,7 +43,7 @@
       <div class="col-md-12">
         <div class="panel panel-info">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class='glyphicon glyphicon-search'></i> Busqueda de libros vendidos entre dos fechas</h3>
+            <h3 class="panel-title"><i class='glyphicon glyphicon-search'></i> Busqueda de usuarios registrados entre dos fechas</h3>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
   <div class="container">   
     <div class="row table-bordered">
       <div class="col-md-6">
-        <form class="form-horizontal" onSubmit="return validarFechaParaBusqueda()" method="post" action="/JAMP/PORTI/llamadaController.php?action=efectuarBusqueda&clase=entidad">   
+        <form class="form-horizontal" onSubmit="return validarFechaParaBusqueda()" method="post" action="/JAMP/PORTI/llamadaController.php?action=efectuarBusquedaUsuarios&clase=entidad">   
           <div class="panel panel-warning">
             <div class="panel-heading">
               <h3 class="panel-title">Fecha inicial</h3>
@@ -71,7 +71,7 @@
             <div class="input-group">
               <span class="input-group-addon">Fecha</span>
               <input type="date" class="form-control input-small" id="fecha_final" name="fecha_final" required="required"> 
-            </div>                 
+            </div>         
           </div> 
         </div>                 
       <button class=' btn btn-danger navbar-right' type='submit' > Buscar </button>
@@ -84,7 +84,7 @@
         <div class="panel-heading">
           <?php
             if(isset($arrayNa)){
-              echo "<h3 class='panel-title'>Libros vendidos entre las fechas seleccionadas</h3>";
+              echo "<h3 class='panel-title'>Usuarios registrados entre las fechas seleccionadas</h3>";
             }
           ?>
         </div>
@@ -93,27 +93,33 @@
             if(isset($arrayNa)){
               if(count($arrayNa)>0){
                 echo "
-                    <td class='separados'><p>Nombre Libro</p></td>
-                    <td class='separados'><p>ISBN</p></td>
-                    <td class='separados'><p>Cantidad vendida</p></td>                      
-                    <td class='separados'><p>Precio unidad</p></td>
-                    <td class='separados'><p>Usuario comprador</p></td>
-                    <td class='separados'><p>Fecha de venta</p></td>
+                    <td class='separados'><p>Nombre</p></td>
+                    <td class='separados'><p>Apellido</p></td>
+                    <td class='separados'><p>Email</p></td>                      
+                    <td class='separados'><p>Telefono</p></td>
+                    <td class='separados'><p>Numero de documento</p></td>
+                    <td class='separados'><p>Nombre de usuario</p></td>
+                    <td class='separados'><p>Tipo de usuario</p></td>
+                    <td class='separados'><p>Fecha de alta</p></td>
+                    <td class='separados'><p>Estado de cuenta</p></td>                  
                   </tr>
                 ";
                 foreach($arrayNa as $key){
                   echo "
-                      <td class='separados'><p>".$key['titulo']."</p></td>
-                      <td class='separados'><p>".$key['isbn']."</p></td>
-                      <td class='separados'><p>".$key['cantidad_comprada']."</p></td>
-                      <td class='separados'><p>$".$key['precio_unidad']."</p></td>
+                      <td class='separados'><p>".$key['nombre']."</p></td>
+                      <td class='separados'><p>".$key['apellido']."</p></td>
+                      <td class='separados'><p>".$key['email']."</p></td>
+                      <td class='separados'><p>".$key['telefono']."</p></td>
+                      <td class='separados'><p>".$key['dni']."</p></td>                      
                       <td class='separados'><p>".$key['usuario']."</p></td>
+                      <td class='separados'><p>".$key['tipo_usuario']."</p></td>
                       <td class='separados'><p>".$key['fecha']."</p></td>
+                      <td class='separados'><p>".$key['estado']."</p></td>
                     </tr>
                   ";
                 }
               }else{
-                echo "<div class='alert alert-danger'>No han habido ventas en el intervalo seleccionado!</div>";
+                echo "<div class='alert alert-danger'>No han habido usuarios registrados en el intervalo seleccionado!</div>";
               }
             }
           ?>
