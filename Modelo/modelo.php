@@ -641,7 +641,7 @@ function validarUsuarioYDni($nombreUsuario, $dni){
 function recuperarCliente($nombreUsuario){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-	 	$query = $link->prepare("SELECT `nombreusuario`, `id_usuario`, `email` FROM usuario WHERE `nombreusuario`=:Nom");
+	 	$query = $link->prepare("SELECT `nombreusuario`, `id_usuario`, `email`, `baja` FROM usuario WHERE `nombreusuario`=:Nom");
 	 	$query->execute(array('Nom' => $nombreUsuario));
 	 	$res=$query->fetchAll();
 	 	$link=cerrarConexion();

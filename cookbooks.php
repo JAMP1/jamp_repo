@@ -61,6 +61,9 @@
           if(isset($sePudoAlta)){
               echo" <div class='alert alert-success'>Exito! Ya forma parte de nuestro sistema!!</div>";
           }
+          if(isset($dadoDeBaja)){
+            echo "<div class='alert alert-danger'>Error! El usuario esta dado de baja!</div>";
+          }          
           if(isset($seEnvioCorreo)){
             echo "<div class='alert alert-success'>Felicidades! Se ha enviado un mail con la contrasena correspondiente!</div>";
           }

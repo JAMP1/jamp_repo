@@ -1792,7 +1792,6 @@ function cargarCarritosAdmin () {
        }
     }
     require_once "../vistaCarritosAdmin.php";
-
 }
 
 function buscar() {
@@ -2382,14 +2381,17 @@ function buscarRegistrado() {
                 $noEstaBienEmail=true;
                 require_once("../vistaRecuperarContrasena.php");
             }else{
-                $nuevaContra="";
-                for ($i=0; $i < 8 ; $i++) { 
-                    $digito = rand(0,9);
-                    $nuevaContra= $nuevaContra.$digito;
+                if($usuario[0]['baja']==1){
+                    $dadoDeBaja=true;
+                }else{
+                    $nuevaContra="";
+                    for ($i=0; $i < 8 ; $i++) { 
+                        $digito = rand(0,9);
+                        $nuevaContra= $nuevaContra.$digito;
+                    }
+                    modificaContraCliente($nombreUsuario, $nuevaContra);
+                    $seEnvioCorreo=true;
                 }
-                modificaContraCliente($nombreUsuario, $nuevaContra);
-
-                $seEnvioCorreo=true;
                 $resultadoAutor=obtenerAutores();
                 $resultadoEtiqueta=obtenerEtiquetas();
                 $resultadoEditorial=obtenerEditoriales();
@@ -2465,6 +2467,10 @@ function buscarRegistrado() {
 
     function busquedaLibros(){
         require_once("../vistaBusquedaLibros.php");
+    }
+
+    function verVentasGenerales(){
+        require_once("../vistaVentasGenerales.php");
     }
 
     function efectuarBusqueda(){

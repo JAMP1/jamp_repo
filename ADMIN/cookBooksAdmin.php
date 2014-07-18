@@ -39,7 +39,7 @@
                 <li><a href="../PORTI/llamadaController.php?action=cargarUsuario&clase=entidad"> Administración Usuario</a></li>
                 <li><a href="../PORTI/llamadaController.php?action=cargarIdioma&clase=entidad"> Administración Idiomas</a></li>
                 <li><a href="../PORTI/llamadaController.php?action=cargarCarritosAdmin&clase=entidad"> Ver Carritos de Compras </a></li>
-                <li><a href="../PORTI/llamadaController.php?action=busquedaLibros&clase=entidad"> Busquedas </a></li>              
+                <li><a href="../PORTI/llamadaController.php?action=busquedaLibros&clase=entidad"> Ventas y Busquedas </a></li>              
               </ul>
             </li>            
           </ul>
