@@ -120,6 +120,20 @@ function recuperarEditorial($id){
 	}
 	return $res;
 }
+
+function recuperarEditorialPorNombre($nombre){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT * FROM editorial WHERE `nombre`=:Nom");
+	 	$query->execute(array('Nom' => $nombre ));
+	 	$res=$query->fetch();
+	 	$link=cerrarConexion(); 
+	}else {
+	 	$res= "error";
+	}
+	return $res;
+}
+
 function recuperarEtiqueta($id){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
@@ -132,11 +146,37 @@ function recuperarEtiqueta($id){
 	}
 	return $res;
 }
+function recuperarEtiquetaPorNombre($nombre){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT * FROM etiqueta WHERE `nombre`=:Nom");
+	 	$query->execute(array('Nom' => $nombre ));
+	 	$res=$query->fetch();
+	 	$link=cerrarConexion(); 
+	}else {
+	 	$res= "error";
+	}
+	return $res;
+}
+
 function recuperarAutor($id){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
 	 	$query = $link->prepare("SELECT `nombre`,`id_autor` FROM autor WHERE `id_autor`=:Id");
 	 	$query->execute(array('Id' => $id ));
+	 	$res=$query->fetch();
+	 	$link=cerrarConexion(); 
+	}else {
+	 	$res= "error";
+	}
+	return $res;
+}
+
+function recuperarAutorPorNombre($nombre){
+	$link = conectarBaseDatos();
+	if ($link != "error"){
+	 	$query = $link->prepare("SELECT * FROM autor WHERE `nombre`=:Nom");
+	 	$query->execute(array('Nom' => $nombre ));
 	 	$res=$query->fetch();
 	 	$link=cerrarConexion(); 
 	}else {
@@ -1159,6 +1199,50 @@ function buscarTodo($editorial,$etiqueta,$autor){
 	}
                
 }
+
+function buscarLibrosPorEditorial($editorial){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` as l
+									INNER JOIN `editorial` as edi ON edi.id_editorial=l.id_editorial 
+									WHERE l.baja=0 AND edi.nombre=:editorial");
+		$res = $query -> execute(array('editorial' =>$editorial ));
+		$res = $query -> fetchAll();		
+		$link = cerrarConexion();
+		return $res;
+	}
+}
+
+function buscarLibrosPorEtiqueta($etiqueta){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` as l
+ 									INNER JOIN `etiqueta` as e ON l.id_etiqueta=e.id_etiqueta							
+									WHERE l.baja=0 AND e.nombre=:etiqueta");
+		$res = $query -> execute(array('etiqueta' =>$etiqueta));
+		$res = $query -> fetchAll();		
+		$link = cerrarConexion();
+		return $res;
+	}
+}
+
+function buscarLibrosPorAutor($autor){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT *
+ 									FROM `libro` as l
+									INNER JOIN `libroautor` as la  ON la.id_libro=l.id_libro 
+									INNER JOIN `autor` as a ON a.id_autor=la.id_autor
+									WHERE l.baja=0 AND a.nombre=:autor");
+		$res = $query -> execute(array('autor' =>$autor ));
+		$res = $query -> fetchAll();		
+		$link = cerrarConexion();
+		return $res;
+	}
+}
+
 
 function buscaIdCarritoPorIdUsuario($idUsuario){
 	$link = conectarBaseDatos();

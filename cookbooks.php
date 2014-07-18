@@ -69,58 +69,89 @@
           }
       ?>
     </div>
-    <!--<div class="jumbotron">
+    <div class="jumbotron">
       <div class="container">
-        <h1>Bienvenidos!</h1>-->
         <img src="/JAMP/IMG/cookbooks.png" width="390px" height="160px">
         <!--<img src="/JAMP/IMG/background.png">-->
       </div>
     </div>
+    <div class="container">
     <div class="row">
       <a name="nombreAncla"></a>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=filtrar&clase=entidad#nombreAncla">
-          <select name="tipo">
-            <option value="editorial">Editorial</option> 
-            <option value="titulo">Titulo</option> 
-            <option value="autor">Autor</option> 
-            <option value="precio">Precio</option> 
-            <option value="etiqueta">Etiqueta</option> 
-          </select>
-          <button class="btn btn-info" type="submit"> Ordenar </button>
-          <!--<a href="#nombreAncla">Introducción</a><br>-->
+          <div class="row panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Ordenacion por criterios</h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-md-5">
+                <select name="tipo" class="col-md-2 form-control input-group">
+                  <option value="editorial">Editorial</option> 
+                  <option value="titulo">Titulo</option> 
+                  <option value="autor">Autor</option> 
+                  <option value="precio">Precio</option> 
+                  <option value="etiqueta">Etiqueta</option> 
+                </select>
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-info" type="submit"> Ordenar </button>
+              </div>  
+            </div>          
+          </div>
         </form>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-1"> </div>
+      <div class="container col-md-7">
         <a name="nombreAnclaDos"></a>
         <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=buscar&clase=entidad#nombreAnclaDos">
-          <select name="busquedaEditorial">
-            <?php
-              foreach ($arrayNu as $kay){
-                echo 
-                  "<option value='".$kay['nombre']."'>".$kay['nombre']."</option>";
-              }
-            ?>   
-          </select>
-          <select name="busquedaEtiqueta">
-            <?php
-              foreach ($arrayNo as $koy){
-                echo  
-                  "<option value='".$koy['nombre']."'>".$koy['nombre']."</option>";
-              }
-            ?>  
-          </select>
-          <select name="busquedaAutor">
-            <?php
-              foreach ($arrayNe as $kuy){
-                echo 
-                  "<option value='".$kuy['nombre']."'>".$kuy['nombre']."</option>";
-              }
-            ?>
-          </select>
-          <button class="btn btn-info" type="submit"> Buscar </button>
+          <div class="row panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Busqueda por filtros</h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-md-3">
+                <select name="busquedaEditorial" class="form-control input-group">
+                  <?php
+                    echo "<option value='no_editorial'>Editorial</option>";
+                    foreach ($arrayNu as $kay){
+                      echo 
+                        "<option value='".$kay['nombre']."'>".$kay['nombre']."</option>";
+                    }
+                  ?>   
+                </select>
+              </div>
+              <div class="col-md-3">
+                <select name="busquedaEtiqueta" class="form-control input-group">
+                  <?php
+                    echo "<option value='no_etiqueta'>Etiqueta</option>";
+                    foreach ($arrayNo as $koy){
+                      echo  
+                        "<option value='".$koy['nombre']."'>".$koy['nombre']."</option>";
+                    }
+                  ?>  
+                </select>
+              </div>
+              <div class="col-md-3">
+                <select name="busquedaAutor"class="form-control input-group">
+                  <?php
+                    echo "<option value='no_autor'>Autor</option>";
+                    foreach ($arrayNe as $kuy){
+                      echo 
+                        "<option value='".$kuy['nombre']."'>".$kuy['nombre']."</option>";
+                    }
+                  ?>
+                </select>
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-info" type="submit"> Buscar </button>
+              </div>
+            </div>
+            <p class="help-block">Si no desea excluir algun criterio en el filtrado, simplemente no lo seleccione</p>
+          </div>
         </form>
       </div>
+    </div>
     </div>
     <br>
     <br>

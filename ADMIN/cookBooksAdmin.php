@@ -60,6 +60,21 @@
     </head>
   <body> 
   <div>
+    <div class="jumbotron">
+      <div class="container">
+        <div class= "row">
+          <div class="col-md-5">
+            <img src="/JAMP/IMG/cookbooks.png" width="390px" height="160px">
+          </div>
+          <div class="col-md-1"> </div>
+          <div class="col-md-4">
+            <h2>Bienvenido administrador!</h2>
+          </div>
+          
+        </div>
+        <!--<img src="/JAMP/IMG/background.png">-->
+      </div>
+    </div>
     <?php        
         if(isset($noBajaUltimoAdmin)){
             echo" <div class='alert alert-danger'>Cuidado! No puede eliminar el unico admin activo del sistema!!</div>";

@@ -1798,6 +1798,83 @@ function buscar() {
         $valorEditorial=$_POST['busquedaEditorial'];
         $valorEtiqueta=$_POST['busquedaEtiqueta'];
         $valorAutor=$_POST['busquedaAutor'];
+
+    $todosLosLibros= filtrarTodosLosLibros();
+    if($valorEditorial != "no_editorial"){
+        $editorial= recuperarEditorialPorNombre($valorEditorial);
+        $resultado= array();
+        $i=0;
+        foreach ($todosLosLibros as $key) {
+            if($key['id_editorial']==$editorial['id_editorial']){
+                $resultado[$i]= $key;
+            }
+            $i++;            
+        }
+    }else{
+        $resultado=$todosLosLibros;
+    }
+    if($valorEtiqueta != "no_etiqueta"){
+        $etiqueta= recuperarEtiquetaPorNombre($valorEtiqueta);
+        $resultado0= array();
+        $i=0;
+        foreach ($resultado as $key) {
+            if($key['id_etiqueta']==$etiqueta['id_etiqueta']){
+                $resultado0[$i]= $key;
+            }
+            $i++;            
+        }
+        $resultado=$resultado0;
+    }
+    if($valorAutor != "no_autor"){
+        $autor= recuperarAutorPorNombre($valorAutor);
+        $resultado0= array();
+        $i=0;
+        foreach ($resultado as $key) {
+            if($key['id_autor']==$autor['id_autor']){
+                $resultado0[$i]= $key;
+            }
+            $i++;            
+        }
+        $resultado=$resultado0;          
+    }
+    $todo=$resultado;
+
+
+        //$resultado=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor); $resultado ahora es $todo
+        //$todo=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor);
+        $resultadoAutor=obtenerAutores();
+        $resultadoEtiqueta=obtenerEtiquetas();
+        $resultadoEditorial=obtenerEditoriales();
+        $arrayNe = array();
+        $i=0;
+        foreach ($resultadoAutor as $key ) {
+            $arrayNe[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNo = array();
+        $i=0;
+        foreach ($resultadoEtiqueta as $key ) {
+        $arrayNo[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $i=0;
+        $arrayNu = array();
+        foreach ($resultadoEditorial as $key ) {
+            $arrayNu[$i]=array('nombre' => $key['nombre']);
+            $i++;
+        }
+        $arrayNa = array();
+        $i=0;
+        foreach ($todo as $key ) {
+                $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
+                        'etiqueta' => $key[13] , 'precio' =>$key['precio'], 
+                        'referencia_foto'=>$key['referencia_foto'], 'detalle_libro'=>$key['detalle_libro']);
+                    $i++;
+        }
+        require_once("../cookbooks.php");
+       /* $valorEditorial=$_POST['busquedaEditorial'];
+        $valorEtiqueta=$_POST['busquedaEtiqueta'];
+        $valorAutor=$_POST['busquedaAutor'];
         //$resultado=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor); $resultado ahora es $todo
         $todo=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor);
         $resultadoAutor=obtenerAutores();
@@ -1829,7 +1906,7 @@ function buscar() {
                         'referencia_foto'=>$key['referencia_foto'], 'detalle_libro'=>$key['detalle_libro']);
                     $i++;
         }
-            require_once("../cookbooks.php");
+            require_once("../cookbooks.php");*/
         
            
 }
@@ -1839,7 +1916,49 @@ function buscarRegistrado() {
         $valorEditorial=$_POST['busquedaEditorial'];
         $valorEtiqueta=$_POST['busquedaEtiqueta'];
         $valorAutor=$_POST['busquedaAutor'];
-        $todo=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor);
+
+    //no cantes victoria
+    $todosLosLibros= filtrarTodosLosLibros();
+    if($valorEditorial != "no_editorial"){
+        $editorial= recuperarEditorialPorNombre($valorEditorial);
+        $resultado= array();
+        $i=0;
+        foreach ($todosLosLibros as $key) {
+            if($key['id_editorial']==$editorial['id_editorial']){
+                $resultado[$i]= $key;
+            }
+            $i++;            
+        }
+    }else{
+        $resultado=$todosLosLibros;
+    }
+    if($valorEtiqueta != "no_etiqueta"){
+        $etiqueta= recuperarEtiquetaPorNombre($valorEtiqueta);
+        $resultado0= array();
+        $i=0;
+        foreach ($resultado as $key) {
+            if($key['id_etiqueta']==$etiqueta['id_etiqueta']){
+                $resultado0[$i]= $key;
+            }
+            $i++;            
+        }
+        $resultado=$resultado0;
+    }
+    if($valorAutor != "no_autor"){
+        $autor= recuperarAutorPorNombre($valorAutor);
+        $resultado0= array();
+        $i=0;
+        foreach ($resultado as $key) {
+            if($key['id_autor']==$autor['id_autor']){
+                $resultado0[$i]= $key;
+            }
+            $i++;            
+        }
+        $resultado=$resultado0;          
+    }
+    $todo=$resultado;
+
+        //$todo=buscarTodo($valorEditorial,$valorEtiqueta,$valorAutor);
         $resultadoAutor=obtenerAutores();
         $resultadoEtiqueta=obtenerEtiquetas();
         $resultadoEditorial=obtenerEditoriales();
