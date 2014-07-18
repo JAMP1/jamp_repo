@@ -30,6 +30,7 @@
         <p class="navbar-text"> Identificado como: <?php echo "<span class='glyphicon glyphicon-hand-right'> ".$_SESSION['usuario']."</span>"; ?></p>
         <ul class="nav navbar-nav">
       	<li><a href ="/JAMP/PORTI/llamadaController.php?action=volverInicio&clase=admin">Inicio </a></li>
+          <li><a href ="../PORTI/llamadaController.php?action=verVentasGenerales&clase=entidad">Ventas generales</a></li>
           <li class="active"><a href ="#">Busqueda libros </a></li>
           <li><a href ="/JAMP/PORTI/llamadaController.php?action=busquedaUsuarios&clase=entidad">Busqueda usuarios </a></li>          
         </ul>

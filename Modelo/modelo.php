@@ -814,6 +814,7 @@ function recuperarVentaPorId($id_venta){
 }
 
 function recuperarTodasLasVentas($id_carrito){
+	//RECUPERA TODAS LAS VENTAS DE UN USUARIO ESPECIFICO
 	$link=conectarBaseDatos();
 	if($link != "error"){
 		$query=$link->prepare("	SELECT *  FROM `venta` as v
@@ -825,6 +826,36 @@ function recuperarTodasLasVentas($id_carrito){
 		$res= $query->fetchAll();
 		$link=cerrarConexion();
 		return $res;
+	}
+}
+
+function recuperarTodasLasVentasGenerales(){
+	//RECUPERA TODAS LAS VENTAS DE TODOS LOS USUARIOS
+	$link=conectarBaseDatos();
+	if($link != "error"){
+		$query=$link->prepare("	SELECT *  FROM `venta` as v
+								INNER JOIN `carrito` as c ON v.id_carrito=c.id_carrito
+								INNER JOIN `usuario` as u ON c.id_usuario=u.id_usuario
+								INNER JOIN `libroventa` as lv ON  v.id_venta=lv.id_venta
+								INNER JOIN `estado_venta` as ev ON v.estado_venta=ev.id_estado
+								INNER JOIN `libro`	as l ON lv.id_libro=l.id_libro
+								ORDER BY `fecha` DESC");
+		$res=$query->execute();
+		$res= $query->fetchAll();
+		$link=cerrarConexion();
+		return $res;
+	}
+}
+
+function modificarEstadoVenta($idVenta, $id_estado){
+	$link = conectarBaseDatos();
+	if( $link != "error"){
+		$query= $link ->prepare("UPDATE `venta` SET `estado_venta`= :EstadoVenta 
+								WHERE id_venta = :IdVenta ");
+		$query -> execute(array('IdVenta' => $idVenta, 'EstadoVenta'=>$id_estado));
+		$link = cerrarConexion();
+	}else{
+		return "error";
 	}
 }
 

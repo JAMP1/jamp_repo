@@ -318,3 +318,4 @@ function actualizar(){
 	res2= res.concat("'>");
 	document.getElementById("total").innerHTML=res2;
 }
+

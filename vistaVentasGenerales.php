@@ -39,88 +39,84 @@
         </ul>
       </div>
     </nav>      
-    <div class="container">   
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class='glyphicon glyphicon-search'></i> Busqueda de usuarios registrados entre dos fechas</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container">   
-    <div class="row table-bordered">
-      <div class="col-md-6">
-        <form class="form-horizontal" onSubmit="return validarFechaParaBusqueda()" method="post" action="/JAMP/PORTI/llamadaController.php?action=efectuarBusquedaUsuarios&clase=entidad">   
-          <div class="panel panel-warning">
-            <div class="panel-heading">
-              <h3 class="panel-title">Fecha inicial</h3>
-            </div>
-            <div class="input-group">
-              <span class="input-group-addon">Fecha</span>
-              <input type="date" class="form-control input-small" id="fecha_inicial" name="fecha_inicial" required="required"> 
-            </div> 
-          </div>
-        </div>
-        <div class="col-md-6">              
-          <div class="panel panel-warning">
-            <div class="panel-heading">
-              <h3 class="panel-title">Fecha final</h3>
-            </div>
-            <div class="input-group">
-              <span class="input-group-addon">Fecha</span>
-              <input type="date" class="form-control input-small" id="fecha_final" name="fecha_final" required="required"> 
-            </div>         
-          </div> 
-        </div>                 
-      <button class=' btn btn-danger navbar-right' type='submit' > Buscar </button>
-    </form>
-    </div> 
-    </div> 
-    <br>
+    <br>   
     <div class="col-md-12">
       <div class="panel panel-info">
         <div class="panel-heading">
-          <?php
-            if(isset($arrayNa)){
-              echo "<h3 class='panel-title'>Usuarios registrados entre las fechas seleccionadas</h3>";
-            }
-          ?>
+          <h3 class="panel-title">Ventas Generales</h3>
         </div>
         <table class="table table-centered table-bordered">
           <?php 
-            if(isset($arrayNa)){
-              if(count($arrayNa)>0){
+            if(isset($arregloVentas)){
+              if(count($arregloVentas)==0){
+                echo" <div class='alert alert-danger'>No existen ventas en el sistema!!</div>";
+              }else{
                 echo "
-                    <td class='separados'><p>Nombre</p></td>
-                    <td class='separados'><p>Apellido</p></td>
-                    <td class='separados'><p>Email</p></td>                      
-                    <td class='separados'><p>Telefono</p></td>
-                    <td class='separados'><p>Numero de documento</p></td>
-                    <td class='separados'><p>Nombre de usuario</p></td>
-                    <td class='separados'><p>Tipo de usuario</p></td>
-                    <td class='separados'><p>Fecha de alta</p></td>
-                    <td class='separados'><p>Estado de cuenta</p></td>                  
+                <div class='row'>
+                  <tr>
+                    <td class='separados'><p>Usuario</p></td>
+                    <td class='separados'><p>Fecha</p></td>
+                    <td class='separados'><p>Monto total</p></td>
+                    <td class='separados'><p>Estado</p></td>
+                    <td class='separados'><p>Detalle</p></td>
+                    <td class='separados'><p>Actualizar estado</p></td>
                   </tr>
+                </div>
                 ";
-                foreach($arrayNa as $key){
+                foreach ($arregloVentas as $key) {
                   echo "
-                      <td class='separados'><p>".$key['nombre']."</p></td>
-                      <td class='separados'><p>".$key['apellido']."</p></td>
-                      <td class='separados'><p>".$key['email']."</p></td>
-                      <td class='separados'><p>".$key['telefono']."</p></td>
-                      <td class='separados'><p>".$key['dni']."</p></td>                      
-                      <td class='separados'><p>".$key['usuario']."</p></td>
-                      <td class='separados'><p>".$key['tipo_usuario']."</p></td>
-                      <td class='separados'><p>".$key['fecha']."</p></td>
-                      <td class='separados'><p>".$key['estado']."</p></td>
-                    </tr>
+                    <div class='row'>
+                      <tr>
+                        <td class='separados col-md-1'><p>".$key['nombre_usuario']."</p></td>
+                        <td class='separados col-md-2'><p>".$key['fecha']."</p></td>
+                        <td class='separados col-md-1'><p> $".$key['precio_total']."</p></td>
+                        <td class='separados col-md-1'><p> ".$key['nombre_estado']."</p></td>                      
+                        <td class='separados col-md-1'>
+                          <form method='post' action='llamadaController.php?action=verDetalleVentaDeUsuario&clase=entidad'>
+                            <input type='hidden' name='id_venta' value='".$key['id_venta']."'>
+                            <button type='submit' class='btn btn-info'>
+                              <span class='glyphicon glyphicon-eye-open'></span> Ver detalle
+                            </button>
+                          </form>
+                        </td>
+                        <td class='separados col-md-3'>
+                        
+                          <form method='post' class='form' action='/JAMP/PORTI/llamadaController.php?action=modificarVenta&clase=entidad'>                
+                            <div class='input-group input-group col-md-6'>
+                              <span class='input-group-addon'>Estado</span>
+                              <select class='form-control' name='id_estado' id='id_estado' required='required' >";
+                                if($key['estado']==1){
+                                  echo "<option name='' value='' ></option>
+                                        <option value='2'>Despachado</option>
+                                        <option value='3'>Finalizado</option>";
+                                }else{
+                                  if($key['estado']==2){
+                                    echo "<option name='' value='' ></option>
+                                          <option value='1'>Pendiente</option>
+                                          <option value='3'>Finalizado</option>";
+                                  }else{
+                                    if($key['estado']==3)
+                                      echo "<option name='' value='' ></option>
+                                            <option value='1'>Pendiente</option>
+                                            <option value='2'>Despachado</option>";
+                                  }
+                                }
+                    echo "                                                          
+                              </select>                          
+                            </div>
+                            <div class='input-group input-group col-md-1'>
+                              <input type='hidden' name='id_venta' value='".$key['id_venta']."'>
+                              <button type='submit' class='btn btn-warning'>Cambiar</button>
+                            </div>
+
+                          </form>
+                        
+
+                        </td>
+                      </tr>
+                    </div> 
                   ";
                 }
-              }else{
-                echo "<div class='alert alert-danger'>No han habido usuarios registrados en el intervalo seleccionado!</div>";
               }
             }
           ?>

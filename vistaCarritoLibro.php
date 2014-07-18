@@ -155,17 +155,19 @@
           <?php 
             if(isset($arregloVentas)){
              /* echo "
+                <div class='row'>
                 <tr>
                   <td class='separados'><p>Compras realizadas</p></td>
                   <td class='separados'><p>Estado</p></td>
                   <td class='separados'><p></p></td>
                 </tr>
+                </div>
               ";*/
               foreach ($arregloVentas as $key) {
                 echo "
                   <div class='row'>
                     <tr>
-                      <td class='separados'><p>".$key['fecha']."</p></td>
+                      <td class='separados'><p>Fecha: ".$key['fecha']."</p></td>
                       <td class='separados'><p>Estado: ".$key['nombre_estado']."</p></td>
                       <td class='separados'><p>Monto: $".$key['precio_total']."</p></td>
                       <td>

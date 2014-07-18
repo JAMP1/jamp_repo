@@ -2470,6 +2470,63 @@ function buscarRegistrado() {
     }
 
     function verVentasGenerales(){
+
+        $ventas=recuperarTodasLasVentasGenerales();
+        if(count($ventas) > 0){
+            if ($ventas != "error"){
+                $arregloVentas= array();
+                $i=0;
+                $fecha=0;
+                foreach ($ventas as $key) {
+                    if($fecha != $key['fecha']){
+                        $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado_venta'], 'id_venta'=>$key['id_venta'],
+                                                'nombre_estado'=>$key['nombre_estado'], 'precio_total'=> $key['precio_total'],
+                                                'nombre_usuario'=>$key['nombreUsuario']);
+                    }
+                    $fecha = $key['fecha'];
+                    $i++;
+                }
+            }
+        }
+        require_once("../vistaVentasGenerales.php");
+    }
+    function verDetalleVentaDeUsuario(){
+        $per=$_SESSION['permiso'];
+        if($per==1){
+            $id_venta=$_POST['id_venta'];
+            $arregloVentas= recuperarVentaPorId($id_venta);
+            //var_dump($arregloVentas);
+            $enDetalle=true;
+            /*$total=0;
+            foreach($arregloVentas as $key){
+                $total = $total + ($key['cantidad_comprada']*$key['precio']);
+            }*/
+            //var_dump($libros_vendidos);
+            require_once("../vistaDetalleVentaUsuario.php");
+        }
+    }
+
+    function modificarVenta(){
+        $id_venta=$_POST['id_venta'];
+        $id_estado=$_POST['id_estado'];
+        modificarEstadoVenta($id_venta,$id_estado);
+        $ventas=recuperarTodasLasVentasGenerales();
+        if(count($ventas) > 0){
+            if ($ventas != "error"){
+                $arregloVentas= array();
+                $i=0;
+                $fecha=0;
+                foreach ($ventas as $key) {
+                    if($fecha != $key['fecha']){
+                        $arregloVentas[$i]= array('fecha'=>$key['fecha'], 'estado'=>$key['estado_venta'], 'id_venta'=>$key['id_venta'],
+                                                'nombre_estado'=>$key['nombre_estado'], 'precio_total'=> $key['precio_total'],
+                                                'nombre_usuario'=>$key['nombreUsuario']);
+                    }
+                    $fecha = $key['fecha'];
+                    $i++;
+                }
+            }
+        }
         require_once("../vistaVentasGenerales.php");
     }
 
