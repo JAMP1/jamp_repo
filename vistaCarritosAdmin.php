@@ -39,6 +39,11 @@
     </nav>
 
     <div class="col-md-6">
+      <?php
+        if(isset($noHayCarritos)){
+          echo "<div class='alert alert-warning'>Atencion! No hay ningun carrito con libros en este momento en el sistema!</div>";
+        }
+      ?>
         <form method="post" role="search" action="/JAMP/PORTI/llamadaController.php?action=cargarCarritosAdmin&clase=entidad">
             <select name="idUsuario">
                 <?php

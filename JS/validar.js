@@ -109,10 +109,10 @@ function validaUsuario(){
 							var nom=document.getElementById('id_permiso').value;
 							if(nom==2){
 								nom=document.getElementById('codigo_postal').value;
-								if(patronCodigoPostal.test(nom) && nom.length==5){
+								if(nom.length>0){
 									return true;
 								}else{
-									alert("CODIGO POSTAL: debe ingresar la letra mayuscula correspondiente a la provincia seguido de los 4 digitos postales");
+									alert("DIRECCION: debe ingresar una direccion, menor a 40 caracteres");
 									return false;
 								}
 							}

@@ -651,6 +651,18 @@ function recuperarCliente($nombreUsuario){
 	return $res;
 }
 
+function modificaContraCliente($nombreUsuario, $nuevaContra){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare("UPDATE `usuario` SET `contrasena`= :Contrasena 
+								WHERE nombreUsuario = :NombreUsuario");
+		$query-> execute(array('NombreUsuario'=>$nombreUsuario, 'Contrasena'=>$nuevaContra));
+		$link = cerrarConexion();
+	}else{
+		return "error";
+	}
+}
+
 function recuperarLibro($idLibro){
 	$link = conectarBaseDatos();
 	if ($link != "error"){

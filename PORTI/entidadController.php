@@ -1771,7 +1771,9 @@ function cargarCarritosAdmin () {
             $i++;
         }
     }
-
+    if(count($valor)==0){
+        $noHayCarritos=true;
+    }
     if (isset($_POST['idUsuario'])) {
         $usuario=$_POST['idUsuario'];
         $libros=recuperarLibroCarrito($usuario);
@@ -2380,6 +2382,13 @@ function buscarRegistrado() {
                 $noEstaBienEmail=true;
                 require_once("../vistaRecuperarContrasena.php");
             }else{
+                $nuevaContra="";
+                for ($i=0; $i < 8 ; $i++) { 
+                    $digito = rand(0,9);
+                    $nuevaContra= $nuevaContra.$digito;
+                }
+                modificaContraCliente($nombreUsuario, $nuevaContra);
+
                 $seEnvioCorreo=true;
                 $resultadoAutor=obtenerAutores();
                 $resultadoEtiqueta=obtenerEtiquetas();

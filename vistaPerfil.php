@@ -139,7 +139,7 @@
             <tr>
               <td>
                 <div class="input-group input-group-lg">
-                  <span class="input-group-addon">Codigo Postal</span>
+                  <span class="input-group-addon">Direccion</span>
                   <?php
                     if(isset($codigo_postal)){
                       echo "<input type='text' value='".$codigo_postal."' class='form-control' name='codigo_postal' id='codigo_postal' required='required'>";
