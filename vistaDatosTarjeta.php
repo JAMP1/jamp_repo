@@ -57,6 +57,7 @@
     <div class="jumbotron">
       <div class="container">
         <h3>Solicitud de compra por: <span class='glyphicon glyphicon-usd'></span><?php echo $precioTotal ; ?></h3>
+        <h3>Los libros se enviaran por encomienda al codigo postal: <?php echo $codigo_postal['codigo_postal']; ?></h3>
         <h4>Ingrese los datos de la tarjeta de credito:</h4>
       </div>
       <br>

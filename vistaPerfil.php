@@ -138,6 +138,21 @@
             </tr>
             <tr>
               <td>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Codigo Postal</span>
+                  <?php
+                    if(isset($codigo_postal)){
+                      echo "<input type='text' value='".$codigo_postal."' class='form-control' name='codigo_postal' id='codigo_postal' required='required'>";
+                    }else{
+                      echo "<input type='text' value='".$cliente['codigo_postal']."' class='form-control' name='codigo_postal' id='codigo_postal' required='required'>";
+                    }
+                  ?>
+                </div>
+              <!--  <input id="nombre" type="text" placeholder="Precio" name="precio_libro">-->
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <!--<input id="nombre" type="text" placeholder="Editorial" name="editorial_libro"> -->
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Usuario</span>

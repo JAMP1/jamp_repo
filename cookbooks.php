@@ -136,63 +136,63 @@
         $detalle = $key['detalle_libro'];
         $titulo = $key['titulo'];
         echo  "
-                 <div class='col-md-3'>
-                <table>
-                <tr>
-                <td>
-                <h2>Titulo: ".$key['titulo']."</h2>
-                </td>
-                </tr>
-                <tr>
-                <td>
-                <h4>Editorial: ".$key['editorial']."</h4>
-                </td>
-                </tr>
-                <tr>
-                <td>
-                <h4>Autor: ".$key['autor']."</h4>
-                </td>
-                </tr>
-                <tr>
-                <td>
-                <h4>Tag: ".$key['etiqueta']."</h4>
-                </td>
-                </tr>
-                <tr>
-                <td>
-                <h4>$".$key['precio']."</h4>
-                </td>
-                </tr>
-                <tr>
-                <td>
-                <p><img class= 'img-book img-rounded' src='$referencia' alt = 'cocina3' height='200' weight='200' ></p>                       
-                </td>
-                </tr>
-                <tr>
-                <td>                
-                  <button class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModal".$i."'>
-                    Ver detalles &raquo;
-                  </button>
-                  <div class='modal fade' id='myModal".$i."' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-                    <div class='modal-dialog'>
-                      <div class='modal-content'>
-                        <div class='modal-header'>
-                        <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
-                          <h4 class='modal-title' id='myModalLabel'>Detalles del libro: ".$titulo."</h4>
-                        </div>
-                        <div class='modal-body'>
-                          <textarea readonly cols='60' rows='5' class='form-control' name='detalle_libro' id='detalle_libro' >".$detalle."</textarea>
-                        </div>
-                        <div class='modal-footer'>
-                          <button type='button' class='btn btn-default' data-dismiss='modal'>Cerrar</button>
-                        </div>
+          <div class='col-md-3'>
+            <table >
+              <tr>
+              <td>
+              <h3>Titulo: ".$key['titulo']."</h2>
+              </td>
+              </tr>
+              <tr>
+              <td>
+              <h5>Editorial: ".$key['editorial']."</h4>
+              </td>
+              </tr>
+              <tr>
+              <td>
+              <h5>Autor: ".$key['autor']."</h4>
+              </td>
+              </tr>
+              <tr>
+              <td>
+              <h5>Etiqueta: ".$key['etiqueta']."</h4>
+              </td>
+              </tr>
+              <tr>
+              <td>
+              <h5>$".$key['precio']."</h4>
+              </td>
+              </tr>
+              <tr>
+              <td>
+              <p><img class= 'img-book img-rounded' src='$referencia' alt = 'cocina3' height='200' weight='200' ></p>                       
+              </td>
+              </tr>
+              <tr>
+              <td>                
+                <button class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModal".$i."'>
+                  Ver detalles &raquo;
+                </button>
+                <div class='modal fade' id='myModal".$i."' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                  <div class='modal-dialog'>
+                    <div class='modal-content'>
+                      <div class='modal-header'>
+                      <button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
+                        <h4 class='modal-title' id='myModalLabel'>Detalles del libro: ".$titulo."</h4>
+                      </div>
+                      <div class='modal-body'>
+                        <textarea readonly cols='60' rows='5' class='form-control' name='detalle_libro' id='detalle_libro' >".$detalle."</textarea>
+                      </div>
+                      <div class='modal-footer'>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>Cerrar</button>
                       </div>
                     </div>
                   </div>
-                </td>
-                </tr>
-                </table>
                 </div>
+              </td>
+              </tr>
+            </table>
+          </div>
         ";
         $i++;
         $contar++;

@@ -3,7 +3,7 @@
   <head>
     <script src="../LIBS/jquery.js" type="text/javascript"></script>
     <script src="../LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
-    <script type="text/javascript" src="../LIBS/validar.js"></script>
+<!--    <script type="text/javascript" src="../LIBS/validar.js"></script>-->
     <script type="text/javascript" src="/JAMP/JS/validar.js"></script>
     <script type="text/javascript" src="../LIBS/bootstrap/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="../LIBS/bootstrap/css/bootstrap.css">

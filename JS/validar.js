@@ -75,59 +75,79 @@ function validaUsuario(){
 	var patronNomApe= /^[a-zA-Z]+\s*[a-zA-Z]+$/;
 	var patronNumerico=/^[0-9]+$/;
 	var patronNomUsu= /^[a-zA-Z0-9]+$/;
+	var patronCodigoPostal= /^[ABCDEFGHJKLMNPQRSTUVWXYZ][0-9][1-9][1-9][0-9]$/;
 	//var regexp= new RegExp('^[a-z0-9]{1,10}$');
+	/*var nom=document.getElementById('id_permiso').value;
+	if(nom==2){
+		nom=document.getElementById('codigo_postal').value;
+		if(patronCodigoPostal.test(nom)){
+			return true
+		}else{
+			alert("CODIGO POSTAL: debe ingresar el caracter correspondiente a la provincia seguido de los 4 digitos postales");
+			return false;
+		}
+	}*/
 	var nom=document.getElementById('nombre').value;
 	var tam = nom.length;
-	if ((patronNomApe.test(nom)) && (nom.length <= 30) && (nom.length > 2)){
+	if ( (patronNomApe.test(nom)) && (nom.length <= 30) && (nom.length > 2) ){
 		var nom=document.getElementById('apellido').value;
 		var tam = nom.length;
-		if ((patronNomApe.test(nom))	&&	(nom.length <= 30)	&&	(nom.length > 2)){
+		if ( (patronNomApe.test(nom))	&&	(nom.length <= 30)	&&	(nom.length > 2) ){
 			var nom=document.getElementById('telefono').value;
 			var tam = nom.length;
-			if ((patronNumerico.test(nom)) && (nom.length < 20) && (nom.length > 6)){
+			if ( (patronNumerico.test(nom)) && (nom.length < 20) && (nom.length > 6) ){
 				var nom=document.getElementById('dni').value;
 				var tam = nom.length;
-				if ((patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 15)){
+				if ( (patronNumerico.test(nom)) && (nom.length > 3) && (nom.length < 15) ){
 					var nom=document.getElementById('nombreUsuario').value;
 					var tam = nom.length;
-					if ((patronNomUsu.test(nom)) && (nom.length < 15) && (nom.length > 2)){
+					if ( (patronNomUsu.test(nom)) && (nom.length < 15) && (nom.length > 2) ){
 						//return confirm('HOLA?');
 						nom= document.getElementById('contrasena').value;
 						tam=nom.length;
-						if(patronNomUsu.test(nom) && (nom.length <15) && (nom.length > 2)){
-							return true;
+						if( patronNomUsu.test(nom) && (nom.length <15) && (nom.length > 2) ){
+							var nom=document.getElementById('id_permiso').value;
+							if(nom==2){
+								nom=document.getElementById('codigo_postal').value;
+								if(patronCodigoPostal.test(nom) && nom.length==5){
+									return true;
+								}else{
+									alert("CODIGO POSTAL: debe ingresar la letra mayuscula correspondiente a la provincia seguido de los 4 digitos postales");
+									return false;
+								}
+							}
 						}else{
-							alert("CAMPO CONTRASENA: Debe letras mayusculas y/o minusculas y/o digitos del 0 al 9, minimo de 3, maximo de 14");
+							alert("CONTRASENA: Debe ingresar letras mayusculas y/o minusculas y/o digitos del 0 al 9, minimo de 3, maximo de 14");
 							return false;
 						}						
 					}
 					else{
 						//("ERROR EN EL INGRESO DE DATOS");
-						alert("CAMPO NOMBRE DE USUARIO: Debe letras mayusculas y/o minusculas y/o digitos del 0 al 9, minimo de 3, maximo de 14");
+						alert("NOMBRE DE USUARIO: Debe ingresar letras mayusculas y/o minusculas y/o digitos del 0 al 9, minimo de 3, maximo de 14");
 						return false;
 					}
 				}
 				else{
 					//("ERROR EN EL INGRESO DE DATOS");
-					alert("CAMPO DNI: Debe ingresar solo numeros enteros y una cantidad menor a 9");
+					alert("DNI: Debe ingresar solo numeros enteros y una cantidad menor a 9");
 					return false;
 				}
 			}
 			else{
 				//("ERROR EN EL INGRESO DE DATOS");
-				alert("CAMPO TELEFONO: Debe ingresar solo numeros enteros, minimo de 7, maximo de 20 digitos");
+				alert("TELEFONO: Debe ingresar solo numeros enteros, minimo de 7, maximo de 20 digitos");
 				return false;
 			}
 		}
 		else{
 			//("ERROR EN EL INGRESO DE DATOS");
-			alert("CAMPO APELLIDO: Debe ingresar hasta 2 apellidos, solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
+			alert("APELLIDO: Debe ingresar hasta 2 apellidos, solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
 			return false;
 		}
 	}
 	else{
 		//("ERROR EN EL INGRESO DE DATOS");
-		alert("CAMPO NOMBRE: Debe ingresar hasta 2 nombres, solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
+		alert("NOMBRE: Debe ingresar hasta 2 nombres, solo letras mayusculas y minusculas, minimo de 3 caracteres, maximo de 30");
 		return false;
 	}	
 }
@@ -146,12 +166,12 @@ function validarRecuperaEmail(){
 	var patron= /^[a-zA-Z0-9_\-\.~]{2,}@[a-zA-Z0-9_\-\.~]{2,}\.[a-zA-Z]{2,4}$/;
 	var patronNomUsu= /^[a-zA-Z0-9]+$/;
 	var email= document.getElementById('email').value;
-	if(patron.test(email)){
+	if( patron.test(email) ){
 		var nombre_usuario= document.getElementById('nombre_usuario').value;
-		if( (patronNomUsu.test(nombre_usuario)) && (nombre_usuario.length <=30) && (nombre_usuario.length >2)){
+		if( (patronNomUsu.test(nombre_usuario)) && (nombre_usuario.length <=30) && (nombre_usuario.length >2) ){
 			return true;
 		}else{
-			alert("Error ortografico en el Nombre de Usuario, se aceptan letras mayusculas y/o minusculas y/o digitos numericos");
+			alert("Error ortografico en el Nombre de Usuario, se aceptan letras mayusculas y/o minusculas y/o digitos");
 			return false;
 		}
 	}
@@ -160,8 +180,7 @@ function validarRecuperaEmail(){
 }
 
 function confirmar(){
-	confirmar= confirm("¿Está seguro que desea realizar esta operacion?");
-
+	var confirmar= confirm("¿Está seguro que desea realizar esta operacion?");
 	if(confirmar){
 		return true;
 	}else{
@@ -175,7 +194,7 @@ function validarAutor(){
 	var patronTexto= /^[a-z\sA-Z]+$/;
 	var nom=document.getElementById('nom_autor').value;
 	var tam = nom.length;
-	if ((patron.test(nom)) && (nom.length <= 20) && (patronfin.test(nom))){
+	if ( (patron.test(nom)) && (nom.length <= 20) && (patronfin.test(nom)) && (patronTexto.test(nom))  ){
 		nom = document.getElementById('detalle_autor').value;
 		if(	patron.test(nom)	&&	patronfin.test(nom)	&&	patronTexto.test(nom) && (nom.length <= 200) ){
 			return true;			
@@ -211,16 +230,29 @@ function validarTarjeta(){
 				return false;
 			}
 		}else{
-			alert("NUMERO DE SEGURIDAD: debe tener de 3 a 6 digitos numericos");
+			alert("NUMERO DE SEGURIDAD: debe tener de 3 a 6 digitos");
 			return false;
 		}
 	}else{
-		alert("NUMERO DE TARJETA: debe tener entre 12 y 16 digitos numericos");
+		alert("NUMERO DE TARJETA: debe tener entre 12 y 16 digitos");
 		return false;
 	}
 }
 
 function confirmaCompra(){
+	var array=document.getElementsByClassName('cantidadLibroEnCarrito');
+	for (var i = 0; i < array.length; i++) {
+		cantidad= parseFloat(array[i].value);
+		if(! isNaN(cantidad)){
+			if(cantidad <= 0){
+				alert("No puede haber una cantidad menor a 1");
+				return false;				
+			}
+		}else{
+			alert("No puede haber una cantidad que no sea digito");
+			return false;
+		}
+	}
 	return confirm("¿Desea efectuar la compra por el total establecido?");
 }
 
@@ -239,19 +271,6 @@ function validarFechaParaBusqueda(){
 	}*/
 }
 
-
-/*function actualizar(){
-	var array=document.getElementsByClassName('hola');
-	var suma=0;
-	var umpalumpa="<input type=text value="
-	for (var i = 0; i < array.length; i++) {
-	  suma=parseInt(array[i].value)+suma ;
-	}
-	var res = umpalumpa.concat(suma);
-	var res2=res.concat(">")
-	document.getElementById("myDiv").innerHTML=res2;
-}*/
-
 function actualizar(){
 	var array=document.getElementsByClassName('cantidadLibroEnCarrito');
 	var precios=document.getElementsByClassName('precios');
@@ -265,11 +284,19 @@ function actualizar(){
 		precio= str.replace(",",".");
 		cantidad= parseFloat(array[i].value);
 		if(! isNaN(cantidad)){
-			stringCantidades = stringCantidades.concat(cantidad);
-			stringCantidades = stringCantidades.concat(" ");
-			stringPrecios = stringPrecios.concat(precio);
-			stringPrecios = stringPrecios.concat(" ");
-			suma=(parseFloat(array[i].value)*parseFloat(precio)) +suma ;
+			if(cantidad > 0){
+				stringCantidades = stringCantidades.concat(cantidad);
+				stringCantidades = stringCantidades.concat(" ");
+				stringPrecios = stringPrecios.concat(precio);
+				stringPrecios = stringPrecios.concat(" ");
+				suma=(parseFloat(array[i].value)*parseFloat(precio)) +suma ;
+			}else{
+				suma= document.getElementById('precioTotal').value;
+				return false;
+			}
+		}else{
+			suma= document.getElementById('precioTotal').value;
+			return false;
 		}
 	}
 	var str= suma.toString();
@@ -280,7 +307,7 @@ function actualizar(){
 		str = cachoEntero.concat(cachoDecimal);
 	}
 	var res = umpalumpa.concat(str);
-	var res2=res.concat("</p><input type=hidden name=precioTotal value=");
+	var res2=res.concat("</p><input type=hidden name=precioTotal id=precioTotal value=");
 	res = res2.concat(str);
 	res2 = res.concat(">");
 	res = res2.concat("<input type=hidden name=stringCantidades value='");

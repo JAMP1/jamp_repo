@@ -150,11 +150,11 @@
               $detalle= $key['detalle_libro'];
               $detalle_autor= $key['detalle_autor'];
               echo  " <div class='col-md-3'>
-                      <h2>Titulo: ".$key['titulo']."</h2>
-                      <h4>Editorial: ".$key['editorial']."</h4>
-                      <h4>Autor: ".$key['autor']."</h4>
-                      <h4>Tag: ".$key['etiqueta']."</h4>
-                      <h4>$".$key['precio']."</h4>
+                      <h3>Titulo: ".$key['titulo']."</h2>
+                      <h5>Editorial: ".$key['editorial']."</h4>
+                      <h5>Autor: ".$key['autor']."</h4>
+                      <h5>Tag: ".$key['etiqueta']."</h4>
+                      <h5>$".$key['precio']."</h4>
                       <p><img class='img-book img-rounded' src='$referencia' alt='cocina3' height='200' weight='200'></p>
                       <br>
                       <button class='btn btn-primary' data-toggle='modal' data-target='#myModal".$i."'>

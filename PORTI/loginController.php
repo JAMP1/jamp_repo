@@ -64,7 +64,7 @@
 				                $marca=false;
 				            }
 		                    $arrayNa[$i]=array('titulo' => $key[7] , 'editorial' => $key['nombre'] , 'autor'=>$key[20] ,
-		                        'etiqueta' => $key[12] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
+		                        'etiqueta' => $key[13] , 'precio' =>$key['precio'], 'referencia_foto'=>$key['referencia_foto'],
 		                        'id_libro'=>$key['id_libro'], 'marca'=>$marca, 'detalle_libro'=>$key['detalle_libro'], 
 		                        'detalle_autor'=>$key['detalle']);
 		                    $i++;

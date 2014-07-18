@@ -587,8 +587,8 @@ function eliminarLibro($id) {
 function validarUsuarioYDni($nombreUsuario, $dni){
 	$link = conectarBaseDatos();
 	if ($link != "error"){
-	 	$query = $link->prepare("SELECT `nombreusuario`, `dni`, `id_usuario` 
-	 							FROM usuario WHERE `nombreusuario`=:Nom OR `dni`=:DNI");
+	 	$query = $link->prepare("SELECT `nombreUsuario`, `dni`, `id_usuario` 
+	 							FROM usuario WHERE `nombreUsuario`=:Nom OR `dni`=:DNI");
 	 	$query->execute(array('Nom' => $nombreUsuario, 'DNI'=>$dni));
 	 	$res=$query->fetchAll();
 	 	$link=cerrarConexion();
@@ -624,13 +624,16 @@ function recuperarLibro($idLibro){
 	return $res;
 }
 
-function altaCliente ($nombreUsuario, $nom, $apellido, $telefono, $email, $dni, $contrasena, $permiso ){
+function altaCliente ($nombreUsuario, $nom, $apellido, $telefono, $email, $dni, $contrasena, $permiso, $codigo_postal ){
 	$link= conectarBaseDatos();
 	if ($link != "error"){
-		$query = $link -> prepare("INSERT INTO `usuario`(`id_permiso`,`nombreUsuario`, `nombre` , `apellido` , `telefono` , `email` , `dni` , `contrasena`)
-									VALUES (:IdPermiso, :NombreUsuario, :Nombre, :Apellido, :Telefono, :Email, :Dni, :Contrasena)");
-		$res = $query -> execute(array('IdPermiso'=> $permiso, 'NombreUsuario' => $nombreUsuario , 'Nombre' => $nom , 'Apellido' => $apellido , 
-										'Telefono' => $telefono , 'Email' => $email , 'Dni' => $dni , 'Contrasena' => $contrasena ));
+		$query = $link -> prepare("INSERT INTO `usuario`(`id_permiso`,`nombreUsuario`, `nombre` , 
+												`apellido` , `telefono` , `email` , `dni` , `contrasena`,`codigo_postal`)
+									VALUES (:IdPermiso, :NombreUsuario, :Nombre, :Apellido, :Telefono,
+											 :Email, :Dni, :Contrasena, :CodigoPostal)");
+		$res = $query -> execute(array('IdPermiso'=> $permiso, 'NombreUsuario' => $nombreUsuario , 'Nombre' => $nom ,
+										 'Apellido' => $apellido , 'Telefono' => $telefono , 'Email' => $email ,
+										  'Dni' => $dni , 'Contrasena' => $contrasena, 'CodigoPostal'=>$codigo_postal ));
 		$link=cerrarConexion();
 		return $res;
 	}		
@@ -693,6 +696,19 @@ function recuperarUsuarios(){
 		return $res;
 	}
 	
+}
+
+function recuperaCodigoPostal($id_usuario){
+	$link = conectarBaseDatos();
+	if($link != "error"){
+		$query = $link -> prepare(" SELECT `codigo_postal`
+ 									FROM `usuario`   
+									WHERE id_usuario= :IdUsuario ");
+		$res = $query -> execute(array('IdUsuario' => $id_usuario ));
+		$res = $query -> fetch();
+		$link = cerrarConexion();
+		return $res;
+	}
 }
 
 function recuperarLibroCarrito($idUsuario){
@@ -856,13 +872,13 @@ function obtenerDatosCliente ($IdUsuario) {
 	}
 }
 
-function modificarDatosCliente ($nombre, $apellido,  $email, $telefono, $dni,$nombreUsuario, $contrasena, $idUsuario){
+function modificarDatosCliente ($nombre, $apellido,  $email, $telefono, $dni,$nombreUsuario, $contrasena, $idUsuario, $codigo_postal){
 		$link = conectarBaseDatos();
 	if ($link != "error"){
 		
 		 	$query = $link->prepare("	UPDATE `usuario` SET `nombre`=:Nombre , `apellido`=:Apellido, 
 		 										`email`=:Email, `telefono`=:Telefono,`dni`=:Dni, `nombreUsuario`=:NombreUsuario,
-		 										`contrasena`=:Contrasena
+		 										`contrasena`=:Contrasena, `codigo_postal`=:CodigoPostal
 										WHERE id_usuario=:idUsuario");
 	 	$res=$query->execute(array('Nombre' => $nombre,
 	 							'Apellido' => $apellido,
@@ -871,7 +887,8 @@ function modificarDatosCliente ($nombre, $apellido,  $email, $telefono, $dni,$no
 	 							'Dni'=> $dni,
 	 							'NombreUsuario'=> $nombreUsuario,
 	 							'Contrasena'=> $contrasena,
-	 							'idUsuario'=> $idUsuario));
+	 							'idUsuario'=> $idUsuario,
+	 							'CodigoPostal'=>$codigo_postal));
 	 }else {
 	 	$res= "error";
 	 }

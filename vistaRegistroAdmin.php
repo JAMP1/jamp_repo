@@ -127,6 +127,20 @@
             <tr>
               <td>
                 <div class="input-group input-group-lg">
+                  <span class="input-group-addon">Codigo postal </span>
+                  <?php
+                    if(isset($codigo_postal)){
+                      echo "<input type='text' value='".$codigo_postal."' class='form-control' name='codigo_postal' id='codigo_postal' >";
+                    }else{
+                      echo "<input type='text' placeholder='obligatorio para usuarios comunes' value='' class='form-control' name='codigo_postal' id='codigo_postal'>";
+                    }
+                  ?>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="input-group input-group-lg">
                   <span class="input-group-addon">Usuario</span>
                   <?php
                     if(isset($nombreUsuario)){
@@ -150,7 +164,7 @@
               <td>
                 <div class="input-group input-group-lg">
                   <span class="input-group-addon">Tipo de usuario</span>
-                  <select class="form-control" name="id_permiso" id="filtroEditorial" required="required" >
+                  <select class="form-control" name="id_permiso" id="id_permiso" required="required" >
                     <?php
                       if(isset($permiso)){
                         if($permiso==1)
