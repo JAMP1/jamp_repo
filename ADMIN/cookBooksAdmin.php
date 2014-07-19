@@ -4,6 +4,9 @@
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
     <script src="../LIBS/jquery.js" type="text/javascript"></script>
+    <title>Bienvenidos</title>
+    <script type="text/javascript" src="/JAMP/JS/eventosDeTeclas.js"></script>
+
     <script src="../LIBS/codigologin.js" type="text/javascript"></script>
     <script type="text/javascript" src="../LIBS/validar.js"></script>
     <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
@@ -58,7 +61,12 @@
         </div>
       </nav>
     </head>
-  <body> 
+  <body onkeydown="presionaTecla()"> 
+    <?php
+      echo "<input type='hidden' name='sesion_usuario' id='sesion_usuario' value='".$_SESSION['usuario']."'>";
+      echo "<input type='hidden' name='sesion_permiso' id='sesion_permiso' value='".$_SESSION['permiso']."'>";
+      echo "<input type='hidden' name='sesion_id_usuario' id='sesion_id_usuario' value='".$_SESSION['id_usuario']."'>";
+    ?>
   <div>
     <div class="jumbotron">
       <div class="container">
@@ -80,6 +88,8 @@
             echo" <div class='alert alert-danger'>Cuidado! No puede eliminar el unico admin activo del sistema!!</div>";
         }
     ?>
+  </div>
+  <div id="socalo">
   </div>           
 </body>
 </html>

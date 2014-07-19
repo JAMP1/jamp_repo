@@ -10,6 +10,9 @@
 <!--<script type="text/javascript" src="/JAMP/LIBS/validar.js"></script>-->
 <script type="text/javascript" src="/JAMP/JS/validar.js"></script>
 
+  <script type="text/javascript" src="/JAMP/JS/eventosDeTeclas.js"></script>
+
+
 <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap-theme.css">
@@ -17,7 +20,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="" type="" href="/JAMP/PORTI/llamadaController.php?action=cargarLibros&clase=entidad">
 <link rel="" type="" href="/JAMP/PORTI/entidadController.php">
-<title>Bienvenidos</title>
+<title>Perfil admin</title>
 </head>
 <body>
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -58,7 +61,7 @@
         </div><!--/.navbar-collapse -->
     </div>
   </div>
-  <body>    
+  <body onkeydown="presionaTecla()">    
     <div>
       <?php
         if(isset($niAPalo)){
@@ -186,5 +189,7 @@
         <button class="btn btn-danger" type="submit">Darme de Baja </button>
       </form>
     </div>  
+    <div id="socalo">
+  </div>
   </body>
 </html>

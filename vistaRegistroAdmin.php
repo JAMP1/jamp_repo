@@ -4,6 +4,9 @@
     <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
     <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
    <!-- <script type="text/javascript" src="/JAMP/LIBS/validar.js"></script>-->
+    <title>Registro de usuario/admin</title>
+     <script type="text/javascript" src="/JAMP/JS/eventosDeTeclas.js"></script>
+
     <script type="text/javascript" src="/JAMP/JS/validar.js"></script>
     <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="/JAMP/LIBS/bootstrap/css/bootstrap.css">
@@ -42,7 +45,7 @@
       </div><!--/.navbar-collapse -->
     </div>
   </head>
-  <body>
+  <body onkeydown="presionaTecla()">
     <div>
       <?php
         if(isset($niAPalo)){
@@ -193,5 +196,7 @@
         </div>
       </form>
     </div>
+    <div id="socalo">
+  </div>    
   </body>
 </html>

@@ -15,7 +15,7 @@
     <link rel="" type="" href="/JAMP/PORTI/entidadController.php">
     <title>Bienvenidos</title>
   </head>
-  <body>
+  <body >
     <nav class="navbar navbar-inverse" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->

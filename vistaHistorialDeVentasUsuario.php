@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
-    <title>Administracion de Libros</title>
+    <title>Mis compras</title>
    <!-- <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>-->
     <script src="/JAMP/JS/validar.js" type="text/javascript"></script>
    <!-- <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>

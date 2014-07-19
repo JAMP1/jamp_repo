@@ -3,6 +3,7 @@
   <head>
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
     <title>Administracion de Libros</title>
+    <script type="text/javascript" src="/JAMP/JS/eventosDeTeclas.js"></script>
     <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
     <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
     <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.js"></script>
@@ -13,7 +14,7 @@
     <meta charset="utf-8"/>
   <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
   </head>
-  <body class="laboratorix">
+  <body class="laboratorix" onkeydown="presionaTecla()">
     <nav class="navbar navbar-inverse" role="navigation">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -33,7 +34,6 @@
           <li class="active"><a href ="#">Administrar Libros </a></li>
           <li><a href ="/JAMP/PORTI/llamadaController.php?action=altaLibro&clase=entidad">Alta Libro </a></li>
           <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosLibro&clase=entidad">Libros Borrados </a></li>
-          <li><a href ="/JAMP/PORTI/llamadaController.php?action=busquedaLibros&clase=entidad">Busqueda libros </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -101,5 +101,7 @@
         </div>
       </div>
     </div>
+    <div id="socalo">
+  </div>    
   </body>
 </html>

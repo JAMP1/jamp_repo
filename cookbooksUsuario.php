@@ -4,6 +4,9 @@
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
     <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
+
+
+
     <script src="/JAMP/LIBS/codigologin.js" type="text/javascript"></script>
     <script type="text/javascript" src="/JAMP/LIBS/validar.js"></script>
     <script src="/JAMP/LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>

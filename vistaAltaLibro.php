@@ -4,6 +4,7 @@
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
 
     <script type="text/javascript" src="/JAMP/JS/validar.js"></script>
+      <script type="text/javascript" src="/JAMP/JS/eventosDeTeclas.js"></script>
 
 
     <title>Administracion de Libros</title>
@@ -17,7 +18,7 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
   </head>
-  <body class="laboratorix">
+  <body class="laboratorix" onkeydown="presionaTecla()">
     <nav class="navbar navbar-inverse" role="navigation">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -37,7 +38,6 @@
           <li><a href="../PORTI/llamadaController.php?action=cargarLibro&clase=entidad">Administrar Libros</a></li>
           <li class="active"><a href="#">Alta Libro</a></li>
           <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosLibro&clase=entidad">Libros Borrados </a></li>
-          <li><a href ="/JAMP/PORTI/llamadaController.php?action=busquedaLibros&clase=entidad">Busqueda libros </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="../PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>    
@@ -254,5 +254,7 @@
         </div>
       </form>
     </div>
+    <div id="socalo">
+  </div> 
   </body>
 </html>

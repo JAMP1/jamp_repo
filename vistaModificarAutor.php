@@ -5,6 +5,8 @@
     <script src="../LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
 <!--    <script type="text/javascript" src="../LIBS/validar.js"></script>-->
     <script type="text/javascript" src="/JAMP/JS/validar.js"></script>
+      <script type="text/javascript" src="/JAMP/JS/eventosDeTeclas.js"></script>
+<title>Modificar autor</title>
     <script type="text/javascript" src="../LIBS/bootstrap/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="../LIBS/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../LIBS/bootstrap/css/bootstrap-theme.css">
@@ -12,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
   </head>
-  <body class="laboratorix text-pag">
+  <body class="laboratorix text-pag" onkeydown="presionaTecla()"> 
     <!--<div class="container">-->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <!--<div class="container">-->
@@ -89,6 +91,8 @@
         </div>
       </div>
     </div>
+    <div id="socalo">
+  </div> 
    <!-- </div>-->
   </body>
 </html>

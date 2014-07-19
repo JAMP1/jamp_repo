@@ -5,6 +5,9 @@
     <script src="../LIBS/codigoAdminUsuarios.js" type="text/javascript"></script>
     <script type="text/javascript" src="../LIBS/validar.js"></script>
     <script type="text/javascript" src="/JAMP/JS/validar.js"></script>
+    <title>Modificar libro</title>
+      <script type="text/javascript" src="/JAMP/JS/eventosDeTeclas.js"></script>
+
     <script type="text/javascript" src="../LIBS/bootstrap/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="../LIBS/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../LIBS/bootstrap/css/bootstrap-theme.css">
@@ -12,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
   </head>
-  <body class="laboratorix text-pag">
+  <body class="laboratorix text-pag" onkeydown="presionaTecla()">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!--<div class="container">-->
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -33,7 +36,6 @@
           <li><a href="/JAMP/PORTI/llamadaController.php?action=cargarLibro&clase=entidad">Administrar Libros</a></li>
           <li class="active"><a href="">Modificar Libro</a></li>
           <li><a href ="/JAMP/PORTI/llamadaController.php?action=borradosLibro&clase=entidad">Libros Borrados </a></li>
-          <li><a href ="/JAMP/PORTI/llamadaController.php?action=busquedaLibros&clase=entidad">Busqueda libros </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/JAMP/PORTI/llamadaController.php?action=logout&clase=loginClase"><span class="add-on"><i class="icon-user"> </i></span>Cerrar Sesion </a></li>
@@ -247,5 +249,7 @@
         <a href="llamadaController.php?action=cargarLibro&clase=entidad">Volver</a>
       </div>
     </div>
+    <div id="socalo">
+  </div>
   </body>
 </html>

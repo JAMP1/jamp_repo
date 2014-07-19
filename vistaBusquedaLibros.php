@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
-    <title>Administracion de Libros</title>
+    <title>Busqueda de Libros</title>
+      <script type="text/javascript" src="/JAMP/JS/eventosDeTeclas.js"></script>
+
     <script src="/JAMP/LIBS/jquery.js" type="text/javascript"></script>
     <script src="/JAMP/JS/validar.js" type="text/javascript"></script>
     <script type="text/javascript" src="/JAMP/LIBS/bootstrap/js/bootstrap.js"></script>
@@ -13,7 +15,7 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="/JAMP/home.css"/>
   </head>
-  <body class="laboratorix">
+  <body class="laboratorix" onkeydown="presionaTecla()">
     <nav class="navbar navbar-inverse" role="navigation">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -121,5 +123,7 @@
         </table>
       </div>
     </div>
+    <div id="socalo">
+  </div>
   </body>
 </html>

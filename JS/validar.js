@@ -154,11 +154,19 @@ function validaUsuario(){
 
 function validarBaja(){
 	var confirmar=confirm("¿Está seguro que desea darse de Baja del Sistema?"); 
-	alert(confirmar);
 	if (confirmar){ 
 		return true;
 	}else{
 		false;
+	}
+}
+
+function confirmaCambioEstado(){
+	var confirmar=confirm("¿Esta seguro que desea cambiar el estado de la venta?");
+	if (confirmar){ 
+		return true;
+	}else{
+		return false;
 	}
 }
 
