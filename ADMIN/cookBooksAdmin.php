@@ -77,6 +77,11 @@
           <div class="col-md-1"> </div>
           <div class="col-md-4">
             <h2>Bienvenido administrador!</h2>
+            <h3>Atajos de teclado disponibles:</h3>
+            <h4>cntrl+l  => alta de libros</h4>
+            <h4>cntrl+a  => alta de usuarios</h4>
+            <h4>cntrl+c  => vista de carritos</h4>
+            <h4>cntrl+v  => vista de ventas</h4>
           </div>
           
         </div>
