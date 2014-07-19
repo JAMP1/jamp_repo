@@ -1249,7 +1249,7 @@ class entidad{
                     foreach ($usuarios as $key ) {
                         $arrayNa[$i]=array('nombre' => $key['nombre'] , 'apellido' => $key['apellido'] , 'email' =>$key['email'] ,
                             'telefono' => $key['telefono'] , 'dni' =>$key['dni'] ,'nombreUsuario'=>$key['nombreUsuario'] , 'contrasena'=>$key['contrasena'] ,   
-                                'id_usuario' => $key['id_usuario'], 'permiso'=> $key['id_permiso'] );
+                                'id_usuario' => $key['id_usuario'], 'permiso'=> $key['id_permiso'], 'direccion'=>$key['codigo_postal'] );
                         $i++;
                     }
                      require_once("../vistaUsuarios.php");
